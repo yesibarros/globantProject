@@ -2,11 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Animated, Dimensions } from "react-native";
 
-
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const ScreenLoad = () => {
-    const { height, width } = Dimensions.get("window");
+    const { height } = Dimensions.get("window");
 
     const [animateY, setAnimateY] = useState(new Animated.Value(0));
     const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
