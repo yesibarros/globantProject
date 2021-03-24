@@ -88,7 +88,7 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: ["admin"],
+            role: "admin",
             location: locations[Math.floor(Math.random() * locations.length)]
         })
     }
@@ -100,7 +100,7 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: ["mentee"],
+            role: "mentee",
             area: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
@@ -114,7 +114,7 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: ["mentor"],
+            role: "mentor",
             area: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
@@ -128,7 +128,7 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: ["mentee","mentor"],
+            role: "mentor",
             area: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
