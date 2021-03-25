@@ -38,11 +38,11 @@ const userSchema = new mongoose.Schema({
     validate: [isEmail, "invalid email"]
   },
   role: 
-    {
+    [{
       type: String,
       enum: ['mentee', 'mentor', 'admin'],
       default: 'mentee'
-    }, 
+    }], 
   mentees: [
     {
       type: Schema.Types.ObjectId,

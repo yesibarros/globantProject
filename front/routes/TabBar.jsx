@@ -9,8 +9,6 @@ const TabBar = ({ state, navigation }) => {
   const [selected, setSelected] = useState('Home');
   const { routes } = state;
 
-
-
   const handlePress = (activeTab, index) => {
     if (state.index !== index) {
       setSelected(activeTab);
