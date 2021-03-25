@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const userRoute = require('./userRoute');
-const authRoute = require('./authRoute')
+const authRoute = require('./authRoutes')
 const techRoute = require('./techRoute')
 const locationRoute = require('./locationRoute')
 const areaRoute = require('./areaRoute')
