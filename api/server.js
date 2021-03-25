@@ -1,3 +1,5 @@
+require('dotenv').config()
+const {SERVER_PORT} = process.env
 require("./config");
 
 const express = require("express");
@@ -8,7 +10,6 @@ const routes = require("./routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -21,6 +22,6 @@ app.use((err, req, res, next) => {
     res.status(404).send(err);
   });
 
-app.listen(5000, () => {
-    console.log("puerto levantado")
+app.listen(SERVER_PORT, () => {
+    console.log(`Server listening on port ${SERVER_PORT}`)
 })
