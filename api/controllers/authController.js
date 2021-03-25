@@ -16,6 +16,8 @@ const authController = {}
         User.create(req.body)
             .then(user => {
                 const token = jwt.sign({id: user._id}, JWT_SECRET)
+        console.log("user",user)
+                
                 res.status(201).send(token)
             })
             .catch(next)
