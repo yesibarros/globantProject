@@ -12,7 +12,7 @@ const authController = {}
     authController.register = (req,res,next)=>{
         console.log(req.body)
         
-        
+        req.body.role = ['mentee']
         User.create(req.body)
             .then(user => {
                 const token = jwt.sign({id: user._id}, JWT_SECRET)
