@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
         paddingLeft: 50
     },
     userText:{
-        fontSize: 40
+        fontSize: 40,
+        position: "absolute", 
+        top: 235
     },
     userContainer:{
   
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
       width: "80%",
       height: "50%",
       position: "absolute",
-      bottom: 100
+      bottom: 80
     },
 
   header:{
@@ -41,11 +43,20 @@ const styles = StyleSheet.create({
   },
   headerText:{
       fontWeight: "bold",
-      fontSize: 40,
+      fontSize: 10,
       color: "black",
       letterSpacing: 1,
       position: "absolute",
       top: 80
+  },
+  centerView:{
+    //flex: 1,
+    alignItems: "center",
+    position: "absolute",
+    top: 80
+  },
+  userContainer:{
+    flex: 1
   }
 
 });
