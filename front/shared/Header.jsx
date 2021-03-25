@@ -2,6 +2,7 @@ import React from "react";
 import {
   View,
   Text,
+  SafeAreaView
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./headerStyle";
@@ -9,8 +10,8 @@ import styles from "./headerStyle";
 export default function Header() {
 
   return (
-    <View style={styles.container}>
-      <View style={styles.droidSafeArea}>
+    
+      <SafeAreaView style={styles.droidSafeArea}>
         <LinearGradient
           // Background Linear Gradient
           colors={["#ff9c38", "#ffc78f"]}
@@ -18,7 +19,7 @@ export default function Header() {
         >
           <Text style={styles.headerText}>MENTOR ME</Text>
         </LinearGradient>
-      </View>
-    </View>
+      </SafeAreaView>
+    
   );
 }

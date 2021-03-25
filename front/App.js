@@ -1,15 +1,17 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Header from "./shared/Header";
 import ScreenLoad from "./screens/screenLoad/screenLoad";
 import TabBar from './routes/TabNavigator';
+import store from "./state/store"
+import {Provider} from "react-redux"
 const Drawer = createDrawerNavigator();
 
 
 const App = () => {
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Drawer.Navigator
         initialRouteName="ScreenLoad"
@@ -32,6 +34,7 @@ const App = () => {
         />
       </Drawer.Navigator>
     </NavigationContainer>
+    </Provider>
 
   );
 };
