@@ -2,20 +2,22 @@
 const mongoose = require("mongoose");
 
 //MONGO ATLAS
-/* mongoose
+mongoose
   .connect(
     "mongodb+srv://globant:globant@globant.7ahj7.mongodb.net/globant?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("DB CONNECT!!"))
-  .catch((e) => console.log("DB NO CONNECT ERROR")); */
+  .catch((e) => console.log("DB NO CONNECT ERROR"));  
 
-  mongoose.connect("mongodb://localhost/pruebaGlobant", {
+
+  //BASE LOCAL DE PRUEBA
+ /*  mongoose.connect("mongodb://localhost/pruebaGlobant", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
-  });
+  });  */
   
   
   module.exports = mongoose;
