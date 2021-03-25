@@ -26,6 +26,7 @@ const ScreenLoad = () => {
 
         setAnimated(true);
     }, []);
+    
     return (
         <View style={styles.container}>
         <AnimatedText
