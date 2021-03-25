@@ -6,7 +6,7 @@ const maxAmountOfTechnologiesPerUser = 15
 const maxAmountofAreasPerUser = 5
 const adminUsers = 2
 const menteeUsers = 40
-const mentorUsers  = 30
+const mentorUsers  = 15
 const menteeAndMentorUsers = 6
 const maxMenteesPerMentor = 5
 
@@ -27,24 +27,25 @@ const Area = require('../models/Area')
 
 
 const setup = async () => {
+    console.log("Stating the seeding process 🌱")
 
     //CREATE TECHNOLOGIES
-    console.log("Technology seed...") //Deberiamos guardar dos nombres en la DB? El nombre con mayúsculas, guiones, espacios, etc, y uno "normalizado"
+    console.log("🔧 Technology seeds...") //Deberiamos guardar dos nombres en la DB? El nombre con mayúsculas, guiones, espacios, etc, y uno "normalizado"
     const startTechsObjs = technologiesArray.map(t => ({technologyName: t}))
     const technologies = await Technology.create(startTechsObjs);
-    console.log("Technologies seeded successfully!");
+    console.log("    ✓ Technologies seeded successfully!");
 
     //CREATE AREAS
-    console.log("Areas seed...")
+    console.log("🗂  Area seeds...")
     const startAreasObjs = areasArray.map(a => ({areaName: a}))
     const areas = await Area.create(startAreasObjs)
-    console.log("Areas seeded successfully!")
+    console.log("    ✓ Areas seeded successfully!")
 
     //CREATE LOCATIONS
-    console.log("Locations seed....")
+    console.log("🌎 Location seeds....")
     const startLocationsObjs = locationsArray.map(l => ({locationName: l}))
     const locations = await Location.create(startLocationsObjs)
-    console.log("Locations seeded successfully!")
+    console.log("    ✓ Locations seeded successfully!")
 
 
     //CREATE USERS
@@ -80,7 +81,7 @@ const setup = async () => {
         return r
     } */
     
-    const startUsersObjs = []
+    const startUsersObjs = [] //Array of users to be saved
     //PUSH ADMIN USERS
     for (let i = 0; i < adminUsers; i++){
         startUsersObjs.push({
@@ -88,7 +89,8 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: "admin",
+            img: faker.image.image(),
+            role: ["admin"],
             location: locations[Math.floor(Math.random() * locations.length)]
         })
     }
@@ -100,7 +102,8 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: "mentee",
+            role: ["mentee"],
+            img: faker.image.image(),
             area: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
@@ -114,7 +117,8 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: "mentor",
+            role: ["mentor"],
+            img: faker.image.image(),
             area: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
@@ -128,21 +132,23 @@ const setup = async () => {
             lastName: faker.name.lastName(),
             password: faker.internet.password(),
             email: faker.internet.email(),
-            role: "mentor",
+            role: ["mentee","mentor"],
             area: getAreasForUser(),
+            img: faker.image.image(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
         })
     }
 
-    console.log("Users first seed...")
-    const users = await User.create(startUsersObjs)
-    console.log("Users stage 1 seeded successfully!")
+    console.log("👥 User seeds...")
+    const users = await User.create(startUsersObjs) //Save array of users in database by creating the users
+    console.log("    ✓ Users stage 1 seeded successfully!")
     
+    //ADD MENTORS TO MENTEES (1 mentor per mentee)
     const mentees = users.filter(user => user.role.includes("mentee"))
     const mentors = users.filter(user => user.role.includes("mentor"))
-    //ADD MENTORS TO MENTEES (1 mentor per mentee)
-    const updateUsers = []
+    
+    const updateUsers = [] //Array of updates to make
     mentees.forEach(mentee => {
         
         const mentor = mentors[Math.floor(Math.random() * mentors.length)]
@@ -154,18 +160,18 @@ const setup = async () => {
         }
         
     })
-    
+    //Save all updates to the database
     const updatedUsers = await Promise.each(updateUsers, (user)=>{
         return User.findOneAndUpdate({_id: user[0]}, {...user[1]})
     })
-    
-    console.log("Users stage 2 seeded successfully!")
+    console.log("    ✓ Users stage 2 seeded successfully!")
+    console.log("Finished seeding 🌳 You are all set!.")
 }
 
 
 try {
     connection.once("open", () => setup().then(() => process.exit(0)));
   } catch (err) {
-    console.log("Somethin went wrong on the seed process", err.message);
+    console.log("❌ Somethin went wrong on the seed process", err.message);
     process.exit(1);
   }

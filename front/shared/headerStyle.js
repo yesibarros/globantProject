@@ -3,9 +3,9 @@ import { StyleSheet} from "react-native";
 const styles = StyleSheet.create({
     droidSafeArea: {
         position:"absolute",
-       justifyContent: "center",
-       alignItems: "center",
-        top: 25,
+        justifyContent: "center",
+        alignItems: "center",
+        top: 0, //buscar cómo obtener el alto de la barrita de arriba
         width: "100%",
     },
     headerText:{
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
       },
+
      
 
 });
