@@ -21,7 +21,7 @@ const ScreenLoad = ({navigation}) => {
         }).start();
 
         Animated.timing(animateYwelcome, {
-            toValue: height / 2 + 35,
+            toValue: height / 2 ,
             duration: 3000,
         }).start();
         }
@@ -53,7 +53,15 @@ const ScreenLoad = ({navigation}) => {
             </AnimatedText>
 
             
-            <AnimatedText
+        
+        
+            <LinearGradient
+            ESTO GENERA QUE LA ANIMACION COMIENZE CORTADA AL MEDIO
+                // Background Linear Gradient
+                colors={['#ff9c38','#663300']}
+                style={styles.bottomBackground}
+            >
+                    <AnimatedText
                 style={{
                 bottom: animateYwelcome,
                 position: "absolute",
@@ -61,17 +69,12 @@ const ScreenLoad = ({navigation}) => {
                 fontStyle: "italic",
                 fontWeight: "bold",
                 color: "white",
+                left: 40
                 }}
             >
                 MENTOR
             </AnimatedText>
-        
-            {/* <LinearGradient
-            ESTO GENERA QUE LA ANIMACION COMIENZE CORTADA AL MEDIO
-                // Background Linear Gradient
-                colors={['#ff9c38','#663300']}
-                style={styles.bottomBackground}
-            /> */}
+            </LinearGradient>
 
         <StatusBar style="auto" />
         </View>
