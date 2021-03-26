@@ -12,11 +12,9 @@ authController.login = (req, res, next) => {
     if (!user) return res.status(400).send("User not found");
 
     user.hash(password, user.salt).then((hashPassword) => {
-      if (hashPassword !== user.password)
-        return res.status(400).send("Invalid credentials");
-
+      if (hashPassword !== user.password) return res.status(400).send("Invalid credentials");
+      
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
-
       res.status(201).send(token);
     });
   });
@@ -24,10 +22,10 @@ authController.login = (req, res, next) => {
 
 authController.register = (req, res, next) => {
   req.body.role = ["mentee"];
+  
   User.create(req.body)
     .then((user) => {
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
-
       res.status(201).send(token);
     })
     .catch(next);

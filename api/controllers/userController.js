@@ -9,13 +9,13 @@ userController.getUser = (req, res, next) => {
     .populate("location")
     .populate("mentees")
     .populate("mentor")
-    .populate("area")
+    .populate("areas")
     .populate("technologies")
     .then((userProfile) => {
       if (!userProfile) res.sendStatus(404);
       else res.status(200).send(userProfile);
     })
-    .catch(next);
+    .catch(next); 
 };
 
 userController.getAllUserbyParam = (req, res, next) => {
@@ -37,7 +37,7 @@ userController.getAllUserbyParam = (req, res, next) => {
   //   .populate("location")
   //   .populate("mentees")
   //   .populate("mentor")
-  //   .populate("area")
+  //   .populate("areas")
   //   .populate("technologies")
   //   .then((userstype) => {
   //     if (!userstype) res.sendStatus(404);
