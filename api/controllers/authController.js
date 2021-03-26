@@ -17,6 +17,9 @@ authController.login = (req, res, next) => {
       if (hashPassword !== user.password)
         return res.status(400).send("Invalid credentials");
 
+      user.password = 0;
+      user.salt = 0;
+
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
       res.status(201).send({ user, token });
     });
