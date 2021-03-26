@@ -2,27 +2,29 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { JWT_SECRET } = process.env;
+const userFindAndPopulate = require("../utils/userFindAndPopulate");
 
 const authController = {};
 
 authController.login = (req, res, next) => {
   const { email, password } = req.body;
 
-  User.findOne({ email }).then((user) => {
+  userFindAndPopulate({ email }).then((user) => {
     if (!user) return res.status(400).send("User not found");
 
     user.hash(password, user.salt).then((hashPassword) => {
-      if (hashPassword !== user.password) return res.status(400).send("Invalid credentials");
-      
+      if (hashPassword !== user.password)
+        return res.status(400).send("Invalid credentials");
+
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
-      res.status(201).send(token);
+      res.status(201).send({ user, token });
     });
   });
 };
 
 authController.register = (req, res, next) => {
   req.body.role = ["mentee"];
-  
+
   User.create(req.body)
     .then((user) => {
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
