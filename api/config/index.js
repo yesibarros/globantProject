@@ -16,14 +16,14 @@ mongoose
     }
   )
   .then(() => console.log("DB CONNECT!!"))
-  .catch((e) => console.log("DB NO CONNECT ERROR", e));
+  .catch((e) => console.log("DB NO CONNECT ERROR", e)); 
 
 //BASE LOCAL DE PRUEBA
-/*  mongoose.connect("mongodb://localhost/pruebaGlobant", {
+ /*  mongoose.connect("mongodb://localhost/pruebaGlobant", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
-  });    */
+  });     */
 
 module.exports = mongoose;

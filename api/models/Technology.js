@@ -9,6 +9,10 @@ const technologySchema = new mongoose.Schema({
         min: 4,
         max: 120
     },
+    technologyWeight:{
+        type: Number,
+        default: 2
+    },
 
 });
 

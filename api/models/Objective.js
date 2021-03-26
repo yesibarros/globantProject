@@ -11,11 +11,13 @@ const objectiveSchema = new mongoose.Schema({
         type: String
     },
     order: {
-        type: Number
+        type: Number,
+        default: 0
     },
     status: {
         type: String, 
-        Enum: ["pending", "achieved", "excellent"]
+        Enum: ["pending", "achieved", "excellent"],
+        default: "pending"
     }
 
 });

@@ -21,6 +21,11 @@ const userSchema = new mongoose.Schema({
     required: true, 
     trim: true
   },
+  workingSince: {
+    type: Number,
+    min: 2003,
+    max: new Date().getFullYear()
+  },
   location: [
     {
       type: Schema.Types.ObjectId,
@@ -82,12 +87,12 @@ userSchema.virtual("fullName").get(function () {
   return this.firstName + " " + this.lastName;
 });
 
-//MÉTODO DE INSTANCIA
+//INSTANCE METHOD
 userSchema.methods.hash = function (password, salt) {
   return bcrypt.hash(password, salt);
 };
 
-//HOOK
+//HOOK saves hashed password
 userSchema.pre("save", function (next) {
   const user = this;
   return bcrypt

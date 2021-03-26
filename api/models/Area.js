@@ -9,6 +9,10 @@ const areaSchema = new mongoose.Schema({
         min: 4,
         max: 120
     },
+    areaWeight: {
+        type: Number,
+        default: 8
+    }
 
 });
 
