@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const orderByMatch = require("../utils/orderByMatch");
 const userFindAndPopulate = require("../utils/userFindAndPopulate");
 
 const userController = {};
@@ -8,34 +9,36 @@ userController.getUser = (req, res, next) => {
   userFindAndPopulate({ _id: id })
     .then((userProfile) => {
       if (!userProfile) res.sendStatus(404);
-      else res.status(200).send(userProfile);
+      else {
+        userProfile.password = 0;
+        userProfile.salt = 0;
+        res.status(200).send(userProfile);
+      }
     })
     .catch(next);
 };
 
 userController.getAllUserbyParam = (req, res, next) => {
-  // console.log(req.user);
-  // // find --> excluya id req.user.id
-  // // populate === conincida con req.body. 1 -> skill tecnhologies mente o mentor
-  // /// exclude -> los que ya tenemos
-  // // si tengo mentor --- puedo buscar otroa para reemplazar... no puedo tener tener. ... -> que no metraiga el que tengo
-  // // mentor busca mentees ?  excluir del get los que ya tiene
-  // const { role } = req.body;
-  // User.find({
-  //   role: { $in: role },
-  //   _id: { $ne: req.user._id },
-  //   _id: { $nin: req.user.mentees },
-  // })
-  //   .populate("location")
-  //   .populate("mentees")
-  //   .populate("mentor")
-  //   .populate("areas")
-  //   .populate("technologies")
-  //   .then((userstype) => {
-  //     if (!userstype) res.sendStatus(404);
-  //     else res.status(200).send(userstype);
-  //   })
-  //   .catch(next);
+  const { role, areas, technologies } = req.body;
+  User.find(
+    {
+      _id: { $nin: [...req.user.mentees, req.user._id] },
+      role: { $in: role },
+      areas: { $in: areas },
+      technologies: { $in: technologies },
+    },
+    { mentees: 0, password: 0, salt: 0, mentor: 0, objectives: 0 }
+  )
+    .populate("location")
+    .populate("areas")
+    .populate("technologies")
+    .then((userstype) => {
+      if (!userstype) return res.sendStatus(404);
+
+      const bestMatch = orderByMatch(userstype, req.user, areas, technologies);
+      res.status(200).send(bestMatch);
+    })
+    .catch(next);
 };
 
 module.exports = userController;
