@@ -1,3 +1,0 @@
-
-SEED: 
-npm run seed
