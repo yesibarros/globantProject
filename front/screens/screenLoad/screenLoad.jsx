@@ -13,6 +13,7 @@ const ScreenLoad = ({navigation}) => {
     const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
     const [animated, setAnimated] = useState(false);
 
+    console.log("hola")
     useEffect(() => {
         if (!animated) {
         Animated.spring(animateY, {
