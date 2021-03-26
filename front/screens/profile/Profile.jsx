@@ -1,15 +1,24 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { StyleSheet, View, Text, ScrollView} from "react-native";
 import Header from "../../shared/Header"
 import { Avatar } from 'react-native-elements';
 import { Button } from "react-native";
 import styles from "./profileStyle"
-
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import {login} from '../../state/loggedUser/thunks'
 console.log(styles)
 
 
 export default function Profile() {
-    
+  const dispatch = useDispatch();
+  const loginUser= useSelector((state) => state.loggedUser.user);
+  
+  useEffect(() => {
+    dispatch(login());
+  }, []);
+
+console.log( "LOGINUSEEEER",loginUser)
   const user={
       firstName: "Yesi",
       lastName: "Barros",
@@ -20,14 +29,15 @@ export default function Profile() {
   }
 
     return (
-      
+     
       <View style={styles.header}>
         
         <Header />
         
-       {/* <Text style={styles.headerText}>MI PERFIL</Text> */}
+
         
           <View style={styles.centerView}>
+      
             <Avatar
               size="xlarge"
               source={{
@@ -67,9 +77,8 @@ export default function Profile() {
         <View style={styles.button}>
           <Button title={"Cerrar sesión"}></Button>
         </View>
-        
+       
       </View>
-     
     );
   }
   

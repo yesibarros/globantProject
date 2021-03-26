@@ -8,7 +8,7 @@ export const register= createAsyncThunk("REGISTER_REQUEST", (data)=>{
 
 
 export const login= createAsyncThunk("LOGIN_REQUEST", (data)=>{
-  console.log("entre al login back", data)
+  // console.log("entre al login back", data)
   return axios
       .post("http://localhost:5000/api/auth/login", {email:data.email, password:data.password})
       .then((respuesta) =>  respuesta.data)

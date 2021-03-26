@@ -46,7 +46,7 @@ const SignIn = ({navigation}) => {
   };
   const handleLogin =()=>{
     dispatch(login(data))
-    .then((data)=>console.log("apalalala", loginUser))
+    .then(()=> navigation.navigate('Profile'))
   };
   const handlePasswordChange = (val) => {
     setData({
