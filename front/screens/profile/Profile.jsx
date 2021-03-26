@@ -7,7 +7,7 @@ import styles from "./profileStyle"
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../state/loggedUser/thunks'
-// import {logout} from '../../state/loggedUser/actions'
+import {logout} from '../../state/loggedUser/actions'
 
 
 
@@ -17,23 +17,19 @@ export default function Profile({navigation}) {
   
 
   const handleSessionLogout =()=>{
-
-    navigation.navigate('SignIn')
-    // dispatch(logout())
+dispatch(logout())
+   navigation.navigate('SignIn')
+    
 
     
   }
-
-  useEffect(() => {
-    dispatch(login());
-  }, []);
 
 
   
     return (
      
       <View >
-      {loginUser &&
+      {loginUser._id &&
         <View style={styles.header}>
           <Header />
           <View style={styles.centerView}>
@@ -64,7 +60,7 @@ export default function Profile({navigation}) {
           <Text style={styles.infoContent}>{user.puesto}</Text> */}
           <Text style={styles.infoTitle}>Rol:</Text>
           <Text style={styles.infoContent}>{loginUser.role}</Text>
-          <Text style={styles.infoTitle}>Habilidades</Text>
+          <Text style={styles.infoTitle}  >Habilidades</Text>
           
           {loginUser.technologies &&
             loginUser.technologies.map((tech) => {

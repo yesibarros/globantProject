@@ -24,9 +24,6 @@ const SignIn = ({navigation}) => {
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
   console.log( "****",loginUser)
-  useEffect(() => {
-    dispatch(logout());
-  }, []);
 
   const [data, setData] = useState({
     email: "",
@@ -51,7 +48,9 @@ const SignIn = ({navigation}) => {
   };
   const handleLogin =()=>{
     dispatch(login(data))
-    .then(()=> navigation.navigate('Profile'))
+    .then(()=> {
+      //setData({check_textInputChange: false, secureTextEntry: true, email: "", password:""})
+      return navigation.navigate('Profile')})
   };
   const handlePasswordChange = (val) => {
     setData({
