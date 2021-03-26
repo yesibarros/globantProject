@@ -20,11 +20,7 @@ const Promise = require("bluebird");
 const { connection } = require("./index.js");
 
 //MODELS
-const Technology = require('../models/Technology')
-const User = require('../models/User')
-const Location = require('../models/Location')
-const Area = require('../models/Area')
-
+const { Technology, User, Location, Area, Objective } = require('../models/index')
 
 const setup = async () => {
     console.log("Stating the seeding process 🌱")

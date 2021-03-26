@@ -69,6 +69,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  objectives: [{
+    type: Schema.Types.ObjectId,
+    ref: "objective"
+  }],
   salt: {
     type: String
   }

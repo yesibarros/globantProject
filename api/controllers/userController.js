@@ -1,8 +1,10 @@
-const { User } = require("../models/User");
+const User = require("../models/User");
 
 const userController = {};
 
 userController.getUser = (req, res, next) => {
+  
+  
   const { id } = req.body;
   User.findById(id)
     .populate("location")
@@ -14,7 +16,7 @@ userController.getUser = (req, res, next) => {
       if (!userProfile) res.sendStatus(404);
       else res.status(200).send(userProfile);
     })
-    .catch(next);
+    .catch(next); 
 };
 
 userController.getAllUserbyParam = (req, res, next) => {
