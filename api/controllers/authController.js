@@ -7,6 +7,7 @@ const userFindAndPopulate = require("../utils/userFindAndPopulate");
 const authController = {};
 
 authController.login = (req, res, next) => {
+  console.log("REQQQQBODY", req.body)
   const { email, password } = req.body;
 
   userFindAndPopulate({ email }).then((user) => {
