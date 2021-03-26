@@ -8,7 +8,7 @@ const inicialState = { user: {}, token: "" };
 const loggedUserReducer = createReducer(inicialState, {
   [register.fulfilled]: (state, action) => action.payload,
   [login.fulfilled]: (state, action) => {state.user = action.payload.user},
-  [logout]: (state, action) => [],
+  [logout]: (state, action) => inicialState,
   [setUser]: (state, action) => action.payload,
 });
 

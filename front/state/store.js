@@ -8,7 +8,7 @@ import menteesReducer from "./mentees/reducer"
 
 
 const store = configureStore({
-    //USA MW REACT NATIVE? middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
     reducer: {
         loggedUser: loggedUserReducer,
         mentees: menteesReducer,
