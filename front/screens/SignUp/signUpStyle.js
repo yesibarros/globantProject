@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       text_footer: {
         color: "#05375a",
         fontSize: 18,
-        marginTop: 35
+        marginTop: 10
       },
       action: {
         flexDirection: "row",
@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
         marginTop:50
       },
       singIn: {
-        paddingHorizontal:50,
-        paddingVertical:20,
+        // paddingHorizontal:50,
+        // paddingVertical:20,
+        marginTop:5,
         width: "100%",
         height: 50,
         justifyContent: "center",
@@ -54,10 +55,8 @@ const styles = StyleSheet.create({
       },
     
       textSign: {
-     
-        paddingHorizontal:159,
-        paddingVertical:18,
-       
+        // paddingHorizontal:159,
+        // paddingVertical:18,
         fontSize: 18,
         fontWeight: "bold",
         alignContent:'center'

@@ -2,22 +2,17 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
   StatusBar,
-  Platform,
   TextInput,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
-// MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./signInStyle"
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -98,32 +93,33 @@ const SignIn = () => {
         </View>
 
         <View style={styles.button}>
-          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.signIn}>
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#fff",
-                },
-              ]}
-            >
-              Sign In 
-            </Text>
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SignUp")}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#fff",
+                  },
+                ]}
+              >
+                Sign In 
+              </Text>
+            </TouchableOpacity>
           </LinearGradient>
 
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
           <TouchableOpacity
-            onPress={() => navigator.navigate("SignUpScreen")}>
-          
-          
-       
+            onPress={() => navigation.navigate("SignUp")}>
             <Text  style={[
               styles.textSign,
-              { boderColor: "#009387", borderWidth: 1, marginTop: 15, color: "009387" },
+              {color: "#fff" },
             ]} >
               Sign Up
             </Text>
-           
           </TouchableOpacity>
+          </LinearGradient>
         </View>
         </Animatable.View>
     </View>

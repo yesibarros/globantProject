@@ -17,7 +17,7 @@ const ScreenLoad = ({navigation}) => {
     useEffect(() => {
         if (!animated) {
         Animated.spring(animateY, {
-            toValue: height / 2 + 35,
+            toValue: height / 2,
             duration: 3500,
             bounciness: 22, //default 8
             speed: 0.5, //default 12
@@ -34,7 +34,8 @@ const ScreenLoad = ({navigation}) => {
         }
 
         setAnimated(true);
-        setTimeout(function(){ navigation.navigate('Profile')}, 5500);
+
+        setTimeout(function(){ navigation.navigate('SignIn')}, 5000);
         
     }, []);
     return (

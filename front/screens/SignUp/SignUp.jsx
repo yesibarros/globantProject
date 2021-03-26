@@ -15,7 +15,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./signUpStyle"
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -129,31 +129,33 @@ const SignUp = () => {
         </View> 
 
         <View style={styles.button}>
-          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.signIn}>
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#fff",
-                }
-              ]}
-            >
-              Sign Up
-            </Text>
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('SignIn')}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#fff",
+                  }
+                ]}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </LinearGradient>
-          <TouchableOpacity
-            onPress={() => navigator.goBack()}>
-          
-          
-       
-            <Text  style={[
-              styles.textSign,
-              { boderColor: "#009387", borderWidth: 1, marginTop: 15, color: "009387" },
-            ]} >
-              Sign In
-            </Text>
-   
-          </TouchableOpacity>
+
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignIn')}>
+              <Text  style={[
+                styles.textSign,
+                {color: "#fff" },
+              ]} >
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
         </Animatable.View>
     </View>
