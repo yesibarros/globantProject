@@ -6,6 +6,8 @@ import ScreenLoad from "../screens/screenLoad/screenLoad"
 import TabBar from "./TabBar";
 import Mentees from "../screens/Mentees/Mentees"
 import Progress from "../screens/Progress/Progress"
+// import SignInScreen from "../screens/SignIn/SignIn"
+// import SignUpScreen from "../screens/SignUp/SignUp"
 
 const Tab = createBottomTabNavigator();
 
