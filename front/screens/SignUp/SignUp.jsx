@@ -15,7 +15,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./signUpStyle"
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -142,7 +142,7 @@ const SignUp = () => {
             </Text>
           </LinearGradient>
           <TouchableOpacity
-            onPress={() => navigator.goBack()}>
+            onPress={() => navigation.goBack()}>
           
           
        
