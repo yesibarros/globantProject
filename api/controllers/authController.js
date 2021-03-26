@@ -6,6 +6,7 @@ const { JWT_SECRET } = process.env;
 const authController = {};
 
 authController.login = (req, res, next) => {
+  console.log("REQQQQBODY", req.body)
   const { email, password } = req.body;
 
   User.findOne({ email }).then((user) => {
@@ -17,7 +18,7 @@ authController.login = (req, res, next) => {
 
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
 
-      res.status(201).send(token);
+      res.status(201).send({token, user});
     });
   });
 };

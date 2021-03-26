@@ -6,13 +6,23 @@ import {
   StatusBar,
   TextInput,
 } from "react-native";
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import {login} from '../../state/loggedUser/thunks'
+
+//REACT-NATIVE
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
+
+//STYLE
 import styles from "./signInStyle"
 
 const SignIn = ({navigation}) => {
+  const dispatch = useDispatch();
+  const loginUser= useSelector((state) => state.loggedUser.user);
+  
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -34,7 +44,10 @@ const SignIn = ({navigation}) => {
       });
     }
   };
-
+  const handleLogin =()=>{
+    dispatch(login(data))
+    .then((data)=>console.log("apalalala", loginUser))
+  };
   const handlePasswordChange = (val) => {
     setData({
       ...data,
@@ -95,7 +108,7 @@ const SignIn = ({navigation}) => {
         <View style={styles.button}>
           <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("SignUp")}>
+              onPress={handleLogin}>
               <Text
                 style={[
                   styles.textSign,
