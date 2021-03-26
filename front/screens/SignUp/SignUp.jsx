@@ -129,31 +129,33 @@ const SignUp = ({navigation}) => {
         </View> 
 
         <View style={styles.button}>
-          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.signIn}>
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#fff",
-                }
-              ]}
-            >
-              Sign Up
-            </Text>
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('SignIn')}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#fff",
+                  }
+                ]}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </LinearGradient>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}>
-          
-          
-       
-            <Text  style={[
-              styles.textSign,
-              { boderColor: "#009387", borderWidth: 1, marginTop: 15, color: "009387" },
-            ]} >
-              Sign In
-            </Text>
-   
-          </TouchableOpacity>
+
+          <LinearGradient colors={["#ffc78f", '#ff9c38' ]} style={styles.singIn}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignIn')}>
+              <Text  style={[
+                styles.textSign,
+                {color: "#fff" },
+              ]} >
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
         </Animatable.View>
     </View>

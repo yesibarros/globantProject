@@ -13,21 +13,28 @@ const ScreenLoad = ({navigation}) => {
     const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
     const [animated, setAnimated] = useState(false);
 
+    console.log("hola")
     useEffect(() => {
         if (!animated) {
-        Animated.timing(animateY, {
+        Animated.spring(animateY, {
             toValue: height / 2,
-            duration: 3000,
+            duration: 3500,
+            bounciness: 22, //default 8
+            speed: 0.5, //default 12
+            useNativeDriver: false 
         }).start();
 
-        Animated.timing(animateYwelcome, {
-            toValue: height / 2 ,
-            duration: 3000,
+        Animated.spring(animateYwelcome, {
+            toValue: height / 2,
+            duration: 3500,
+            bounciness: 22, //default 8
+            speed: 0.5, //default 12
+            useNativeDriver: false
         }).start();
         }
 
         setAnimated(true);
-        //EL SETTIMEOUT ESTA BIEN, PERO HAY QUE MODIFICAR QUE SEA UN STACK NAVIGATION EN APP
+
         setTimeout(function(){ navigation.navigate('SignIn')}, 5000);
         
     }, []);
@@ -46,34 +53,32 @@ const ScreenLoad = ({navigation}) => {
                 fontStyle: "italic",
                 fontWeight: "bold",
                 color: "white",
-                right: 70
+                right: 70,
+                zIndex: 1
                 }}
             >
                 ME 
             </AnimatedText>
 
-            
-        
-        
             <LinearGradient
-            ESTO GENERA QUE LA ANIMACION COMIENZE CORTADA AL MEDIO
                 // Background Linear Gradient
                 colors={['#ff9c38','#663300']}
                 style={styles.bottomBackground}
             >
-                    <AnimatedText
-                style={{
-                bottom: animateYwelcome,
-                position: "absolute",
-                fontSize: 50,
-                fontStyle: "italic",
-                fontWeight: "bold",
-                color: "white",
-                left: 40
-                }}
-            >
-                MENTOR
-            </AnimatedText>
+                <AnimatedText
+                    style={{
+                    bottom: animateYwelcome,
+                    position: "absolute",
+                    fontSize: 50,
+                    fontStyle: "italic",
+                    fontWeight: "bold",
+                    color: "white",
+                    left: 70,
+                    zIndex: 1
+                    }}
+                >
+                    MENTOR
+                </AnimatedText>
             </LinearGradient>
 
         <StatusBar style="auto" />
