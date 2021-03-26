@@ -1,7 +1,7 @@
 const Area = require('./Area')
 const Location = require('./Location')
 const Objective = require('./Objective')
-const Technology = require('./technology')
+const Technology = require('./Technology')
 const User = require('./User')
 
 

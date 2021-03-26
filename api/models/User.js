@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
-  area: [
+  areas: [
     {
       type: Schema.Types.ObjectId,
       ref: "area",

@@ -4,11 +4,20 @@ const areasArray = ["FrontEnd", "Node Developer", "PHP Developer", "Leadership",
 const locationsArray = ["Buenos Aires 1", "Buenos Aires 2", "London", "Cordova", "Rosario", "Seattle", "CDMX"]
 const maxAmountOfTechnologiesPerUser = 15
 const maxAmountofAreasPerUser = 5
-const adminUsers = 2
+const adminRandomUsers = 2
 const menteeUsers = 40
 const mentorUsers  = 15
 const menteeAndMentorUsers = 6
 const maxMenteesPerMentor = 5
+
+/*
+
+HARDCODED ADMIN: 
+
+email: admin@admin.com
+password: admin
+
+*/
 
 //*************************--SEED--******************************//
 //Do not change anything from below
@@ -78,8 +87,20 @@ const setup = async () => {
     } */
     
     const startUsersObjs = [] //Array of users to be saved
-    //PUSH ADMIN USERS
-    for (let i = 0; i < adminUsers; i++){
+
+    //PUSH HARCODED ADMIN USER
+        startUsersObj.push({
+            firstName: "Fabri",
+            lastName: "Guada",
+            password: "admin",
+            email: "admin@admin.com",
+            img: faker.image.image(),
+            role: ["admin"],
+            location: locations[Math.floor(Math.random() * locations.length)]
+        })
+
+    //PUSH ADMIN RANDOM USERS
+    for (let i = 0; i < adminRandomUsers; i++){
         startUsersObjs.push({
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
@@ -100,7 +121,7 @@ const setup = async () => {
             email: faker.internet.email(),
             role: ["mentee"],
             img: faker.image.image(),
-            area: getAreasForUser(),
+            areas: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
         })
@@ -115,7 +136,7 @@ const setup = async () => {
             email: faker.internet.email(),
             role: ["mentor"],
             img: faker.image.image(),
-            area: getAreasForUser(),
+            areas: getAreasForUser(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]
         })
@@ -129,7 +150,7 @@ const setup = async () => {
             password: faker.internet.password(),
             email: faker.internet.email(),
             role: ["mentee","mentor"],
-            area: getAreasForUser(),
+            areas: getAreasForUser(),
             img: faker.image.image(),
             technologies: getTechsForUser(),
             location: locations[Math.floor(Math.random() * locations.length)]

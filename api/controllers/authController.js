@@ -1,30 +1,36 @@
-const User = require('../models/User')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
-const {JWT_SECRET} = process.env
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { JWT_SECRET } = process.env;
 
-const authController = {}
+const authController = {};
 
-    authController.login = (req,res,next)=>{
+authController.login = (req, res, next) => {
+  const { email, password } = req.body;
 
-    }
-    
-    authController.register = (req,res,next)=>{
-        console.log(req.body)
-        
-        req.body.role = ['mentee']
-        User.create(req.body)
-            .then(user => {
-                const token = jwt.sign({id: user._id}, JWT_SECRET)
-        console.log("user",user)
-                
-                res.status(201).send(token)
-            })
-            .catch(next)
-    }
-    
-    authController.me = (req,res,next)=>{
+  User.findOne({ email }).then((user) => {
+    if (!user) return res.status(400).send("User not found");
 
-    }
+    user.hash(password, user.salt).then((hashPassword) => {
+      if (hashPassword !== user.password) return res.status(400).send("Invalid credentials");
+      
+      const token = jwt.sign({ id: user._id }, JWT_SECRET);
+      res.status(201).send(token);
+    });
+  });
+};
 
-module.exports = authController
+authController.register = (req, res, next) => {
+  req.body.role = ["mentee"];
+  
+  User.create(req.body)
+    .then((user) => {
+      const token = jwt.sign({ id: user._id }, JWT_SECRET);
+      res.status(201).send(token);
+    })
+    .catch(next);
+};
+
+authController.me = (req, res, next) => {};
+
+module.exports = authController;
