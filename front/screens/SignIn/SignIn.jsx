@@ -2,22 +2,17 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
   StatusBar,
-  Platform,
   TextInput,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
-// MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from "./signInStyle"
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -112,7 +107,7 @@ const SignIn = () => {
           </LinearGradient>
 
           <TouchableOpacity
-            onPress={() => navigator.navigate("SignUpScreen")}>
+            onPress={() => navigation.navigate("SignUp")}>
           
           
        

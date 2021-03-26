@@ -28,7 +28,7 @@ const ScreenLoad = ({navigation}) => {
 
         setAnimated(true);
         //EL SETTIMEOUT ESTA BIEN, PERO HAY QUE MODIFICAR QUE SEA UN STACK NAVIGATION EN APP
-        setTimeout(function(){ navigation.navigate('Profile')}, 5000);
+        setTimeout(function(){ navigation.navigate('SignIn')}, 5000);
         
     }, []);
     return (
