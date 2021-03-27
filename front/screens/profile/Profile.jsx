@@ -1,76 +1,91 @@
-import React from "react";
-import { StyleSheet, View, Text, ScrollView} from "react-native";
-import Header from "../../shared/Header"
-import { Avatar } from 'react-native-elements';
+import React, { useEffect } from "react";
+import { StyleSheet, View, Text, ScrollView, FlatList } from "react-native";
+import Header from "../../shared/Header";
+import { Avatar } from "react-native-elements";
 import { Button } from "react-native";
-import styles from "./profileStyle"
+import styles from "./profileStyle";
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../state/loggedUser/thunks";
+import { logout } from "../../state/loggedUser/actions";
 
-console.log(styles)
+export default function Profile({ navigation }) {
+  const dispatch = useDispatch();
+  const loginUser = useSelector((state) => state.loggedUser.user);
 
+  const handleSessionLogout = () => {
+    dispatch(logout());
+    navigation.navigate("SignIn");
+  };
 
-export default function Profile() {
-    
-  const user={
-      firstName: "Yesi",
-      lastName: "Barros",
-      location: "Globant Londres",
-      role: "Mentor",
-      puesto: "Crack",
-      techs: ["BackEnd", "FrontEnd", "UI Design", "Liderazgo"]
-  }
-
-    return (
-      
-      <View style={styles.header}>
-        
-        <Header />
-        
-       {/* <Text style={styles.headerText}>MI PERFIL</Text> */}
-        
+  return (
+    <View>
+      {loginUser._id && (
+        <View style={styles.header}>
+          <Header />
           <View style={styles.centerView}>
             <Avatar
               size="xlarge"
               source={{
-                uri:
-                  'https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos-810x540.jpg',
-                width: "100%", 
-                heigth: "100%"
+                uri: loginUser.img,
+                width: "100%",
+                heigth: "100%",
               }}
               rounded
-              title={user.firstName[0]+user.lastName[0]}
-              titleStyle={{color: "white", backgroundColor: "gray", flex: 1, width: "100%", paddingTop:"15%"}}
+              title={loginUser.firstName + loginUser.lastName}
+              titleStyle={{
+                color: "white",
+                backgroundColor: "gray",
+                flex: 1,
+                width: "100%",
+                paddingTop: "15%",
+              }}
               onPress={() => console.log("Works!")}
               activeOpacity={0.7}
             />
           </View>
           <Text style={styles.userText}>
-            {user.firstName} {user.lastName}
+            {loginUser.firstName} {loginUser.lastName}
           </Text>
-        
-        <View style={styles.infoContainer}>
-          <Text style={styles.infoTitle}>Sede:</Text>
-          <Text style={styles.infoContent}>{user.location}</Text>
-          <Text style={styles.infoTitle}>Puesto:</Text>
-          <Text style={styles.infoContent}>{user.puesto}</Text>
-          <Text style={styles.infoTitle}>Rol:</Text>
-          <Text style={styles.infoContent}>{user.role}</Text>
-          <Text style={styles.infoTitle}>Habilidades</Text>
-          {user.techs.length &&
-            user.techs.map((tech) => {
-              return (
-                <Text style={styles.infoContent} key={tech}>
-                  -{tech}
-                </Text>
-              );
-            })}
+
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoTitle}>Sede:</Text>
+            <Text style={styles.infoContent}>
+              {loginUser.location[0].locationName}
+            </Text>
+            {/* <Text style={styles.infoTitle}>Puesto:</Text>
+            <Text style={styles.infoContent}>{user.puesto}</Text> */}
+            <Text style={styles.infoTitle}>Rol:</Text>
+            <Text style={styles.infoContent}>{loginUser.role}</Text>
+            <Text style={styles.infoTitle}>Habilidades</Text>
+         
+           
+           
+           {loginUser.technologies.length &&
+            <FlatList
+              keyExtractor={tech=> tech.technologyName}
+              data={loginUser.technologies}
+              renderItem={({ item }) => {
+                
+      
+                  return (
+                  <Text style={styles.infoContent}>{item.technologyName}</Text>
+                  )
+              
+                
+              }}
+            />
+          }
+           </View>
+            
+          <View style={styles.button}>
+            <Button
+              onPress={handleSessionLogout}
+              title={"Cerrar sesión"}
+            ></Button>
+          </View>
         </View>
-        <View style={styles.button}>
-          <Button title={"Cerrar sesión"}></Button>
-        </View>
-        
-      </View>
-     
-    );
-  }
-  
-  
+      )}
+    </View>
+  );
+}
