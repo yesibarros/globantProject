@@ -1,7 +1,5 @@
 // CONFIG: Change these values as needed
-const technologiesArray = [{n:"Java", w:6 }, {n:"JavaScript", w: 6}, {n:"mongoDB", w: 1}, {n:"React",w:4}, {n:"Go",w:3}, {n:"Sequelize",w:1}, {n:"Postgres",w:1}, {n:"Node",w:7}, {n:"PHP",w:6}, {n:"Three.js",w:2}, {n:"React-Native",w:4}, {n:"Redux",w:1},{n:"Angular", w:4}]
 const areasArray = ["FrontEnd", "Node Developer", "PHP Developer", "Leadership", "Automated Testing"]
-const locationsArray = ["Buenos Aires 1", "Buenos Aires 2", "London", "Cordova", "Rosario", "Seattle", "CDMX"]
 const objectiveNames = ["Aprender JavaScript", "Aprender Node", "Hacer el back en un proyecto", "Aprender HTML", "Aprender PHP", "Hacer curso de SCRUM", "Aprender Jasmine", "Trabajar en 10 proyectos", "Aprender Redux"]
 const maxAmountOfTechnologiesPerUser = 15
 const maxAmountOfAreasPerUser = 5
@@ -32,7 +30,12 @@ const LoremIpsum = require("lorem-ipsum").LoremIpsum
 const { connection } = require("./index.js");
 
 //MODELS
-const { Technology, User, Location, Area, Objective } = require('../models/index')
+const { Technology, User, Location, Area, Objective, Country } = require('../models/index')
+
+//DATA
+const technologiesArray = require('./dataToSeed/technologies')
+const countriesArray = require('./dataToSeed/countries')
+const locationsArray = require('./dataToSeed/locations')
 
 //LOREM CONFIG
 const lorem = new LoremIpsum({
@@ -49,10 +52,20 @@ const lorem = new LoremIpsum({
 const setup = async () => {
     console.log("Starting the seeding process 🌱")
 
+    //CREATE COUNTRIES
+    console.log("🌎 Country seeds...")
+    const countries = await Country.create(countriesArray)
+    console.log("    ✓ Countires seeded successfully!")
+
+    //CREATE LOCATIONS
+    console.log("🏙  Location seeds...")
+    const locationsToSeed = locationsArray.forEach(l => l.country = countries.filter(c => c.countryName == l.country)[0])
+    const locations = await Location.create(locationsArray)
+    console.log("    ✓ Locations seeded successfully!")
+
     //CREATE TECHNOLOGIES
     console.log("🔧 Technology seeds...") //Deberiamos guardar dos nombres en la DB? El nombre con mayúsculas, guiones, espacios, etc, y uno "normalizado"
-    const startTechsObjs = technologiesArray.map(t => ({technologyName: t.n, technologyWeight: t.w}))
-    const technologies = await Technology.create(startTechsObjs);
+    const technologies = await Technology.create(technologiesArray);
     console.log("    ✓ Technologies seeded successfully!");
 
     //CREATE AREAS
@@ -60,12 +73,6 @@ const setup = async () => {
     const startAreasObjs = areasArray.map(a => ({areaName: a})) //areas get 8 of weight per default in the model
     const areas = await Area.create(startAreasObjs)
     console.log("    ✓ Areas seeded successfully!")
-
-    //CREATE LOCATIONS
-    console.log("🌎 Location seeds...")
-    const startLocationsObjs = locationsArray.map(l => ({locationName: l}))
-    const locations = await Location.create(startLocationsObjs)
-    console.log("    ✓ Locations seeded successfully!")
 
     //CREATE OBJECTIVES
     console.log("🎯 Objective seeds...")
@@ -126,7 +133,7 @@ const setup = async () => {
         startUsersObjs.push({
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
-            password: faker.internet.password(),
+            password: "test", 
             email: faker.internet.email(),
             role: ["mentee"],
             workingSince: new Date().getFullYear() - Math.floor(Math.random()*3),
@@ -143,7 +150,7 @@ const setup = async () => {
         startUsersObjs.push({
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
-            password: faker.internet.password(),
+            password: "test", 
             email: faker.internet.email(),
             workingSince: new Date().getFullYear() - 1 - Math.floor(Math.random()*10),
             role: ["mentor"],
@@ -159,7 +166,7 @@ const setup = async () => {
         startUsersObjs.push({
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
-            password: faker.internet.password(),
+            password: "test", 
             email: faker.internet.email(),
             role: ["mentee","mentor"],
             workingSince: new Date().getFullYear() - 1 - Math.floor(Math.random()*10),

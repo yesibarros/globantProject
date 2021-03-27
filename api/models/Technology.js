@@ -14,7 +14,7 @@ const technologySchema = new mongoose.Schema({
         default: 2
     },
 
-});
+},{ versionKey: false });
 
 
 
