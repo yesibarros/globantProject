@@ -14,4 +14,16 @@ locationController.createOne = (req,res,next)=>{
             .then(location=> res.status(201).json({message: "Location created!"}))
 }
 
+locationController.modifyOne = (req,res,next)=>{
+    Location.findByIdAndUpdate(req.params.id, req.body)
+            .then(res=> res.send("The location was updated!"))
+            .catch(next) 
+}
+
+locationController.deleteOne = (req,res,next)=>{
+    Location.findByIdAndDelete(req.params.id)
+            .then(res=> res.send("The location was deleted!"))
+            .catch(next)
+}
+
 module.exports = locationController
