@@ -27,6 +27,7 @@ authController.login = (req, res, next) => {
 };
 
 authController.register = (req, res, next) => {
+  console.log("HOLAAAA", req.body)
   req.body.role = ["mentee"];
 
   User.create(req.body)

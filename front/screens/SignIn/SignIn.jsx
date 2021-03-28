@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../state/loggedUser/thunks'
 import {logout} from '../../state/loggedUser/actions'
+import Swal from 'sweetalert2'
 
 //REACT-NATIVE
 import * as Animatable from 'react-native-animatable';
@@ -19,6 +20,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 //STYLE
 import styles from "./signInStyle"
+
 
 const SignIn = ({navigation}) => {
   const dispatch = useDispatch();
@@ -32,11 +34,12 @@ const SignIn = ({navigation}) => {
     secureTextEntry: true,
   });
   const textInputChange = (val) => {
+    let expresion = /\w+@\w+\.[a-z]/;
     if (val.length != 0) {
       setData({
         ...data,
         email: val,
-        check_textInputChange: true,
+        check_textInputChange: val != "" && expresion.test(val) ? true : false,
       });
     } else {
       setData({
@@ -46,11 +49,47 @@ const SignIn = ({navigation}) => {
       });
     }
   };
+  let timerInterval
   const handleLogin =()=>{
+    if(data.check_textInputChange == false){
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ingrese datos válidos!',
+      })}
+    
     dispatch(login(data))
-    .then(()=> {
-      //setData({check_textInputChange: false, secureTextEntry: true, email: "", password:""})
-      return navigation.navigate('Profile')})
+    .then((data)=> {
+      if(data.meta.requestStatus == "rejected"){
+        return Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Credenciales inválidas!',
+        })}
+        else{
+          Swal.fire({
+            title: 'Iniciando sesión',
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent()
+                  if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                      b.textContent = Swal.getTimerLeft()
+                    }
+                  }
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then(()=> navigation.navigate('Profile'))
+        }
+       
+      })
   };
   const handlePasswordChange = (val) => {
     setData({

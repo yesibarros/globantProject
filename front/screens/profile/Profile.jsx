@@ -49,9 +49,10 @@ export default function Profile({ navigation }) {
           </Text>
 
           <View style={styles.infoContainer}>
+        
             <Text style={styles.infoTitle}>Sede:</Text>
             <Text style={styles.infoContent}>
-              {loginUser.location[0].locationName}
+              {loginUser.location.locationName}
             </Text>
             {/* <Text style={styles.infoTitle}>Puesto:</Text>
             <Text style={styles.infoContent}>{user.puesto}</Text> */}
