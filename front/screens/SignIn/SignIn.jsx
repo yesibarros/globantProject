@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../state/loggedUser/thunks'
 import {logout} from '../../state/loggedUser/actions'
-import Swal from 'sweetalert2'
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 //REACT-NATIVE
 import * as Animatable from 'react-native-animatable';
@@ -26,6 +26,8 @@ const SignIn = ({navigation}) => {
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
   console.log( "****",loginUser)
+  const [wrongDataAlert, setWrongDataAlert]= useState(false)
+  const [wrongUserAlert, setWrongUserAlert]= useState(false)
 
   const [data, setData] = useState({
     email: "",
@@ -51,45 +53,21 @@ const SignIn = ({navigation}) => {
   };
   let timerInterval
   const handleLogin =()=>{
-    if(data.check_textInputChange == false){
-      return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Ingrese datos válidos!',
-      })}
+    if(data.check_textInputChange == false || !data.password){
+     
+      return setWrongDataAlert(true)}
     
     dispatch(login(data))
     .then((data)=> {
       if(data.meta.requestStatus == "rejected"){
-        return Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Credenciales inválidas!',
-        })}
+        return setWrongUserAlert(true)
+        }
         else{
-          Swal.fire({
-            title: 'Iniciando sesión',
-              timer: 2000,
-              timerProgressBar: true,
-              didOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                  const content = Swal.getContent()
-                  if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                      b.textContent = Swal.getTimerLeft()
-                    }
-                  }
-                }, 100)
-              },
-              willClose: () => {
-                clearInterval(timerInterval)
-              }
-            }).then(()=> navigation.navigate('Profile'))
+          navigation.navigate('Profile')
+            }
         }
        
-      })
+      )
   };
   const handlePasswordChange = (val) => {
     setData({
@@ -129,6 +107,37 @@ const SignIn = ({navigation}) => {
           ) : //   </Animatable.View>
           null}
         </View>
+        {/* Las distintas alertas */}
+        {/*Datos invalidos */}
+        <AwesomeAlert 
+      show={wrongDataAlert}
+      showProgress={false}
+      title="Error"
+      message="Ingrese datos válidos"
+      closeOnTouchOutside={true}
+      closeOnHardwareBackPress={true}
+      showConfirmButton={true}
+      confirmText="Ok"
+      confirmButtonColor="#DD6B55"
+      onConfirmPressed={() => {
+        setWrongDataAlert(false);
+      }}
+    />
+    {/*Email o contraseña incorrectos*/}
+    <AwesomeAlert 
+      show={wrongUserAlert}
+      showProgress={false}
+      title="Error"
+      message="Email o contraseña incorrectos"
+      closeOnTouchOutside={true}
+      closeOnHardwareBackPress={true}
+      showConfirmButton={true}
+      confirmText="Ok"
+      confirmButtonColor="#DD6B55"
+      onConfirmPressed={() => {
+        setWrongUserAlert(false);
+      }}
+    />
         <Text style={(styles.text_footer)}>Password</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={20} />

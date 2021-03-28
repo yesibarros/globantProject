@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"firstName\": \"Carlitos\",\n\"lastName\": \"Way\",\n\"password\": \"1234\",\n\"email\": \"carlitoss@way.com\",\n\"area\": [\"605b9928bc949325cd25d5a1\",\"605b9928bc949325cd25d5a3\"],\n\"technologies\": [\"605b9928bc949325cd25d59a\", \"605b9928bc949325cd25d59b\"]\n}",
+							"raw": "{\n\"firstName\": \"Pepe\",\n\"lastName\": \"Way\",\n\"password\": \"1234\",\n\"email\": \"carlitos10@way.com\",\n\"location\": \"605f75a3670db3da36907456\",\n\"areas\": [\"605f75a3670db3da3690747e\",\"605f75a3670db3da36907480\"],\n\"technologies\": [\"605f75a3670db3da36907479\",\"605f75a3670db3da36907472\",\"605f75a3670db3da3690747d\"]\n}\n\n\n\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -33,6 +33,36 @@
 								"api",
 								"auth",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carlitos10@way.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -112,6 +142,77 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "CREATE ONE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE ONE BY ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNWY3NWEzNjcwZGIzZGEzNjkwNzQ4YyIsImlhdCI6MTYxNjg3MDM1NX0.GUdzk7TweaAGBQ4At4--UwYACswJesI-Z56Pvm-w29E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/locations/605f7bead763c0e2ca7fa246",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"locations",
+								"605f7bead763c0e2ca7fa246"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -145,6 +246,49 @@
 							"path": [
 								"api",
 								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MATCHES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNWY3NzNiZWZmZjI4ZGMzY2ExZDNiYSIsImlhdCI6MTYxNjg2OTIyOX0.h6cHgpfPvKj5MXyO96AjLwZxbnxTTbcHF7eQG8oSTWg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\":\"mentor\",\n    \"location\": \"605f75a3670db3da36907456\",\n    \"areas\": [\"605f75a3670db3da3690747e\",\"605f75a3670db3da36907480\"],\n    \"technologies\": [\"605f75a3670db3da36907479\",\"605f75a3670db3da36907472\",\"605f75a3670db3da3690747d\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/user/userstype",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"userstype"
 							]
 						}
 					},

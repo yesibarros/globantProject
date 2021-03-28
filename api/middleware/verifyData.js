@@ -23,8 +23,8 @@ const verifyData = async (req,res,next)=>{
                 for(let i = 0; i < role.length; i++){
                     if(!actualRoles.includes(role[i])) return res.status(400).json({message: `Ups! ${role[i]} is not a valid role`})
                 }
-
-                //VALIDAR SI SEGUN LA ANTIGUEDAD PUEDE SER MENTOR
+                //Check that mentors have at least 1 year in the company
+                if(role.includes("mentor") && (user.workingSince === new Date().getFullYear())) return res.status(400).json({message: `Ups! Mentors must have at least 1 year working in the company`})
             }
 
             //MENTEES VALIDATION
@@ -102,7 +102,10 @@ const verifyData = async (req,res,next)=>{
                 if(!realLocation) return res.status(400).json({message: `Ups! ${location} is not a valid location's id`})
             }
 
-            //VALIDAR AÑO
+            //WORKING SINCE VALIDATION
+            if(workingSince){
+                if(workingSince > new Date().getFullYear() || workingSince < 2003) return res.status(400).json({message: `Ups! The year you entered is not a valid year`})
+            }
 
         } catch(err){
             next(err)

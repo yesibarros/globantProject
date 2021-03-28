@@ -1,6 +1,10 @@
+# MENTOR ME
+## API
 
-SEED: npm run seed
-
+**1) SEED:** `npm run seed`
+**2) START:** `npm start`
+### ENDPOINTS:
+#### USER
 RUTA GET: http://localhost:5000/api/user
 - enviar en el header el token
 - funcion: busca el usuario para ponerlo en perfil (la info del id la saca del token enviado) o si se envia un ID en body, busca el id de ese usuario (si es que quiero renderizar un usuario especifico)
@@ -15,18 +19,31 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
   - areas que concurden para el match
   - skills que concuerden para el match.
 
+#### AUTH
+- [x] **Login:** POST http://localhost:5000/api/auth/login
+    - enviar en body las siguientes key:
+      - "email",
+      - "password"
   
-  RUTA POST: http://localhost:5000/api/auth/login
-- enviar en body las siguientes key:
-  - "email",
-  - "password"
-  PENDIENTE devolver el usuario (con toda la info? Necesitamos armar una funcion externa para modularizar y que haga el populate, sino se devuelve solo ids.)
-  
-  RUTA POST: http://localhost:5000/api/auth/register
+- [x] **Register:** POST http://localhost:5000/api/auth/register
   /// Ver si en esta instancia se envian las skills o se suma una ruta adicional
-- enviar en body las siguientes keys:
-  - "firstName":
-  - "lastName":
-  - "password"  
-  - "email"
+  - Enviar en body las siguientes keys:
+    - "firstName":
+    - "lastName":
+    - "password"  
+    - "email"
 
+#### TECHNOLOGIES: 
+- [x] **Get all:** GET http://localhost:5000/api/techs
+
+#### AREAS:
+- [x] **Get all:** GET http://localhost:5000/api/areas
+
+#### LOCATIONS: 
+- [x] **Get all:** GET http://localhost:5000/api/locations
+*Require admin role:*
+- [x] **Create one:** POST http://localhost:5000/api/locations
+         - Example body: `{"locationName": "Tucumán"}`
+- [x] **Update by ID:** PUT http://localhost:5000/api/locations/:id
+         - Example body: `{"locationName": "Tucumán"}`
+- [x] **Delete by ID:** DELETE http://localhost:5000/api/locations/:id

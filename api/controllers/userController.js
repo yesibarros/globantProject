@@ -29,7 +29,9 @@ userController.getAllUserbyParam = (req, res, next) => {
     },
     { mentees: 0, password: 0, salt: 0, mentor: 0, objectives: 0 }
   )
-    .populate("location")
+    .populate( {path: 'location',
+                populate: { path: 'country' }
+              })
     .populate("areas")
     .populate("technologies")
     .then((userstype) => {

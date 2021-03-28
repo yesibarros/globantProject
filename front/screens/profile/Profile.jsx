@@ -49,7 +49,6 @@ export default function Profile({ navigation }) {
           </Text>
 
           <View style={styles.infoContainer}>
-        
             <Text style={styles.infoTitle}>Sede:</Text>
             <Text style={styles.infoContent}>
               {loginUser.location.locationName}
@@ -62,7 +61,7 @@ export default function Profile({ navigation }) {
          
            
            
-           {loginUser.technologies.length &&
+           {loginUser.technologies.length  >0 &&
             <FlatList
               keyExtractor={tech=> tech.technologyName}
               data={loginUser.technologies}
@@ -77,7 +76,7 @@ export default function Profile({ navigation }) {
               }}
             />
           }
-           </View>
+          
             
           <View style={styles.button}>
             <Button
@@ -85,6 +84,7 @@ export default function Profile({ navigation }) {
               title={"Cerrar sesión"}
             ></Button>
           </View>
+        </View>
         </View>
       )}
     </View>

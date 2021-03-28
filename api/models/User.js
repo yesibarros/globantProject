@@ -26,12 +26,10 @@ const userSchema = new mongoose.Schema({
     min: 2003,
     max: new Date().getFullYear()
   },
-  location: [
-    {
+  location: {
       type: Schema.Types.ObjectId,
       ref: "location",
-    },
-  ],
+  },
   employeeId: {
     type: String,
     // required: true,

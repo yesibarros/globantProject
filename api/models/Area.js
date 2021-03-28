@@ -14,7 +14,7 @@ const areaSchema = new mongoose.Schema({
         default: 8
     }
 
-});
+},{ versionKey: false });
 
 
 
