@@ -2,6 +2,9 @@ const router = require("express").Router();
 const authController = require("../controllers/authController");
 const {verifyData} = require('../middleware')
 
+
+// we are in /api/auth
+
 //LOGIN
 router.post("/login", authController.login);
 //REGISTER

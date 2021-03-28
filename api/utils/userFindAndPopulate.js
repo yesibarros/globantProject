@@ -2,7 +2,10 @@ const { User } = require("../models");
 
 const userFindAndPopulate = (object) => {
   return User.findOne(object)
-    .populate("location")
+    .populate({
+        path: 'location',
+        populate: { path: 'country' }
+  })
     .populate({
       path: "mentees",
       select: "firstName lastName _id img location",

@@ -20,6 +20,6 @@ const objectiveSchema = new mongoose.Schema({
         default: "pending"
     }
 
-});
+},{ versionKey: false });
 
 module.exports= mongoose.model('objective', objectiveSchema)
