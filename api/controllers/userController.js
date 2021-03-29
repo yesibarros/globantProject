@@ -2,6 +2,7 @@ const { User } = require("../models");
 const orderByMatch = require("../utils/orderByMatch");
 const userFindAndPopulate = require("../utils/userFindAndPopulate");
 
+
 const userController = {};
 
 userController.getUser = (req, res, next) => {
@@ -42,5 +43,18 @@ userController.getAllUserbyParam = (req, res, next) => {
     })
     .catch(next);
 };
+
+userController.updateById  = (req, res, next)=> {
+ 
+  if(req.user._id.toString() === req.params.id.toString()){
+    console.log("ENTRE EN EL IF")
+    User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        .then(user => userFindAndPopulate({_id : req.user._id}))
+        .then(user => res.send(user))
+        .catch(next)
+  }else{
+    res.status(403).json({message: "unauthorized"})
+  }   
+}
 
 module.exports = userController;

@@ -7,6 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/drawer": "^5.12.4",
@@ -16,7 +17,9 @@
     "axios": "^0.21.1",
     "expo": "~40.0.0",
     "expo-linear-gradient": "~8.4.0",
+    "expo-network": "~2.4.0",
     "expo-status-bar": "~1.0.3",
+    "public-ip": "^4.0.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
@@ -25,6 +28,7 @@
     "react-native-elements": "^3.3.2",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-public-ip": "^1.0.2",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.2",

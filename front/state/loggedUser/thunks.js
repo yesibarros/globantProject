@@ -1,5 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
-import axios from "axios"
+import axios from "axios";
+
+
+
+
 
 
 export const register= createAsyncThunk("REGISTER_REQUEST", (data)=>{
@@ -8,12 +12,14 @@ export const register= createAsyncThunk("REGISTER_REQUEST", (data)=>{
 
 
 export const login= createAsyncThunk("LOGIN_REQUEST", (data)=>{
-  console.log("entre al login back", data)
-  
+    
+      return axios
+        .post(`http://192.168.1.3:5000/api/auth/login`, {email:data.email, password:data.password})
+        .then((respuesta) =>  respuesta.data)
+      
+   
   //CAMBIAR "192.168.1.3" por la ip de cada uno para que funcione en android. Si es con iphone, puede ir "localhost" como siempre
-  return axios
-      .post("http://192.168.1.3:5000/api/auth/login", {email:data.email, password:data.password})
-      .then((respuesta) =>  respuesta.data)
+  
 })
 
 
