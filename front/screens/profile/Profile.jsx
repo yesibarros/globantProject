@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, ScrollView, FlatList } from "react-native";
 import Header from "../../shared/Header";
 import { Avatar } from "react-native-elements";
@@ -8,11 +8,16 @@ import styles from "./profileStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../state/loggedUser/thunks";
 import { logout } from "../../state/loggedUser/actions";
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function Profile({ navigation }) {
+  
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.loggedUser.user);
-
+  const [welcomeMessage, setWelcomeMessage]= useState(false)
+  useEffect(()=>{
+    return setWelcomeMessage(true)
+  }, [loginUser._id])
   const handleSessionLogout = () => {
     dispatch(logout());
     navigation.navigate("SignIn");
@@ -49,10 +54,12 @@ export default function Profile({ navigation }) {
           </Text>
 
           <View style={styles.infoContainer}>
+            
             <Text style={styles.infoTitle}>Sede:</Text>
-            <Text style={styles.infoContent}>
+            {loginUser.location && <Text style={styles.infoContent}>
               {loginUser.location.locationName}
-            </Text>
+            </Text>}
+            
             {/* <Text style={styles.infoTitle}>Puesto:</Text>
             <Text style={styles.infoContent}>{user.puesto}</Text> */}
             <Text style={styles.infoTitle}>Rol:</Text>
@@ -76,7 +83,20 @@ export default function Profile({ navigation }) {
               }}
             />
           }
-          
+          <AwesomeAlert 
+      show={welcomeMessage}
+      showProgress={false}
+      title="Bienvenido!"
+      message={`Qué bueno verte otra vez ${loginUser.firstName}!`}
+      closeOnTouchOutside={true}
+      closeOnHardwareBackPress={true}
+      showConfirmButton={true}
+      confirmText="Ok"
+      confirmButtonColor="green"
+      onConfirmPressed={() => {
+        setWelcomeMessage(false);
+      }}
+    />
           </View>
           <View style={styles.button}>
             <Button
