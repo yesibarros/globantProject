@@ -7,7 +7,6 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/drawer": "^5.12.4",
