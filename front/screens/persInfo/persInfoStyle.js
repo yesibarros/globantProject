@@ -69,12 +69,11 @@ body: {
     flex: 1
   },
   userBtnWrapper: {
-        top:-20,
+        marginTop:10,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         width: '100%',
         marginBottom: 10,
-        
       }, 
   userBtn: {
         borderColor: '#2e64e5',
