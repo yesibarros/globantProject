@@ -3,6 +3,7 @@
 ## API
 
 **1) SEED:** `npm run seed`
+
 **2) START:** `npm start`
 
 ### ENDPOINTS:
@@ -38,6 +39,15 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 
 #### TECHNOLOGIES: 
 - [x] **Get all:** GET http://localhost:5000/api/techs
+*Require admin token:*
+- [x] **Create one:** POST http://localhost:5000/api/techs
+         - Example body: `{ technologyName: "PHP" }`
+- [x] **Update by ID:** PUT http://localhost:5000/api/techs/:id
+         - :id = technology id
+         - Example body: `{"technologyName": "JavaScript"}`
+- [x] **Delete by ID:** DELETE http://localhost:5000/api/techs/:id
+         - :id = technology id
+
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/techs
          - Example body: `{ technologyName: "PHP" }`

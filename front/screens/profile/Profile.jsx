@@ -61,7 +61,7 @@ export default function Profile({ navigation }) {
          
            
            
-           {loginUser.technologies.length &&
+           {loginUser.technologies.length  >0 &&
             <FlatList
               keyExtractor={tech=> tech.technologyName}
               data={loginUser.technologies}
@@ -76,8 +76,8 @@ export default function Profile({ navigation }) {
               }}
             />
           }
-           </View>
-            
+          
+          </View>
           <View style={styles.button}>
             <Button
               onPress={handleSessionLogout}
@@ -85,6 +85,7 @@ export default function Profile({ navigation }) {
             ></Button>
           </View>
         </View>
+       
       )}
     </View>
   );
