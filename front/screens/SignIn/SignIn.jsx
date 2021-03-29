@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../state/loggedUser/thunks'
 import {logout} from '../../state/loggedUser/actions'
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 //REACT-NATIVE
 import * as Animatable from 'react-native-animatable';
@@ -20,10 +21,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 //STYLE
 import styles from "./signInStyle"
 
+
 const SignIn = ({navigation}) => {
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
   console.log( "****",loginUser)
+  const [wrongDataAlert, setWrongDataAlert]= useState(false)
+  const [wrongUserAlert, setWrongUserAlert]= useState(false)
 
   const [data, setData] = useState({
     email: "",
@@ -32,11 +36,12 @@ const SignIn = ({navigation}) => {
     secureTextEntry: true,
   });
   const textInputChange = (val) => {
+    let expresion = /\w+@\w+\.[a-z]/;
     if (val.length != 0) {
       setData({
         ...data,
         email: val,
-        check_textInputChange: true,
+        check_textInputChange: val != "" && expresion.test(val) ? true : false,
       });
     } else {
       setData({
@@ -47,10 +52,22 @@ const SignIn = ({navigation}) => {
     }
   };
   const handleLogin =()=>{
+    if(data.check_textInputChange == false || !data.password){
+     
+      return setWrongDataAlert(true)}
+    
+    
     dispatch(login(data))
-    .then(()=> {
-      //setData({check_textInputChange: false, secureTextEntry: true, email: "", password:""})
-      return navigation.navigate('Profile')})
+    .then((data)=> {
+      if(data.meta.requestStatus == "rejected"){
+        return setWrongUserAlert(true)
+        }
+        else{
+          navigation.navigate('Profile')
+            }
+        }
+       
+      )
   };
   const handlePasswordChange = (val) => {
     setData({
@@ -90,6 +107,37 @@ const SignIn = ({navigation}) => {
           ) : //   </Animatable.View>
           null}
         </View>
+        {/* Las distintas alertas */}
+        {/*Datos invalidos */}
+        <AwesomeAlert 
+      show={wrongDataAlert}
+      showProgress={false}
+      title="Error"
+      message="Ingrese datos válidos"
+      closeOnTouchOutside={true}
+      closeOnHardwareBackPress={true}
+      showConfirmButton={true}
+      confirmText="Ok"
+      confirmButtonColor="#DD6B55"
+      onConfirmPressed={() => {
+        setWrongDataAlert(false);
+      }}
+    />
+    {/*Email o contraseña incorrectos*/}
+    <AwesomeAlert 
+      show={wrongUserAlert}
+      showProgress={false}
+      title="Error"
+      message="Email o contraseña incorrectos"
+      closeOnTouchOutside={true}
+      closeOnHardwareBackPress={true}
+      showConfirmButton={true}
+      confirmText="Ok"
+      confirmButtonColor="#DD6B55"
+      onConfirmPressed={() => {
+        setWrongUserAlert(false);
+      }}
+    />
         <Text style={(styles.text_footer)}>Password</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={20} />
