@@ -5,7 +5,7 @@ import { Avatar } from "react-native-elements";
 
 //SCREENS
 import Header from "../header/Header";
-
+import Configuration from "../configuration/Configuration";
 //STYLE
 import styles from "./profileStyle";
 
@@ -66,8 +66,8 @@ const Profile = ({ navigation }) => {
           <Text style={styles.userBtnTxt}>Personal Info</Text>
         </TouchableOpacity>
       </View>
+          <Configuration/>
     </View>
-
       </View>
   );
 };
