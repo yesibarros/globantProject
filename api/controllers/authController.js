@@ -27,13 +27,12 @@ authController.login = (req, res, next) => {
 };
 
 authController.register = (req, res, next) => {
-  
   req.body.role = ["mentee"];
 
   User.create(req.body)
     .then((user) => {
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
-      res.status(201).send(token);
+      res.status(201).send({ user, token });
     })
     .catch(next);
 };

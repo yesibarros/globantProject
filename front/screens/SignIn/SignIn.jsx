@@ -85,7 +85,7 @@ const SignIn = ({navigation}) => {
     <View style={styles.container}>
         <StatusBar backgroundColor='#009387' barStyle='light-content'/>
       <View style={styles.header}>
-        <Text style={styles.text_header}>Welcome!</Text>
+        <Text style={styles.text_header}>Bienvenido!</Text>
       </View>
       <Animatable.View
       animation="fadeInUpBig"
@@ -95,7 +95,7 @@ const SignIn = ({navigation}) => {
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={20} />
           <TextInput
-            placeholder="Your Email"
+            placeholder="Tu Email"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
@@ -138,11 +138,11 @@ const SignIn = ({navigation}) => {
         setWrongUserAlert(false);
       }}
     />
-        <Text style={(styles.text_footer)}>Password</Text>
+        <Text style={(styles.text_footer)}>Contraseña</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={20} />
           <TextInput
-            placeholder="Your Password"
+            placeholder="Tu contraseña"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
@@ -169,7 +169,7 @@ const SignIn = ({navigation}) => {
                   },
                 ]}
               >
-                Sign In 
+               Iniciar sesión
               </Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -181,7 +181,7 @@ const SignIn = ({navigation}) => {
               styles.textSign,
               {color: "#fff" },
             ]} >
-              Sign Up
+              Registrarse
             </Text>
           </TouchableOpacity>
           </LinearGradient>
