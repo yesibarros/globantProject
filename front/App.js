@@ -46,6 +46,7 @@ const App = () => {
             component={SignIn}
             options={{
               drawerLabel: () => null,
+              gestureEnabled: false,
               title: null,
               drawerIcon: () => null,
             }}

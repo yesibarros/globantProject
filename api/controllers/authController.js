@@ -27,17 +27,22 @@ authController.login = (req, res, next) => {
 };
 
 authController.register = (req, res, next) => {
-  console.log("HOLAAAA", req.body)
   req.body.role = ["mentee"];
 
   User.create(req.body)
     .then((user) => {
       const token = jwt.sign({ id: user._id }, JWT_SECRET);
-      res.status(201).send(token);
+      res.status(201).send({ user, token });
     })
     .catch(next);
 };
 
-authController.me = (req, res, next) => {};
+authController.me = (req, res, next) => {
+  if(req.user){
+    res.send(user)
+  } else {
+    res.staus(403).json({message: "unauthorized"})
+  }
+};
 
 module.exports = authController;
