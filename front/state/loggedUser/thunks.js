@@ -1,5 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
-import axios from "axios"
+import axios from "axios";
+
+
+
+
 
 
 export const register= createAsyncThunk("REGISTER_REQUEST", (data)=>{

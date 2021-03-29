@@ -24,7 +24,12 @@ const verifyData = async (req,res,next)=>{
                     if(!actualRoles.includes(role[i])) return res.status(400).json({message: `Ups! ${role[i]} is not a valid role`})
                 }
                 //Check that mentors have at least 1 year in the company
-                if(role.includes("mentor") && (user.workingSince === new Date().getFullYear())) return res.status(400).json({message: `Ups! Mentors must have at least 1 year working in the company`})
+                if(workingSince){
+                    if(role.includes("mentor") && (workingSince === new Date().getFullYear())) return res.status(400).json({message: `Ups! Mentors must have at least 1 year working in the company`})
+                } else {
+                    if(role.includes("mentor") && (req.user.workingSince === new Date().getFullYear())) return res.status(400).json({message: `Ups! Mentors must have at least 1 year working in the company`})
+                }
+                
             }
 
             //MENTEES VALIDATION

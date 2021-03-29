@@ -27,7 +27,6 @@ authController.login = (req, res, next) => {
 };
 
 authController.register = (req, res, next) => {
-
   req.body.role = ["mentee"];
 
   User.create(req.body)
@@ -38,6 +37,12 @@ authController.register = (req, res, next) => {
     .catch(next);
 };
 
-authController.me = (req, res, next) => {};
+authController.me = (req, res, next) => {
+  if(req.user){
+    res.send(user)
+  } else {
+    res.staus(403).json({message: "unauthorized"})
+  }
+};
 
 module.exports = authController;
