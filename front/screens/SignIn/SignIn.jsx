@@ -56,7 +56,6 @@ const SignIn = ({navigation}) => {
      
       return setWrongDataAlert(true)}
     
-    
     dispatch(login(data))
     .then((data)=> {
       if(data.meta.requestStatus == "rejected"){

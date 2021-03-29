@@ -1,0 +1,18 @@
+componente uopdate updateProfile
+
+import { updateProfile } from '../../state/loggedUser/thunks'
+ 
+ 
+ 
+ obj = {
+            "id": state.user._id, --- ver si es asi 
+            "location": "605fba8c3ccf24250dd1261f",
+            "workingSince": 2019,
+            "employeeId": "1234abc",
+            "role": ["mentor"],
+            "areas": ["605fba8d3ccf24250dd12650", "605fba8d3ccf24250dd12652"],
+            "technologies": ["605fba8c3ccf24250dd12649", "605fba8c3ccf24250dd12643", "605fba8c3ccf24250dd1264b","605fba8c3ccf24250dd1264c"] 
+          }
+          dispatch(updateProfile(obj))
+
+
