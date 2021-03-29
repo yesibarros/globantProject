@@ -77,7 +77,7 @@ export default function Profile({ navigation }) {
             />
           }
           
-            
+          </View>
           <View style={styles.button}>
             <Button
               onPress={handleSessionLogout}
@@ -85,7 +85,7 @@ export default function Profile({ navigation }) {
             ></Button>
           </View>
         </View>
-        </View>
+       
       )}
     </View>
   );

@@ -51,11 +51,11 @@ const SignIn = ({navigation}) => {
       });
     }
   };
-  let timerInterval
   const handleLogin =()=>{
     if(data.check_textInputChange == false || !data.password){
      
       return setWrongDataAlert(true)}
+    
     
     dispatch(login(data))
     .then((data)=> {
