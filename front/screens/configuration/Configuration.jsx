@@ -23,7 +23,7 @@ const Configuration = () => {
       <View style={styles.areasContainer}>
         <Text style={styles.text}>Your Technologies:</Text>
         <View style={styles.mapContainer}>
-        {loginUser.technologies.length &&
+        {loginUser.technologies.length >0 &&
           loginUser.technologies.map((item) => {
             return(
             <PillButton title={item.technologyName} key={item._id}/>
