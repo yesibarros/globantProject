@@ -61,7 +61,7 @@ const Profile = ({ navigation }) => {
           title={`${loginUser.firstName[0]}${loginUser.lastName[0]}`}
           titleStyle={{
             color: "white",
-            backgroundColor: "red",
+            backgroundColor: "gray",
             flex: 1,
             width: "100%",
             paddingTop: "15%",
@@ -75,10 +75,10 @@ const Profile = ({ navigation }) => {
         <View
           style={{  marginHorizontal: 20, alignItems: "center" , bottom:60}}
         >
-          <Text style={{ fontWeight: "bold" }}>Yesica Barros</Text>
-          <Text style={{ marginTop: 8 }}>yesibarros95@gmail.com</Text>
+          <Text style={{ fontWeight: "bold" }}>{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
+          <Text style={{ marginTop: 8 }}>{loginUser.email}</Text>
           <Text style={{ marginTop: 20, alignContent: "center" }}>
-            I am a Full Stack Developer
+            Soy un Full Stack Developer
           </Text>
         </View>
         <View style={styles.userBtnWrapper}>
@@ -86,13 +86,13 @@ const Profile = ({ navigation }) => {
             style={styles.userBtn}
             onPress={() => setShowConfiguration(true)}
           >
-            <Text style={styles.userBtnTxt}>Configuration</Text>
+            <Text style={styles.userBtnTxt}>Configuración</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.userBtn}
             onPress={() => setShowConfiguration(false)}
           >
-            <Text style={styles.userBtnTxt}>Personal Info</Text>
+            <Text style={styles.userBtnTxt}>Datos personales</Text>
           </TouchableOpacity>
         </View>
 

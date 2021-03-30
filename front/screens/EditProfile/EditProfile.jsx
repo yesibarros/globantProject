@@ -41,7 +41,7 @@ const EditProfile = ({navigation}) => {
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>
                     <Text style={styles.textEdit}>
-                        First name: 
+                        Nombre: 
                     </Text>
                     {editMode ?<TextInput
                         placeholder={loginUser.firstName}
@@ -54,7 +54,7 @@ const EditProfile = ({navigation}) => {
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>
                     <Text style={styles.textEdit}>
-                        Last name: 
+                        Apellido: 
                     </Text>
                     {editMode ? <TextInput
                         placeholder={loginUser.lastName}
@@ -67,7 +67,7 @@ const EditProfile = ({navigation}) => {
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>
                     <Text style={styles.textEdit}>
-                        Country: 
+                        Sede: 
                     </Text>
                     {editMode ? <SelectPicker
                         onValueChange={(value) => {

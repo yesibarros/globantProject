@@ -17,7 +17,7 @@ export default function Mentees() {
      <View style={styles.header}>
          <Header/>
          <View>
-             <Text style={styles.headerText}>MENTEES</Text>
+             <Text style={styles.headerText}>PROXIMAMENTE</Text>
          </View>
          
      </View>
