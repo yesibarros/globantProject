@@ -61,6 +61,24 @@ const Configuration = () => {
           <Text style={styles.userBtnTxt}>See {showMore ? "Less" : "More"}...</Text>
         </TouchableOpacity>
 
+        {loginUser.areas.length > 0 && (
+          <FlatList
+            horizontal
+            keyExtractor={(area) => area.areaName}
+            data={loginUser.areas}
+            renderItem={({ item }) => {
+              console.log(item)
+              return (
+                <TouchableOpacity
+                  style={styles.circular}
+                  onPress={() => navigation.navigate("SignUp")}
+                >
+                  <Text style={styles.textSign}>{item.areaName}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
       </View>
     </View>
   );

@@ -1,33 +1,45 @@
 //REACT
-import React, { useState } from "react";
-import { View, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, ScrollView, View, Text, Dimensions, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import { Avatar } from "react-native-elements";
+import {getLocations} from "../../state/Locations/thunks";
 
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
+import EditProfile from "../EditProfile/EditProfile"
 //STYLE
 import styles from "./profileStyle";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 const { width } = Dimensions.get("window");
+
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [showConfiguration, setShowConfiguration]=useState(true)
   const loginUser = useSelector((state) => state.loggedUser.user);
+  useEffect(() => {
+    dispatch(getLocations())
+    setShowConfiguration(true)
+  },[])
 
   return (
-    <ScrollView> 
+  <SafeAreaView style={styles.container}>
+    <ScrollView>
     <View style={styles.container}>
-      <Header />
-      <View style={styles.body}>
-        <View style={{ top: -70, left: width / 3 }}>
-          <Avatar
+      <Header />  
+      
+      <View style={styles.body} >
+      
+      <View style={{ top: -70, left: width / 3 }}>
+        {loginUser.img ? <Avatar
             size="xlarge"
             source={{
               uri: loginUser.img,
               width: "100%",
               heigth: "100%",
+              zIndex:1
             }}
             rounded
             title={loginUser.firstName + loginUser.lastName}
@@ -40,38 +52,65 @@ const Profile = ({ navigation }) => {
             }}
             onPress={() => console.log("Works!")}
             activeOpacity={0.7}
-          />
-        </View>
-        <View
-          style={{  marginHorizontal: 20, alignItems: "center" , bottom:60}}
-        >
-          <Text style={{ fontWeight: "bold" }}>Yesica Barros</Text>
-          <Text style={{ marginTop: 8 }}>yesibarros95@gmail.com</Text>
-          <Text style={{ marginTop: 20, alignContent: "center" }}>
-            I am a Full Stack Developer
-          </Text>
-        </View>
-      <View style={styles.userBtnWrapper}>
-        <TouchableOpacity
-          style={styles.userBtn}
-          onPress={() => {
-            navigation.navigate("Configuration");
+            />: <Avatar
+            size="xlarge"
+            rounded
+            title={`${loginUser.firstName[0]}${loginUser.lastName[0]}`}
+            titleStyle={{
+              color: "white",
+            backgroundColor: "gray",
+            flex: 1,
+            width: "100%",
+            paddingTop: "15%",
+            zIndex:1
           }}
-        >
-          <Text style={styles.userBtnTxt}>Configuration</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.userBtn}
-          onPress={() => navigation.navigate("PersInfo")}
-        >
-          <Text style={styles.userBtnTxt}>Personal Info</Text>
-        </TouchableOpacity>
+          onPress={() => console.log("Works!")}
+          activeOpacity={0.7}
+        />}
+          
       </View>
-          <Configuration/>
+        
+      <View
+          style={{  marginHorizontal: 20, alignItems: "center" , bottom:60}}
+          >
+          <Text style={{ fontWeight: "bold" }}>{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
+          <Text style={{ marginTop: 8 }}>{loginUser.email}</Text>
+          <Text style={{ marginTop: 20, alignContent: "center" }}>
+            Soy un Full Stack Developer
+          </Text>
+      </View>
+      
+      <View style={styles.userBtnWrapper}>
+          <TouchableOpacity
+            style={styles.userBtn}
+            onPress={() => setShowConfiguration(true)}
+            >
+            <Text style={styles.userBtnTxt}>Configuración</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.userBtn}
+            onPress={() => setShowConfiguration(false)}
+            >
+            <Text style={styles.userBtnTxt}>Datos personales</Text>
+          </TouchableOpacity>
+      </View>
+
+   
+          
+         
+            {showConfiguration? <Configuration/>: 
+            
+            
+            
+            <EditProfile/>
+          }
+        
+       
+      </View>
     </View>
-      </View>
-      </ScrollView>
-  );
+    </ScrollView>
+  </SafeAreaView>
+);
 };
 
 export default Profile;

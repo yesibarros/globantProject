@@ -4,14 +4,14 @@ import axios from "axios";
 
 export const register = createAsyncThunk("REGISTER_REQUEST", (data) => {
   return axios
-    .post("http://192.168.0.223:5000/api/auth/register", data)
+    .post("http://localhost:5000/api/auth/register", data)
     .then((respuesta) => respuesta.data);
 });
 
 export const login = createAsyncThunk("LOGIN_REQUEST", (data) => {
   // console.log("entre al login back", data)
   return axios
-    .post("http://192.168.0.223:5000/api/auth/login", {
+    .post("http://localhost:5000/api/auth/login", {
       email: data.email,
       password: data.password,
     })
@@ -22,7 +22,7 @@ export const updateProfile = createAsyncThunk("UPDATE_REQUEST", (data) => {
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
-      .put(`http://192.168.0.223:5000/api/user/${data.id}`, data)
+      .put(`http://localhost:5000/api/user/${data.id}`, data)
       .then((respuesta) => respuesta.data);
   });
 });

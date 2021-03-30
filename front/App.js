@@ -9,6 +9,7 @@ import Configuration from "./screens/configuration/Configuration";
 import PersInfo from "./screens/persInfo/PersInfo";
 import store from "./state/store";
 import { Provider } from "react-redux";
+import EditProfile from './screens/EditProfile/EditProfile';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
@@ -78,6 +79,10 @@ const App = () => {
               drawerIcon: () => null,
             }}
           />
+          <Drawer.Screen
+            name="EditProfile"
+            component={EditProfile}
+   />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
