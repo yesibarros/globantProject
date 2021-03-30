@@ -42,6 +42,7 @@ userController.getAllUserbyParam = (req, res, next) => {
 };
 
 userController.updateById = (req, res, next) => {
+  console.log("entreeeee")
   if (req.user._id.toString() === req.params.id.toString()) {
     User.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then((user) => userFindAndPopulate({ _id: req.user._id }))
