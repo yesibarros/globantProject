@@ -36,7 +36,7 @@ const EditProfile = ({navigation}) => {
 
     return (
   
-        <View style={styles.container}>
+        <View style={!editMode ? styles.container : styles.editComponent}>
             
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>

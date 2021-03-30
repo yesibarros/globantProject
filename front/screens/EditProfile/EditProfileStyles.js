@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-
+import { StyleSheet, Dimensions } from "react-native";
+const {height}= Dimensions.get("window")
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -53,6 +53,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
+  editComponent:{
+    backgroundColor: "white",
+    position:"absolute",
+    top: 80,
+   zIndex:1,
+    height: "100%",
+    width: "100%"
+  }
 });
 
 export default styles;
