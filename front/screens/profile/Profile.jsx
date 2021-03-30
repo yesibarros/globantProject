@@ -1,6 +1,6 @@
 //REACT
 import React, { useState } from "react";
-import { View, Text, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity, ScrollView } from "react-native";
 import { Avatar } from "react-native-elements";
 
 //SCREENS
@@ -17,6 +17,7 @@ const Profile = ({ navigation }) => {
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   return (
+    <ScrollView> 
     <View style={styles.container}>
       <Header />
       <View style={styles.body}>
@@ -69,6 +70,7 @@ const Profile = ({ navigation }) => {
           <Configuration/>
     </View>
       </View>
+      </ScrollView>
   );
 };
 

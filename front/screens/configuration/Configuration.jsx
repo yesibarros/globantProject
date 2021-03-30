@@ -1,5 +1,5 @@
 //REACT
-import React from "react";
+import * as React from "react";
 import {
   View,
   Text,
@@ -7,35 +7,58 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Button
 } from "react-native";
-//SCREENS
 
+//SCREENS
 import PillButton from "../../shared/components/PillButton";
-const { width } = Dimensions.get("window");
+import TechModal from "./TechModal"
+
+// const { width } = Dimensions.get("window");
+
+
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../state/loggedUser/thunks";
+
+//EXPO 
+import { Ionicons } from '@expo/vector-icons';
+
 const Configuration = () => {
+  const [showMore, setShowMore] = React.useState(false)
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.loggedUser.user);
+  const technologiesArray = showMore ? loginUser.technologies : loginUser.technologies.slice(0,3)
+  const [editTech, setEditTech] = React.useState(false)
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.areasContainer}>
-        <Text style={styles.text}>Your Technologies:</Text>
-        <View style={styles.mapContainer}>
-        {loginUser.technologies.length &&
-          loginUser.technologies.map((item) => {
-            return(
-            <PillButton title={item.technologyName} key={item._id}/>
-            )
-          })}
+        
+        <View style={styles.titleContainer}>
+          <Text style={styles.text}>Your Technologies:</Text>
+          <TouchableOpacity onPress={() => setEditTech(true)}> 
+            <Ionicons name="create-outline" size={25}></Ionicons>
+          </TouchableOpacity>
         </View>
-           <TouchableOpacity
+        
+        <View style={styles.mapContainer}>
+          {loginUser.technologies.length && technologiesArray.map((item) => {
+            return <PillButton title={item.technologyName} key={item._id}/> 
+            })
+          }
+        </View>
+
+        <TechModal visible={editTech} setEditTech={setEditTech}/>
+
+        <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
-            navigation.navigate("Configuration");
+            setShowMore((prevState) => !prevState)
           }}
         >
-          <Text style={styles.userBtnTxt}>See More...</Text>
+          <Text style={styles.userBtnTxt}>See {showMore ? "Less" : "More"}...</Text>
         </TouchableOpacity>
 
       </View>
@@ -90,5 +113,12 @@ const styles = StyleSheet.create({
   },
   userBtnTxt:{
     color:'#009387'
+  },
+  titleContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   }
+
 });
