@@ -10,7 +10,7 @@ export default function Progress() {
      <View style={styles.header}>
          <Header/>
          <View>
-             <Text style={styles.headerText}>MY PROGRESS</Text>
+             <Text style={styles.headerText}>PROXIMAMENTE</Text>
          </View>
          
      </View>
