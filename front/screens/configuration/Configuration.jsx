@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Configuration = () => {
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.loggedUser.user);
+  console.log("AREASSSSS", loginUser.areas )
   return (
     <View style={styles.container}>
       <View style={styles.areasContainer}>
@@ -38,6 +39,24 @@ const Configuration = () => {
           <Text style={styles.userBtnTxt}>See More...</Text>
         </TouchableOpacity>
 
+        {loginUser.areas.length > 0 && (
+          <FlatList
+            horizontal
+            keyExtractor={(area) => area.areaName}
+            data={loginUser.areas}
+            renderItem={({ item }) => {
+              console.log(item)
+              return (
+                <TouchableOpacity
+                  style={styles.circular}
+                  onPress={() => navigation.navigate("SignUp")}
+                >
+                  <Text style={styles.textSign}>{item.areaName}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
       </View>
     </View>
   );
