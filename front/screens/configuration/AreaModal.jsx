@@ -6,54 +6,54 @@ import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
 
-const TechModal = ({visible, setEditTech}) => {
+const AreaModal = ({visible, setEditArea}) => {
 
-    const [technologiesArray, setTechnologiesArray]= React.useState([])
+    const [areasArray, setAreasArray]= React.useState([])
     const [isLoading, setIsLoading]= React.useState(true)
     const user = useSelector(state => state.loggedUser.user)
-    const [selectedTechs, setSelectedTechs] = React.useState(user.technologies)
+    const [selectedAreas, setSelectedAreas] = React.useState(user.areas)
     const dispatch= useDispatch()
     React.useEffect(() => {
-        axios.get(("http://192.168.1.3:5000/api/techs"))
+        axios.get(("http://192.168.1.3:5000/api/areas"))
         .then((res)=>{
-            setTechnologiesArray(res.data)
+            setAreasArray(res.data)
             setIsLoading(false)
         })  
     }, []);
 
     const handleCloseModal = ()=>{
-        if(!selectedTechs.length){
-            return Alert.alert("¡Cuidado!","Debes seleccionar alguna tecnología",
+        if(!selectedAreas.length){
+            return Alert.alert("¡Cuidado!","Debes seleccionar algun perfil",
             [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             )
         }
-        setEditTech(false)
+        setEditArea(false)
     }
 
     const handleSelect = (id)=>{
-        const tech = selectedTechs.filter(t => t._id == id)
-        if(tech.length){
-            setSelectedTechs(prevState => prevState.filter(t => t._id !== id))
+        const area = selectedAreas.filter(a => a._id == id)
+        if(area.length){
+            setSelectedAreas(prevState => prevState.filter(a => a._id !== id))
         }else{
-            setSelectedTechs(prevState => [...prevState, {_id: id}])
+            setSelectedAreas(prevState => [...prevState, {_id: id}])
         }
     }
 
     const handleSave = ()=>{
-        const arrayToSave = selectedTechs.map(t => t._id)
+        const arrayToSave = selectedAreas.map(a => a._id)
         let obj = {
             "id": user._id,
-            "technologies": arrayToSave
+            "areas": arrayToSave
           }
           dispatch(updateProfile(obj)).then(()=>{
-              setEditTech(false)
+              setEditArea(false)
             })
 
     }
    
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
-            {console.log("selected techs.....", selectedTechs)}
+            
             {isLoading?
             (
                 <View style={styles.viewContainer}>
@@ -65,18 +65,18 @@ const TechModal = ({visible, setEditTech}) => {
             <View style={styles.viewContainer}>
 
 
-                <Text style={styles.title}>Tecnologías:</Text>
+                <Text style={styles.title}>Perfiles:</Text>
                 <View style={styles.mapContainer}>
-                {technologiesArray.length > 0 && technologiesArray.map((item) => {
+                {areasArray.length > 0 && areasArray.map((item) => {
                     //const selected = selectedTechs.includes(item)
-                    const selected = selectedTechs.filter(tech => tech._id == item._id).length? true : false
-                    return <PillButton title={item.technologyName} key={item._id} id={item._id} selected={selected} onSelect={handleSelect}/> 
+                    const selected = selectedAreas.filter(area => area._id == item._id).length? true : false
+                    return <PillButton title={item.areaName} key={item._id} id={item._id} selected={selected} onSelect={handleSelect}/> 
                 })
                 }
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button onPress={handleCloseModal} title="Cerrar" />
-                    <Button onPress={handleSave} title="Guardar" disabled={selectedTechs.length? false : true}/>
+                    <Button onPress={handleSave} title="Guardar" disabled={selectedAreas.length? false : true}/>
                 </View>
                 
             </View>
@@ -86,7 +86,7 @@ const TechModal = ({visible, setEditTech}) => {
 
 }
 
-export default TechModal;
+export default AreaModal;
 
 const styles = StyleSheet.create({
 
