@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import {primaryGreen} from "../../utils/Colors"
 
 const styles = StyleSheet.create({
   container: {
@@ -9,6 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 60,
     flex: 3,
+    paddingBottom: "10%"
   },
   button: {
     position: "absolute",
@@ -73,15 +75,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   userBtn: {
-    borderColor: "#2e64e5",
-    borderWidth: 2,
+    borderColor: "transparent",
+    borderBottomWidth: 2,
     borderRadius: 3,
     paddingVertical: 8,
     paddingHorizontal: 12,
     marginHorizontal: 5,
   },
+  userBtnSelected: {
+    borderColor: primaryGreen,
+  },
   userBtnTxt: {
-    color: "#2e64e5",
+    color: primaryGreen,
   },
   userName: {
     fontSize: 18,

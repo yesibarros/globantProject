@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Header from "../header/Header";
-import { KeyboardAvoidingView, ScrollView, View, Text, TouchableOpacity, TextInput} from "react-native";
+import { KeyboardAvoidingView, ScrollView, View, Text, TouchableOpacity, TextInput, Alert} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Avatar } from "react-native-elements";
 import styles from "./EditProfileStyles";
@@ -13,7 +13,8 @@ const EditProfile = ({navigation}) => {
 
     const dispatch= useDispatch()
     const loginUser = useSelector((state) => state.loggedUser.user);
-    const [editMode, setEditMode]= useState(false)
+    const initEditMode = loginUser.location ? false : true
+    const [editMode, setEditMode]= useState(initEditMode)
     const [selected, setSelected] = useState();
     const [firstName, setFirstName]=useState(loginUser.firstName)
     const [lastName, setLastName]=useState(loginUser.lastName)
@@ -33,6 +34,13 @@ const EditProfile = ({navigation}) => {
       const handleLastNameChange = (val) => {
         setLastName(val);
       };
+
+      useEffect(()=>{
+          if(!loginUser.location){
+              Alert.alert("¡Genial!", "Ahora solo falta que indiques tu sede",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }])
+          }
+      },[])
 
     return (
   
@@ -75,6 +83,7 @@ const EditProfile = ({navigation}) => {
                         }}
                             selected={selected}
                             style={styles.inputLocation}
+                            placeholder="Elegí tu sede"
                         >
                         
                         {locations.length > 0 &&
@@ -89,7 +98,8 @@ const EditProfile = ({navigation}) => {
 
                     </SelectPicker>
                     :
-                    <Text style={styles.textEdit}>{loginUser.location.locationName}</Text>}
+                    loginUser.location ?  <Text style={styles.textEdit}>{loginUser.location.locationName}</Text>: null
+                   }
 
                 </View>
 

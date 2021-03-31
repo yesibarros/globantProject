@@ -1,4 +1,7 @@
 import { StyleSheet} from "react-native";
+
+const {primaryGreen} = require("../../utils/Colors")
+
 const styles = StyleSheet.create({
     
     textSign: {
@@ -17,6 +20,12 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       backgroundColor: "lightgrey",
     },
+    selected: {
+      backgroundColor: primaryGreen
+    },
+    selectedTxt:{
+      color: "white"
+    }
   });
   
   export default styles

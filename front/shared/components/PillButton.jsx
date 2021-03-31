@@ -13,14 +13,14 @@ import {
 import styles from "./pillButtonStyles"
 
 
-const PillButton = ({title}) => {
+const PillButton = ({title, selected = false, onSelect = ()=>{}, id, disabled = false}) => {
     return (
         <TouchableOpacity
-        
-        style={styles.circular}
-        onPress={() => navigation.navigate("SignUp")}
+        style={selected? {...styles.circular, ...styles.selected} : styles.circular}
+        onPress={() => onSelect(id)}
+        disabled={disabled}
       >
-        <Text style={styles.textSign}>{title}</Text>
+        <Text style={selected? {...styles.textSign, ...styles.selectedTxt}: styles.textSign }>{title}</Text>
       </TouchableOpacity>
     );
 };
