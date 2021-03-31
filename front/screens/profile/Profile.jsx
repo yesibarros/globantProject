@@ -8,6 +8,7 @@ import {getLocations} from "../../state/Locations/thunks";
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile"
+
 //STYLE
 import styles from "./profileStyle";
 
@@ -19,14 +20,26 @@ const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration]=useState(true)
   const loginUser = useSelector((state) => state.loggedUser.user);
+  
+  
   useEffect(() => {
     dispatch(getLocations())
-    setShowConfiguration(true)
-  },[])
+    
+
+    if(!loginUser.location){
+      setShowConfiguration(false)
+    }
+
+
+  },[loginUser.technologies, loginUser.areas])
+
+
+
 
   return (
-  <SafeAreaView style={styles.container}>
+    //<SafeAreaView style={styles.container}>
     <ScrollView>
+<<<<<<< HEAD
     <View style={styles.container}>
       <Header />  
       
@@ -72,45 +85,86 @@ const Profile = ({ navigation }) => {
         
       <View
           style={{  marginHorizontal: 20, alignItems: "center" , bottom:60}}
-          >
-          <Text style={{ fontWeight: "bold" }}>{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-          <Text style={{ marginTop: 8 }}>{loginUser.email}</Text>
-          <Text style={{ marginTop: 20, alignContent: "center" }}>
-            Soy un Full Stack Developer
-          </Text>
-      </View>
-      
-      <View style={styles.userBtnWrapper}>
-          <TouchableOpacity
-            style={styles.userBtn}
-            onPress={() => setShowConfiguration(true)}
-            >
-            <Text style={styles.userBtnTxt}>Configuración</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.userBtn}
-            onPress={() => setShowConfiguration(false)}
-            >
-            <Text style={styles.userBtnTxt}>Datos personales</Text>
-          </TouchableOpacity>
-      </View>
+=======
+      <View style={styles.container}>
+        <Header />
 
-   
-          
-         
-            {showConfiguration? <Configuration/>: 
-            
-            
-            
-            <EditProfile/>
-          }
-        
-       
+        <View style={styles.body}>
+          <View style={{ top: -70, left: width / 3 }}>
+            {loginUser.img ? (
+              <Avatar
+                size="xlarge"
+                source={{
+                  uri: loginUser.img,
+                  width: "100%",
+                  heigth: "100%",
+                  zIndex: 1,
+                }}
+                rounded
+                title={loginUser.firstName + loginUser.lastName}
+                titleStyle={{
+                  color: "white",
+                  backgroundColor: "gray",
+                  flex: 1,
+                  width: "100%",
+                  paddingTop: "15%",
+                }}
+                onPress={() => console.log("Works!")}
+                activeOpacity={0.7}
+              />
+            ) : (
+              <Avatar
+                size="xlarge"
+                rounded
+                title={`${loginUser.firstName[0]}${loginUser.lastName[0]}`}
+                titleStyle={{
+                  color: "white",
+                  backgroundColor: "gray",
+                  flex: 1,
+                  width: "100%",
+                  paddingTop: "15%",
+                  zIndex: 1,
+                }}
+                onPress={() => console.log("Works!")}
+                activeOpacity={0.7}
+              />
+            )}
+          </View>
+
+          <View
+            style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
+>>>>>>> 4f002fba8b00e434df9d3b290078eae83ef14d83
+          >
+            <Text
+              style={{ fontWeight: "bold" }}
+            >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
+            <Text style={{ marginTop: 8 }}>{loginUser.email}</Text>
+            <Text style={{ marginTop: 20, alignContent: "center" }}>
+              Soy un Full Stack Developer
+            </Text>
+          </View>
+
+          <View style={styles.userBtnWrapper}>
+            <TouchableOpacity
+              style={showConfiguration? {...styles.userBtn, ...styles.userBtnSelected} : styles.userBtn}
+              onPress={() => setShowConfiguration(true)}
+            >
+              <Text style={styles.userBtnTxt}>Configuración</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={showConfiguration? styles.userBtn : {...styles.userBtn, ...styles.userBtnSelected}}
+              onPress={() => setShowConfiguration(false)}
+            >
+              <Text style={styles.userBtnTxt}>Datos personales</Text>
+            </TouchableOpacity>
+          </View>
+
+          {showConfiguration ? <Configuration /> : <EditProfile />}
+        </View>
       </View>
-    </View>
     </ScrollView>
-  </SafeAreaView>
-);
+    //</SafeAreaView>
+  );
 };
 
 export default Profile;

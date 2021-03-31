@@ -13,6 +13,7 @@ import {
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal"
+import AreaModal from "./AreaModal"
 
 // const { width } = Dimensions.get("window");
 
@@ -25,11 +26,22 @@ import { login } from "../../state/loggedUser/thunks";
 import { Ionicons } from '@expo/vector-icons';
 
 const Configuration = () => {
-  const [showMore, setShowMore] = React.useState(false)
+  
+  
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.loggedUser.user);
+  //AREAS
+  const [showMoreAreas, setShowMoreAreas] = React.useState(false)
+  const areasArray = showMoreAreas ? loginUser.areas : loginUser.areas.slice(0,3)
+  const initEditArea = areasArray.length ? false : true
+  const [editArea, setEditArea] = React.useState(initEditArea)  
+  
+  //TECHS
+  const [showMore, setShowMore] = React.useState(false)
   const technologiesArray = showMore ? loginUser.technologies : loginUser.technologies.slice(0,3)
-  const [editTech, setEditTech] = React.useState(false)
+  const initEditTech = technologiesArray.length ? false : true
+  const [editTech, setEditTech] = React.useState(initEditTech)
+  
   
 
   return (
@@ -37,33 +49,68 @@ const Configuration = () => {
       <View style={styles.areasContainer}>
         
         <View style={styles.titleContainer}>
-          <Text style={styles.text}>Your Technologies:</Text>
+          <Text style={styles.text}>Tu Perfil:</Text>
+          <TouchableOpacity onPress={() => setEditArea(true)}> 
+            <Ionicons name="create-outline" size={25}></Ionicons>
+          </TouchableOpacity>
+        </View>
+        
+        <View style={styles.mapContainer}>
+          {loginUser.areas.length > 0 && areasArray.map((item) => {
+            return <PillButton title={item.areaName} key={item._id} disabled={true}/> 
+            })
+          }
+        </View>
+
+        <AreaModal visible={editArea} setEditArea={setEditArea}/>
+        
+        {loginUser.areas.length > 3 && <TouchableOpacity
+          style={styles.userBtn}
+          onPress={() => {
+            setShowMoreAreas((prevState) => !prevState)
+          }}
+        >
+          <Text style={styles.userBtnTxt}>See {showMoreAreas ? "Less" : "More"}...</Text>
+        </TouchableOpacity>}
+
+       
+      </View>
+
+      <View style={styles.areasContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.text}>Tus Tecnologías:</Text>
           <TouchableOpacity onPress={() => setEditTech(true)}> 
             <Ionicons name="create-outline" size={25}></Ionicons>
           </TouchableOpacity>
         </View>
         
         <View style={styles.mapContainer}>
+<<<<<<< HEAD
           {loginUser.technologies.length >0 && technologiesArray.map((item) => {
             return <PillButton title={item.technologyName} key={item._id}/> 
+=======
+          {loginUser.technologies.length > 0 && technologiesArray.map((item) => {
+            return <PillButton title={item.technologyName} key={item._id} disabled={true}/> 
+>>>>>>> 4f002fba8b00e434df9d3b290078eae83ef14d83
             })
           }
         </View>
 
         <TechModal visible={editTech} setEditTech={setEditTech}/>
+        
 
-        <TouchableOpacity
+        {loginUser.technologies.length > 3 && <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
             setShowMore((prevState) => !prevState)
           }}
         >
           <Text style={styles.userBtnTxt}>See {showMore ? "Less" : "More"}...</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
 
        
       </View>
-
+      
 
 
      
@@ -90,6 +137,7 @@ const styles = StyleSheet.create({
   },
   areasContainer: {
     width: "90%",
+    marginBottom: 50
   },
   textSign: {
     fontSize: 15,
