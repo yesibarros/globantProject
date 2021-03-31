@@ -44,7 +44,7 @@ const Configuration = () => {
         </View>
         
         <View style={styles.mapContainer}>
-          {loginUser.technologies.length && technologiesArray.map((item) => {
+          {loginUser.technologies.length >0 && technologiesArray.map((item) => {
             return <PillButton title={item.technologyName} key={item._id}/> 
             })
           }

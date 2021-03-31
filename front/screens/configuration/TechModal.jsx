@@ -8,7 +8,7 @@ const TechModal = ({visible, setEditTech}) => {
     const [technologiesArray, setTechnologiesArray]= React.useState([])
     const [isLoading, setIsLoading]= React.useState(true)
     React.useEffect(() => {
-        axios.get(("http://localhost:5000/api/techs"))
+        axios.get(("http://192.168.0.100:5000/api/techs"))
         .then((res)=>{
             setTechnologiesArray(res.data)
             setIsLoading(false)

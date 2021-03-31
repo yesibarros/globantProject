@@ -52,7 +52,7 @@ const Profile = ({ navigation }) => {
             }}
             onPress={() => console.log("Works!")}
             activeOpacity={0.7}
-            />: <Avatar
+            />: loginUser.firstName && <Avatar
             size="xlarge"
             rounded
             title={`${loginUser.firstName[0]}${loginUser.lastName[0]}`}

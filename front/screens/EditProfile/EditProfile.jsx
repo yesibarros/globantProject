@@ -36,7 +36,7 @@ const EditProfile = ({navigation}) => {
 
     return (
   
-        <View style={!editMode ? styles.container : styles.editComponent}>
+        <ScrollView style={!editMode ? styles.container : styles.editComponent}>
             
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>
@@ -89,7 +89,8 @@ const EditProfile = ({navigation}) => {
 
                     </SelectPicker>
                     :
-                    <Text style={styles.textEdit}>{loginUser.location.locationName}</Text>}
+                    loginUser.location ?  <Text style={styles.textEdit}>{loginUser.location.locationName}</Text>: null
+                   }
 
                 </View>
 
@@ -113,7 +114,7 @@ const EditProfile = ({navigation}) => {
                         Editar
                     </Text>
                 </TouchableOpacity>}
-            </View>
+            </ScrollView>
            
        
     );
