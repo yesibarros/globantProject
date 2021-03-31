@@ -85,13 +85,8 @@ const Configuration = () => {
         </View>
         
         <View style={styles.mapContainer}>
-<<<<<<< HEAD
-          {loginUser.technologies.length >0 && technologiesArray.map((item) => {
-            return <PillButton title={item.technologyName} key={item._id}/> 
-=======
           {loginUser.technologies.length > 0 && technologiesArray.map((item) => {
             return <PillButton title={item.technologyName} key={item._id} disabled={true}/> 
->>>>>>> 4f002fba8b00e434df9d3b290078eae83ef14d83
             })
           }
         </View>

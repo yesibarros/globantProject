@@ -36,7 +36,7 @@ const EditProfile = ({navigation}) => {
       };
 
       useEffect(()=>{
-          if(!loginUser.location){
+          if(loginUser.technologies.length >0 && !loginUser.location){
               Alert.alert("¡Genial!", "Ahora solo falta que indiques tu sede",
               [{ text: "OK", onPress: () => console.log("OK Pressed") }])
           }

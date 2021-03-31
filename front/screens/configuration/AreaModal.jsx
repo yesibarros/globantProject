@@ -14,7 +14,7 @@ const AreaModal = ({visible, setEditArea}) => {
     const [selectedAreas, setSelectedAreas] = React.useState(user.areas)
     const dispatch= useDispatch()
     React.useEffect(() => {
-        axios.get(("http://192.168.1.3:5000/api/areas"))
+        axios.get(("http://192.168.0.100:5000/api/areas"))
         .then((res)=>{
             setAreasArray(res.data)
             setIsLoading(false)
