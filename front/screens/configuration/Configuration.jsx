@@ -41,6 +41,17 @@ const Configuration = () => {
   const technologiesArray = showMore ? loginUser.technologies : loginUser.technologies.slice(0,3)
   const initEditTech = technologiesArray.length ? false : true
   const [editTech, setEditTech] = React.useState(initEditTech)
+
+  React.useEffect(()=>{
+    if(loginUser.areas.length < 1){
+      setEditArea(true)
+      setEditTech(false)
+    }
+    if(loginUser.areas.length >= 1 && loginUser.technologies.length <1){
+      setEditArea(false)
+      setEditTech(true)
+    }
+  }, [loginUser.areas])
   
   
 

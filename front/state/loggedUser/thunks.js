@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-const localHost = require("../../localHostIp");
+import localHost from "../../localHostIp";
 
 export const register = createAsyncThunk("REGISTER_REQUEST", (data) => {
   return axios

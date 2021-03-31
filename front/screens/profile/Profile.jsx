@@ -1,13 +1,22 @@
 //REACT
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Text, Dimensions, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Alert
+} from "react-native";
 import { Avatar } from "react-native-elements";
-import {getLocations} from "../../state/Locations/thunks";
+import { getLocations } from "../../state/Locations/thunks";
 
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
-import EditProfile from "../EditProfile/EditProfile"
+import EditProfile from "../EditProfile/EditProfile";
 
 //STYLE
 import styles from "./profileStyle";
@@ -18,23 +27,21 @@ const { width } = Dimensions.get("window");
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [showConfiguration, setShowConfiguration]=useState(true)
+  const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
-  
-  
+
   useEffect(() => {
-    dispatch(getLocations())
-    
+    dispatch(getLocations());
 
-    if(!loginUser.location){
-      setShowConfiguration(false)
+    if (loginUser.technologies.length < 1 && loginUser.areas.length <1 && !loginUser.location) {
+      Alert.alert("Bienvenido!", "Configuremos tu perfil",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }])
     }
-
-
-  },[loginUser.technologies, loginUser.areas])
-
-
-
+    
+    if (loginUser.technologies.length > 0 && loginUser.areas.length >0 && !loginUser.location) {
+      setShowConfiguration(false);
+    }
+  }, [loginUser.technologies, loginUser.areas]);
 
   return (
     //<SafeAreaView style={styles.container}>
@@ -98,13 +105,21 @@ const Profile = ({ navigation }) => {
 
           <View style={styles.userBtnWrapper}>
             <TouchableOpacity
-              style={showConfiguration? {...styles.userBtn, ...styles.userBtnSelected} : styles.userBtn}
+              style={
+                showConfiguration
+                  ? { ...styles.userBtn, ...styles.userBtnSelected }
+                  : styles.userBtn
+              }
               onPress={() => setShowConfiguration(true)}
             >
               <Text style={styles.userBtnTxt}>Configuración</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={showConfiguration? styles.userBtn : {...styles.userBtn, ...styles.userBtnSelected}}
+              style={
+                showConfiguration
+                  ? styles.userBtn
+                  : { ...styles.userBtn, ...styles.userBtnSelected }
+              }
               onPress={() => setShowConfiguration(false)}
             >
               <Text style={styles.userBtnTxt}>Datos personales</Text>

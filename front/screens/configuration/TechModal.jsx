@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
 
-const localHost = require("../../localHostIp");
+import localHost from "../../localHostIp";
 
 const TechModal = ({visible, setEditTech}) => {
 
