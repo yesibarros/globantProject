@@ -6,6 +6,8 @@ import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
 
+const localHost = require("../../localHostIp");
+
 const TechModal = ({visible, setEditTech}) => {
 
     const [technologiesArray, setTechnologiesArray]= React.useState([])
@@ -14,7 +16,7 @@ const TechModal = ({visible, setEditTech}) => {
     const [selectedTechs, setSelectedTechs] = React.useState(user.technologies)
     const dispatch= useDispatch()
     React.useEffect(() => {
-        axios.get(("http://192.168.1.3:5000/api/techs"))
+        axios.get((`http:/${localHost}/api/techs`))
         .then((res)=>{
             setTechnologiesArray(res.data)
             setIsLoading(false)
