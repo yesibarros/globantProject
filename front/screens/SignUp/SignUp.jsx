@@ -25,7 +25,6 @@ const SignUp = ({navigation}) => {
   const [existingUser, setExistingUser]= useState(false)
   const [wrongPasswordAlert, setWrongPasswordAlert]= useState(false)
   const [wrongEmailAlert, setWrongEmailAlert]=useState(false)
-  const [registerFullfiled, setRegisterFullfiled]=useState(false)
   const [data, setData] = useState({
     name: "",
     lastName: "",
@@ -68,7 +67,7 @@ const SignUp = ({navigation}) => {
        if(data.error && data.error.message == "Request failed with status code 400"){
          return setExistingUser(true)
        }
-            setRegisterFullfiled(true)
+            
             
      })
      
@@ -248,20 +247,7 @@ const SignUp = ({navigation}) => {
               setExistingUser(false);
             }}
           />
-          <AwesomeAlert
-            show={registerFullfiled}
-            showProgress={false}
-            title="¡Bienvenido!"
-            message="Comencemos completando tu perfil"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={true}
-            showConfirmButton={true}
-            confirmText="Ok"
-            confirmButtonColor={primaryGreen}
-            onConfirmPressed={() => {
-              navigation.navigate('Profile')
-            }}
-          />
+          
         </View>
 
         <View style={styles.button}>
