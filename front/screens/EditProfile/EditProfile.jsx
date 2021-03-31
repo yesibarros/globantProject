@@ -36,7 +36,7 @@ const EditProfile = ({navigation}) => {
       };
 
       useEffect(()=>{
-          if(!loginUser.location){
+          if(loginUser.technologies.length >0 && !loginUser.location){
               Alert.alert("¡Genial!", "Ahora solo falta que indiques tu sede",
               [{ text: "OK", onPress: () => console.log("OK Pressed") }])
           }
@@ -44,7 +44,7 @@ const EditProfile = ({navigation}) => {
 
     return (
   
-        <View style={!editMode ? styles.container : styles.editComponent}>
+        <ScrollView style={!editMode ? styles.container : styles.editComponent}>
             
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20}/>
@@ -123,7 +123,7 @@ const EditProfile = ({navigation}) => {
                         Editar
                     </Text>
                 </TouchableOpacity>}
-            </View>
+            </ScrollView>
            
        
     );
