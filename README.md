@@ -24,7 +24,7 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
     "technologies": ["605fba8c3ccf24250dd1264a","605fba8c3ccf24250dd12647","605fba8c3ccf24250dd12646"]
 }
 ```
-Nota: los ids pueden cambiar con cada seed. Para asegurarse del correcto funcionamiento de la ruta buscar siempre los ids más actuales.
+**Nota: los ids pueden cambiar con cada seed. Para asegurarse del correcto funcionamiento de la ruta buscar siempre los ids más actuales.**
 
 #### AUTH
 - [x] **Login:** POST http://localhost:5000/api/auth/login
