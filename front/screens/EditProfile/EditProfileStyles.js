@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 50,
     borderColor:'#000',
-    height: '85%',
+    alignItems:"center",
+    height: '95%',
     marginLeft: 20,
-    width: '58%'
+    width: '58%',
+    
   },
   userBtn: {
     marginTop: 15,

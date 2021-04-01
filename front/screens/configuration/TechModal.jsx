@@ -5,11 +5,13 @@ import axios from "axios"
 import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
+import { useTheme } from '@react-navigation/native';
 
 import localHost from "../../localHostIp";
 
 const TechModal = ({visible, setEditTech}) => {
 
+    const { colors } = useTheme();
     const [technologiesArray, setTechnologiesArray]= React.useState([])
     const [isLoading, setIsLoading]= React.useState(true)
     const user = useSelector(state => state.loggedUser.user)
@@ -58,16 +60,16 @@ const TechModal = ({visible, setEditTech}) => {
             {console.log("selected techs.....", selectedTechs)}
             {isLoading?
             (
-                <View style={styles.viewContainer}>
+                <View style={[styles.viewContainer, {backgroundColor:colors.background}]}>
                 <ActivityIndicator size="large" color="#0000ff" />
                 </View>
             )       
         
        :(
-            <View style={styles.viewContainer}>
+            <View style={[styles.viewContainer, {backgroundColor:colors.background}]}>
 
 
-                <Text style={styles.title}>Tecnologías:</Text>
+                <Text style={[styles.title,{color:colors.text}]}>Tecnologías:</Text>
                 <View style={styles.mapContainer}>
                 {technologiesArray.length > 0 && technologiesArray.map((item) => {
                     //const selected = selectedTechs.includes(item)

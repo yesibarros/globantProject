@@ -1,5 +1,6 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {Provider as PaperProvider, DarkTheme as PaperDarkTheme, DefaultTheme as PaperDefaultTheme} from 'react-native-paper'
+import { NavigationContainer, DarkTheme as NavigationDarkTheme, DefaultTheme as  NavigationDefaultTheme  } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import DrawerNavigator from "./routes/Drawer/DrawerNavigator"
 import ScreenLoad from "./screens/screenLoad/screenLoad";
@@ -12,9 +13,35 @@ const Stack = createStackNavigator();
 
 const Main = () => {
   const loggedUser = useSelector(state => state.loggedUser.user)
+  const isDarkTheme = useSelector(state => state.darkTheme)
+  
+ const CustomDefaultTheme = {
+    ...NavigationDefaultTheme,
+    ...PaperDefaultTheme,
+    colors: {
+      ...NavigationDefaultTheme.colors,
+      ...PaperDefaultTheme.colors,
+      background: '#ffffff',
+      text: '#333333'
+    }
+  }
+  
+  const CustomDarkTheme = {
+    ...NavigationDarkTheme,
+    ...PaperDarkTheme,
+    colors: {
+      ...NavigationDarkTheme.colors,
+      ...PaperDarkTheme.colors,
+      background: '#333333',
+      text: '#ffffff'
+    }
+  }
 
+  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
   return (
-      <NavigationContainer>
+         <PaperProvider theme={theme}>
+      <NavigationContainer theme={theme}>
+       
         <Stack.Navigator
           initialRouteName="ScreenLoad"
           headerMode={false}
@@ -34,7 +61,9 @@ const Main = () => {
             </>
           )}
         </Stack.Navigator>
+        
       </NavigationContainer>
+        </PaperProvider>
   );
 };
 
