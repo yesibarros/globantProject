@@ -14,7 +14,7 @@ const TechModal = ({visible, setEditTech}) => {
     const [selectedTechs, setSelectedTechs] = React.useState(user.technologies)
     const dispatch= useDispatch()
     React.useEffect(() => {
-        axios.get(("http://192.168.0.100:5000/api/techs"))
+        axios.get(("http://192.168.1.3:5000/api/techs"))
         .then((res)=>{
             setTechnologiesArray(res.data)
             setIsLoading(false)
