@@ -39,14 +39,6 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 
 #### TECHNOLOGIES: 
 - [x] **Get all:** GET http://localhost:5000/api/techs
-*Require admin token:*
-- [x] **Create one:** POST http://localhost:5000/api/techs
-         - Example body: `{ technologyName: "PHP" }`
-- [x] **Update by ID:** PUT http://localhost:5000/api/techs/:id
-         - :id = technology id
-         - Example body: `{"technologyName": "JavaScript"}`
-- [x] **Delete by ID:** DELETE http://localhost:5000/api/techs/:id
-         - :id = technology id
 
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/techs
@@ -62,13 +54,18 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 
 #### LOCATIONS: 
 - [x] **Get all:** GET http://localhost:5000/api/locations
-          Gets all locations if no query is sent. 
+
+          Gets all locations if no query is sent.
+          
           Gets all locations that matches the query if it is sent.
+          
           Example with query for country id: `http://localhost:5000/api/locations?country=605f75a3670db3da36907438`
+          
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/locations
+
          - Example body: 
-         ```
+         ```javascript
             {
             locationName: "Tucumán", 
             phone: "+54 156 1564 4564", 
@@ -82,11 +79,25 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 
 #### COUNTRIES:
 - [x] **Get all:** GET http://localhost:5000/api/countries
+
+
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/countries
+
+
          - Example body: `{ countryName: "Brasil" }`
+
+
 - [x] **Update by ID:** PUT http://localhost:5000/api/countries/:id
+
+
          - :id = country id
+
+
          - Example body: `{"locationName": "Argentina"}`
+
+
 - [x] **Delete by ID:** DELETE http://localhost:5000/api/countries/:id
+
+
          - :id = country id
