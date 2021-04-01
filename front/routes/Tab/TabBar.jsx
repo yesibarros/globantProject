@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {  useState } from 'react';
 import { View, StyleSheet, Dimensions, Animated } from 'react-native';
 import Tab from './Tab';
 import { LinearGradient } from 'expo-linear-gradient';
