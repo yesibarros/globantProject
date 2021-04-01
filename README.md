@@ -64,7 +64,7 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/locations
 
-         - Example body: 
+- Example body: 
     
     ```javascript
        {
@@ -81,24 +81,19 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 #### COUNTRIES:
 - [x] **Get all:** GET http://localhost:5000/api/countries
 
-
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/countries
 
-
-         - Example body: `{ countryName: "Brasil" }`
+- Example body: `{ countryName: "Brasil" }`
 
 
 - [x] **Update by ID:** PUT http://localhost:5000/api/countries/:id
 
+- :id = country id
 
-         - :id = country id
-
-
-         - Example body: `{"locationName": "Argentina"}`
+- Example body: `{"locationName": "Argentina"}`
 
 
 - [x] **Delete by ID:** DELETE http://localhost:5000/api/countries/:id
 
-
-         - :id = country id
+- :id = country id
