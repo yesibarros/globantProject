@@ -15,13 +15,16 @@ RUTA GET: http://localhost:5000/api/user
 
 RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 - enviar en el header el token
-- recibe en el body un string indicando si busca mentor o mentee --> se esta armando para que devuelva todos:
-  *excluyendose:
-- el id del usuario que lo pidio
-- el id de los mentees o mentor que ya tiene (por eso necesitamos el token)
-  *incluyendose:
-  - areas que concurden para el match
-  - skills que concuerden para el match.
+- Body de ejemplo: 
+```javascript
+{
+    "role":["mentor"],
+    "location": "605fba8c3ccf24250dd12618",
+    "areas": ["605fba8d3ccf24250dd12652","605fba8d3ccf24250dd12650"],
+    "technologies": ["605fba8c3ccf24250dd1264a","605fba8c3ccf24250dd12647","605fba8c3ccf24250dd12646"]
+}
+```
+Nota: los ids pueden cambiar con cada seed. Para asegurarse del correcto funcionamiento de la ruta buscar siempre los ids más actuales.
 
 #### AUTH
 - [x] **Login:** POST http://localhost:5000/api/auth/login
