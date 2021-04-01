@@ -13,7 +13,7 @@ RUTA GET: http://localhost:5000/api/user
 - enviar en el header el token
 - funcion: busca el usuario para ponerlo en perfil (la info del id la saca del token enviado) o si se envia un ID en body, busca el id de ese usuario (si es que quiero renderizar un usuario especifico)
 
-RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
+- [x] **Get matches:** GET: http://localhost:5000/api/user/userstype 
 - enviar en el header el token
 - Body de ejemplo: 
 ```javascript
