@@ -65,14 +65,15 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 - [x] **Create one:** POST http://localhost:5000/api/locations
 
          - Example body: 
-         ```javascript
-            {
-            locationName: "Tucumán", 
-            phone: "+54 156 1564 4564", 
-            address: "Av. Principal 123, Tucumán, Tucumán", 
-            country: "605f75a3670db3da36907438"
-            }
-          ```
+    
+    ```javascript
+       {
+       locationName: "Tucumán", 
+       phone: "+54 156 1564 4564", 
+       address: "Av. Principal 123, Tucumán, Tucumán", 
+       country: "605f75a3670db3da36907438"
+       }
+     ```
 - [x] **Update by ID:** PUT http://localhost:5000/api/locations/:id
          - Example body: `{"locationName": "Tucumán"}`
 - [x] **Delete by ID:** DELETE http://localhost:5000/api/locations/:id
