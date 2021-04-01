@@ -25,22 +25,23 @@ const Configuration = () => {
   const loginUser = useSelector((state) => state.loggedUser.user);
   //AREAS
   const [showMoreAreas, setShowMoreAreas] = React.useState(false)
-  const areasArray = showMoreAreas ? loginUser.areas : loginUser.areas.slice(0,3)
-  const initEditArea = areasArray.length ? false : true
+  const areasArray =  showMoreAreas ? loginUser.areas : loginUser._id && loginUser.areas.slice(0,3)
+  const initEditArea = areasArray && areasArray.length ? false : true
   const [editArea, setEditArea] = React.useState(initEditArea)  
   
   //TECHS
   const [showMore, setShowMore] = React.useState(false)
-  const technologiesArray = showMore ? loginUser.technologies : loginUser.technologies.slice(0,3)
-  const initEditTech = technologiesArray.length ? false : true
+  const technologiesArray = loginUser._id && showMore ? loginUser.technologies : loginUser._id && loginUser.technologies.slice(0,3)
+  const initEditTech = technologiesArray && technologiesArray.length ? false : true
   const [editTech, setEditTech] = React.useState(initEditTech)
 
   React.useEffect(()=>{
-    if(loginUser.areas.length < 1){
+
+    if(loginUser.areas && loginUser.areas.length < 1){
       setEditArea(true)
       setEditTech(false)
     }
-    if(loginUser.areas.length >= 1 && loginUser.technologies.length <1){
+    if(loginUser.areas && loginUser.areas.length >= 1 && loginUser.technologies.length <1){
       setEditArea(false)
       setEditTech(true)
     }
@@ -60,7 +61,7 @@ const Configuration = () => {
         </View>
         
         <View style={styles.mapContainer}>
-          {loginUser.areas.length > 0 && areasArray.map((item) => {
+          {loginUser.areas && loginUser.areas.length > 0 && areasArray.map((item) => {
             return <PillButton title={item.areaName} key={item._id} disabled={true}/> 
             })
           }
@@ -68,7 +69,7 @@ const Configuration = () => {
 
         <AreaModal visible={editArea} setEditArea={setEditArea}/>
         
-        {loginUser.areas.length > 3 && <TouchableOpacity
+        {loginUser.areas && loginUser.areas.length > 3 && <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
             setShowMoreAreas((prevState) => !prevState)
@@ -89,7 +90,7 @@ const Configuration = () => {
         </View>
         
         <View style={styles.mapContainer}>
-          {loginUser.technologies.length > 0 && technologiesArray.map((item) => {
+          {loginUser.technologies && loginUser.technologies.length > 0 && technologiesArray.map((item) => {
             return <PillButton title={item.technologyName} key={item._id} disabled={true}/> 
             })
           }
@@ -98,7 +99,7 @@ const Configuration = () => {
         <TechModal visible={editTech} setEditTech={setEditTech}/>
         
 
-        {loginUser.technologies.length > 3 && <TouchableOpacity
+        {loginUser.technologies && loginUser.technologies.length > 3 && <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
             setShowMore((prevState) => !prevState)

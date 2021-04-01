@@ -15,13 +15,17 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {useSelector, useDispatch} from 'react-redux'
 import { setTheme } from "../../state/Theme/actions";
 import { useTheme } from '@react-navigation/native';
-
+import {logout} from "../../state/loggedUser/actions"
 
 
 
 const ScreenDrawer = (props) => {
 const { colors } = useTheme();
 const dispatch = useDispatch()
+const handleLogout=()=>{
+  dispatch(logout())
+
+}
 const isDarkTheme = useSelector(state => state.darkTheme)
     const toggleTheme =()=>{
         // setIsDarkTheme(!isDarkTheme);
@@ -138,7 +142,7 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             />
           )}
           label="Sign Out"
-        onPress={()=>{}}
+        onPress={handleLogout}
         />
       </Drawer.Section>
     </View>
