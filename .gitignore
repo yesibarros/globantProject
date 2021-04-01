@@ -1,5 +1,11 @@
+node_modules
 */node_modules
 front/node_modules/
 .expo
 .expo-shared
 .vscode
+package-lock.json
+front/.env
+.gitignore
+api/package-lock.json
+api/.gitignore
