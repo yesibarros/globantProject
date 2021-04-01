@@ -3,32 +3,25 @@ import * as React from "react";
 import {
   View,
   Text,
-  Dimensions,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
-  Button
 } from "react-native";
-
+import { useTheme } from '@react-navigation/native';
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal"
 import AreaModal from "./AreaModal"
 
-// const { width } = Dimensions.get("window");
-
-
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../state/loggedUser/thunks";
+import {  useSelector } from "react-redux";
 
 //EXPO 
 import { Ionicons } from '@expo/vector-icons';
 
 const Configuration = () => {
   
-  
-  const dispatch = useDispatch();
+  const { colors } = useTheme();
+
   const loginUser = useSelector((state) => state.loggedUser.user);
   //AREAS
   const [showMoreAreas, setShowMoreAreas] = React.useState(false)
@@ -56,13 +49,13 @@ const Configuration = () => {
   
 
   return (
-    <View style={styles.container}>
-      <View style={styles.areasContainer}>
+    <View style={[styles.container,{backgroundColor:colors.background}]}>
+      <View style={[styles.areasContainer,{backgroundColor:colors.background}]}>
         
-        <View style={styles.titleContainer}>
-          <Text style={styles.text}>Tu Perfil:</Text>
+        <View style={[styles.titleContainer, {backgroundColor:colors.background}]}>
+          <Text style={[styles.text, {color:colors.text}]}>Tu Perfil:</Text>
           <TouchableOpacity onPress={() => setEditArea(true)}> 
-            <Ionicons name="create-outline" size={25}></Ionicons>
+            <Ionicons name="create-outline" color={colors.text} size={25}></Ionicons>
           </TouchableOpacity>
         </View>
         
@@ -89,9 +82,9 @@ const Configuration = () => {
 
       <View style={styles.areasContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.text}>Tus Tecnologías:</Text>
+          <Text style={[styles.text,{color:colors.text}]}>Tus Tecnologías:</Text>
           <TouchableOpacity onPress={() => setEditTech(true)}> 
-            <Ionicons name="create-outline" size={25}></Ionicons>
+            <Ionicons name="create-outline"color={colors.text} size={25}></Ionicons>
           </TouchableOpacity>
         </View>
         
@@ -130,7 +123,7 @@ export default Configuration;
 
 const styles = StyleSheet.create({
   container: {
-    //   backgroundColor: 'blue',
+
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
@@ -161,7 +154,6 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   mapContainer:{
-    // backgroundColor:"blue",
     flexDirection:"row",
     flexWrap:"wrap"
 
@@ -173,6 +165,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   userBtnTxt:{
+    fontSize:20,
     color:'#009387'
   },
   titleContainer: {

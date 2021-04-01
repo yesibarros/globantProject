@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text} from "react-native";
 import Header from "../header/Header";
-
+import { useTheme } from '@react-navigation/native';
 
 export default function Mentees() {
-  
+  const { colors } = useTheme();
     return (
      <View style={styles.container}>
          <Header/>
-         <View style={styles.body}>
-             <Text style={styles.headerText}>PROXIMAMENTE {"\n"} MIS MENTEES</Text>
+         <View style={[styles.body,{backgroundColor:colors.background}]}>
+             <Text style={[styles.headerText, {color:colors.text}]}>PROXIMAMENTE {"\n"} MIS MENTEES</Text>
          </View>
          
      </View>

@@ -6,6 +6,8 @@ import objetivosReducer from "./objetivos/reducer"
 import mentorsReducer from "./mentors/reducer"
 import menteesReducer from "./mentees/reducer"
 import locationsReducer from "./Locations/Reducer"
+import ThemeReducer from "./Theme/reducer"
+
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -15,7 +17,8 @@ const store = configureStore({
         mentors: mentorsReducer,
         objetivos: objetivosReducer,
         posibleMatch: posibleMatchReducer,
-        locations: locationsReducer
+        locations: locationsReducer,
+        darkTheme: ThemeReducer,
     },
 });
 

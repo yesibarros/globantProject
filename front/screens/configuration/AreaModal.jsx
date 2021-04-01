@@ -5,11 +5,13 @@ import axios from "axios"
 import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
+import { useTheme } from '@react-navigation/native';
 
 import localHost from "../../localHostIp";
 
 const AreaModal = ({visible, setEditArea}) => {
 
+    const { colors } = useTheme();
     const [areasArray, setAreasArray]= React.useState([])
     const [isLoading, setIsLoading]= React.useState(true)
     const user = useSelector(state => state.loggedUser.user)
@@ -58,16 +60,16 @@ const AreaModal = ({visible, setEditArea}) => {
             
             {isLoading?
             (
-                <View style={styles.viewContainer}>
+                <View style={[styles.viewContainer, {backgroundColor:colors.background}]}>
                 <ActivityIndicator size="large" color="#0000ff" />
                 </View>
             )       
         
        :(
-            <View style={styles.viewContainer}>
+            <View style={[styles.viewContainer,  {backgroundColor:colors.background}]}>
 
 
-                <Text style={styles.title}>Perfiles:</Text>
+                <Text style={[styles.title, {color:colors.text}]}>Perfiles:</Text>
                 <View style={styles.mapContainer}>
                 {areasArray.length > 0 && areasArray.map((item) => {
                     //const selected = selectedTechs.includes(item)
@@ -100,7 +102,6 @@ const styles = StyleSheet.create({
         marginVertical: 50,
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "white",
         borderRadius:50,
         // shadowOffset:{  width: 10,  height: 10,  },
         shadowColor: 'black',
