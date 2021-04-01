@@ -6,6 +6,8 @@ import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
 
+import localHost from "../../localHostIp";
+
 const AreaModal = ({visible, setEditArea}) => {
 
     const [areasArray, setAreasArray]= React.useState([])
@@ -14,7 +16,7 @@ const AreaModal = ({visible, setEditArea}) => {
     const [selectedAreas, setSelectedAreas] = React.useState(user.areas)
     const dispatch= useDispatch()
     React.useEffect(() => {
-        axios.get(("http://192.168.1.3:5000/api/areas"))
+        axios.get((`http://${localHost}/api/areas`))
         .then((res)=>{
             setAreasArray(res.data)
             setIsLoading(false)
