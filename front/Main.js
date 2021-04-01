@@ -1,6 +1,5 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import ScreenLoad from "./screens/screenLoad/screenLoad";
 import TabBar from "./routes/TabNavigator";
@@ -13,14 +12,26 @@ import { Provider } from "react-redux";
 import EditProfile from './screens/EditProfile/EditProfile';
 import Profile from './screens/profile/Profile'
 import {useSelector} from 'react-redux'
-const Drawer = createDrawerNavigator();
+
 const Stack = createStackNavigator();
+
+const MyTheme = {
+  dark: true,
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(242, 242, 242)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(28, 28, 30)',
+    border: 'rgb(199, 199, 204)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
 
 const Main = () => {
   const loggedUser = useSelector(state => state.loggedUser.user)
 
   return (
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           initialRouteName="ScreenLoad"
           headerMode={false}
@@ -28,7 +39,6 @@ const Main = () => {
           {loggedUser._id ? (
             <>
               <Stack.Screen name="TabBar" component={TabBar}/>
-              {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
             </>
           ) : (
             <>
