@@ -1,19 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
+import DrawerNavigator from "./routes/Drawer/DrawerNavigator"
 import ScreenLoad from "./screens/screenLoad/screenLoad";
-import TabBar from "./routes/TabNavigator";
 import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
-import Configuration from "./screens/configuration/Configuration";
-import PersInfo from "./screens/persInfo/PersInfo";
-import store from "./state/store";
-import { Provider } from "react-redux";
-import EditProfile from './screens/EditProfile/EditProfile';
-import Profile from './screens/profile/Profile'
 import {useSelector} from 'react-redux'
-const Drawer = createDrawerNavigator();
+import 'react-native-gesture-handler'
+
 const Stack = createStackNavigator();
 
 const Main = () => {
@@ -25,10 +19,12 @@ const Main = () => {
           initialRouteName="ScreenLoad"
           headerMode={false}
         >
+
           {loggedUser._id ? (
             <>
-              <Stack.Screen name="TabBar" component={TabBar}/>
-              {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
+           
+              <Stack.Screen name="DrawerNavigator" component={DrawerNavigator}/>
+             
             </>
           ) : (
             <>

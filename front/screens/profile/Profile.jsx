@@ -1,7 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -44,7 +43,7 @@ const Profile = ({ navigation }) => {
   }, [loginUser.technologies, loginUser.areas]);
 
   return (
-    //<SafeAreaView style={styles.container}>
+    
     <ScrollView>
       <View style={styles.container}>
         <Header />
@@ -130,7 +129,7 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
-    //</SafeAreaView>
+   
   );
 };
 
