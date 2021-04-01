@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 
-import { ScrollView, View, Text, TouchableOpacity, TextInput, Alert} from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, TextInput, Alert, Button} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import styles from "./EditProfileStyles";
@@ -11,7 +11,7 @@ import { useTheme } from '@react-navigation/native';
 
 
 
-const EditProfile = () => {
+const EditProfile = ({navigation}) => {
     const { colors } = useTheme();
     const dispatch= useDispatch()
     const loginUser = useSelector((state) => state.loggedUser.user);
@@ -43,6 +43,9 @@ const EditProfile = () => {
               [{ text: "OK", onPress: () => console.log("OK Pressed") }])
           }
       },[])
+
+
+    
 
     return (
   
@@ -133,6 +136,7 @@ const EditProfile = () => {
                         Editar
                     </Text>
                 </TouchableOpacity>}
+                
             </ScrollView>
            
        

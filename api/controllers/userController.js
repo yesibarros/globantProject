@@ -34,8 +34,10 @@ userController.getAllUserbyParam = (req, res, next) => {
     .populate("technologies")
     .then((userstype) => {
       if (!userstype) return res.sendStatus(404);
+      console.log("USUARIOS ENCONTRADOS", userstype)
 
       const bestMatch = orderByMatch(userstype, req.user, areas, technologies);
+      console.log("BEST MATCH", bestMatch)
       res.status(200).send(bestMatch);
     })
     .catch(next);
