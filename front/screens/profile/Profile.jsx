@@ -1,7 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -10,9 +9,10 @@ import {
   KeyboardAvoidingView,
   Alert
 } from "react-native";
+
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
-
+import { useTheme } from '@react-navigation/native';
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -30,6 +30,8 @@ const Profile = ({ navigation }) => {
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
 
+  const { colors } = useTheme();
+
   useEffect(() => {
     dispatch(getLocations());
 
@@ -44,12 +46,12 @@ const Profile = ({ navigation }) => {
   }, [loginUser.technologies, loginUser.areas]);
 
   return (
-    //<SafeAreaView style={styles.container}>
+    
     <ScrollView>
       <View style={styles.container}>
         <Header />
 
-        <View style={styles.body}>
+        <View style={[styles.body ,{backgroundColor:colors.background}]}>
           <View style={{ top: -70, left: width / 3 }}>
             {loginUser.img ? (
               <Avatar
@@ -95,10 +97,10 @@ const Profile = ({ navigation }) => {
             style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
           >
             <Text
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold" , color:colors.text}}
             >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-            <Text style={{ marginTop: 8 }}>{loginUser.email}</Text>
-            <Text style={{ marginTop: 20, alignContent: "center" }}>
+            <Text style={{ marginTop: 8 , color:colors.text}}>{loginUser.email}</Text>
+            <Text style={{ marginTop: 20, alignContent: "center" , color:colors.text}}>
               Soy un Full Stack Developer
             </Text>
           </View>
@@ -112,7 +114,7 @@ const Profile = ({ navigation }) => {
               }
               onPress={() => setShowConfiguration(true)}
             >
-              <Text style={styles.userBtnTxt}>Configuración</Text>
+              <Text style={[styles.userBtnTxt, {color:colors.text}]}>Configuración</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={
@@ -122,7 +124,7 @@ const Profile = ({ navigation }) => {
               }
               onPress={() => setShowConfiguration(false)}
             >
-              <Text style={styles.userBtnTxt}>Datos personales</Text>
+              <Text style={[styles.userBtnTxt,  {color:colors.text}]}>Datos personales</Text>
             </TouchableOpacity>
           </View>
 
@@ -130,7 +132,7 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
-    //</SafeAreaView>
+   
   );
 };
 
