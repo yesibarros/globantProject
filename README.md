@@ -42,12 +42,12 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/techs
-         - Example body: `{ technologyName: "PHP" }`
+- Example body: `{ technologyName: "PHP" }`
 - [x] **Update by ID:** PUT http://localhost:5000/api/techs/:id
-         - :id = technology id
-         - Example body: `{"technologyName": "JavaScript"}`
+- :id = technology id
+- Example body: `{"technologyName": "JavaScript"}`
 - [x] **Delete by ID:** DELETE http://localhost:5000/api/techs/:id
-         - :id = technology id
+- :id = technology id
 
 #### AREAS:
 - [x] **Get all:** GET http://localhost:5000/api/areas
@@ -55,11 +55,11 @@ RUTA GET: http://localhost:5000/api/user/userstype ///RUTA EN ARMADO
 #### LOCATIONS: 
 - [x] **Get all:** GET http://localhost:5000/api/locations
 
-          Gets all locations if no query is sent.
+- Gets all locations if no query is sent.
           
-          Gets all locations that matches the query if it is sent.
+- Gets all locations that matches the query if it is sent.
           
-          Example with query for country id: `http://localhost:5000/api/locations?country=605f75a3670db3da36907438`
+- Example with query for country id: `http://localhost:5000/api/locations?country=605f75a3670db3da36907438`
           
 *Require admin token:*
 - [x] **Create one:** POST http://localhost:5000/api/locations
