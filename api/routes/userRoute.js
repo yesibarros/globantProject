@@ -6,7 +6,7 @@ const {verifyData} = require('../middleware')
 // GET USER PROFILE
 router.get("/", checkJWT, userController.getUser);
 // GET MATCHES
-router.get("/userstype", checkJWT, userController.getAllUserbyParam);
+router.post("/userstype", checkJWT, userController.getAllUserbyParam);
 //UPDATE USER
 router.put('/:id', [checkJWT, verifyData], userController.updateById)
 
