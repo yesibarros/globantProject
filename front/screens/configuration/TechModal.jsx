@@ -6,8 +6,7 @@ import {useSelector, useDispatch} from "react-redux"
 import PillButton from "../../shared/components/PillButton";
 import {updateProfile} from "../../state/loggedUser/thunks"
 
-import localHost from "../../../localHostIp";
-
+import localHost from "../../localHostIp";
 const TechModal = ({visible, setEditTech}) => {
 
     const [technologiesArray, setTechnologiesArray]= React.useState([])

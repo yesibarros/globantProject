@@ -34,9 +34,9 @@ const Main = () => {
 
           {loggedUser._id ? (
             <>
-           
+          
               <Stack.Screen name="DrawerNavigator" component={DrawerNavigator}/>
-             
+          
             </>
           ) : (
             <>
