@@ -63,6 +63,7 @@ const SignIn = ({navigation}) => {
         }
         else{
          // navigation.navigate('Profile')
+          //navigation.navigate('TabBar')
             }
         }
        

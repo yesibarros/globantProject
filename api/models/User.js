@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt')
 const { isEmail } = require("validator");
+const Request = require('./Request')
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -34,6 +35,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  description: {
+    type: String,
+    // required: true,
+  },
   email: {
     type: String,
     unique: true,
@@ -52,6 +57,10 @@ const userSchema = new mongoose.Schema({
       ref: "user",
     },
   ],
+  receivedPendingRequests: {
+    type: Number,
+    default: 0
+  },
   mentor: {
     type: Schema.Types.ObjectId,
     ref: "user",
@@ -76,6 +85,9 @@ const userSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "objective"
   }],
+  wantsEmails: {
+    type: Boolean
+  },
   salt: {
     type: String
   }
@@ -85,7 +97,20 @@ userSchema.virtual("fullName").get(function () {
   return this.firstName + " " + this.lastName;
 });
 
-//INSTANCE METHOD
+//INSTANCE METHODS
+
+userSchema.methods.getPendingRequestsSentToMentees = function () {
+  return Request.find({fromRole: "mentor", status: "pending", from: this._id})
+};
+
+userSchema.methods.getPendingRequestSentToMentor = function () {
+  return Request.find({fromRole: "mentee", status: "pending", from: this._id})
+};
+
+userSchema.methods.getPendingRequests = function () {
+  return Request.find({status: "pending", from: this._id})
+};
+
 userSchema.methods.hash = function (password, salt) {
   return bcrypt.hash(password, salt);
 };

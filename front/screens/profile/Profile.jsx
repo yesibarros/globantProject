@@ -23,6 +23,7 @@ import styles from "./profileStyle";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
+import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
 const Profile = ({ navigation }) => {
@@ -33,17 +34,18 @@ const Profile = ({ navigation }) => {
   const { colors } = useTheme();
 
   useEffect(() => {
+    dispatch(setAnimation())
     dispatch(getLocations());
 
-    if (loginUser.technologies.length < 1 && loginUser.areas.length <1 && !loginUser.location) {
+    if (loginUser.technologies && loginUser.technologies.length < 1 && loginUser.areas.length <1 && !loginUser.location) {
       Alert.alert("Bienvenido!", "Configuremos tu perfil",
               [{ text: "OK", onPress: () => console.log("OK Pressed") }])
     }
     
-    if (loginUser.technologies.length > 0 && loginUser.areas.length >0 && !loginUser.location) {
+    if (loginUser.technologies &&  loginUser.technologies.length > 0 && loginUser.areas.length >0 && !loginUser.location) {
       setShowConfiguration(false);
     }
-  }, [loginUser.technologies, loginUser.areas]);
+  }, [loginUser.technologies, loginUser.areas, loginUser._id]);
 
   return (
     
@@ -78,7 +80,7 @@ const Profile = ({ navigation }) => {
               <Avatar
                 size="xlarge"
                 rounded
-                title={`${loginUser.firstName[0]}${loginUser.lastName[0]}`}
+                title={loginUser._id && `${loginUser.firstName[0]}${loginUser.lastName[0]}`}
                 titleStyle={{
                   color: "white",
                   backgroundColor: "gray",

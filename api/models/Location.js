@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const locationSchema = new mongoose.Schema({
     locationName: {
         type: String,
@@ -20,8 +19,5 @@ const locationSchema = new mongoose.Schema({
         ref: "country"
     }
 },{ versionKey: false });
-
-
-
 
 module.exports= mongoose.model('location', locationSchema)
