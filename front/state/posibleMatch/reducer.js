@@ -1,14 +1,10 @@
-import {createReducer} from "@reduxjs/toolkit"
+import { createReducer } from "@reduxjs/toolkit";
 
-import {getMatchs} from "./thunks"
-import {} from "./actions"
+import { getMatchs } from "./thunks";
+import {} from "./actions";
 
+const matchReducer = createReducer([], {
+  [getMatchs]: (state, action) => action.payload,
+});
 
-
-const matchReducer= createReducer([], {
-    [getMatchs]: (state, action) => action.payload
-   
-})
-
-  
-export default matchReducer
+export default matchReducer;
