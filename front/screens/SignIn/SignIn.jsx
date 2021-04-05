@@ -62,6 +62,7 @@ const SignIn = ({navigation}) => {
         return setWrongUserAlert(true)
         }
         else{
+         // navigation.navigate('Profile')
           //navigation.navigate('TabBar')
             }
         }
