@@ -1,13 +1,15 @@
 import {createReducer} from "@reduxjs/toolkit"
 
 import {getMatchs} from "./thunks"
-import {} from "./actions"
+import { setMatch } from "./actions"
 
+let match= []
 
-
-const matchReducer= createReducer([], {
-    [getMatchs]: (state, action) => action.payload
-   
+const matchReducer= createReducer(match, {
+    [getMatchs.fulfilled]: (state, action) => {
+        state= action.payload
+    },
+   [setMatch]: (state, action) => action.payload
 })
 
   
