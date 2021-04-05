@@ -2,9 +2,16 @@ import React from "react";
 import { StyleSheet, View, Dimensions, Text } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 
-const CardCustom = ({ matchPerson }) => {
+const CardCustom = ({ matchPerson, selected }) => {
+  const borderWidth = selected ? 2 : 0;
+  const borderColor = selected ? "black" : "";
   return (
-    <View style={styles.card}>
+    <View
+      style={[
+        styles.card,
+        { borderWidth: borderWidth, borderColor: borderColor },
+      ]}
+    >
       <View style={styles.cardContent}></View>
 
       <Card.Title
@@ -59,15 +66,17 @@ const CardCustom = ({ matchPerson }) => {
       </Card.Content>
 
       <Card.Actions style={styles.buttonActions}>
-        <Button
-          onPress={() => console.log("Pressed")}
-          mode="contained"
-          color="white"
-        >
-          Cancel
-        </Button>
+        {!selected ? null : (
+          <Button
+            onPress={() => console.log("Pressed")}
+            mode="contained"
+            color="white"
+          >
+            Cancel
+          </Button>
+        )}
         <Button onPress={() => console.log("Pressed")} icon="account-check">
-          For sure!
+          {!selected ? "This one!" : "For sure!"}
         </Button>
       </Card.Actions>
     </View>
@@ -76,21 +85,22 @@ const CardCustom = ({ matchPerson }) => {
 
 export default CardCustom;
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeigth = Dimensions.get("window").height / 2.5;
+const screenWidth = Dimensions.get("window").width / 1.05;
+const screenHeigth = Dimensions.get("window").height / 2.3;
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 20,
+    borderRadius: 10,
     elevation: 3,
     backgroundColor: "lightgrey",
     shadowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    marginTop: 40,
+    marginTop: 20,
     width: screenWidth,
     height: screenHeigth,
+    marginHorizontal: 10,
   },
   cardContent: {
     marginVertical: 2,
@@ -122,8 +132,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonActions: {
-    marginTop: 20,
     justifyContent: "flex-end",
     marginRight: 15,
+    marginTop: 10,
   },
 });
