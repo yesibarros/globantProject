@@ -1,10 +1,10 @@
-const {User, Location, Area, Technology} = require('../models/index')
+const {User, Location, Area, Technology, Request} = require('../models/index')
 const mongoose = require('mongoose')
 
 const verifyData = async (req,res,next)=>{
-    let {email, role, mentees, mentor, location, technologies, areas, workingSince} = req.body
+    let {email, role, mentees, mentor, location, technologies, areas, workingSince, request} = req.body
 
-    if(email || role || mentees || mentor || location || technologies || areas || workingSince){
+    if(email || role || mentees || mentor || location || technologies || areas || workingSince || request){
         try{
             //EMAIL VALIDATION - Checks that user doesn't exist
             if(email){
@@ -36,6 +36,8 @@ const verifyData = async (req,res,next)=>{
             if(mentees){        
                 //Just in case, check that te array is not empty
                 if(!mentees.length) return res.status(400).json({message: "Ups! No mentees were sent"})
+                //Just in case, if objects are sent, extract their _id
+                mentees = mentees.map(mentee=> typeof(mentee)== "object"? mentee._id : mentee)
                 //Remove duplicates
                 mentees = Array.from(new Set(mentees));
                 //Check that the ids are valid mongoose ids
@@ -52,7 +54,8 @@ const verifyData = async (req,res,next)=>{
 
             //MENTOR VALIDATION
             if(mentor){
-                console.log("mentor validation")
+                //Just in case, if mentor is an object, extract the _id
+                mentor = typeof(mentor) == "object"? mentor._id : mentor
                 //Check for valid mongoose id
                 if( !mongoose.Types.ObjectId.isValid(mentor) ) return res.status(400).json({message: `Ups! ${mentor} is not a valid user's id`})
                 //Check that mentor exists
@@ -62,7 +65,6 @@ const verifyData = async (req,res,next)=>{
 
             //TECHNOLOGIES VALIDATION
             if(technologies){
-                console.log("technologies validation")
                 //Just in case, check that te array is not empty
                 if(!technologies.length) return res.status(400).json({message: "Ups! No technologies/skills were sent"})
                 //Remove duplicates
@@ -81,7 +83,6 @@ const verifyData = async (req,res,next)=>{
             
             //AREAS VALIDATION
             if(areas){
-                console.log("areas validation")
                 //Just in case, checks that te array is not empty
                 if(!areas.length) return res.status(400).json({message: "Ups! No areas/profiles were sent"})
                 //Remove duplicates
@@ -110,6 +111,24 @@ const verifyData = async (req,res,next)=>{
             //WORKING SINCE VALIDATION
             if(workingSince){
                 if(workingSince > new Date().getFullYear() || workingSince < 2003) return res.status(400).json({message: `Ups! The year you entered is not a valid year`})
+            }
+
+            //REQUEST VALIDATION
+            if(request){
+                //Just in case, checks that te array is not empty
+                if(!request.length) return res.status(400).json({message: "Ups! No requests were sent"})
+                //Remove duplicates
+                request = Array.from(new Set(request))
+                //Check that ids are valid mongoose ids
+                for(let i = 0; i < request.length; i++){
+                    if( !mongoose.Types.ObjectId.isValid(request[i]) ) return res.status(400).json({message: `Ups! ${request[i]} is not a valid request id`})
+                }
+                //Check that request exist
+                const realRequests = await Request.find({_id: {$in: request}})
+                const realRequestsIds = realRequests.map(rr => rr._id.toString())
+                for (let i = 0; i < request.length; i++){
+                    if(!realRequestsIds.includes(request[i])) return res.status(400).json({message: `Ups! ${request[i]} is not an existing request id`})
+                }
             }
 
         } catch(err){

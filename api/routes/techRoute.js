@@ -8,10 +8,10 @@ const { JWTmiddleware, roles } = require('../middleware')
 //GET ALL TECHNOLOGIES
 router.get('/', techController.getAll)
 //CREATE ONE
-router.post('/', [JWTmiddleware, roles.isAdmin], techController.createOne)
+router.post('/', [JWTmiddleware, roles.isAdmin, roles.isMentor], techController.createOne)
 //UPDATE BY ID
-router.put('/:id', [JWTmiddleware, roles.isAdmin], techController.modifyOne)
+router.put('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], techController.modifyOne)
 //DELETE BY ID
-router.delete('/:id', [JWTmiddleware, roles.isAdmin], techController.deleteOne)
+router.delete('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], techController.deleteOne)
 
 module.exports = router
