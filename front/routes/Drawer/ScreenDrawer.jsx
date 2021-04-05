@@ -12,11 +12,24 @@ import {
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import styles from "./drawerStyles"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-const ScreenDrawer = (props) => {
-const [isDarkTheme, setIsDarkTheme]=React.useState(false);
+import {useSelector, useDispatch} from 'react-redux'
+import { setTheme } from "../../state/Theme/actions";
+import { useTheme } from '@react-navigation/native';
+import {logout} from "../../state/loggedUser/actions"
 
+
+
+const ScreenDrawer = (props) => {
+const { colors } = useTheme();
+const dispatch = useDispatch()
+const handleLogout=()=>{
+  dispatch(logout())
+
+}
+const isDarkTheme = useSelector(state => state.darkTheme)
     const toggleTheme =()=>{
-        setIsDarkTheme(!isDarkTheme);
+        // setIsDarkTheme(!isDarkTheme);
+        dispatch(setTheme())
     }
   return (
     <View style={{ flex: 1 }}>
@@ -38,11 +51,11 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
                 <View style={styles.row}>
                     <View style={styles.section}>
                         <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                        <Caption style={styles.caption}>Followig</Caption>
+                        <Caption style={[styles.caption], {marginLeft:10}}>Mentor</Caption>
                     </View>
                     <View style={styles.section}>
                         <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                        <Caption style={styles.caption}>Follower</Caption>
+                        <Caption style={[styles.caption], {marginLeft:10}}>Mentees</Caption>
                     </View>
                 </View>
             </View>
@@ -81,7 +94,7 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
           label="Bookmarks"
         onPress={()=>{}}
         />
-        <DrawerItem
+        {/* <DrawerItem
           icon={({ color, size }) => (
             <Icon 
             name="settings-outline" 
@@ -91,7 +104,7 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
           )}
           label="Settings"
         onPress={()=>{}}
-        />
+        /> */}
         <DrawerItem
           icon={({ color, size }) => (
             <Icon 
@@ -103,10 +116,11 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
           label="Support"
         onPress={()=>{}}
         />
+        </Drawer.Section>
         <Drawer.Section title="Preferences">
 <TouchableRipple onPress={()=>{toggleTheme()}}>
-    <View>
-        <Text style={styles.preference}>
+    <View style={styles.preference}>
+        <Text style={{color:colors.text}}>
             Dark Theme
         </Text>
         <View pointerEvents="none">
@@ -115,7 +129,6 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
         </View>
     </View>
 </TouchableRipple>
-        </Drawer.Section>
             </Drawer.Section>
         </View>
       </DrawerContentScrollView>
@@ -129,7 +142,7 @@ const [isDarkTheme, setIsDarkTheme]=React.useState(false);
             />
           )}
           label="Sign Out"
-        onPress={()=>{}}
+        onPress={handleLogout}
         />
       </Drawer.Section>
     </View>

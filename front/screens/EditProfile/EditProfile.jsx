@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from "react";
-import Header from "../header/Header";
-import { KeyboardAvoidingView, ScrollView, View, Text, TouchableOpacity, TextInput, Alert} from "react-native";
+
+import { ScrollView, View, Text, TouchableOpacity, TextInput, Alert, Button} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { Avatar } from "react-native-elements";
+
 import styles from "./EditProfileStyles";
 import {useSelector, useDispatch} from 'react-redux';
 import {updateProfile} from "../../state/loggedUser/thunks"
 import SelectPicker from 'react-native-form-select-picker';
-import * as Animatable from 'react-native-animatable';
+import { useTheme } from '@react-navigation/native';
+
+
 
 const EditProfile = ({navigation}) => {
-
+    const { colors } = useTheme();
     const dispatch= useDispatch()
     const loginUser = useSelector((state) => state.loggedUser.user);
     const initEditMode = loginUser.location ? false : true
@@ -42,54 +44,65 @@ const EditProfile = ({navigation}) => {
           }
       },[])
 
+
+    
+
     return (
   
-        <ScrollView style={!editMode ? styles.container : styles.editComponent}>
+        <ScrollView style={[!editMode ? styles.container : styles.editComponent, {backgroundColor:colors.background}]}>
             
                 <View style={styles.action}>
-                    <FontAwesome name="user-o" color="#05375a" size={20}/>
-                    <Text style={styles.textEdit}>
+                    <FontAwesome name="user-o" color={colors.text} size={20}/>
+                    <Text style={[styles.textEdit,{color:colors.text}]}>
                         Nombre: 
                     </Text>
                     {editMode ?<TextInput
+
                         placeholder={loginUser.firstName}
-                        style={styles.textInput}
+                        placeholderTextColor={colors.text}
+                        style={[styles.textInput,{color:colors.text}]}
                         autoCapitalize="none"
                         onChangeText={(val) => handleFirstNameChange(val)}
-                    />: <Text style={styles.textEdit}>{loginUser.firstName}</Text> }
+                    />: <Text style={[styles.textEdit,{color:colors.text}]}>{loginUser.firstName}</Text> }
                 </View>
 
                 <View style={styles.action}>
-                    <FontAwesome name="user-o" color="#05375a" size={20}/>
-                    <Text style={styles.textEdit}>
+                    <FontAwesome name="user-o" color={colors.text} size={20}/>
+                    <Text style={[styles.textEdit, {color:colors.text}]}>
                         Apellido: 
                     </Text>
                     {editMode ? <TextInput
                         placeholder={loginUser.lastName}
-                        style={styles.textInput}
+                        placeholderTextColor={colors.text}
+                        style={[styles.textInput, {color:colors.text}]}
                         autoCapitalize="none"
                         onChangeText={(val) => handleLastNameChange(val)}
-                    />: <Text style={styles.textEdit}>{loginUser.lastName}</Text>}
+                    />: <Text style={[styles.textEdit, {color:colors.text}]}>{loginUser.lastName}</Text>}
                 </View>
                 
                 <View style={styles.action}>
-                    <FontAwesome name="user-o" color="#05375a" size={20}/>
-                    <Text style={styles.textEdit}>
+                    <FontAwesome name="user-o" color={colors.text} size={20}/>
+                    <Text style={[styles.textEdit, {color:colors.text}]}>
                         Sede: 
                     </Text>
                     {editMode ? <SelectPicker
+                       
+                        placeholderStyle={{color: colors.text}}
+                        containerStyle={{backgroundColor:colors.background}}
                         onValueChange={(value) => {
                             setSelected(value);
                         }}
                             selected={selected}
-                            style={styles.inputLocation}
+                            style={[styles.inputLocation,{backgroundColor:colors.background}]}
                             placeholder="Elegí tu sede"
+                            placeholderTextColor={colors.text}
                         >
                         
                         {locations.length > 0 &&
                             locations.map((val) => {
                                 return(
-                                    <SelectPicker.Item label={`${val.locationName} (${val.country.countryName})`} 
+                                    <SelectPicker.Item 
+                                    label={`${val.locationName} (${val.country.countryName})`} 
                                     value={val._id} key={val._id}/>
                                 )
                             }
@@ -98,7 +111,7 @@ const EditProfile = ({navigation}) => {
 
                     </SelectPicker>
                     :
-                    loginUser.location ?  <Text style={styles.textEdit}>{loginUser.location.locationName}</Text>: null
+                    loginUser.location ?  <Text style={[styles.textEdit, {color:colors.text}]}>{loginUser.location.locationName}</Text>: null
                    }
 
                 </View>
@@ -108,13 +121,13 @@ const EditProfile = ({navigation}) => {
                     style={styles.userBtn}
                     onPress={handleEdit}
                 >
-                    <Text style={styles.text}
+                    <Text style={[styles.text, {color:colors.text}]}
                         
                     >
                         Guardar
                     </Text>
                 </TouchableOpacity>: <TouchableOpacity
-                    style={styles.userBtn}
+                    style={[styles.userBtn,{color:colors.text}]}
                     onPress={()=>setEditMode(true)}
                 >
                     <Text style={styles.text}
@@ -123,6 +136,7 @@ const EditProfile = ({navigation}) => {
                         Editar
                     </Text>
                 </TouchableOpacity>}
+                
             </ScrollView>
            
        

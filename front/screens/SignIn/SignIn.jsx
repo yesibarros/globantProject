@@ -61,6 +61,9 @@ const SignIn = ({navigation}) => {
       if(data.meta.requestStatus == "rejected"){
         return setWrongUserAlert(true)
         }
+        else{
+          //navigation.navigate('TabBar')
+            }
         }
        
       )

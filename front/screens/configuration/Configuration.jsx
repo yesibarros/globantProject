@@ -3,51 +3,45 @@ import * as React from "react";
 import {
   View,
   Text,
-  Dimensions,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
-  Button
 } from "react-native";
-
+import { useTheme } from '@react-navigation/native';
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal"
 import AreaModal from "./AreaModal"
 
-// const { width } = Dimensions.get("window");
-
-
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../state/loggedUser/thunks";
+import {  useSelector } from "react-redux";
 
 //EXPO 
 import { Ionicons } from '@expo/vector-icons';
 
 const Configuration = () => {
   
-  
-  const dispatch = useDispatch();
+  const { colors } = useTheme();
+
   const loginUser = useSelector((state) => state.loggedUser.user);
   //AREAS
   const [showMoreAreas, setShowMoreAreas] = React.useState(false)
-  const areasArray = showMoreAreas ? loginUser.areas : loginUser.areas.slice(0,3)
-  const initEditArea = areasArray.length ? false : true
+  const areasArray =  showMoreAreas ? loginUser.areas : loginUser._id && loginUser.areas.slice(0,3)
+  const initEditArea = areasArray && areasArray.length ? false : true
   const [editArea, setEditArea] = React.useState(initEditArea)  
   
   //TECHS
   const [showMore, setShowMore] = React.useState(false)
-  const technologiesArray = showMore ? loginUser.technologies : loginUser.technologies.slice(0,3)
-  const initEditTech = technologiesArray.length ? false : true
+  const technologiesArray = loginUser._id && showMore ? loginUser.technologies : loginUser._id && loginUser.technologies.slice(0,3)
+  const initEditTech = technologiesArray && technologiesArray.length ? false : true
   const [editTech, setEditTech] = React.useState(initEditTech)
 
   React.useEffect(()=>{
-    if(loginUser.areas.length < 1){
+
+    if(loginUser.areas && loginUser.areas.length < 1){
       setEditArea(true)
       setEditTech(false)
     }
-    if(loginUser.areas.length >= 1 && loginUser.technologies.length <1){
+    if(loginUser.areas && loginUser.areas.length >= 1 && loginUser.technologies.length <1){
       setEditArea(false)
       setEditTech(true)
     }
@@ -56,18 +50,18 @@ const Configuration = () => {
   
 
   return (
-    <View style={styles.container}>
-      <View style={styles.areasContainer}>
+    <View style={[styles.container,{backgroundColor:colors.background}]}>
+      <View style={[styles.areasContainer,{backgroundColor:colors.background}]}>
         
-        <View style={styles.titleContainer}>
-          <Text style={styles.text}>Tu Perfil:</Text>
+        <View style={[styles.titleContainer, {backgroundColor:colors.background}]}>
+          <Text style={[styles.text, {color:colors.text}]}>Tu Perfil:</Text>
           <TouchableOpacity onPress={() => setEditArea(true)}> 
-            <Ionicons name="create-outline" size={25}></Ionicons>
+            <Ionicons name="create-outline" color={colors.text} size={25}></Ionicons>
           </TouchableOpacity>
         </View>
         
         <View style={styles.mapContainer}>
-          {loginUser.areas.length > 0 && areasArray.map((item) => {
+          {loginUser.areas && loginUser.areas.length > 0 && areasArray.map((item) => {
             return <PillButton title={item.areaName} key={item._id} disabled={true}/> 
             })
           }
@@ -75,7 +69,7 @@ const Configuration = () => {
 
         <AreaModal visible={editArea} setEditArea={setEditArea}/>
         
-        {loginUser.areas.length > 3 && <TouchableOpacity
+        {loginUser.areas && loginUser.areas.length > 3 && <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
             setShowMoreAreas((prevState) => !prevState)
@@ -89,14 +83,14 @@ const Configuration = () => {
 
       <View style={styles.areasContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.text}>Tus Tecnologías:</Text>
+          <Text style={[styles.text,{color:colors.text}]}>Tus Tecnologías:</Text>
           <TouchableOpacity onPress={() => setEditTech(true)}> 
-            <Ionicons name="create-outline" size={25}></Ionicons>
+            <Ionicons name="create-outline"color={colors.text} size={25}></Ionicons>
           </TouchableOpacity>
         </View>
         
         <View style={styles.mapContainer}>
-          {loginUser.technologies.length > 0 && technologiesArray.map((item) => {
+          {loginUser.technologies && loginUser.technologies.length > 0 && technologiesArray.map((item) => {
             return <PillButton title={item.technologyName} key={item._id} disabled={true}/> 
             })
           }
@@ -105,7 +99,7 @@ const Configuration = () => {
         <TechModal visible={editTech} setEditTech={setEditTech}/>
         
 
-        {loginUser.technologies.length > 3 && <TouchableOpacity
+        {loginUser.technologies && loginUser.technologies.length > 3 && <TouchableOpacity
           style={styles.userBtn}
           onPress={() => {
             setShowMore((prevState) => !prevState)
@@ -130,7 +124,7 @@ export default Configuration;
 
 const styles = StyleSheet.create({
   container: {
-    //   backgroundColor: 'blue',
+
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
@@ -161,7 +155,6 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   mapContainer:{
-    // backgroundColor:"blue",
     flexDirection:"row",
     flexWrap:"wrap"
 
@@ -173,6 +166,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   userBtnTxt:{
+    fontSize:20,
     color:'#009387'
   },
   titleContainer: {
