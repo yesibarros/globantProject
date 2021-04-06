@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Dimensions, Text } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 
-const CardCustom = ({ matchPerson, selected }) => {
+const CardCustom = ({ matchPerson, selected, cancelButton }) => {
   const borderWidth = selected ? 2 : 0;
   const borderColor = selected ? "black" : "";
   return (
@@ -67,11 +67,7 @@ const CardCustom = ({ matchPerson, selected }) => {
 
       <Card.Actions style={styles.buttonActions}>
         {!selected ? null : (
-          <Button
-            onPress={() => console.log("Pressed")}
-            mode="contained"
-            color="white"
-          >
+          <Button onPress={() => cancelButton()} mode="contained" color="white">
             Cancel
           </Button>
         )}

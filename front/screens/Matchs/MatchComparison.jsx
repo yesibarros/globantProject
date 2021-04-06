@@ -9,26 +9,26 @@ import { setMatch } from "../../state/posibleMatch/actions";
 
 // import matches from "./egMatch";
 
-const MatchComparison = () => {
+const MatchComparison = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
 
   const allMatches = useSelector((state) => state.matchs.allMatches);
   const [posibleMatch, setPosibleMatch] = React.useState({});
 
-  React.useEffect(() => {
-    dispatch(getMatchs());
-  }, []);
+  const cancelButton = () => {
+    return navigation.navigate("SearchMatch");
+  };
 
-  React.useEffect(() => {
-    setPosibleMatch(allMatches[0]);
-    //     setMatch(allMatches[0]);
-  }, [allMatches]);
+  const okButton = () => {};
 
   return (
     <View>
-      <CardCustom matchPerson={posibleMatch} selected="true" />
-
+      <CardCustom
+        matchPerson={singleMatch}
+        selected="true"
+        cancelButton={cancelButton}
+      />
       <ScrollView horizontal pagingEnabled={true} fadingEdgeLength={20}>
         {allMatches.map((option, i) => {
           return <CardCustom matchPerson={option} key={i} />;
