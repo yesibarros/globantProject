@@ -56,12 +56,12 @@ const transitionRef = React.createRef();
 
 
 
-export default function App() {
+export default function App({navigation}) {
 
   const dispatch = useDispatch();
-  const loggedUser = useSelector((state) => state.loggedUser.user);
-  let usuariosMatcheados = [];
-  const matches = useSelector((state) => state.matchs);
+  
+  const matches = useSelector((state) => state.matchs.allMatches);
+  const Smatches = useSelector((state) => state.matchs.singleMatch);
   const [index, setIndex] = React.useState(0);
 
   const onSwiped = () => {
@@ -71,27 +71,8 @@ export default function App() {
   };
 
   useEffect(() => {
-    let areasUsuario = loggedUser.areas.map((area) => {
-      return area._id;
-    });
-
-    let tecnologiasUsuario = loggedUser.technologies.map((tech) => {
-      return tech._id;
-    });
-
-    let obj = {
-      role: loggedUser.role,
-      location: loggedUser.location._id,
-      areas: areasUsuario,
-      technologies: tecnologiasUsuario,
-    };
-
-    dispatch(getMatchs(obj)).then((data) => {
-      
-      usuariosMatcheados = data.payload;
-      dispatch(setMatch(usuariosMatcheados));
-      
-    });
+   
+    dispatch(getMatchs())
     
   }, []);
   const Card = ({ card }) => {
@@ -118,7 +99,10 @@ export default function App() {
       <Text style={[styles.text, styles.price]}>{matches[index].role}</Text>
     </View>
   );
+
+console.log("ver smatches en otro lugar", Smatches)
   return (
+    
     <SafeAreaView style={styles.container}>
       
       <MaterialCommunityIcons
@@ -221,7 +205,15 @@ export default function App() {
             underlayColor="transparent"
             activeOpacity={0.3}
             color={colors.blue}
-            onPress={() => swiperRef.current.swipeRight()}
+            onPress={() => {
+              return(
+                swiperRef.current.swipeRight(),
+                dispatch(setMatch(matches[index])))
+                // navigation.navigate("MatchComparison")
+                console.log("ver smatches en el lugar del dispatch", Smatches)
+
+            } }
+            
           />
         </View>
       </View>

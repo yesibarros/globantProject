@@ -7,7 +7,7 @@ import Mentees from "../../screens/Mentees/Mentees"
 import Search from "../../screens/Match/Search"
 import Progress from "../../screens/Progress/Progress";
 
-import MatchComparison from "../../screens/Matchs/MatchComparison";
+// import MatchComparison from "../../screens/Matchs/MatchComparison";
 
 const Tab = createBottomTabNavigator();
 
