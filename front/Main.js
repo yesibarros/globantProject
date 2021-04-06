@@ -8,6 +8,7 @@ import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
 import {useSelector} from 'react-redux'
 import 'react-native-gesture-handler'
+import Tutorial from "./screens/tutorialApp/Tutorial";
 const Stack = createStackNavigator();
 
 const MyTheme = {
@@ -51,9 +52,9 @@ const Main = () => {
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
   return (
-         <PaperProvider theme={theme}>
+        <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
-       
+      
         <Stack.Navigator
           initialRouteName="ScreenLoad"
           headerMode={false}
@@ -63,8 +64,8 @@ const Main = () => {
             <>
           
               <Stack.Screen name="DrawerNavigator" component={DrawerNavigator}/>
-             
-             
+            
+            
             </>
           ) : (
             

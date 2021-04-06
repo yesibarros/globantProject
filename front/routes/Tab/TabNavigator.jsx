@@ -5,7 +5,7 @@ import TabBar from "./TabBar";
 import Mentees from "../../screens/Mentees/Mentees"
 import Progress from "../../screens/Progress/Progress"
 import Matchs from "../../screens/Matchs/Matchs";
-
+import Tutorial from '../../screens/tutorialApp/Tutorial';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +15,7 @@ export default function MyTabs(props) {
         <Tab.Screen name="Mi perfil" component={Profile} />
         <Tab.Screen name="Matchs" component={Matchs} />
         <Tab.Screen name="Mis mentees" component={Mentees} />
+        <Tab.Screen name="Tutorial" component={Tutorial} />
       </Tab.Navigator>
 
   );
