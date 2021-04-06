@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Image,
   StatusBar,
@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
-
 
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
@@ -54,12 +53,9 @@ const transition = (
 const swiperRef = React.createRef();
 const transitionRef = React.createRef();
 
-
-
-export default function App({navigation}) {
-
+export default function App({ navigation }) {
   const dispatch = useDispatch();
-  
+
   const matches = useSelector((state) => state.matchs.allMatches);
   const Smatches = useSelector((state) => state.matchs.singleMatch);
   const [index, setIndex] = React.useState(0);
@@ -67,44 +63,45 @@ export default function App({navigation}) {
   const onSwiped = () => {
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % matches.length);
-   
   };
 
   useEffect(() => {
-   
-    dispatch(getMatchs())
-    
+    dispatch(getMatchs());
   }, []);
   const Card = ({ card }) => {
     return (
-       
       <View style={styles.card}>
+        {card && (
+          <View>
+            <CardDetails index={index} />
 
-      {card && 
-        <View >
-           <CardDetails index={index} />
-           
-        <Image source={{ uri: card.img }} style={styles.cardImage} />
-        </View>
-        }
+            <Image source={{ uri: card.img }} style={styles.cardImage} />
+          </View>
+        )}
       </View>
     );
   };
-  
+
   const CardDetails = ({ index }) => (
-    <View key={matches[index].id} style={{ alignItems: 'center' }}>
-      <Text style={[styles.text, styles.heading],{marginTop:20}} numberOfLines={2}>
+    <View key={matches[index].id} style={{ alignItems: "center" }}>
+      <Text
+        style={([styles.text, styles.heading], { marginTop: 20 })}
+        numberOfLines={2}
+      >
         {matches[index].firstName}
       </Text>
       <Text style={[styles.text, styles.price]}>{matches[index].role}</Text>
     </View>
   );
 
-console.log("ver smatches en otro lugar", Smatches)
+  const preSelectMatch = (currentMatch) => {
+    dispatch(setMatch(currentMatch));
+    navigation.navigate("MatchComparison");
+  };
+
+  console.log("ver smatches en otro lugar", Smatches);
   return (
-    
     <SafeAreaView style={styles.container}>
-      
       <MaterialCommunityIcons
         name="crop-square"
         size={width}
@@ -119,8 +116,9 @@ console.log("ver smatches en otro lugar", Smatches)
       />
       <StatusBar hidden={true} />
       <View style={styles.swiperContainer}>
-     
         <Swiper
+          onSwipedRight={(index) => preSelectMatch(matches[index])}
+          onSwipedLeft={(i) => console.log(i)}
           ref={swiperRef}
           cards={matches}
           cardIndex={index}
@@ -180,14 +178,11 @@ console.log("ver smatches en otro lugar", Smatches)
         />
       </View>
       <View style={styles.bottomContainer}>
-        
         <Transitioning.View
           ref={transitionRef}
           transition={transition}
           style={styles.bottomContainerMeta}
-        >
-         
-        </Transitioning.View>
+        ></Transitioning.View>
         <View style={styles.bottomContainerButtons}>
           <MaterialCommunityIcons.Button
             name="close"
@@ -206,14 +201,8 @@ console.log("ver smatches en otro lugar", Smatches)
             activeOpacity={0.3}
             color={colors.blue}
             onPress={() => {
-              return(
-                swiperRef.current.swipeRight(),
-                dispatch(setMatch(matches[index])))
-                // navigation.navigate("MatchComparison")
-                console.log("ver smatches en el lugar del dispatch", Smatches)
-
-            } }
-            
+              preSelectMatch(matches[index]);
+            }}
           />
         </View>
       </View>
@@ -241,11 +230,11 @@ const styles = StyleSheet.create({
   cardImage: {
     flex: 1,
     width: 380,
-    marginBottom:200,
+    marginBottom: 200,
     resizeMode: "contain",
   },
   card: {
-    flex: 0.70,
+    flex: 0.7,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,
@@ -266,7 +255,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     backgroundColor: "transparent",
   },
-  text: { fontFamily: "Courier" },
+  // text: { fontFamily: "Courier" },
   heading: { fontSize: 24, marginBottom: 10, color: colors.gray },
   price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
 });
