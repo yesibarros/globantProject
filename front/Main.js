@@ -8,10 +8,10 @@ import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
 import {useSelector} from 'react-redux'
 import 'react-native-gesture-handler'
-
 const Stack = createStackNavigator();
 
 const Main = () => {
+  const showAnimation=useSelector(state=> state.animation)
   const loggedUser = useSelector(state => state.loggedUser.user)
   const isDarkTheme = useSelector(state => state.darkTheme)
   
@@ -52,12 +52,25 @@ const Main = () => {
            
               <Stack.Screen name="DrawerNavigator" component={DrawerNavigator}/>
              
+             
             </>
           ) : (
+            
+            <>
+            {showAnimation ? 
             <>
               <Stack.Screen name="ScreenLoad" component={ScreenLoad} />
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
+              </>
+              :
+              <>
+              <Stack.Screen name="SignIn" component={SignIn} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+              </>
+
+          }
+            
             </>
           )}
         </Stack.Navigator>
