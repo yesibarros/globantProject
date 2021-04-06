@@ -108,7 +108,7 @@ userSchema.methods.getPendingRequestSentToMentor = function () {
 };
 
 userSchema.methods.getPendingRequests = function () {
-  return Request.find({status: "pending", from: this._id})
+  return Request.find({status: "pending", $or: [{from: this._id},{to: this._id}]}).populate("from").populate("to")
 };
 
 userSchema.methods.hash = function (password, salt) {
