@@ -4,6 +4,7 @@ const acceptRequest = require('./acceptRequest')
 const cancelRequest = require('./cancelRequest')
 const getMatchs = require('./getMatchs')
 const getUser = require('./getUser')
+const getPendingRequests = require('./getPendingRequests')
 
 module.exports = {
                     getUser,
@@ -11,5 +12,6 @@ module.exports = {
                     updateById,
                     getMatchs, 
                     acceptRequest, 
-                    cancelRequest
+                    cancelRequest,
+                    getPendingRequests
                 }

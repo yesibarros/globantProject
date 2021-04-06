@@ -51,12 +51,22 @@ RUTA GET: http://localhost:5000/api/user
 }
 ```
 *Si no se especifica un mensaje el mensaje por defecto es "¡Hola! me gustaría ser tu mentee/mentor"*
+
 *En el caso del mentor, está previsto que pueda enviar una solicitud a varios mentees (sin exceder su cantidad de mentees máxima) para poder disminuir los pedidos al back*
 - Devuelve un arreglo de todas las requests con estado pendiente que hizo el usuario
 
-- [ ] **Accept request:** PUT http://localhost:500/api/users/:id/acceptRequest
-
-
+- [x] **Accept request:** PUT http://localhost:500/api/users/:id/acceptRequest
+- :id = userId(_id)
+- Enviar en el header el token del usuario
+- Cambia el estado de las solicitudes enviadas a "accepted"
+- Ejemplo de body:
+```javascript
+{
+  "request":["6068e49f179298556a95f9f7","60691b0c3c7b051e9e37ddc0"]
+}
+```
+*Se pueden enviar varias requests para aceptar todas en un solo pedido*
+- Devuelve el user y un arreglo de las requests con estado pendiente que hizo el usuario
 
 #### AUTH
 - [x] **Login:** POST http://localhost:5000/api/auth/login
