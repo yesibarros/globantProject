@@ -18,9 +18,9 @@ mongoose
   )
   .then(() => console.log("DB CONNECT!!"))
   .catch((e) => console.log("DB NO CONNECT ERROR", e));
-
+  
 //BASE LOCAL DE PRUEBA
-// mongoose.connect("mongodb://localhost/globant", {
+// mongoose.connect(`mongodb://localhost/globant`, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 //   useFindAndModify: false,

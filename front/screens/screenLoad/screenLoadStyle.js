@@ -16,13 +16,7 @@ const styles = StyleSheet.create({
         top: 0,
         height: 300,
     },
-    bottomBackground: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: 300,
-    },
+  
 
 });
 

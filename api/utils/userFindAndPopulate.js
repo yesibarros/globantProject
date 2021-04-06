@@ -14,6 +14,14 @@ const userFindAndPopulate = (object) => {
       path: "mentor",
       select: "firstName lastName _id img location",
     })
+    .populate({
+      path: "pendingMentors",
+      select: "firstName lastName _id img location",
+    })
+    .populate({
+      path: "pendingMentees",
+      select: "firstName lastName _id img location",
+    })
     .populate("areas")
     .populate("objectives")
     .populate("technologies");

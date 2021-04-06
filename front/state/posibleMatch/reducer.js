@@ -1,16 +1,23 @@
-import {createReducer} from "@reduxjs/toolkit"
+import { createReducer } from "@reduxjs/toolkit";
 
-import {getMatchs} from "./thunks"
-import { setMatch } from "./actions"
+import { getMatchs } from "./thunks";
+import { setMatch } from "./actions";
 
-let match= []
+let match = {
+  allMatches: [],
+  singleMatch: {},
+  // los tres que elijo para el mentor ////
+};
 
-const matchReducer= createReducer(match, {
-    [getMatchs.fulfilled]: (state, action) => {
-        state= action.payload
-    },
-   [setMatch]: (state, action) => action.payload
-})
+const matchReducer = createReducer(match, {
+  [getMatchs.fulfilled]: (state, action) => {
+    return { ...state, allMatches: action.payload };
+  },
+  // [setMatch]: (state, action) => {
+  //   console.log("reducerrrrrrrrrrrrrrr")
+  //   console.log(action.payload)
+  //   return { ...state, singleMatch: action.payload };
+  // },
+});
 
-  
-export default matchReducer
+export default matchReducer;
