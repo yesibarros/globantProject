@@ -14,8 +14,7 @@ authController.login = (req, res, next) => {
     if (!user) return res.status(400).send("User not found");
 
     user.hash(password, user.salt).then((hashPassword) => {
-      if (hashPassword !== user.password)
-        return res.status(400).send("Invalid credentials");
+      if (hashPassword !== user.password) return res.status(400).send("Invalid credentials");
 
       user.password = 0;
       user.salt = 0;

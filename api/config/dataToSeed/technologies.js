@@ -52,7 +52,40 @@ const technologiesArray = [
                 {
                     technologyName:"Angular", 
                     technologyWeight:4
-                }
+                },
+                {
+                    technologyName:"Docker", 
+                    technologyWeight:3
+                },
+                {
+                    technologyName:"Python", 
+                    technologyWeight:6
+                },
+                {
+                    technologyName:"NumPy", 
+                    technologyWeight:2
+                },
+                {
+                    technologyName:"Django", 
+                    technologyWeight:4
+                },
+                {
+                    technologyName:"Laravel", 
+                    technologyWeight:4
+                },
+                {
+                    technologyName:"GraphQL", 
+                    technologyWeight:3
+                },
+                {
+                    technologyName:"Material-UI", 
+                    technologyWeight:1
+                },
+                {
+                    technologyName:"Bootstrap", 
+                    technologyWeight:1
+                },
+
             ]
 
 module.exports = technologiesArray

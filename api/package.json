@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "LOCAL_SERVER=globant nodemon server.js",
+    "test": "LOCAL_SERVER=testGlobant mocha --reporter spec",
     "seed": "node config/seed.js"
   },
   "keywords": [],
@@ -22,7 +22,11 @@
     "lorem-ipsum": "^2.0.3",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.5.0",
     "nodemon": "^2.0.7",
     "validator": "^13.5.2"
+  },
+  "devDependencies": {
+
   }
 }
