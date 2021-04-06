@@ -1,6 +1,7 @@
 // CONFIG: Change these values as needed
 const areasArray = ["FrontEnd", "Node Developer", "PHP Developer", "Leadership", "Automated Testing"]
 const objectiveNames = ["Aprender JavaScript", "Aprender Node", "Hacer el back en un proyecto", "Aprender HTML", "Aprender PHP", "Hacer curso de SCRUM", "Aprender Jasmine", "Trabajar en 10 proyectos", "Aprender Redux"]
+const desriptionsArray = ["Soy Full Stack Developer", "Node Developer", "Front End Developer", "I Love CODE", "I Love JavaScript"]
 const maxAmountOfTechnologiesPerUser = 15
 const maxAmountOfAreasPerUser = 5
 const maxAmountOfObjectivesPerUser = 6
@@ -141,7 +142,9 @@ const setup = async () => {
             objectives: getRandom(objectives, maxAmountOfObjectivesPerUser),
             areas: getRandom(areas, maxAmountOfAreasPerUser),
             technologies: getRandom(technologies, maxAmountOfTechnologiesPerUser),
-            location: locations[Math.floor(Math.random() * locations.length)]
+            location: locations[Math.floor(Math.random() * locations.length)],
+            wantsEmails: [true, false][Math.floor(Math.random()*2)],
+            description: getRandom(desriptionsArray, 1).toString()
         })
     }
 
@@ -157,7 +160,9 @@ const setup = async () => {
             img: faker.image.image(),
             areas: getRandom(areas, maxAmountOfAreasPerUser),
             technologies: getRandom(technologies, maxAmountOfTechnologiesPerUser),
-            location: locations[Math.floor(Math.random() * locations.length)]
+            location: locations[Math.floor(Math.random() * locations.length)],
+            wantsEmails: [true, false][Math.floor(Math.random()*2)],
+            description: getRandom(desriptionsArray, 1).toString()
         })
     }
 
@@ -174,7 +179,9 @@ const setup = async () => {
             areas: getRandom(areas, maxAmountOfAreasPerUser),
             img: faker.image.image(),
             technologies: getRandom(technologies, maxAmountOfTechnologiesPerUser),
-            location: locations[Math.floor(Math.random() * locations.length)]
+            location: locations[Math.floor(Math.random() * locations.length)],
+            wantsEmails: [true, false][Math.floor(Math.random()*2)],
+            description: getRandom(desriptionsArray, 1).toString()
         })
     }
 
@@ -203,9 +210,11 @@ const setup = async () => {
         return User.findOneAndUpdate({_id: user[0]}, {...user[1]})
     })
     console.log("    ✓ Users stage 2 seeded successfully!")
+    console.log(" ")
     console.log("Finished seeding 🌳 You are all set!.")
+    console.log(" ")
 }
-
+module.exports = setup
 
 try {
     connection.once("open", () => setup().then(() => process.exit(0)));
@@ -213,3 +222,5 @@ try {
     console.log("❌ Somethin went wrong on the seed process", err.message);
     process.exit(1);
   }
+
+ 
