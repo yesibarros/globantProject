@@ -9,11 +9,12 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 const ScreenLoad = ({navigation}) => {
 
     const { height } = Dimensions.get("window");
+
     const [animateY, setAnimateY] = useState(new Animated.Value(0));
     const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
     const [animated, setAnimated] = useState(false);
 
-    console.log("hola")
+    
     useEffect(() => {
         if (!animated) {
         Animated.spring(animateY, {
@@ -25,7 +26,8 @@ const ScreenLoad = ({navigation}) => {
         }).start();
 
         Animated.spring(animateYwelcome, {
-            toValue: height / 2,
+
+            toValue: height / 2.3,
             duration: 3500,
             bounciness: 22, //default 8
             speed: 0.5, //default 12
@@ -47,6 +49,7 @@ const ScreenLoad = ({navigation}) => {
             />
             <AnimatedText
                 style={{
+                  
                 top: animateY,
                 position: "absolute",
                 fontSize: 50,
@@ -54,32 +57,31 @@ const ScreenLoad = ({navigation}) => {
                 fontWeight: "bold",
                 color: "white",
                 right: 70,
-                zIndex: 1
+                zIndex: 2
                 }}
             >
                 ME 
             </AnimatedText>
+            
 
-            <LinearGradient
-                // Background Linear Gradient
-                colors={['#ff9c38','#663300']}
-                style={styles.bottomBackground}
-            >
+           
                 <AnimatedText
                     style={{
+                        
                     bottom: animateYwelcome,
                     position: "absolute",
                     fontSize: 50,
+                 
                     fontStyle: "italic",
                     fontWeight: "bold",
                     color: "white",
-                    left: 70,
-                    zIndex: 1
+                    left: 45,
+                    zIndex: 3
                     }}
                 >
                     MENTOR
                 </AnimatedText>
-            </LinearGradient>
+            
 
         <StatusBar style="auto" />
         </View>

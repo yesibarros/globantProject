@@ -11,6 +11,7 @@ const newRequest = async (req,res,next)=>{
         const requestedRole = req.body.mentees? "mentor" : "mentee"
         const userProperty = req.body.mentees? "mentees" : "mentor"
         
+        
         //VALIDATIONS
         if(!ments) return res.status(400).json({message: "Ups! You must send mentees or a mentor to add."})
         if(user.role.includes("mentor") && user.mentees.length > 5) return res.status(400).json({message: "Ups! You already have 5 mentees."})
@@ -21,8 +22,10 @@ const newRequest = async (req,res,next)=>{
         
         //Normalize ments
         let normalizedMents = ments.map(ment=> {return typeof(ment) == "object"? {_id: ment._id.toString(), message: ment.message || ""} : {_id: ment.toString(), message: ""}})
+        
         if(req.body.mentees) normalizedMents = normalizedMents.filter(ment => (!user[userProperty].includes(ment._id) && !pendingRequestsSent.includes(ment._id)))
         if(req.body.mentor) normalizedMents = normalizedMents.filter(ment => ((user[userProperty] != ment._id) && !pendingRequestsSent.includes(ment._id)))
+        
         //Get only the ids
         const mentsIds = normalizedMents.map(ment => ment._id)
         if(mentsIds.length){
@@ -40,7 +43,7 @@ const newRequest = async (req,res,next)=>{
                 })
             })
             //Create requests
-            const newRequests = await Request.create(requests)
+            await Request.create(requests)
             //Increase pending requests in ments
             await User.updateMany({_id: {$in: mentsIds}}, {$inc: {receivedPendingRequests: 1}}) 
             
@@ -49,7 +52,7 @@ const newRequest = async (req,res,next)=>{
             
         }
         //Send all pending requests from user
-        const allPedningRequests = await user.getPendingRequests().populate("to")      
+        const allPedningRequests = await user.getPendingRequests()     
         res.send(allPedningRequests)
 
     }catch(err){

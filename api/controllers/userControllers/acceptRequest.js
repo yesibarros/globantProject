@@ -2,41 +2,44 @@ const { User, Request } = require("../../models");
 const userFindAndPopulate = require("../../utils/userFindAndPopulate");
 
 const acceptRequest = async (req, res, next)=>{
-    const user = await User.findById(req.user._id) //can be either mentee or mentor
+    let user = await User.findById(req.user._id) //can be either mentee or mentor
     const ReceivedRequests = req.body.request
-    const requestsIds = ReceivedRequests.map(request => request._id.toString())
-    const updatedRequests = await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
+    const requestsIds = ReceivedRequests.map(request => request.toString())
+    try{
+        await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
+        const requests = await Request.find({_id: requestsIds})
+        for(let i = 0; i < requests.length; i++){
+            if(requests[i].to.toString() == user._id.toString()){
+                //Save the user in the ment, and save the ment in user
+                const ment = await User.find({_id: requests[i].from})
+                if(requests[i].fromRole == "mentee"){
+                    if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})
+                    user.mentees.push(ment[0]._id)
+                    ment[0].mentor = user._id       
+                }
+                if(requests[i].fromRole == "mentor") {
+                    if(user.mentor) res.status(400).json({message: "You can't accept a mentor while already having one."})
+                    user.mentor = ment[0]._id
+                    ment[0].mentees.push(user._id)
+                }
+                
+                user.receivedPendingRequests = user.receivedPendingRequests-1
+                await ment[0].save()
+                await user.save()
 
-    for(let i = 0; i < updatedRequests.length; i++){
-        if(updatedRequests[i].to.toString() == user._id.toString()){
-            //Save the user in the ment
-            const ment = User.find({_id: updatedRequests[i].from})
-            if(updatedRequests.roleFrom == "mentee"){
-                ment.mentees = ment.mentees.push(user)
-                user.mentor = ment            
+                //Enviar notificaciones a los ments
+                //...
             }
-            if(updatedRequests.roleFrom == "mentor") {
-                ment.mentor = user
-                user.mentees = user.mentees.push(ment)
-            }
-            ment.receivedPendingRequests = ment.receivedPendingRequests-1
-            user.receivedPendingRequests = user.receivedPendingRequests-1
-            const updatedMent = await ment.save()
-            const updatedUser = await user.save()
+        }      
 
-            //Save the ment in user
+        //Send user and pending requests
+        user = await userFindAndPopulate({_id: user._id})
+        const pendingRequests = await user.getPendingRequests()
+        res.send({user, pendingRequests})
 
-        }
+    }catch(err){
+        next(err)
     }
-
-    //Sacar los ments y sus roles de updatedRequests
-    //Si request.to == user._id entonces todo ok, si no, mandar unauthorized
-    //A cada ment bajarle el pendingReceivedRequests en 1
-    //A cada ment asignarle a user donde corresponda
-    //Al user asignarle cada ment donde corresponda
-    //Enviar notificaciones a los ments
-    
-    res.send("accept request")
 }
 
 module.exports = acceptRequest
