@@ -53,7 +53,7 @@ const Profile = ({ navigation }) => {
       <View style={styles.container}>
         <Header />
 
-        <View style={[styles.body ,{backgroundColor:colors.background}]}>
+        <View style={[styles.body , {backgroundColor:colors.background}]}>
           <View style={{ top: -70, left: width / 3 }}>
             {loginUser.img ? (
               <Avatar
