@@ -6,7 +6,6 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Alert,
 } from "react-native";
 
@@ -26,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
-const Profile = ({ navigation }) => {
+const Profile = ({  }) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
