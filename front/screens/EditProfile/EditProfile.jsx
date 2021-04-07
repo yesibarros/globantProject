@@ -88,14 +88,14 @@ const EditProfile = ({ navigation, visible }) => {
         left={() => (
           <Avatar.Icon rounded icon="map-marker" style={styles.avatar} />
         )}
-        title={`Sede: ${loginUser.location.locationName} `}
+        title={`Sede: ${loginUser.location && loginUser.location.locationName} `}
         subtitleStyle={styles.cardSubtitle}
       />
       <Card.Title
         left={() => (
           <Avatar.Icon rounded icon="card-text-outline" style={styles.avatar} />
         )}
-        title={`Acerca de mi: ${loginUser.description} `}
+        title={`Acerca de mi: ${loginUser.descriptcion && loginUser.description} `}
         subtitleStyle={styles.cardSubtitle}
       />
       </Card>
