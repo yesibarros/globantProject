@@ -18,7 +18,7 @@ const ScreenLoad = ({navigation}) => {
     useEffect(() => {
         if (!animated) {
         Animated.spring(animateY, {
-            toValue: height / 2,
+            toValue: height / 2 + 35,
             duration: 3500,
             bounciness: 22, //default 8
             speed: 0.5, //default 12

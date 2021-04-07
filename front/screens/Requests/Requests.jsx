@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {View, Text, TouchableOpacity, FlatList} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native'
 
 
 //STYLE
@@ -9,86 +9,44 @@ import { useTheme } from "@react-navigation/native";
 //COMPONENTS
 import RequestCard from "./RequestCard"
 
-
-const requests = [
-    {   
-        _id: "1234",
-        from: "Pepe Globant",
-        to: "Michael Scott",
-        message: "Hola que tal quiero ser tu mentor, creo que haríamos un buen match",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "1234454",
-        from: "Jim Halpert",
-        to: "Michael Scott",
-        message: "Hola que tal quiero ser tu mentee",
-        fromRole: "mentee",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "123455",
-        from: "Michael Scott",
-        to: "Dwight Schrute",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "12345",
-        from: "Kelly Kapoor",
-        to: "Kelly Kapoor",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "1234534545",
-        from: "Kelly Kapoor",
-        to: "Kelly Kapoor",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "1234363416g45",
-        from: "Kelly Kapoor",
-        to: "Kelly Kapoor",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "1234rye5",
-        from: "Kelly Kapoor",
-        to: "Kelly Kapoor",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-    {
-        _id: "123537y545",
-        from: "Kelly Kapoor",
-        to: "Kelly Kapoor",
-        message: "Hola que tal quiero ser tu mentor",
-        fromRole: "mentor",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-    },
-]
-
-
+//REDUX
+import {useDispatch, useSelector} from 'react-redux';
+import {getRequests} from '../../state/requests/Thunks'; 
 
 const Requests = () => {
     const [showReceived, setShowReceived] = useState(true)
-    const { colors } = useTheme();
+    const [isLoading, setIsLoading] = useState(true)
 
-    const filteredRequests = showReceived ? requests.filter(r => r.to == "Michael Scott") : requests.filter(r => r.from == "Michael Scott") //cambiar michael scott por user._id
+    const { colors } = useTheme();
+    const dispatch = useDispatch()
+    const solicitudes = useSelector(state => state.requests)
+    const user = useSelector(state => state.loggedUser.user)
+
+    useEffect(() => {
+      dispatch(getRequests()).then(() => setIsLoading(false))
+    },[])
+
+    const filteredRequests = showReceived ? solicitudes.filter(r => r.to._id === user._id) : solicitudes.filter(r => r.to._id !== user._id)
+
+    if(isLoading){
+      return(
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <ActivityIndicator
+            size='large'
+            color='blue'
+          />
+        </View>
+      )
+    }
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>REQUESTS</Text>
+          <Text style={styles.title}>SOLICITUDES</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -106,20 +64,27 @@ const Requests = () => {
             }}
           >
             <Text style={[styles.buttons, !showReceived && styles.underline]}>
-              PENDIENTES
+              ENVIADAS
             </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.cardsContainer}>
-          <FlatList
-            data={filteredRequests}
-            keyExtractor={(request) => request._id}
-            renderItem={request => (
-                <RequestCard request={request.item} received={showReceived}/>
-            )}
-          />
-
-          {/* <RequestCard request={requests[0]} received={showReceived}/> */}
+          {(filteredRequests.length != 0)
+          ?
+            <FlatList
+              data={filteredRequests}
+              keyExtractor={(request) => request._id}
+              renderItem={request => (
+                  <RequestCard request={request.item} received={showReceived}/>
+              )}
+            />
+          :
+            <View style={styles.n}>
+              <Text style={styles.nText}>
+                No tenes solicitudes {showReceived ? 'recibidas' : 'enviadas'}
+              </Text>
+            </View>
+          }
         </View>
       </View>
     );

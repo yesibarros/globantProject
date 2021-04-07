@@ -29,7 +29,18 @@ const styles = StyleSheet.create({
     cardsContainer:{
       marginVertical: 15,
       paddingBottom: 15
-     
+    },
+    n: {
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: 50,
+      marginTop: '50%',
+    },
+    nText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: '#c9c9c9'
     }
 
   });

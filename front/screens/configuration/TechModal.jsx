@@ -8,7 +8,6 @@ import {updateProfile} from "../../state/loggedUser/thunks"
 import { useTheme } from '@react-navigation/native';
 
 import localHost from "../../localHostIp";
-
 const TechModal = ({visible, setEditTech}) => {
 
     const { colors } = useTheme();
