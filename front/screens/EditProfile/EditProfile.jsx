@@ -1,146 +1,127 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-import { ScrollView, View, Text, TouchableOpacity, TextInput, Alert, Button} from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  Dimensions,
+  Modal,
+  ActivityIndicator
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
+import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 import styles from "./EditProfileStyles";
-import {useSelector, useDispatch} from 'react-redux';
-import {updateProfile} from "../../state/loggedUser/thunks"
-import SelectPicker from 'react-native-form-select-picker';
-import { useTheme } from '@react-navigation/native';
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile } from "../../state/loggedUser/thunks";
+import SelectPicker from "react-native-form-select-picker";
+import { useTheme } from "@react-navigation/native";
+// import { Avatar } from 'react-native-paper';
 
+const EditProfile = ({ navigation, visible }) => {
+  const { colors } = useTheme();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading]= React.useState(false)
+  const loginUser = useSelector((state) => state.loggedUser.user);
+  const initEditMode = loginUser.location ? false : true;
+  const [editMode, setEditMode] = useState(initEditMode);
+  const [selected, setSelected] = useState();
+  const [firstName, setFirstName] = useState(loginUser.firstName);
+  const [lastName, setLastName] = useState(loginUser.lastName);
+  const [text, setText] = React.useState(loginUser.description);
+  const locations = useSelector((state) => state.locations);
+  const handleEdit = () => {
+    let obj = {
+      id: loginUser._id,
+      firstName: firstName,
+      lastName: lastName,
+      location: selected,
+      description: text,
+    };
+    dispatch(updateProfile(obj)).then(() => {
+      setEditMode(false);
+    });
+  };
+  const handleFirstNameChange = (val) => {
+    setFirstName(val);
+  };
+  const handleLastNameChange = (val) => {
+    setLastName(val);
+  };
+  const handleDescriptionChange = (val) => {
+    setText(val);
+  };
 
-
-const EditProfile = ({navigation}) => {
-    const { colors } = useTheme();
-    const dispatch= useDispatch()
-    const loginUser = useSelector((state) => state.loggedUser.user);
-    const initEditMode = loginUser.location ? false : true
-    const [editMode, setEditMode]= useState(initEditMode)
-    const [selected, setSelected] = useState();
-    const [firstName, setFirstName]=useState(loginUser.firstName)
-    const [lastName, setLastName]=useState(loginUser.lastName)
-    const locations = useSelector(state => state.locations)
-    const handleEdit= ()=>{
-        let obj = {
-            "id": loginUser._id,
-            "firstName": firstName,
-            "lastName": lastName, 
-            "location": selected,
-          }
-          dispatch(updateProfile(obj)).then(()=>{setEditMode(false)})
+  useEffect(() => {
+    if (loginUser.technologies.length > 0 && !loginUser.location) {
+      Alert.alert("¡Genial!", "Ahora solo falta que indiques tu sede", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
     }
-    const handleFirstNameChange = (val) => {
-        setFirstName(val);
-      };
-      const handleLastNameChange = (val) => {
-        setLastName(val);
-      };
+  }, []);
 
-      useEffect(()=>{
-          if(loginUser.technologies.length >0 && !loginUser.location){
-              Alert.alert("¡Genial!", "Ahora solo falta que indiques tu sede",
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }])
-          }
-      },[])
+  return (
+   <Modal visible={visible} animationType="slide" transparent={true} >
+            
+            {isLoading?
+            (
+                <View style={[styles.viewContainer, {backgroundColor:colors.background}]}>
+                <ActivityIndicator style={{flex:1, alignItems:"Center"}}size="large" color="#0000ff" />
+                </View>
+            )       
+        
+       :(
+           
+            <View style={[styles.viewContainer,  {backgroundColor:colors.background}]}>
+                <Title style={styles.titleDates}>Edita tus datos personales:</Title>
+                <Card style={styles.cardContainer}>
+<Card.Title
+        left={() => (
+          <Avatar.Icon rounded icon="account" style={styles.avatar} />
+        )}
+        title={`Nombre: ${loginUser.firstName} ${loginUser.lastName} `}
+        subtitleStyle={styles.cardSubtitle}
+      />
+      <Card.Title
+        left={() => (
+          <Avatar.Icon rounded icon="map-marker" style={styles.avatar} />
+        )}
+        title={`Sede: ${loginUser.location.locationName} `}
+        subtitleStyle={styles.cardSubtitle}
+      />
+      <Card.Title
+        left={() => (
+          <Avatar.Icon rounded icon="card-text-outline" style={styles.avatar} />
+        )}
+        title={`Acerca de mi: ${loginUser.description} `}
+        subtitleStyle={styles.cardSubtitle}
+      />
+      </Card>
 
+      <Button style={styles.buttonSize} mode="contained"  onPress={() => console.log("Pressed")} >
+          <Text style={{ fontSize:20 }}>{editMode?  "Editar!" :  "Guardar!"} </Text>
+          
+        </Button>
+</View>
+               
+                
+           
+        )}
+
+
+       
+
+
+
+        </Modal>
+      
+     
 
     
-
-    return (
-  
-        <ScrollView style={[!editMode ? styles.container : styles.editComponent, {backgroundColor:colors.background}]}>
-            
-                <View style={styles.action}>
-                    <FontAwesome name="user-o" color={colors.text} size={20}/>
-                    <Text style={[styles.textEdit,{color:colors.text}]}>
-                        Nombre: 
-                    </Text>
-                    {editMode ?<TextInput
-
-                        placeholder={loginUser.firstName}
-                        placeholderTextColor={colors.text}
-                        style={[styles.textInput,{color:colors.text}]}
-                        autoCapitalize="none"
-                        onChangeText={(val) => handleFirstNameChange(val)}
-                    />: <Text style={[styles.textEdit,{color:colors.text}]}>{loginUser.firstName}</Text> }
-                </View>
-
-                <View style={styles.action}>
-                    <FontAwesome name="user-o" color={colors.text} size={20}/>
-                    <Text style={[styles.textEdit, {color:colors.text}]}>
-                        Apellido: 
-                    </Text>
-                    {editMode ? <TextInput
-                        placeholder={loginUser.lastName}
-                        placeholderTextColor={colors.text}
-                        style={[styles.textInput, {color:colors.text}]}
-                        autoCapitalize="none"
-                        onChangeText={(val) => handleLastNameChange(val)}
-                    />: <Text style={[styles.textEdit, {color:colors.text}]}>{loginUser.lastName}</Text>}
-                </View>
-                
-                <View style={styles.action}>
-                    <FontAwesome name="user-o" color={colors.text} size={20}/>
-                    <Text style={[styles.textEdit, {color:colors.text}]}>
-                        Sede: 
-                    </Text>
-                    {editMode ? <SelectPicker
-                       
-                        placeholderStyle={{color: colors.text}}
-                        containerStyle={{backgroundColor:colors.background}}
-                        onValueChange={(value) => {
-                            setSelected(value);
-                        }}
-                            selected={selected}
-                            style={[styles.inputLocation,{backgroundColor:colors.background}]}
-                            placeholder="Elegí tu sede"
-                            placeholderTextColor={colors.text}
-                        >
-                        
-                        {locations.length > 0 &&
-                            locations.map((val) => {
-                                return(
-                                    <SelectPicker.Item 
-                                    label={`${val.locationName} (${val.country.countryName})`} 
-                                    value={val._id} key={val._id}/>
-                                )
-                            }
-                                
-                        )}
-
-                    </SelectPicker>
-                    :
-                    loginUser.location ?  <Text style={[styles.textEdit, {color:colors.text}]}>{loginUser.location.locationName}</Text>: null
-                   }
-
-                </View>
-
-
-                {editMode ? <TouchableOpacity
-                    style={styles.userBtn}
-                    onPress={handleEdit}
-                >
-                    <Text style={[styles.text, {color:colors.text}]}
-                        
-                    >
-                        Guardar
-                    </Text>
-                </TouchableOpacity>: <TouchableOpacity
-                    style={[styles.userBtn,{color:colors.text}]}
-                    onPress={()=>setEditMode(true)}
-                >
-                    <Text style={styles.text}
-                        
-                    >
-                        Editar
-                    </Text>
-                </TouchableOpacity>}
-                
-            </ScrollView>
-           
-       
-    );
+ 
+  );
 };
 
 export default EditProfile;
