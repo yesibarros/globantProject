@@ -19,18 +19,23 @@ import {logout} from "../../state/loggedUser/actions"
 
 
 
+
 const ScreenDrawer = (props) => {
+const user = useSelector(state => state.loggedUser.user)
 const { colors } = useTheme();
 const dispatch = useDispatch()
 const handleLogout=()=>{
   dispatch(logout())
 
 }
+
 const isDarkTheme = useSelector(state => state.darkTheme)
     const toggleTheme =()=>{
         // setIsDarkTheme(!isDarkTheme);
         dispatch(setTheme())
     }
+
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -38,23 +43,25 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             <View style={styles.userInfoSection}>
                 <View style={{flexDirection:"row", marginTop:15}}>
                     <Avatar.Image
-                        source="algo"
+                        source={{
+                          uri: user.img,
+                        }}
                         size={50}
                     />
                 <View style={{marginLeft:15, flexDirection:"column"}}>
                     <Title style={styles.title}>
-                        Yesica Barros
+                        {`${user.firstName} ${user.lastName}`}
                     </Title>
-                    <Caption style={styles.caption}> @hotmail.com</Caption>
+                    <Caption style={styles.caption}>{user.email}</Caption>
                 </View>
                 </View>
                 <View style={styles.row}>
                     <View style={styles.section}>
-                        <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
+                        <Paragraph style={[styles.paragraph, styles.caption]}>{user.mentor? "1":0}</Paragraph>
                         <Caption style={[styles.caption], {marginLeft:10}}>Mentor</Caption>
                     </View>
                     <View style={styles.section}>
-                        <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
+                        <Paragraph style={[styles.paragraph, styles.caption]}>{user.mentees.length}</Paragraph>
                         <Caption style={[styles.caption], {marginLeft:10}}>Mentees</Caption>
                     </View>
                 </View>
@@ -80,8 +87,8 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             size={size} 
             />
           )}
-          label="Profile"
-        onPress={()=>{}}
+          label={`Solicitudes ${(user.receivedPendingRequests == 0) ? "" : user.receivedPendingRequests}`}
+        onPress={()=>{props.navigation.navigate('Requests')}}
         />
          <DrawerItem
           icon={({ color, size }) => (

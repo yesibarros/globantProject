@@ -6,13 +6,12 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Alert
+  Alert,
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from "@react-navigation/native";
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -26,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
-const Profile = ({ navigation }) => {
+const Profile = ({  }) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
@@ -34,26 +33,36 @@ const Profile = ({ navigation }) => {
   const { colors } = useTheme();
 
   useEffect(() => {
-    dispatch(setAnimation())
+    dispatch(setAnimation());
     dispatch(getLocations());
 
-    if (loginUser.technologies && loginUser.technologies.length < 1 && loginUser.areas.length <1 && !loginUser.location) {
-      Alert.alert("Bienvenido!", "Configuremos tu perfil",
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }])
+    if (
+      loginUser.technologies &&
+      loginUser.technologies.length < 1 &&
+      loginUser.areas.length < 1 &&
+      !loginUser.location
+    ) {
+      Alert.alert("Bienvenido!", "Configuremos tu perfil", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
     }
-    
-    if (loginUser.technologies &&  loginUser.technologies.length > 0 && loginUser.areas.length >0 && !loginUser.location) {
+
+    if (
+      loginUser.technologies &&
+      loginUser.technologies.length > 0 &&
+      loginUser.areas.length > 0 &&
+      !loginUser.location
+    ) {
       setShowConfiguration(false);
     }
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
 
   return (
-    
     <ScrollView>
       <View style={styles.container}>
         <Header />
 
-        <View style={[styles.body ,{backgroundColor:colors.background}]}>
+        <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
             {loginUser.img ? (
               <Avatar
@@ -80,7 +89,10 @@ const Profile = ({ navigation }) => {
               <Avatar
                 size="xlarge"
                 rounded
-                title={loginUser._id && `${loginUser.firstName[0]}${loginUser.lastName[0]}`}
+                title={
+                  loginUser._id &&
+                  `${loginUser.firstName[0]}${loginUser.lastName[0]}`
+                }
                 titleStyle={{
                   color: "white",
                   backgroundColor: "gray",
@@ -99,11 +111,19 @@ const Profile = ({ navigation }) => {
             style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
           >
             <Text
-              style={{ fontWeight: "bold" , color:colors.text}}
+              style={{ fontWeight: "bold", color: colors.text }}
             >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-            <Text style={{ marginTop: 8 , color:colors.text}}>{loginUser.email}</Text>
-            <Text style={{ marginTop: 20, alignContent: "center" , color:colors.text}}>
-              Soy un Full Stack Developer
+            <Text style={{ marginTop: 8, color: colors.text }}>
+              {loginUser.email}
+            </Text>
+            <Text
+              style={{
+                marginTop: 20,
+                alignContent: "center",
+                color: colors.text,
+              }}
+            >
+              {loginUser.description}
             </Text>
           </View>
 
@@ -116,7 +136,9 @@ const Profile = ({ navigation }) => {
               }
               onPress={() => setShowConfiguration(true)}
             >
-              <Text style={[styles.userBtnTxt, {color:colors.text}]}>Configuración</Text>
+              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
+                Configuración
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={
@@ -126,7 +148,9 @@ const Profile = ({ navigation }) => {
               }
               onPress={() => setShowConfiguration(false)}
             >
-              <Text style={[styles.userBtnTxt,  {color:colors.text}]}>Datos personales</Text>
+              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
+                Datos personales
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -134,7 +158,6 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
-   
   );
 };
 

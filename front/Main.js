@@ -17,6 +17,9 @@ import SignUp from "./screens/SignUp/SignUp";
 // import MatchComparison from "./screens/Matchs/MatchComparison"
 import { useSelector } from "react-redux";
 import "react-native-gesture-handler";
+import MatchComparison from "./screens/Matchs/MatchComparison";
+import Search from "./screens/Match/Search";
+
 const Stack = createStackNavigator();
 
 const Main = () => {
@@ -57,6 +60,12 @@ const Main = () => {
                 name="DrawerNavigator"
                 component={DrawerNavigator}
               />
+
+              <Stack.Screen
+                name="MatchComparison"
+                component={MatchComparison}
+              />
+              <Stack.Screen name="SearchMatch" component={Search} />
             </>
           ) : (
             <>
@@ -65,7 +74,6 @@ const Main = () => {
                   <Stack.Screen name="ScreenLoad" component={ScreenLoad} />
                   <Stack.Screen name="SignIn" component={SignIn} />
                   <Stack.Screen name="SignUp" component={SignUp} />
-               
                 </>
               ) : (
                 <>
