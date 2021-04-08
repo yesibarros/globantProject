@@ -17,7 +17,7 @@ export default function MyTabs(props) {
       <Tab.Screen name="Mi perfil" component={Profile} />
       <Tab.Screen name="Matchs" component={Search} />
       {/* <Tab.Screen name="Mis mentees" component={Mentees} /> */}
-      <Tab.Screen name="Mis mentees" component={MatchComparison} />
+      <Tab.Screen name="Mis mentees" component={Mentees} />
     </Tab.Navigator>
   );
 }
