@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { getRequests, cancelRequest, acceptRequest } from "./Thunks";
+import { getRequests, cancelRequest, acceptRequest, sendRequest } from "./Thunks";
 
 let requests = []
 
@@ -13,8 +13,10 @@ const requestsReducer = createReducer(requests, {
     },
     [acceptRequest.fulfilled]: (state, action) => {
         return action.payload.pendingRequests
+    },
+    [sendRequest.fulfilled]: (state, action) => {
+        return action.payload
     }
-
 });
 
 export default requestsReducer;

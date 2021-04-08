@@ -4,6 +4,22 @@ import axios from "axios";
 
 import localHost from "../../localHostIp";
 
+export const sendRequest = createAsyncThunk("SEND_REQUEST", (data,thunkAPI) => {
+    
+    return SecureStore.getItemAsync("token").then((token) => {
+        const {loggedUser} = thunkAPI.getState();
+        const user = loggedUser.user
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    return axios
+        .post(`http://${localHost}/api/user/${user._id}/newRequest`, data)
+        .then((respuesta) => {
+            return respuesta.data
+        });
+    });
+});
+
 export const getRequests = createAsyncThunk("GET_REQUESTS", () => {
 
     return SecureStore.getItemAsync("token").then((token) => {
@@ -11,7 +27,7 @@ export const getRequests = createAsyncThunk("GET_REQUESTS", () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .get(`http://${localHost}:5000/api/user/pendingRequests`)
+        .get(`http://${localHost}/api/user/pendingRequests`)
         .then((respuesta) => respuesta.data);
     });
 });
@@ -25,13 +41,11 @@ export const acceptRequest = createAsyncThunk("ACCEPT_REQUEST", (data, thunkAPI)
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .put(`http://${localHost}:5000/api/user/${user._id}/acceptRequest`, {request: [data]})
+        .put(`http://${localHost}/api/user/${user._id}/acceptRequest`, {request: [data]})
         .then((respuesta) => {
-            
-            
 
             return respuesta.data
-        });
+        })
     });
 });
 
@@ -42,7 +56,7 @@ export const cancelRequest = createAsyncThunk("CANCEL_REQUEST", (data) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .put(`http://${localHost}:5000/api/user/${data._id}/cancelRequest`, {request: [data]})
+        .put(`http://${localHost}/api/user/${data._id}/cancelRequest`, {request: [data]})
         .then((respuesta) => respuesta.data);
     });
 });

@@ -2,6 +2,7 @@ const { User, Request } = require("../../models");
 
 
 const newRequest = async (req,res,next)=>{
+    console.log(req.body)
     try{
         //SETUP
         const user = await User.findById(req.user._id) //can be either mentee or mentor

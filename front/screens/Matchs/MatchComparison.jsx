@@ -28,10 +28,11 @@ const MatchComparison = ({ navigation }) => {
         matchPerson={singleMatch}
         selected="true"
         cancelButton={cancelButton}
+        navigation={navigation}
       />
       <ScrollView horizontal pagingEnabled={true} fadingEdgeLength={20}>
         {allMatches.map((option, i) => {
-          return <CardCustom matchPerson={option} key={i} />;
+          return <CardCustom matchPerson={option} key={i} navigation={navigation}/>;
         })}
       </ScrollView>
     </View>

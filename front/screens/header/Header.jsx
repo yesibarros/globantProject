@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions} from "react-native";
+import {View} from "react-native";
 import styles from "./headerStyle"
 // const feather = require('feather-icons')
 
@@ -7,13 +7,7 @@ import styles from "./headerStyle"
 const Header = () => {
 
     return (    
-        <View style={styles.header}/>
-       
-        
-       
-       
-    
-     
+        <View style={styles.header} />
     );
 };
 

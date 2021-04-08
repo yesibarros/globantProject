@@ -6,28 +6,26 @@ const acceptRequest = async (req, res, next)=>{
     const ReceivedRequests = req.body.request
     const requestsIds = ReceivedRequests.map(request => request.toString())
     try{
-        await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
         const requests = await Request.find({_id: requestsIds})
+        console.log(requests)
         for(let i = 0; i < requests.length; i++){
             if(requests[i].to.toString() == user._id.toString()){
-                //Save the user in the ment, and save the ment in user
-                const ment = await User.find({_id: requests[i].from})
+            
                 if(requests[i].fromRole == "mentee"){
                     if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})
-                    user.mentees.push(ment[0]._id)
-                    ment[0].mentor = user._id       
+                    
+                    await User.findOneAndUpdate({_id: user._id},{$push: {mentees: requests[i].from}})
+                    await User.findOneAndUpdate({_id: requests[i].from},{$set: {mentor: user._id}})      
                 }
                 if(requests[i].fromRole == "mentor") {
-                    if(user.mentor) res.status(400).json({message: "You can't accept a mentor while already having one."})
-                    user.mentor = ment[0]._id
-                    ment[0].mentees.push(user._id)
+                    if(user.mentor) return res.status(400).json({message: "You can't accept a mentor while already having one."})
+                    
+                    await User.findOneAndUpdate({_id: user._id},{$set: {mentor: requests[i].from}, $inc: {receivedPendingRequests: -1}})
+                    await User.findOneAndUpdate({_id: requests[i].from}, {$push: user._id})
                 }
                 
-                user.receivedPendingRequests = user.receivedPendingRequests-1
-                await ment[0].save()
-                await user.save()
-
-                //Enviar notificaciones a los ments
+                await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
+                              //Enviar notificaciones a los ments
                 //...
             }
         }      
