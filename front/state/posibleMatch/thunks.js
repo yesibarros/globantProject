@@ -8,7 +8,7 @@ export const getMatchs = createAsyncThunk("MATCHS_REQUEST", (data) => {
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
-      .get(`http://${localHost}:5000/api/user/userstype`)
+      .get(`http://${localHost}/api/user/userstype`)
       .then((respuesta) => respuesta.data);
   });
 });
