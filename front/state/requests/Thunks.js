@@ -11,7 +11,7 @@ export const getRequests = createAsyncThunk("GET_REQUESTS", () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .get(`http://${localHost}:5000/api/user/pendingRequests`)
+        .get(`http://${localHost}/api/user/pendingRequests`)
         .then((respuesta) => respuesta.data);
     });
 });
@@ -25,7 +25,7 @@ export const acceptRequest = createAsyncThunk("ACCEPT_REQUEST", (data, thunkAPI)
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .put(`http://${localHost}:5000/api/user/${user._id}/acceptRequest`, {request: [data]})
+        .put(`http://${localHost}/api/user/${user._id}/acceptRequest`, {request: [data]})
         .then((respuesta) => {
             
             
@@ -42,7 +42,7 @@ export const cancelRequest = createAsyncThunk("CANCEL_REQUEST", (data) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     return axios
-        .put(`http://${localHost}:5000/api/user/${data._id}/cancelRequest`, {request: [data]})
+        .put(`http://${localHost}/api/user/${data._id}/cancelRequest`, {request: [data]})
         .then((respuesta) => respuesta.data);
     });
 });
