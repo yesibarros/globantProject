@@ -101,7 +101,7 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             />
           )}
           label="Mi mentor"
-        onPress={()=>props.navigation.navigate("Mentor")}
+          onPress={()=>props.navigation.navigate("Mentor")}
         />
         {/* <DrawerItem
           icon={({ color, size }) => (

@@ -3,7 +3,7 @@ import {View} from "react-native";
 import styles from "./headerStyle"
 // const feather = require('feather-icons')
 import {IconButton} from 'react-native-paper';
-import {primaryGreen} from "../../utils/Colors"
+
 
 const Header = ({navigation}) => {
 
