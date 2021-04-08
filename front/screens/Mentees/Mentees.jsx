@@ -22,21 +22,17 @@ import EditProfile from "../EditProfile/EditProfile";
 import styles from "./menteesStyle";
 
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../state/mentors/thunks";
+import { useSelector } from "react-redux";
+// import { getUser } from "../../state/mentors/thunks";
 const { width } = Dimensions.get("window");
 
 const Mentor = ({navigation}) => {
-  const dispatch = useDispatch();
-  const [showConfiguration, setShowConfiguration] = useState(true);
+  // const dispatch = useDispatch();
+  // const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
-useEffect(()=>{
-  console.log("EL MENTOOOOOOR", loginUser.mentor)
-  // dispatch(getUser(loginUser.mentor))
-}
-, [])
+
   
   return (
     <ScrollView>
@@ -46,17 +42,17 @@ useEffect(()=>{
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
-            {loginUser.img ? (
+            {loginUser.mentor.img ? (
               <Avatar
                 size="xlarge"
                 source={{
-                  uri: loginUser.img,
+                  uri: loginUser.mentor.img,
                   width: "100%",
                   heigth: "100%",
                   zIndex: 1,
                 }}
                 rounded
-                title={loginUser.firstName + loginUser.lastName}
+                title={loginUser.mentor.firstName + loginUser.mentor.lastName}
                 titleStyle={{
                   color: "white",
                   backgroundColor: "gray",
@@ -72,8 +68,8 @@ useEffect(()=>{
                 size="xlarge"
                 rounded
                 title={
-                  loginUser._id &&
-                  `${loginUser.firstName[0]}${loginUser.lastName[0]}`
+                  loginUser.mentor._id &&
+                  `${loginUser.mentor.firstName[0]}${loginUser.mentor.lastName[0]}`
                 }
                 titleStyle={{
                   color: "white",
@@ -94,11 +90,11 @@ useEffect(()=>{
           >
             <Text
               style={{ fontWeight: "bold", color: colors.text }}
-            >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-            <Text style={{ marginTop: 8, color: colors.text }}>
+            >{`${loginUser.mentor.firstName} ${loginUser.mentor.lastName}`}</Text>
+            {/* <Text style={{ marginTop: 8, color: colors.text }}>
               {loginUser.email}
-            </Text>
-            <Text
+            </Text> */}
+            {/* <Text
               style={{
                 marginTop: 20,
                 alignContent: "center",
@@ -106,10 +102,10 @@ useEffect(()=>{
               }}
             >
               {loginUser.description}
-            </Text>
+            </Text> */}
           </View>
 
-          <View style={styles.userBtnWrapper}>
+          {/* <View style={styles.userBtnWrapper}>
             <TouchableOpacity
               style={
                 showConfiguration
@@ -134,9 +130,9 @@ useEffect(()=>{
                 Datos personales
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
-          {showConfiguration ? <Configuration /> : <EditProfile />}
+          {/* {showConfiguration ? <Configuration /> : <EditProfile />} */}
         </View>
       </View>
     </ScrollView>
