@@ -11,9 +11,8 @@ const cancelRequest = async (req, res, next)=>{
             if(requests[i].to.toString() == user._id.toString()){
                 //Save the user in the ment, and save the ment in user
                 requests[i].status = "rejected"                                
-                user.receivedPendingRequests = user.receivedPendingRequests-1
                 await requests[i].save()
-                await user.save()
+                await User.findOneAndUpdate({_id: user._id}, {$inc:{receivedPendingRequests: -1}})
 
                 //Enviar notificaciones a los ments
                 //const ment = await User.find({_id: requests[i].from})
@@ -22,9 +21,7 @@ const cancelRequest = async (req, res, next)=>{
             if(requests[i].from.toString() == user._id.toString()){
                 //Save the user in the ment, and save the ment in user
                 requests[i].status = "canceled"  
-                const ment = await User.find({_id: requests[i].from})        
-                ment[0].receivedPendingRequests = ment[0].receivedPendingRequests-1
-                await ment[0].save()
+                await User.findOneAndUpdate({_id: requests[i].from}, {$inc: {receivedPendingRequests: -1}})        
                 await requests[i].save()
             }
         }      
