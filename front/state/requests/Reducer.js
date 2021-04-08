@@ -1,27 +1,22 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import {
-  getRequests,
-  cancelRequest,
-  acceptRequest,
-  createRequest,
-} from "./Thunks";
+import { getRequests, cancelRequest, acceptRequest, sendRequest } from "./Thunks";
 
 let requests = [];
 
 const requestsReducer = createReducer(requests, {
-  [createRequest.fulfilled]: (state, action) => {
-    return action.payload;
-  },
-  [getRequests.fulfilled]: (state, action) => {
-    return action.payload;
-  },
-  [cancelRequest.fulfilled]: (state, action) => {
-    return action.payload.pendingRequests;
-  },
-  [acceptRequest.fulfilled]: (state, action) => {
-    return action.payload.pendingRequests;
-  },
+    [getRequests.fulfilled]: (state, action) => {
+        return action.payload
+    },
+    [cancelRequest.fulfilled]: (state, action) => {
+        return action.payload.pendingRequests
+    },
+    [acceptRequest.fulfilled]: (state, action) => {
+        return action.payload.pendingRequests
+    },
+    [sendRequest.fulfilled]: (state, action) => {
+        return action.payload
+    }
 });
 
 export default requestsReducer;

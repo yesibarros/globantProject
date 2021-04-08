@@ -6,12 +6,11 @@ const acceptRequest = async (req, res, next)=>{
     const ReceivedRequests = req.body.request
     const requestsIds = ReceivedRequests.map(request => request.toString())
     try{
-        await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
         const requests = await Request.find({_id: requestsIds})
         console.log(requests)
         for(let i = 0; i < requests.length; i++){
             if(requests[i].to.toString() == user._id.toString()){
-               
+            
                 if(requests[i].fromRole == "mentee"){
                     if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})
                     
@@ -25,6 +24,7 @@ const acceptRequest = async (req, res, next)=>{
                     await User.findOneAndUpdate({_id: requests[i].from}, {$push: user._id})
                 }
                 
+                await Request.updateMany({_id: requestsIds, status: "pending"},{status: "accepted"},{new: true})
                               //Enviar notificaciones a los ments
                 //...
             }

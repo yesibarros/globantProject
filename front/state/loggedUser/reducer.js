@@ -21,7 +21,7 @@ const loggedUserReducer = createReducer(inicialState, {
     state.user = action.payload;
   },
   [logout]: (state, action) => inicialState,
-  [setUser]: (state, action) => action.payload,
+  [setUser]: (state, action) => {state.user = action.payload}
 });
 
 export default loggedUserReducer;

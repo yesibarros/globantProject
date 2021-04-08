@@ -1,10 +1,52 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Text } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
+// import {useDispatch, useSelector} from 'react-redux';
+// import {sendRequest} from '../state/requests/Thunks';
+// import ModalMessage from './components/modalMessage';
 
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
   const borderWidth = selected ? 2 : 0;
   const borderColor = selected ? "black" : "";
+  // const [showModal, setShowModal] = useState(false)
+  // const loggedUser = useSelector(state => state.loggedUser.user)
+  // const dispatch = useDispatch()
+
+  // const handleSendRequest = (message) => {
+  //   if(loggedUser.role.includes('mentee')){
+  //     const mentor = {
+  //       _id: matchPerson._id,
+  //       message: message
+  //     }
+      
+  //     dispatch(sendRequest({mentor})).then((data) => {
+  //       if(data.meta.requestStatus === 'rejected'){
+  //         return Alert.alert("Ya tienes una solicitud en curso", "Espera a que sea aceptada o negada para enviar la siguiente", [
+  //           {
+  //             text: 'Ok',
+  //             onPress: () => navigation.navigate('Requests')
+  //           }
+  //         ]) 
+  //       }
+  //       Alert.alert("Solicitud enviada", ' ', [
+  //         {
+  //           text: 'Ok',
+  //           onPress: () => navigation.navigate('Requests')
+  //         }
+  //       ])
+  //     })
+
+
+  //   }else{
+  //       const mentees = [{
+  //         _id: matchPerson._id,
+  //         message: message
+  //       }]
+
+  //     dispatch(sendRequest({mentees}))
+  //   }
+  // }
+
   return (
     <View
       style={[
@@ -25,7 +67,7 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         title={matchPerson.firstName + " " + matchPerson.lastName}
         titleStyle={styles.cardTitle}
         subtitle={
-          matchPerson.role.toString().toUpperCase() +
+          matchPerson.role && matchPerson.role.toString().toUpperCase() +
           " | " +
           "Working since: " +
           matchPerson.workingSince +
@@ -82,6 +124,9 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
           {selected ? "Seleccionar" : "Mejor este!"}
         </Button>
       </Card.Actions>
+
+      {/* <ModalMessage visible={showModal} setModalVisible={setShowModal} handleSendRequest={handleSendRequest}/> */}
+
     </View>
   );
 };

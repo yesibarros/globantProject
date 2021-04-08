@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
-const Profile = ({  }) => {
+const Profile = () => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
@@ -60,7 +60,7 @@ const Profile = ({  }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Header />
+        <Header/>
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
