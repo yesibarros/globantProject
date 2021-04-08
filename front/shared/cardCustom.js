@@ -1,68 +1,26 @@
 import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
-// import {useDispatch, useSelector} from 'react-redux';
-// import {sendRequest} from '../state/requests/Thunks';
-// import ModalMessage from './components/modalMessage';
-
+import { useTheme } from "@react-navigation/native";
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
-  const borderWidth = selected ? 2 : 0;
-  const borderColor = selected ? "black" : "";
-  // const [showModal, setShowModal] = useState(false)
-  // const loggedUser = useSelector(state => state.loggedUser.user)
-  // const dispatch = useDispatch()
-
-  // const handleSendRequest = (message) => {
-  //   if(loggedUser.role.includes('mentee')){
-  //     const mentor = {
-  //       _id: matchPerson._id,
-  //       message: message
-  //     }
-      
-  //     dispatch(sendRequest({mentor})).then((data) => {
-  //       if(data.meta.requestStatus === 'rejected'){
-  //         return Alert.alert("Ya tienes una solicitud en curso", "Espera a que sea aceptada o negada para enviar la siguiente", [
-  //           {
-  //             text: 'Ok',
-  //             onPress: () => navigation.navigate('Requests')
-  //           }
-  //         ]) 
-  //       }
-  //       Alert.alert("Solicitud enviada", ' ', [
-  //         {
-  //           text: 'Ok',
-  //           onPress: () => navigation.navigate('Requests')
-  //         }
-  //       ])
-  //     })
-
-
-  //   }else{
-  //       const mentees = [{
-  //         _id: matchPerson._id,
-  //         message: message
-  //       }]
-
-  //     dispatch(sendRequest({mentees}))
-  //   }
-  // }
+  const { colors } = useTheme();
+  const borderWidth = selected ? 5 : 0;
+  const borderColor = selected ? "#009387" : "";
+ 
 
   return (
     <View
       style={[
         styles.card,
         { borderWidth: borderWidth, borderColor: borderColor },
-      ]}
+      ,{backgroundColor:colors.background}]}
     >
-      <View style={styles.cardContent}></View>
+ 
 
       <Card.Title
         right={() => (
-          <Avatar.Text
-            rounded
-            label={matchPerson.firstName[0] + matchPerson.lastName[0]}
-            style={styles.avatar}
-          />
+          <Avatar.Image style={styles.avatar} size={100} source={{ uri: matchPerson.img }} />
+        
         )}
         title={matchPerson.firstName + " " + matchPerson.lastName}
         titleStyle={styles.cardTitle}
@@ -76,14 +34,14 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         }
         subtitleStyle={styles.cardSubtitle}
       />
-
-      <Card.Content style={styles.chipContainer}>
-        <Title>Areas</Title>
+    
+      <Card.Content >
+        <Title style={{shadowOpacity:0.4, shadowOffset:{width:1, height:1}}}>Areas</Title>
         <View style={styles.techMapContainer}>
           {matchPerson.areas.map((area, j) => {
             return (
               <View style={styles.chipView} key={j}>
-                <Chip mode="outlined" height={25} textStyle={styles.chipText}>
+                <Chip mode="contained" height={25} textStyle={styles.chipText}>
                   {area.areaName}
                 </Chip>
               </View>
@@ -92,13 +50,13 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         </View>
       </Card.Content>
 
-      <Card.Content style={styles.chipContainer}>
-        <Title>Technologies</Title>
+      <Card.Content style={[styles.chipContainer,{marginTop:15}]}>
+        <Title style={{shadowOpacity:0.4, shadowOffset:{width:1, height:1}}}>Technologies</Title>
         <View style={styles.techMapContainer}>
           {matchPerson.technologies.map((tech, i) => {
             return (
               <View style={styles.chipView} key={i}>
-                <Chip mode="outlined" height={25} textStyle={styles.chipText}>
+                <Chip mode="contained" height={25} textStyle={styles.chipText}>
                   {tech.technologyName}
                 </Chip>
               </View>
@@ -106,7 +64,7 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
           })}
         </View>
       </Card.Content>
-
+      
       <Card.Actions style={styles.buttonActions}>
         {selected ? (
           <Button
@@ -125,7 +83,7 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         </Button>
       </Card.Actions>
 
-      {/* <ModalMessage visible={showModal} setModalVisible={setShowModal} handleSendRequest={handleSendRequest}/> */}
+
 
     </View>
   );
@@ -134,24 +92,22 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 export default CardCustom;
 
 const screenWidth = Dimensions.get("window").width / 1.05;
-const screenHeigth = Dimensions.get("window").height / 2.3;
+const screenHeigth = Dimensions.get("window").height / 2.4;
 
 const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     elevation: 3,
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
     shadowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
-    shadowOpacity: 0.3,
+    shadowOpacity: 1,
     shadowRadius: 2,
     marginTop: 20,
+    marginBottom:1,
     width: screenWidth,
     height: screenHeigth,
     marginHorizontal: 10,
-  },
-  cardContent: {
-    marginVertical: 2,
   },
   cardTitle: {
     fontWeight: "bold",
@@ -165,9 +121,7 @@ const styles = StyleSheet.create({
   chipText: {
     marginVertical: 1,
   },
-  chipContainer: {
-    marginTop: 8,
-  },
+  
   cardSubtitle: {
     fontStyle: "italic",
   },
@@ -180,8 +134,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonActions: {
-    justifyContent: "flex-end",
+  
+    flex:1,
+    justifyContent: "space-evenly",
+    alignItems:"flex-end",
     marginRight: 15,
-    marginTop: 10,
+    marginTop: -4,
   },
+  
 });

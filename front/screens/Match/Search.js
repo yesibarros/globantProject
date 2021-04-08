@@ -9,17 +9,19 @@ import {
   Dimensions,
 } from "react-native";
 
-import { Avatar } from "react-native-paper";
+import { Avatar, Chip } from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getMatchs } from "../../state/posibleMatch/thunks";
 import { useSelector, useDispatch } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
+import { useTheme } from "@react-navigation/native";
 const { width } = Dimensions.get("window");
-
+import {primaryGreen} from "../../utils/Colors"
 const stackSize = 4;
 const colors = {
+  
   red: "#EC2379",
   blue: "#0070FF",
   gray: "#777777",
@@ -56,7 +58,7 @@ const transitionRef = React.createRef();
 
 export default function App({ navigation }) {
   const dispatch = useDispatch();
-
+  const { colors } = useTheme();
   const matches = useSelector((state) => state.matchs.allMatches);
   const Smatches = useSelector((state) => state.matchs.singleMatch);
   const [index, setIndex] = React.useState(0);
@@ -71,12 +73,16 @@ export default function App({ navigation }) {
   }, []);
   const Card = ({ card }) => {
     return (
-      <View style={styles.card}>
+      <View style={[styles.card,{backgroundColor:colors.background}]}>
         {card && (
-          <View>
-            <CardDetails index={index} />
-
-            <Avatar.Image source={{ uri: card.img }} style={styles.cardImage} />
+          <View style={[{flex:1,alignItems:"center"}, {backgroundColor:colors.background}]}>
+            <Text style={[styles.text, styles.price,{color:colors.text}]}>{card.firstName + " " + card.lastName}</Text>
+            <Text style={{color:colors.text, marginBottom:5}} >{"Working since: " + matches[index].workingSince }</Text>
+            <Text style={[styles.text, {color:colors.text}]}>{card.role.join(" | ")}</Text>
+           
+        
+            <Avatar.Image size={150} source={{ uri: card.img }}  />
+            <CardDetails   index={index} />
           </View>
         )}
       </View>
@@ -84,14 +90,32 @@ export default function App({ navigation }) {
   };
 
   const CardDetails = ({ index }) => (
-    <View key={matches[index].id} style={{ alignItems: "center" }}>
-      <Text
-        style={([styles.text, styles.heading], { marginTop: 20 })}
-        numberOfLines={2}
-      >
-        {matches[index].firstName}
-      </Text>
-      <Text style={[styles.text, styles.price]}>{matches[index].role}</Text>
+    <View key={matches[index].id} style={{ flex:0.9, alignItems: "center", minWidth:"90%", marginBottom:10, justifyContent:"space-evenly" }}>
+
+      <Text style={[styles.tecnoAndAreaText,{color:colors.text}]} >AREAS</Text>
+      <View style={[styles.mapsContainer, {backgroundColor:colors.background}]}>
+      {matches[index].areas.map((area, j) => {
+            return (
+              <View style={[styles.chipView, {backgroundColor:colors.background}]} key={j}>
+                <Chip style={{height:35}} mode="contained" height={25} textStyle={styles.chipText}>
+                  {area.areaName}
+                </Chip>
+              </View>
+            );
+          })}
+      </View>
+      <Text style={[styles.tecnoAndAreaText,{color:colors.text}]}>TECNOLOGIAS</Text>
+      <View style={[styles.mapsContainer,{backgroundColor:colors.background}]}>
+      {matches[index].technologies.map((tech, i) => {
+            return (
+              <View style={[styles.chipView, {backgroundColor:colors.background}]} key={i}>
+                <Chip style={{height:35}} mode="contained" height={25} textStyle={styles.chipText}>
+                  {tech.technologyName}
+                </Chip>
+              </View>
+            );
+          })}
+      </View>
     </View>
   );
 
@@ -100,9 +124,8 @@ export default function App({ navigation }) {
     navigation.navigate("MatchComparison");
   };
 
-  console.log("ver smatches en otro lugar", Smatches);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{backgroundColor:colors.background}]}>
       <MaterialCommunityIcons
         name="crop-square"
         size={width}
@@ -141,11 +164,11 @@ export default function App({ navigation }) {
               title: "NO",
               style: {
                 label: {
-                  backgroundColor: colors.red,
-                  borderColor: colors.red,
+                  marginTop:-40,
+                  marginRight:-40,
+                  backgroundColor: "#ffc78f",
                   color: colors.white,
-                  borderWidth: 1,
-                  fontSize: 24,
+                  fontSize: 40,
                 },
                 wrapper: {
                   flexDirection: "column",
@@ -157,14 +180,14 @@ export default function App({ navigation }) {
               },
             },
             right: {
-              title: "ME GUSTA",
+              title: "SI",
               style: {
                 label: {
-                  backgroundColor: colors.blue,
-                  borderColor: colors.blue,
+                  backgroundColor: "#009387",
+                  marginTop:-40,
+                  marginLeft:-30,
                   color: colors.white,
-                  borderWidth: 1,
-                  fontSize: 24,
+                  fontSize: 40,
                 },
                 wrapper: {
                   flexDirection: "column",
@@ -186,21 +209,22 @@ export default function App({ navigation }) {
         ></Transitioning.View>
         <View style={styles.bottomContainerButtons}>
           <MaterialCommunityIcons.Button
-            name="close"
+            name="thumb-down"
             size={94}
+            style={{marginTop:25}}
             backgroundColor="transparent"
             underlayColor="transparent"
             activeOpacity={0.3}
-            color={colors.red}
+            color="#ffc78f"
             onPress={() => swiperRef.current.swipeLeft()}
           />
           <MaterialCommunityIcons.Button
-            name="circle-outline"
+            name="thumb-up"
             size={94}
             backgroundColor="transparent"
             underlayColor="transparent"
             activeOpacity={0.3}
-            color={colors.blue}
+            color="#009387"
             onPress={() => {
               preSelectMatch(matches[index]);
             }}
@@ -233,13 +257,15 @@ const styles = StyleSheet.create({
     width: 380,
     marginBottom: 200,
     resizeMode: "contain",
+    
+   
   },
   card: {
-    flex: 0.7,
+    flex: 0.78,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.9,
     shadowOffset: { width: 0, height: 0 },
     justifyContent: "center",
     alignItems: "center",
@@ -247,7 +273,11 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    fontSize: 50,
+    paddingBottom:10,
+    shadowOpacity:0.2,
+    shadowOffset:{width:1,height:1}, 
+    color:"gray",
+    fontSize: 20,
     backgroundColor: "transparent",
   },
   done: {
@@ -258,5 +288,14 @@ const styles = StyleSheet.create({
   },
   // text: { fontFamily: "Courier" },
   heading: { fontSize: 24, marginBottom: 10, color: colors.gray },
-  price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
+  price: {marginTop:30,  color: primaryGreen, fontSize: 32, fontWeight: "500" },
+  chipView:{
+    margin:2,
+    // justifyContent:"center",
+    // alignItems:"center"
+  },
+  mapsContainer:{
+    flexDirection:"row", flexWrap:"wrap", width:"91%"
+  },
+  tecnoAndAreaText:{position:"relative",justifyContent:'flex-start', fontWeight:"bold", fontSize:20}
 });

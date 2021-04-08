@@ -19,10 +19,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     width: "150%",
   },
-  // textInput: {
-  //   paddingLeft: 10,
-  //   fontSize: 20,
-  // },
+ 
   textEdit: {
     paddingLeft: 5,
     fontSize: 20,
