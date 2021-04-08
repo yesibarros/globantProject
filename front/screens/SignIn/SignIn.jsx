@@ -31,21 +31,21 @@ WebBrowser.maybeCompleteAuthSession();
 
 
 const SignIn = ({navigation}) => {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '258776343712-lqpid5ilh84carq4no613sd17ea5mmjg.apps.googleusercontent.com',
-    iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    behavior: "web",
-  });
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   expoClientId: '258776343712-lqpid5ilh84carq4no613sd17ea5mmjg.apps.googleusercontent.com',
+  //   iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   behavior: "web",
+  // });
 
  
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      }
-  }, [response]);
+  // React.useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     const { authentication } = response;
+  //     }
+  // }, [response]);
 
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
@@ -210,13 +210,13 @@ const SignIn = ({navigation}) => {
           </LinearGradient>
         </View>
         </Animatable.View>
-        <Button
+        {/* <Button
       disabled={!request}
       title="Login"
       onPress={() => {
         promptAsync();
         }}
-    />
+    /> */}
     </View>
   );
 };
