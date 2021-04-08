@@ -1,13 +1,12 @@
 import {createReducer} from "@reduxjs/toolkit"
 
-import {} from "./thunks"
+import {getUser} from "./thunks"
 import {} from "./actions"
 
 
 
 const mentorsReducer= createReducer([], {
-
-   
+[getUser]: (state, action) => action.payload
 })
 
   

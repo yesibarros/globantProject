@@ -79,7 +79,7 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             />
           )}
           label="Home"
-          onPress={()=>{props.navigation.navigate('TabBarNavigator')}}
+          onPress={()=>{props.navigation.navigate('Mi perfil')}}
         />
         <DrawerItem
           icon={({ color, size }) => (
@@ -100,8 +100,8 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             size={size} 
             />
           )}
-          label="Bookmarks"
-        onPress={()=>{}}
+          label="Mi mentor"
+        onPress={()=>props.navigation.navigate("Mentor")}
         />
         {/* <DrawerItem
           icon={({ color, size }) => (

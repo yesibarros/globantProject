@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
+  IconButton
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
@@ -25,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
@@ -60,7 +61,8 @@ const Profile = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Header/>
+  
+        <Header navigation={navigation}/>
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>

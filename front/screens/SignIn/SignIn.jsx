@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StatusBar,
   TextInput,
+  Button
 } from "react-native";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +22,33 @@ import { LinearGradient } from 'expo-linear-gradient';
 //STYLE
 import styles from "./signInStyle"
 
+//AUTH
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import * as AuthSession from 'expo-auth-session';
+
+WebBrowser.maybeCompleteAuthSession();
+
 
 const SignIn = ({navigation}) => {
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   expoClientId: '258776343712-lqpid5ilh84carq4no613sd17ea5mmjg.apps.googleusercontent.com',
+  //   iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+  //   behavior: "web",
+  // });
+
+ 
+
+  // React.useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     const { authentication } = response;
+  //     }
+  // }, [response]);
+
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
-  console.log( "****",loginUser)
   const [wrongDataAlert, setWrongDataAlert]= useState(false)
   const [wrongUserAlert, setWrongUserAlert]= useState(false)
 
@@ -187,6 +210,13 @@ const SignIn = ({navigation}) => {
           </LinearGradient>
         </View>
         </Animatable.View>
+        {/* <Button
+      disabled={!request}
+      title="Login"
+      onPress={() => {
+        promptAsync();
+        }}
+    /> */}
     </View>
   );
 };
