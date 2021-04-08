@@ -14,8 +14,6 @@ const matchReducer = createReducer(match, {
     return { ...state, allMatches: action.payload };
   },
   [setMatch]: (state, action) => {
-    console.log("reducerrrrrrrrrrrrrrr");
-    console.log(action.payload);
     return { ...state, singleMatch: action.payload };
   },
 });

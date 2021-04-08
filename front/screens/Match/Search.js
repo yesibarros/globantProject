@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 
+import { Avatar } from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -75,7 +76,7 @@ export default function App({ navigation }) {
           <View>
             <CardDetails index={index} />
 
-            <Image source={{ uri: card.img }} style={styles.cardImage} />
+            <Avatar.Image source={{ uri: card.img }} style={styles.cardImage} />
           </View>
         )}
       </View>

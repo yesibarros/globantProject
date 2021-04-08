@@ -1,5 +1,13 @@
 const router = require("express").Router();
-const {newRequest, acceptRequest, cancelRequest, getMatchs, updateById, getUser, getPendingRequests} = require("../controllers/userControllers")
+const {
+  newRequest,
+  acceptRequest,
+  cancelRequest,
+  getMatchs,
+  updateById,
+  getUser,
+  getPendingRequests,
+} = require("../controllers/userControllers");
 const checkJWT = require("../middleware/JWTmiddleware");
 const { verifyData } = require("../middleware");
 
@@ -10,7 +18,7 @@ router.get("/userstype", checkJWT, getMatchs);
 // GET MATCHES
 router.get("/pendingRequests", checkJWT, getPendingRequests);
 //NEW REQUEST
-router.post("/:id/newRequest", [checkJWT, verifyData], newRequest);
+router.post("/:id/newRequest", [checkJWT], newRequest);
 //ACCEPT REQUEST
 router.put("/:id/acceptRequest", [checkJWT, verifyData], acceptRequest);
 //CANCEL REQUEST

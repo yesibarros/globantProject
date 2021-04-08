@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 
 import { getRequests, cancelRequest, acceptRequest, sendRequest } from "./Thunks";
 
-let requests = []
+let requests = [];
 
 const requestsReducer = createReducer(requests, {
     [getRequests.fulfilled]: (state, action) => {
