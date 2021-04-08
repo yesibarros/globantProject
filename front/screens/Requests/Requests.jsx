@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native'
-
+import {IconButton} from 'react-native-paper';
+import {primaryGreen} from "../../utils/Colors"
 
 //STYLE
 import styles from "./requestsStyle";
 import { useTheme } from "@react-navigation/native";
+
 
 //COMPONENTS
 import RequestCard from "./RequestCard"
@@ -14,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
 
 const Requests = ({navigation}) => {
+  
     const [showReceived, setShowReceived] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -45,8 +48,16 @@ const Requests = ({navigation}) => {
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
+       
+                <IconButton
+                  icon="menu"
+                  color={primaryGreen}
+                  size={30}
+                  style={{position:"absolute", zIndex:2}}
+                  onPress={() => navigation.openDrawer()}
+                />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>SOLICITUDES</Text>
+          <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -54,7 +65,7 @@ const Requests = ({navigation}) => {
               setShowReceived(true);
             }}
           >
-            <Text style={[styles.buttons, showReceived && styles.underline]}>
+            <Text style={[styles.buttons, showReceived && styles.underline, {color: colors.text}]}>
               RECIBIDAS
             </Text>
           </TouchableOpacity>
@@ -63,7 +74,7 @@ const Requests = ({navigation}) => {
               setShowReceived(false);
             }}
           >
-            <Text style={[styles.buttons, !showReceived && styles.underline]}>
+            <Text style={[styles.buttons, !showReceived && styles.underline, {color: colors.text}]}>
               ENVIADAS
             </Text>
           </TouchableOpacity>

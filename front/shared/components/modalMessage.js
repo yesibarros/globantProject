@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
+import { useTheme } from "@react-navigation/native";
 
 import {Modal, View, Text, Pressable, StyleSheet, TextInput, Dimensions} from 'react-native';
-
+import {primaryGreen} from "../../utils/Colors"
 const {height} = Dimensions.get('window')
 
 const ModalMessage = ({visible, setModalVisible, handleSendRequest}) => {
     const [inputMessage, setInputMessage] = useState('')
-
+    const { colors } = useTheme();
     return(
         <View style={styles.centeredView}>
             <Modal
@@ -16,24 +17,24 @@ const ModalMessage = ({visible, setModalVisible, handleSendRequest}) => {
                 onRequestClose={() => setModalVisible(!visible)}
             >
                 <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Mensaje</Text>
+                <View style={[styles.modalView, {backgroundColor: colors.background}]}>
+                    <Text style={[styles.modalText, {color: colors.text}]}>Mensaje</Text>
                     
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, {backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                         multiline
                         onChangeText={text => setInputMessage(text)}
                     />
                     <View style={styles.buttonsContainer}>
                         <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={[styles.button, styles.buttonClose, {backgroundColor: primaryGreen}]}
                         onPress={() => setModalVisible(!visible)}
                         >
                         <Text style={styles.textStyle}>Cancelar</Text>
                         </Pressable>
 
                         <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={[styles.button, styles.buttonClose, {backgroundColor: primaryGreen}]}
                         onPress={() => {
                             setModalVisible(!visible)
                             handleSendRequest(inputMessage)
@@ -81,9 +82,12 @@ const styles = StyleSheet.create({
         elevation: 5
         },
         button: {
-        borderRadius: 20,
+        marginTop: 15,
+        borderRadius: 15,
         padding: 10,
-        elevation: 2
+        elevation: 2,
+        paddingVertical: 13,
+
         },
         buttonOpen: {
         backgroundColor: "#F194FF",
@@ -94,7 +98,8 @@ const styles = StyleSheet.create({
         textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 15
     },
     modalText: {
         marginBottom: 15,
@@ -102,8 +107,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     buttonsContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-evenly',
+    
         width: '90%'
     }
     });
