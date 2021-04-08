@@ -5,6 +5,7 @@ import axios from "axios";
 import localHost from "../../localHostIp";
 
 export const register = createAsyncThunk("REGISTER_REQUEST", (data) => {
+  
   return axios
     .post(`http://${localHost}/api/auth/register`, data)
     .then((respuesta) => respuesta.data);

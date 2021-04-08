@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
         color: "#05375a",
       },
       button: {
-        alignItems:'center', 
-        marginTop:50
+        alignItems:'center'
       },
       singIn: {
         // paddingHorizontal:50,

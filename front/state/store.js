@@ -8,7 +8,7 @@ import menteesReducer from "./mentees/reducer"
 import locationsReducer from "./Locations/Reducer"
 import ThemeReducer from "./Theme/reducer"
 import animationReducer from "./Animation/reducer";
-
+import requestsReducer from './requests/Reducer';
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -20,7 +20,8 @@ const store = configureStore({
         matchs: matchReducer,
         locations: locationsReducer,
         darkTheme: ThemeReducer,
-        animation: animationReducer
+        animation: animationReducer,
+        requests: requestsReducer
     },
 });
 

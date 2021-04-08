@@ -77,7 +77,7 @@ const isDarkTheme = useSelector(state => state.darkTheme)
             />
           )}
           label="Home"
-        onPress={()=>{}}
+          onPress={()=>{props.navigation.navigate('TabBarNavigator')}}
         />
          <DrawerItem
           icon={({ color, size }) => (
