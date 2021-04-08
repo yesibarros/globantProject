@@ -19,9 +19,8 @@ import { useSelector } from "react-redux";
 import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
-import {IconButton} from 'react-native-paper';
-import {View} from 'react-native';
-import {primaryGreen} from "./utils/Colors"
+import Mentees from "./screens/Mentees/Mentees";
+
 
 const Stack = createStackNavigator();
 
@@ -67,18 +66,21 @@ const Main = ({navigation}) => {
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
   return (
     <PaperProvider theme={theme}>
+     
       <NavigationContainer theme={theme}>
+    
         <Stack.Navigator initialRouteName="ScreenLoad"
           headerMode={false}
           // screenOptions={{
           //   headerStyle: {
-          //     backgroundColor: primaryGreen,
+          //     backgroundColor: "transparent",
           //     elevation: 0,
           //   },
           // }}
         >
           {loggedUser._id ? (
             <>
+              
               <Stack.Screen
                 name="DrawerNavigator"
                 component={DrawerNavigator}
@@ -89,6 +91,11 @@ const Main = ({navigation}) => {
                 component={MatchComparison}
               />
               <Stack.Screen name="SearchMatch" component={Search} />
+              <Stack.Screen
+                name="Mentor"
+                component={Mentees}
+              />
+
             </>
           ) : (
             <>

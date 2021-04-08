@@ -17,6 +17,8 @@ import { getMatchs } from "../../state/posibleMatch/thunks";
 import { useSelector, useDispatch } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
 const { width } = Dimensions.get("window");
+import {IconButton} from 'react-native-paper';
+import {primaryGreen} from "../../utils/Colors"
 
 const stackSize = 4;
 const colors = {
@@ -103,6 +105,13 @@ export default function App({ navigation }) {
   console.log("ver smatches en otro lugar", Smatches);
   return (
     <SafeAreaView style={styles.container}>
+   <IconButton
+                  icon="menu"
+                  color={primaryGreen}
+                  size={30}
+                  style={{position:"absolute", zIndex:2}}
+                  onPress={() => navigation.openDrawer()}
+                />
       <MaterialCommunityIcons
         name="crop-square"
         size={width}

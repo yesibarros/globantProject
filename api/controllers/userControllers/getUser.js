@@ -2,7 +2,7 @@
 const userFindAndPopulate = require("../../utils/userFindAndPopulate");
 
 const getUser = (req, res, next) => {
-    const id = req.body.id || req.user._id;
+    const id = req.query.id || req.user._id;
     userFindAndPopulate({ _id: id })
       .then((userProfile) => {
         if (!userProfile) res.sendStatus(404);
