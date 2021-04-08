@@ -13,7 +13,7 @@ import RequestCard from "./RequestCard"
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
 
-const Requests = () => {
+const Requests = ({navigation}) => {
     const [showReceived, setShowReceived] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -75,7 +75,7 @@ const Requests = () => {
               data={filteredRequests}
               keyExtractor={(request) => request._id}
               renderItem={request => (
-                  <RequestCard request={request.item} received={showReceived}/>
+                  <RequestCard request={request.item} received={showReceived} navigation={navigation}/>
               )}
             />
           :

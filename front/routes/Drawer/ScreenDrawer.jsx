@@ -61,7 +61,9 @@ const isDarkTheme = useSelector(state => state.darkTheme)
                         <Caption style={[styles.caption], {marginLeft:10}}>Mentor</Caption>
                     </View>
                     <View style={styles.section}>
-                        <Paragraph style={[styles.paragraph, styles.caption]}>{user.mentees.length}</Paragraph>
+                        <Paragraph style={[styles.paragraph, styles.caption]}>
+                          {user.mentees && user.mentees.length}
+                        </Paragraph>
                         <Caption style={[styles.caption], {marginLeft:10}}>Mentees</Caption>
                     </View>
                 </View>
@@ -79,7 +81,7 @@ const isDarkTheme = useSelector(state => state.darkTheme)
           label="Home"
           onPress={()=>{props.navigation.navigate('TabBarNavigator')}}
         />
-         <DrawerItem
+        <DrawerItem
           icon={({ color, size }) => (
             <Icon 
             name="account-outline" 

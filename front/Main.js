@@ -19,22 +19,25 @@ import { useSelector } from "react-redux";
 import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
+import {IconButton} from 'react-native-paper';
+import {View} from 'react-native';
+import {primaryGreen} from "./utils/Colors"
 
 const Stack = createStackNavigator();
 
 const MyTheme = {
   dark: true,
   colors: {
-    primary: 'rgb(255, 45, 85)',
-    background: 'rgb(242, 242, 242)',
-    card: 'rgb(255, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-    border: 'rgb(199, 199, 204)',
-    notification: 'rgb(255, 69, 58)',
+    primary: "rgb(255, 45, 85)",
+    background: "rgb(242, 242, 242)",
+    card: "rgb(255, 255, 255)",
+    text: "rgb(28, 28, 30)",
+    border: "rgb(199, 199, 204)",
+    notification: "rgb(255, 69, 58)",
   },
 };
 
-const Main = () => {
+const Main = ({navigation}) => {
   const showAnimation = useSelector((state) => state.animation);
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const isDarkTheme = useSelector((state) => state.darkTheme);
@@ -65,7 +68,15 @@ const Main = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="ScreenLoad" headerMode={false}>
+        <Stack.Navigator initialRouteName="ScreenLoad"
+          headerMode={false}
+          // screenOptions={{
+          //   headerStyle: {
+          //     backgroundColor: primaryGreen,
+          //     elevation: 0,
+          //   },
+          // }}
+        >
           {loggedUser._id ? (
             <>
               <Stack.Screen
@@ -83,14 +94,14 @@ const Main = () => {
             <>
               {showAnimation ? (
                 <>
-                  <Stack.Screen name="ScreenLoad" component={ScreenLoad} />
-                  <Stack.Screen name="SignIn" component={SignIn} />
-                  <Stack.Screen name="SignUp" component={SignUp} />
+                  <Stack.Screen options={{headerShown: false}} name="ScreenLoad" component={ScreenLoad} />
+                  <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
+                  <Stack.Screen options={{headerShown: false}} name="SignUp" component={SignUp} />
                 </>
               ) : (
                 <>
-                  <Stack.Screen name="SignIn" component={SignIn} />
-                  <Stack.Screen name="SignUp" component={SignUp} />
+                  <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
+                  <Stack.Screen options={{headerShown: false}} name="SignUp" component={SignUp} />
                 </>
               )}
             </>

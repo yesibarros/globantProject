@@ -1,19 +1,57 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Alert, TouchableOpacity} from 'react-native'
-import { Card, Title, Paragraph, Avatar, IconButton, Colors} from 'react-native-paper';
+import { Card, Title, Paragraph, Avatar, IconButton, Colors, ActivityIndicator} from 'react-native-paper';
 import {primaryGreen} from "../../utils/Colors"
 import styles from './requestCardStyle'
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../state/loggedUser/actions';
 import {cancelRequest, acceptRequest} from '../../state/requests/Thunks';
 
-const RequestCard = ({request, received}) => {
+const RequestCard = ({request, received, navigation}) => {
+    const [buttonSendLoading, setButtonSendLoading] = useState(false)
+    const [buttonCancelLoading, setButtonCancelLoading] = useState(false)
+
     const dispatch = useDispatch()
 
     const handleAccept = () => {
+      setButtonSendLoading(true)
+    
       dispatch(acceptRequest(request._id)).then((data) => {
-        console.log(data)
-        // dispatch(setUser())
+        setButtonSendLoading(false)
+
+        if(data.meta.requestStatus === 'rejected'){
+          return Alert.alert("Ya tienes un mentor", "Lo sentimos, no podes tener mas de 1 mentor", [
+            {
+              text: 'Ok',
+              onPress: () => navigation.navigate('Requests')
+            }
+          ]) 
+        }else{
+          Alert.alert("¡Felicidades!", "Ya tenes un nuevo mentor", [
+            {
+              text: 'Ok',
+              onPress: () => navigation.navigate('Requests')
+            }
+          ])
+          dispatch(setUser(data.payload.user))
+        }
+      })
+    }
+
+    const handleCancel = () => {
+      setButtonCancelLoading(true)
+
+      dispatch(cancelRequest(request._id)).then((data) => {
+        setButtonCancelLoading(false)
+
+        Alert.alert(`Solicitud ${received ? 'rechazada' : 'eliminada'}`, " ", [
+          {
+            text: 'Ok',
+            onPress: () => navigation.navigate('Requests')
+          }
+        ])
+        dispatch(setUser(data.payload.user))
+      
       })
     }
 
@@ -50,27 +88,55 @@ const RequestCard = ({request, received}) => {
             </TouchableOpacity>
             {received? (
               <View style={styles.buttonContainer}>
-                <IconButton
-                  icon="check-outline"
-                  color={primaryGreen}
-                  size={30}
-                  onPress={() => handleAccept()}
-                />
+                
+                {buttonSendLoading 
+                ? 
+                  <ActivityIndicator
+                    size={30}
+                    style={{marginLeft: 15}}
+                    color={primaryGreen}
+                  />
+                :
+                  <IconButton
+                    icon='check-outline'
+                    color={primaryGreen}
+                    size={30}
+                    onPress={() => handleAccept()}
+                  />
+                }
+
+                {buttonCancelLoading 
+                ? 
+                  <ActivityIndicator
+                    size={30}
+                    style={{marginRight: 15}}
+                    color={Colors.red500}
+                  />
+                :
                 <IconButton
                   icon="close-outline"
                   color={Colors.red500}
                   size={30}
-                  onPress={() => console.log("Pressed")}
+                  onPress={() => handleCancel()}
                 />
+                }
               </View>) : 
-              (<View style={styles.cancelContainer}>
+
+              (buttonCancelLoading 
+                ? 
+                  <ActivityIndicator
+                    size={30}
+                    style={{marginRight: 15}}
+                    color={Colors.red500}
+                  />
+                :
                 <IconButton
                   icon="delete-outline"
                   color={Colors.red500}
                   size={30}
-                  onPress={() => console.log("Pressed")}
+                  onPress={() => handleCancel()}
                 />
-              </View>)
+              )
             }
             
           </View>
