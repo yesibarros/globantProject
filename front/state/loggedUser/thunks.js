@@ -6,7 +6,7 @@ import localHost from "../../localHostIp";
 
 export const register = createAsyncThunk("REGISTER_REQUEST", (data) => {
   return axios
-    .post(`${localHost}:5000/api/auth/register`, data)
+    .post(`htpp://${localHost}:5000/api/auth/register`, data)
     .then((respuesta) => respuesta.data);
 });
 
