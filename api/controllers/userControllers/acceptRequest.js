@@ -14,7 +14,7 @@ const acceptRequest = async (req, res, next)=>{
                 if(requests[i].fromRole == "mentee"){
                     if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})
                     
-                    await User.findOneAndUpdate({_id: user._id},{$push: {mentees: requests[i].from}})
+                    await User.findOneAndUpdate({_id: user._id},{$push: {mentees: requests[i].from}, $inc: {receivedPendingRequests: -1}})
                     await User.findOneAndUpdate({_id: requests[i].from},{$set: {mentor: user._id}})      
                 }
                 if(requests[i].fromRole == "mentor") {

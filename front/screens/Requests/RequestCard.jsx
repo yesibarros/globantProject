@@ -66,6 +66,8 @@ const RequestCard = ({ request, received, navigation }) => {
     });
   };
 
+  const opositeRole = request.fromRole == "mentee"? "mentor" : "mentee"
+
   return (
     <Card style={styles.card}>
       <Card.Content>
@@ -84,7 +86,7 @@ const RequestCard = ({ request, received, navigation }) => {
               />
               <View style={styles.title}>
                 <Paragraph style={styles.fromRole}>
-                  {request.fromRole}
+                  {received? request.fromRole : opositeRole}
                 </Paragraph>
                 <Title style={styles.name}>
                   {received
