@@ -33,7 +33,9 @@ const Mentor = ({navigation}) => {
 
   const { colors } = useTheme();
 
-  
+  if (loginUser.mentor== undefined){
+    return <View style={{flex:1, width:"100%",justifyContent:"center", alignItems:"center" }}><Text >Mentor</Text></View>
+  }
   return (
     <ScrollView>
       <View style={styles.container}>
