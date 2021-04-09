@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { View,Text } from "react-native";
 import {
   Avatar,
@@ -16,26 +16,30 @@ import {useSelector, useDispatch} from 'react-redux'
 import { setTheme } from "../../state/Theme/actions";
 import { useTheme } from '@react-navigation/native';
 import {logout} from "../../state/loggedUser/actions"
-
+import {setToggleRole} from "../../state/ToggleRole/actions"
 
 
 
 const ScreenDrawer = (props) => {
 const user = useSelector(state => state.loggedUser.user)
+console.log("USEEEER", user )
 const { colors } = useTheme();
 const dispatch = useDispatch()
 const handleLogout=()=>{
   dispatch(logout())
 
 }
+const isMentor  = useSelector(state => state.toggleRole)
 
 const isDarkTheme = useSelector(state => state.darkTheme)
     const toggleTheme =()=>{
         // setIsDarkTheme(!isDarkTheme);
         dispatch(setTheme())
     }
-
-
+    const toggleRole =()=>{
+        dispatch(setToggleRole())
+    }
+    console.log("ES MENTO",isMentor)
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -139,7 +143,27 @@ const isDarkTheme = useSelector(state => state.darkTheme)
     </View>
 </TouchableRipple>
             </Drawer.Section>
+              {user.role && user.role.includes("mentor") && user.role.includes("mentee") &&
+            <Drawer.Section title="Cuál es tu rol hoy?">
+<TouchableRipple onPress={()=>{toggleRole()}}>
+    <View style={styles.preference}>
+        <Text style={{color:colors.text}}>
+        Mentees
+        </Text>
+        <View pointerEvents="none">
+
+        <Switch value={isMentor}/>
         </View>
+        <Text style={{color:colors.text}}>
+        Mentor
+        </Text>
+    </View>
+</TouchableRipple>
+            </Drawer.Section>
+}
+            
+        </View>
+
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
