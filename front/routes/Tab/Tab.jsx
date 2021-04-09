@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React from "react";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 const Tab = ({ color, tab, onPress, icon }) => {
   return (
@@ -13,15 +13,15 @@ const Tab = ({ color, tab, onPress, icon }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 10,
   },
-  tabText:{
+  tabText: {
     color: "white",
     fontSize: 15,
-    paddingTop: 20
-  }
+    paddingTop: 20,
+  },
 });
 
 export default Tab;
