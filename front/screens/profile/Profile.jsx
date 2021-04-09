@@ -70,11 +70,12 @@ const Profile = ({navigation}) => {
               <Avatar
                 size="xlarge"
                 source={{
-                  uri: loginUser.img,
-                  width: "100%",
-                  heigth: "100%",
-                  zIndex: 1,
+                  uri: loginUser.img
                 }}
+
+                avatarStyle={{zIndex: 1, width: "100%",
+                heigth: "100%",}}
+              
                 rounded
                 title={loginUser.firstName + loginUser.lastName}
                 titleStyle={{
