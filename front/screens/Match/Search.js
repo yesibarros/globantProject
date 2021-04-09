@@ -8,8 +8,8 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
-
-import { Avatar, Chip } from "react-native-paper";
+//VER SI CON UN USE EFFECT EN COLORS SE ACTUALIZA EL COLOR SIN TENER QUE MOVER LA CARD
+import { Avatar, Chip, IconButton } from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,6 +19,7 @@ import { setMatch } from "../../state/posibleMatch/actions";
 import { useTheme } from "@react-navigation/native";
 const { width } = Dimensions.get("window");
 import {primaryGreen} from "../../utils/Colors"
+
 const stackSize = 4;
 const colors = {
   
@@ -74,6 +75,7 @@ export default function App({ navigation }) {
   const Card = ({ card }) => {
     return (
       <View style={[styles.card,{backgroundColor:colors.background}]}>
+        
         {card && (
           <View style={[{flex:1,alignItems:"center"}, {backgroundColor:colors.background}]}>
             <Text style={[styles.text, styles.price,{color:colors.text}]}>{card.firstName + " " + card.lastName}</Text>
@@ -125,7 +127,17 @@ export default function App({ navigation }) {
   };
 
   return (
+    
+    
     <SafeAreaView style={[styles.container,{backgroundColor:colors.background}]}>
+      <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position:"absolute", zIndex:2, marginTop:40,marginLeft:17}}
+                    onPress={() => navigation.openDrawer()}
+                  />
+      
       <MaterialCommunityIcons
         name="crop-square"
         size={width}
@@ -183,6 +195,7 @@ export default function App({ navigation }) {
               title: "SI",
               style: {
                 label: {
+                  
                   backgroundColor: "#009387",
                   marginTop:-40,
                   marginLeft:-30,
@@ -190,6 +203,7 @@ export default function App({ navigation }) {
                   fontSize: 40,
                 },
                 wrapper: {
+                  
                   flexDirection: "column",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
@@ -232,6 +246,7 @@ export default function App({ navigation }) {
         </View>
       </View>
     </SafeAreaView>
+  
   );
 }
 
