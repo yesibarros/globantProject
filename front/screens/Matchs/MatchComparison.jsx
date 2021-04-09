@@ -1,38 +1,34 @@
 import React, { useState, useEffect } from "react";
-
-import { View, ScrollView, Alert } from "react-native";
-
 import { useDispatch, useSelector } from "react-redux";
-// import { getMatchs } from "../../state/posibleMatch/thunks";
-import CardCustom from "../../shared/cardCustom";
+
+import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
+import { Icon } from "react-native-elements";
+
+import { useTheme } from "@react-navigation/native";
 import { setMatch } from "../../state/posibleMatch/actions";
 import { sendRequest } from "../../state/requests/Thunks";
-// import matches from "./egMatch";
+
 import ModalMessage from "../../shared/components/modalMessage";
+import CardCustom from "../../shared/cardCustom";
 
 const MatchComparison = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
-  const singleMatch = useSelector((state) => state.matchs.singleMatch);
-  const loggedUser = useSelector((state) => state.loggedUser.user);
+  const { colors } = useTheme();
 
-  const allMatches = useSelector((state) => state.matchs.allMatches);
+  const [isLoading, setIsLoeading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [filterAllMatches, setFilterAllMatches] = useState([]);
+
+  const loggedUser = useSelector((state) => state.loggedUser.user);
+  const singleMatch = useSelector((state) => state.matchs.singleMatch);
+  const allMatches = useSelector((state) => state.matchs.allMatches);
+
   useEffect(() => {
     setFilterAllMatches(() =>
       allMatches.filter((match) => match._id !== singleMatch._id)
     );
-  }, []);
-
-  // const filterAllMatches = allMatches.filter(match => match._id !== singleMatch._id)
-  // console.log("===============================");
-  // console.log("===============================");
-  // console.log("===============================");
-
-  // console.log(filterAllMatches);
-  // console.log("===============================");
-  // console.log("===============================");
-  // console.log("===============================");
+    setIsLoeading(false);
+  }, [singleMatch]);
 
   const handleSendRequest = (message) => {
     if (loggedUser.role.includes("mentee")) {
@@ -40,7 +36,6 @@ const MatchComparison = ({ navigation }) => {
         _id: singleMatch._id,
         message: message,
       };
-
       dispatch(sendRequest({ mentor })).then((data) => {
         if (data.meta.requestStatus === "rejected") {
           return Alert.alert(
@@ -68,7 +63,6 @@ const MatchComparison = ({ navigation }) => {
           message: message,
         },
       ];
-
       dispatch(sendRequest({ mentees }));
     }
   };
@@ -82,34 +76,53 @@ const MatchComparison = ({ navigation }) => {
       setShowModal(true);
     } else {
       dispatch(setMatch(currentMatch));
-      //  filtrar el all match para que eeste nuevo single match no aparezca de nuevo abajo .
     }
   };
 
-  //user effect para filtar el single match que no aparezca en el all match
-
   return (
-    <View>
-      <ModalMessage
-        visible={showModal}
-        setModalVisible={setShowModal}
-        handleSendRequest={handleSendRequest}
-      />
-
+    <View
+      style={{
+        flex: 0.99,
+        justifyContent: "space-evenly",
+      }}
+    >
       <CardCustom
         matchPerson={singleMatch}
         selected="true"
         cancelButton={cancelButton}
         okButton={okButton}
       />
-      {/* poner en el sroll view flechas para los costados */}
-      <ScrollView horizontal pagingEnabled={true} fadingEdgeLength={20}>
-        {filterAllMatches.map((option, i) => {
-          return (
-            <CardCustom matchPerson={option} key={i} okButton={okButton} />
-          );
-        })}
-      </ScrollView>
+      {isLoading ? (
+        <View style={[{ backgroundColor: colors.background }]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      ) : (
+        <View>
+          <ScrollView
+            onScroll={() => (
+              <View style={{ backgroundColor: "red", position: "absolute" }}>
+                <Icon name="rowing" />
+              </View>
+            )}
+            horizontal
+            pagingEnabled={true}
+            fadingEdgeLength={50}
+          >
+            {filterAllMatches.map((option, i) => {
+              return (
+                <CardCustom matchPerson={option} key={i} okButton={okButton} />
+              );
+            })}
+          </ScrollView>
+        </View>
+      )}
+      <View style={{ position: "absolute" }}>
+        <ModalMessage
+          visible={showModal}
+          setModalVisible={setShowModal}
+          handleSendRequest={handleSendRequest}
+        />
+      </View>
     </View>
   );
 };

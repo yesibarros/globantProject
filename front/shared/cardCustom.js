@@ -4,73 +4,97 @@ import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
   const { colors } = useTheme();
-  const borderWidth = selected ? 5 : 0;
+  const borderWidth = selected ? 5 : 1;
   const borderColor = selected ? "#009387" : "";
- 
 
   return (
     <View
       style={[
         styles.card,
-        { borderWidth: borderWidth, borderColor: borderColor },
-      ,{backgroundColor:colors.background}]}
+        { borderColor: borderColor, borderWidth: borderWidth },
+        { backgroundColor: colors.background },
+      ]}
     >
- 
-
       <Card.Title
+        style={{ flex: 0.3 }}
         right={() => (
-          <Avatar.Image style={styles.avatar} size={100} source={{ uri: matchPerson.img }} />
-        
+          <Avatar.Image
+            style={styles.avatar}
+            size={90}
+            source={{ uri: matchPerson.img }}
+          />
         )}
-        title={matchPerson.firstName + " " + matchPerson.lastName}
         titleStyle={styles.cardTitle}
-        subtitle={
-          matchPerson.role && matchPerson.role.toString().toUpperCase() +
-          " | " +
-          "Working since: " +
-          matchPerson.workingSince +
-          " | " +
-          matchPerson.location.locationName
-        }
         subtitleStyle={styles.cardSubtitle}
+        title={matchPerson.firstName + " " + matchPerson.lastName}
+        subtitle={
+          matchPerson.role &&
+          matchPerson.role.toString().toUpperCase() +
+            " | " +
+            "Working since: " +
+            matchPerson.workingSince +
+            " | " +
+            matchPerson.location.locationName
+        }
       />
-    
-      <Card.Content >
-        <Title style={{shadowOpacity:0.4, shadowOffset:{width:1, height:1}}}>Areas</Title>
+
+      <Card.Content style={{ flex: 1 }}>
+        <Title
+          style={{ shadowOpacity: 0.4, shadowOffset: { width: 1, height: 1 } }}
+        >
+          Areas
+        </Title>
         <View style={styles.techMapContainer}>
           {matchPerson.areas.map((area, j) => {
-            return (
-              <View style={styles.chipView} key={j}>
-                <Chip mode="contained" height={25} textStyle={styles.chipText}>
-                  {area.areaName}
-                </Chip>
-              </View>
-            );
+            if (j < 8) {
+              return (
+                <View style={styles.chipView} key={j}>
+                  <Chip
+                    mode="contained"
+                    height={25}
+                    textStyle={styles.chipText}
+                  >
+                    {area.areaName}
+                  </Chip>
+                </View>
+              );
+            }
           })}
         </View>
       </Card.Content>
 
-      <Card.Content style={[styles.chipContainer,{marginTop:15}]}>
-        <Title style={{shadowOpacity:0.4, shadowOffset:{width:1, height:1}}}>Technologies</Title>
+      <Card.Content style={styles.chipContainer}>
+        <Title
+          style={{ shadowOpacity: 0.4, shadowOffset: { width: 1, height: 1 } }}
+        >
+          Technologies
+        </Title>
         <View style={styles.techMapContainer}>
           {matchPerson.technologies.map((tech, i) => {
-            return (
-              <View style={styles.chipView} key={i}>
-                <Chip mode="contained" height={25} textStyle={styles.chipText}>
-                  {tech.technologyName}
-                </Chip>
-              </View>
-            );
+            if (i < 8) {
+              return (
+                <View style={styles.chipView} key={i}>
+                  <Chip
+                    mode="contained"
+                    height={25}
+                    textStyle={styles.chipText}
+                  >
+                    {tech.technologyName}
+                  </Chip>
+                </View>
+              );
+            }
           })}
         </View>
       </Card.Content>
-      
+
       <Card.Actions style={styles.buttonActions}>
         {selected ? (
           <Button
             onPress={() => cancelButton(selected)}
             mode="contained"
-            color="white"
+            color="#ffc78f"
+            icon="account-convert"
           >
             Volver atras
           </Button>
@@ -78,13 +102,12 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         <Button
           onPress={() => okButton(selected, matchPerson)}
           icon="account-check"
+          mode="contained"
+          color="#ffc78f"
         >
           {selected ? "Seleccionar" : "Mejor este!"}
         </Button>
       </Card.Actions>
-
-
-
     </View>
   );
 };
@@ -96,23 +119,17 @@ const screenHeigth = Dimensions.get("window").height / 2.4;
 
 const styles = StyleSheet.create({
   card: {
+    borderWidth: 2,
     borderRadius: 10,
-    elevation: 3,
     backgroundColor: "white",
-    shadowOffset: { width: 1, height: 1 },
-    shadowColor: "#333",
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    marginTop: 20,
-    marginBottom:1,
     width: screenWidth,
     height: screenHeigth,
-    marginHorizontal: 10,
+    justifyContent: "space-around",
+    marginHorizontal: 9.7,
   },
   cardTitle: {
     fontWeight: "bold",
-    fontSize: 25,
-    marginBottom: 5,
+    fontSize: 28,
   },
   techMapContainer: {
     flexDirection: "row",
@@ -121,25 +138,21 @@ const styles = StyleSheet.create({
   chipText: {
     marginVertical: 1,
   },
-  
   cardSubtitle: {
     fontStyle: "italic",
+    fontSize: 12,
+  },
+  chipContainer: {
+    flex: 1,
   },
   chipView: {
-    margin: 2,
+    margin: 1,
   },
   avatar: {
-    backgroundColor: "white",
-    marginRight: 15,
-    marginTop: 10,
+    margin: 5,
   },
   buttonActions: {
-  
-    flex:1,
+    flex: 0.4,
     justifyContent: "space-evenly",
-    alignItems:"flex-end",
-    marginRight: 15,
-    marginTop: -4,
   },
-  
 });
