@@ -4,10 +4,15 @@ import { useTheme } from "@react-navigation/native";
 import {Modal, View, Text, Pressable, StyleSheet, TextInput, Dimensions} from 'react-native';
 import {primaryGreen} from "../../utils/Colors"
 const {height} = Dimensions.get('window')
+import {useSelector} from 'react-redux';
 
 const ModalMessage = ({visible, setModalVisible, handleSendRequest}) => {
-    const [inputMessage, setInputMessage] = useState('')
+    const loggedUser = useSelector(state => state.loggedUser.user) //DESDE REDUX TOMO EL USER PARA USAR EL ROL EN EL MENSAJE
+    const [messageDefault, setMessageDefault] = useState(`¡Hola! Me gustaría ser tu ${loggedUser.role}`)
+
+    const [inputMessage, setInputMessage] = useState(messageDefault)
     const { colors } = useTheme();
+    
     return(
         <View style={styles.centeredView}>
             <Modal
@@ -17,30 +22,38 @@ const ModalMessage = ({visible, setModalVisible, handleSendRequest}) => {
                 onRequestClose={() => setModalVisible(!visible)}
             >
                 <View style={styles.centeredView}>
-                <View style={[styles.modalView, {backgroundColor: colors.background}]}>
-                    <Text style={[styles.modalText, {color: colors.text}]}>Mensaje</Text>
+                <View style={[styles.modalView, {backgroundColor: (colors.background === '#ffffff' ? '#858585' : primaryGreen)}]}>
+                    <Text style={[styles.modalText, {color: (colors.text === "#ffffff" ? "#000" : "#ffffff")}]}>Puedes escribirle un mensaje</Text>
                     
                     <TextInput
-                        style={[styles.input, {backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                        style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                         multiline
+                        value={inputMessage}
                         onChangeText={text => setInputMessage(text)}
                     />
                     <View style={styles.buttonsContainer}>
                         <Pressable
-                        style={[styles.button, styles.buttonClose, {backgroundColor: primaryGreen}]}
-                        onPress={() => setModalVisible(!visible)}
+                        style={[styles.button, styles.buttonClose, {backgroundColor: (colors.background != '#ffffff' ? '#ffc78f' : primaryGreen)}]}
+                        onPress={() => {
+                            setInputMessage(messageDefault)
+                            return setModalVisible(!visible)
+                        }}
                         >
-                        <Text style={styles.textStyle}>Cancelar</Text>
+                        <Text style={[styles.textStyle, {color: (colors.text === "#ffffff" ? "#000": "#fff")}]}>Cancelar</Text>
                         </Pressable>
 
                         <Pressable
-                        style={[styles.button, styles.buttonClose, {backgroundColor: primaryGreen}]}
+                        style={[styles.button, styles.buttonClose, {backgroundColor: (colors.background != '#ffffff' ? '#ffc78f' : primaryGreen)}]}
                         onPress={() => {
                             setModalVisible(!visible)
-                            handleSendRequest(inputMessage)
+                            if(inputMessage === " "){
+                                handleSendRequest(messageDefault) //ENVIA EL MENSAJE POR DEFAULT
+                            }else{
+                                handleSendRequest(inputMessage) //ENVIA EL MENSAJE CON LO INGRESADO AL INPUT
+                            }
                         }}
                         >
-                        <Text style={styles.textStyle}>Enviar solicitud</Text>
+                        <Text style={[styles.textStyle, {color: (colors.text === "#ffffff" ? "#000": "#fff")}]}>Enviar solicitud</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -61,25 +74,25 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 22,
     },
     modalView: {
         height: height/2,
         width: '90%',
         margin: 20,
-        backgroundColor: "white",
+        // backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
         justifyContent: 'center',
         alignItems: "center",
-        shadowColor: "#000",
+        shadowColor: '#000000',
         shadowOffset: {
-            width: 0,
-            height: 2
+            width: 10,
+            height: 10
         },
-        shadowOpacity: 0.25,
+        shadowOpacity: 1,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 15
         },
         button: {
         marginTop: 15,
@@ -96,7 +109,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#2196F3",
         },
         textStyle: {
-        color: "white",
         fontWeight: "bold",
         textAlign: "center",
         fontSize: 15
@@ -109,7 +121,6 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-    
         width: '90%'
     }
     });
