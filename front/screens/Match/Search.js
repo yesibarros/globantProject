@@ -65,8 +65,9 @@ export default function App({ navigation }) {
   const [index, setIndex] = React.useState(0);
 
   const onSwiped = () => {
-    transitionRef.current.animateNextTransition();
+    {transitionRef.current && transitionRef.current.animateNextTransition()}
     setIndex((index + 1) % matches.length);
+    
   };
 
   useEffect(() => {
@@ -135,7 +136,7 @@ export default function App({ navigation }) {
                     color={colors.icon}
                     size={35}
                     style={{position:"absolute", zIndex:2, marginTop:40,marginLeft:17}}
-                    onPress={() => navigation.openDrawer()}
+                    onPress={() =>(navigation.openDrawer && (navigation.openDrawer()))}
                   />
       
       <MaterialCommunityIcons
@@ -162,7 +163,7 @@ export default function App({ navigation }) {
           infinite
           backgroundColor={"transparent"}
           onSwiped={onSwiped}
-          onTapCard={() => swiperRef.current.swipeLeft()}
+          onTapCard={() => (swiperRef.current && (swiperRef.current.swipeLeft()))}
           cardVerticalMargin={50}
           stackSize={stackSize}
           stackScale={10}
