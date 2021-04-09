@@ -3,19 +3,20 @@ import {View} from "react-native";
 import styles from "./headerStyle"
 // const feather = require('feather-icons')
 import {IconButton} from 'react-native-paper';
+import { useTheme } from "@react-navigation/native";
 
 
 const Header = ({navigation}) => {
-
+    const { colors } = useTheme();
     return (    
         <View style={styles.header} >
-            <IconButton
-                  icon="menu"
-                  color="white"
-                  size={30}
-                  style={{position:"absolute", zIndex:2}}
-                  onPress={() => navigation.openDrawer()}
-                />
+             <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position:"absolute", zIndex:2, marginTop:40,marginLeft:17}}
+                    onPress={() => navigation.openDrawer()}
+                  />
         </View>
     );
 };
