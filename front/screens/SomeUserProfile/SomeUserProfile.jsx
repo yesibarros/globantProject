@@ -50,7 +50,7 @@ const Mentor = ({navigation}) => {
                 source={{
                   uri: loginUser.mentor.img,
                   width: "100%",
-                  heigth: "100%",
+                  height: "100%",
                   zIndex: 1,
                 }}
                 rounded

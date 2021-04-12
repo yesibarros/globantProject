@@ -142,7 +142,7 @@ useEffect(()=>{
                 }}
 
                 avatarStyle={{zIndex: 1, width: "100%",
-                heigth: "100%",}}
+                height: "100%",}}
               
                 rounded
                 title={loginUser.firstName + loginUser.lastName}
