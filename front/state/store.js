@@ -10,6 +10,7 @@ import themeReducer from "./Theme/reducer"
 import animationReducer from "./Animation/reducer";
 import requestsReducer from './requests/Reducer';
 import toggleRoleReducer from "./ToggleRole/reducer"
+import notificationsTokenReducer from './notificationsToken/notificationsToken'
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -24,6 +25,7 @@ const store = configureStore({
         animation: animationReducer,
         requests: requestsReducer,
         toggleRole:toggleRoleReducer, 
+        notificationsToken: notificationsTokenReducer
     },
 });
 

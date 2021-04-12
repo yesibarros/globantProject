@@ -21,7 +21,7 @@ const cancelRequest = async (req, res, next)=>{
             if(requests[i].from.toString() == user._id.toString()){
                 //Save the user in the ment, and save the ment in user
                 requests[i].status = "canceled"  
-                await User.findOneAndUpdate({_id: requests[i].from}, {$inc: {receivedPendingRequests: -1}})        
+                await User.findOneAndUpdate({_id: requests[i].to}, {$inc: {receivedPendingRequests: -1}})        
                 await requests[i].save()
             }
         }      

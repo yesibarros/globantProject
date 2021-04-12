@@ -115,7 +115,7 @@ const state= {
   return (
     <View
       style={{
-        flex: 0.99,
+        flex: 0.9,
         justifyContent: "space-evenly",
       }}
     >
@@ -131,16 +131,7 @@ const state= {
         </View>
       ) : (
         <View>
-          <ScrollView
-            onScroll={() => (
-              <View style={{ backgroundColor: "red", position: "absolute" }}>
-                <Icon name="rowing" />
-              </View>
-            )}
-            horizontal
-            pagingEnabled={true}
-            fadingEdgeLength={50}
-          >
+          <ScrollView horizontal pagingEnabled={true} fadingEdgeLength={50}>
             {filterAllMatches.map((option, i) => {
               return (
                 <CardCustom matchPerson={option} key={i} okButton={okButton} />

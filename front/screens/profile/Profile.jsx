@@ -27,12 +27,80 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
+//Expo - notificaciones
+import * as Notifications from "expo-notifications"
+import * as Permissions from "expo-permissions"
+import {setNotificationsToken} from "../../state/notificationsToken/notificationsToken"
+
+Notifications.setNotificationHandler({
+  handleNotification: async ()=>{
+    return {
+      shouldSetBadge: true,
+      shouldShowAlert: true
+    };
+  }
+})
+
 const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
+
+  
+  //**** NOTIFICACIONES ******/
+  // Hacer log in con expo: correr en la consola expo login
+  //Se puede probar con https://expo.io/notifications
+
+  const notificationsToken = useSelector(state => state.notificationsToken)
+  useEffect(()=>{
+    Permissions.getAsync(Permissions.NOTIFICATIONS)
+    .then(statusObj => {
+      if(statusObj.status !== 'granted'){
+        return Permissions.askAsync(Permissions.NOTIFICATIONS)
+      }
+      return statusObj
+    })
+    .then(statusObj => {
+      if(statusObj.status !== 'granted'){
+        alert('No podremos enviarte notificaciones.')
+        throw new Error('Permission not granted')
+      }
+    })
+    .then(()=>{
+      console.log("getting token")
+      return Notifications.getExpoPushTokenAsync()
+    })
+    .then(response => {
+      const token = response.data
+      dispatch(setNotificationsToken(token)) //CAMBIAR ESTO POR UN UPDATE USER
+    })
+    .catch(err=>{
+      console.log(err)
+      return null
+    })
+},[])
+
+useEffect(()=>{ 
+  //Cuando la app está abierta
+  const foreGroundSuscription = Notifications.addNotificationReceivedListener(notification => {
+    console.log(notification)
+  })
+  //Cuando la app está cerrada
+  const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(response => {
+    console.log(response) //Incluye notification 
+  })
+  return ()=>{
+    foreGroundSuscription.remove()
+    backGroundSuscription.remove()
+  }
+},[])
+
+//****Fin de la parte de notificaciones ******/
+
+
+
 
   useEffect(() => {
     dispatch(setAnimation());
@@ -79,7 +147,7 @@ const Profile = ({navigation}) => {
                 }}
 
                 avatarStyle={{zIndex: 1, width: "100%",
-                heigth: "100%",}}
+                height: "100%",}}
               
                 rounded
                 title={loginUser.firstName + loginUser.lastName}
