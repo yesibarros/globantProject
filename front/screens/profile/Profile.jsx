@@ -13,6 +13,7 @@ import {
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
+import {loadImageFromGallery} from "../../utils/helpers"
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -125,7 +126,10 @@ useEffect(()=>{
       setShowConfiguration(false);
     }
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
-
+  const changePhoto= async()=>{
+    const result =  await loadImageFromGallery([1, 1])
+    console.log("RESULTADO", result)
+  }
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -137,6 +141,7 @@ useEffect(()=>{
             {loginUser.img ? (
               <Avatar
                 size="xlarge"
+                onPress={changePhoto}
                 source={{
                   uri: loginUser.img
                 }}
@@ -153,12 +158,13 @@ useEffect(()=>{
                   width: "100%",
                   paddingTop: "15%",
                 }}
-                onPress={() => console.log("Works!")}
+                
                 activeOpacity={0.7}
               />
             ) : (
               <Avatar
                 size="xlarge"
+                onPress={changePhoto}
                 rounded
                 title={
                   loginUser._id &&
@@ -172,7 +178,7 @@ useEffect(()=>{
                   paddingTop: "15%",
                   zIndex: 1,
                 }}
-                onPress={() => console.log("Works!")}
+                // onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
               />
             )}
