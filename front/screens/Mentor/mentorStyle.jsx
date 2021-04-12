@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 40,
     position: "absolute",
-    top: "12%",
+    top: "21%",
     marginLeft: "10%"
   },
   usersContainer:{
     marginTop: "15%",
-    paddingHorizontal: "5%"
+    paddingHorizontal: "5%",
   },
   fab: {
     position: 'absolute',

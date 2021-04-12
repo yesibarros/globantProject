@@ -9,6 +9,7 @@ import {
   Dimensions,
   Modal,
   ActivityIndicator,
+  KeyboardAvoidingView
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
@@ -25,11 +26,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../../state/loggedUser/thunks";
 import SelectPicker from "react-native-form-select-picker";
 import { useTheme } from "@react-navigation/native";
-// import { Avatar } from 'react-native-paper';
+import Colors from '../../utils/Colors';
 
 const EditProfile = ({ navigation }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const [enableShift, setEnabledShift] = useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const loginUser = useSelector((state) => state.loggedUser.user);
   const initEditMode = loginUser.location ? false : true;
@@ -77,8 +79,10 @@ const EditProfile = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={{
+        marginLeft: '2.5%'
+      }}>
         <View style={styles.viewProfile}>
           <Card.Title
             left={() => (
@@ -138,13 +142,17 @@ const EditProfile = ({ navigation }) => {
           <Text style={{ fontSize: 20, justifyContent: "center" }}>Editar</Text>
         </Button>
       </View>
-
+      
+      <KeyboardAvoidingView enabled={enableShift}>
       <Modal visible={editMode} animationType="slide" transparent={true}>
+        
         {isLoading ? (
           <View
             style={[
               styles.viewContainer,
-              { backgroundColor: colors.background },
+              { 
+                backgroundColor: colors.background,
+              },
             ]}
           >
             <ActivityIndicator
@@ -154,14 +162,24 @@ const EditProfile = ({ navigation }) => {
             />
           </View>
         ) : (
+
+          <ScrollView>
           <View
             style={[
               styles.viewContainer,
-              { backgroundColor: colors.background },
+              { 
+                backgroundColor: colors.background,
+                borderRadius: 50,
+                borderWidth: 1.5,
+                borderColor: Colors.primaryGreen,
+                shadowColor: Colors.primaryGreen,
+              },
             ]}
           >
+            
             <Title style={styles.titleDates}>Edita tus datos personales:</Title>
-
+            
+            
             <View style={[styles.cardContainer, { marginTop: 0 }]}>
               {/* icon="account"  */}
               {/* icon="card-text-outline"  */}
@@ -173,24 +191,27 @@ const EditProfile = ({ navigation }) => {
                 placeholder="Nombre"
                 value={firstName}
                 onChangeText={(val) => handleFirstNameChange(val)}
+                onFocus={() => setEnabledShift(true)}
               />
-
+            
               <TextInput
                 style={styles.textInput}
                 label="Apellido"
                 placeholder="Apellido"
                 value={lastName}
                 onChangeText={(val) => handleLastNameChange(val)}
+                onFocus={() => setEnabledShift(true)}
               />
-
+              
               <TextInput
                 style={styles.textInput}
                 label="SobreMi"
                 placeholder="Acerca de mi"
                 value={description}
                 onChangeText={(val) => handleDescriptionChange(val)}
+                onFocus={() => setEnabledShift(true)}
               />
-
+            
               <View style={styles.action}>
                 {editMode ? (
                   <SelectPicker
@@ -207,7 +228,7 @@ const EditProfile = ({ navigation }) => {
                           <SelectPicker.Item
                             label={`${val.locationName} (${val.country.countryName})`}
                             value={val._id}
-                            // key={val._id}
+                            key={val._id}
                           />
                         );
                       })}
@@ -219,7 +240,9 @@ const EditProfile = ({ navigation }) => {
                 ) : null}
               </View>
             </View>
+            
 
+            
             <Button
               style={styles.buttonSize}
               mode="contained"
@@ -230,8 +253,10 @@ const EditProfile = ({ navigation }) => {
               </Text>
             </Button>
           </View>
+          </ScrollView>
         )}
       </Modal>
+      </KeyboardAvoidingView>
     </View>
   );
 };

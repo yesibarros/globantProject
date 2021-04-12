@@ -4,10 +4,10 @@ import {setTheme} from "./actions"
 
 let isDarkTheme = false; 
 
-const ThemeReducer= createReducer(isDarkTheme, {
+const themeReducer= createReducer(isDarkTheme, {
     [setTheme] : (state,action)=> !state
    
 })
 
   
-export default ThemeReducer
+export default themeReducer

@@ -20,13 +20,11 @@ mongoose
   .catch((e) => console.log("DB NO CONNECT ERROR", e));
 
 //BASE LOCAL DE PRUEBA
-// mongoose
-//   .connect(`mongodb://localhost/globant`, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false,
-//     useCreateIndex: true,
-//   })
-//   .then(() => console.log("Connected to the local db"));
+// mongoose.connect(`mongodb://localhost/globant`, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false,
+//   useCreateIndex: true
+// }).then(()=> console.log("Connected to the local db"));
 
 module.exports = mongoose;

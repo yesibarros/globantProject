@@ -6,9 +6,11 @@ import objetivosReducer from "./objetivos/reducer"
 import mentorsReducer from "./mentors/reducer"
 import menteesReducer from "./mentees/reducer"
 import locationsReducer from "./Locations/Reducer"
-import ThemeReducer from "./Theme/reducer"
+import themeReducer from "./Theme/reducer"
 import animationReducer from "./Animation/reducer";
 import requestsReducer from './requests/Reducer';
+import toggleRoleReducer from "./ToggleRole/reducer"
+import notificationsTokenReducer from './notificationsToken/notificationsToken'
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -19,9 +21,11 @@ const store = configureStore({
         objetivos: objetivosReducer,
         matchs: matchReducer,
         locations: locationsReducer,
-        darkTheme: ThemeReducer,
+        darkTheme: themeReducer,
         animation: animationReducer,
-        requests: requestsReducer
+        requests: requestsReducer,
+        toggleRole:toggleRoleReducer, 
+        notificationsToken: notificationsTokenReducer
     },
 });
 

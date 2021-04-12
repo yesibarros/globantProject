@@ -88,6 +88,10 @@ const userSchema = new mongoose.Schema({
   wantsEmails: {
     type: Boolean
   },
+  notificationsToken:{
+    type: String,
+    default: ""
+  },
   salt: {
     type: String
   }

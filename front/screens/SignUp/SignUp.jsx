@@ -15,11 +15,12 @@ import Feather from "react-native-vector-icons/Feather";
 import { LinearGradient } from 'expo-linear-gradient';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from "./signUpStyle"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {register} from '../../state/loggedUser/thunks'
 import { primaryGreen }  from '../../utils/Colors'
 
 const SignUp = ({navigation}) => {
+  
   const dispatch= useDispatch()
   const [wrongDataAlert, setWrongDataAlert]= useState(false)
   const [existingUser, setExistingUser]= useState(false)
@@ -62,7 +63,7 @@ const SignUp = ({navigation}) => {
    }else if(!data.password || pass != confirmPass){ 
     return setWrongPasswordAlert(true)
    }else{
-     let obj= {firstName: data.name, lastName: data.lastName, email: data.email, password: data.password }
+     let obj= {firstName: data.name, lastName: data.lastName, email: data.email, password: data.password}
      dispatch(register(obj)).then(data=>{
        if(data.error && data.error.message == "Request failed with status code 400"){
          return setExistingUser(true)

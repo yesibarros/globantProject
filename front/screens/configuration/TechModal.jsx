@@ -61,7 +61,7 @@ const TechModal = ({ visible, setEditTech }) => {
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
-      {console.log("selected techs.....", selectedTechs)}
+      
       {isLoading ? (
         <View
           style={[styles.viewContainer, { backgroundColor: colors.background }]}

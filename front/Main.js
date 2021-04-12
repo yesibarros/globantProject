@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
@@ -15,11 +15,13 @@ import ScreenLoad from "./screens/screenLoad/screenLoad";
 import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
 // import MatchComparison from "./screens/Matchs/MatchComparison"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
+
+
 
 
 const Stack = createStackNavigator();
@@ -62,9 +64,12 @@ const Main = ({navigation}) => {
       text: "#ffffff",
     },
   };
-
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
-  return (
+
+
+
+
+ return (
     <PaperProvider theme={theme}>
      
       <NavigationContainer theme={theme}>
