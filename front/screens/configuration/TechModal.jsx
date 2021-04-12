@@ -33,7 +33,11 @@ const TechModal = ({ visible, setEditTech }) => {
   const handleCloseModal = () => {
     if (!selectedTechs.length) {
       return Alert.alert("¡Cuidado!", "Debes seleccionar alguna tecnología", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        {
+          text: "OK",
+          onPress: () =>
+            console.log("OK Pressed de Tech seleccionar una tecno"),
+        },
       ]);
     }
     setEditTech(false);
@@ -61,7 +65,6 @@ const TechModal = ({ visible, setEditTech }) => {
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
-      
       {isLoading ? (
         <View
           style={[styles.viewContainer, { backgroundColor: colors.background }]}
