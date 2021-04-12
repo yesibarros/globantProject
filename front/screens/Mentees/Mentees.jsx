@@ -7,138 +7,71 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-  IconButton
 } from "react-native";
 
-import { Avatar } from "react-native-elements";
-import { getLocations } from "../../state/Locations/thunks";
-import { useTheme } from "@react-navigation/native";
+
 //SCREENS
 import Header from "../header/Header";
-import Configuration from "../configuration/Configuration";
-import EditProfile from "../EditProfile/EditProfile";
 
 //STYLE
 import styles from "./menteesStyle";
+import { FAB } from 'react-native-paper';
+import { useTheme } from "@react-navigation/native";
+import { primaryGreen } from "../../utils/Colors"
+
 
 //REDUX
 import { useSelector } from "react-redux";
-// import { getUser } from "../../state/mentors/thunks";
+
+//COMPONENTS
+import UserList from "../../shared/components/UserList/UserList"
+
 const { width } = Dimensions.get("window");
 
-const Mentor = ({navigation}) => {
-  // const dispatch = useDispatch();
-  // const [showConfiguration, setShowConfiguration] = useState(true);
+const Mentees = ({navigation}) => {
+ 
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
 
-  if (loginUser.mentor== undefined){
-    return <View style={{flex:1, width:"100%",justifyContent:"center", alignItems:"center" }}><Text >Mentor</Text></View>
+  const menteesToShow = ()=>{
+    let mentees = [...loginUser.mentees] || []
+    const length = mentees.length
+    if(length !== 4) {
+      for(let i = 0; i < 5-length; i++){
+        mentees.push(null)
+      }
+    }
+    return mentees
   }
+
   return (
+    <>
     <ScrollView>
       <View style={styles.container}>
-  
-        <Header navigation={navigation}/>
-
+        <Header navigation={navigation} />
+        <Text style={styles.title}>Mis mentees</Text>
         <View style={[styles.body, { backgroundColor: colors.background }]}>
-          <View style={{ top: -70, left: width / 3 }}>
-            {loginUser.mentor.img ? (
-              <Avatar
-                size="xlarge"
-                source={{
-                  uri: loginUser.mentor.img,
-                  width: "100%",
-                  heigth: "100%",
-                  zIndex: 1,
-                }}
-                rounded
-                title={loginUser.mentor.firstName + loginUser.mentor.lastName}
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                }}
-                onPress={() => console.log("Works!")}
-                activeOpacity={0.7}
-              />
-            ) : (
-              <Avatar
-                size="xlarge"
-                rounded
-                title={
-                  loginUser.mentor._id &&
-                  `${loginUser.mentor.firstName[0]}${loginUser.mentor.lastName[0]}`
-                }
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                  zIndex: 1,
-                }}
-                onPress={() => console.log("Works!")}
-                activeOpacity={0.7}
-              />
-            )}
+          <View style={styles.usersContainer}>
+            <UserList users={menteesToShow()} navigation={navigation} />
+            
           </View>
-
-          <View
-            style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
-          >
-            <Text
-              style={{ fontWeight: "bold", color: colors.text }}
-            >{`${loginUser.mentor.firstName} ${loginUser.mentor.lastName}`}</Text>
-            {/* <Text style={{ marginTop: 8, color: colors.text }}>
-              {loginUser.email}
-            </Text> */}
-            {/* <Text
-              style={{
-                marginTop: 20,
-                alignContent: "center",
-                color: colors.text,
-              }}
-            >
-              {loginUser.description}
-            </Text> */}
-          </View>
-
-          {/* <View style={styles.userBtnWrapper}>
-            <TouchableOpacity
-              style={
-                showConfiguration
-                  ? { ...styles.userBtn, ...styles.userBtnSelected }
-                  : styles.userBtn
-              }
-              onPress={() => setShowConfiguration(true)}
-            >
-              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
-                Configuración
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                showConfiguration
-                  ? styles.userBtn
-                  : { ...styles.userBtn, ...styles.userBtnSelected }
-              }
-              onPress={() => setShowConfiguration(false)}
-            >
-              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
-                Datos personales
-              </Text>
-            </TouchableOpacity>
-          </View> */}
-
-          {/* {showConfiguration ? <Configuration /> : <EditProfile />} */}
-        </View>
+         {loginUser.mentees.length == 4 && <View style={styles.noteContainer}>
+            <Text style={styles.note}>Solamente puedes tener hasta 5 mentees,</Text>
+            <Text style={styles.note}>elimina los que ya tienes para agregar nuevos.</Text>
+          </View>}
+        </View>       
       </View>
     </ScrollView>
+    {loginUser.mentees.length < 5 && <FAB
+        style={styles.fab}
+
+        icon="account-plus"
+        onPress={() => console.log("Pressed")}
+      />}
+     
+     </>
   );
 };
 
-export default Mentor
+export default Mentees

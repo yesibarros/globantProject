@@ -9,6 +9,7 @@ import locationsReducer from "./Locations/Reducer"
 import ThemeReducer from "./Theme/reducer"
 import animationReducer from "./Animation/reducer";
 import requestsReducer from './requests/Reducer';
+import notificationsTokenReducer from './notificationsToken/notificationsToken'
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -21,7 +22,8 @@ const store = configureStore({
         locations: locationsReducer,
         darkTheme: ThemeReducer,
         animation: animationReducer,
-        requests: requestsReducer
+        requests: requestsReducer,
+        notificationsToken: notificationsTokenReducer
     },
 });
 

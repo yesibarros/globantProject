@@ -39,7 +39,7 @@ const RequestCard = ({ request, received, navigation }) => {
           ]
         );
       } else {
-        Alert.alert("¡Felicidades!", "Ya tenes un nuevo mentor", [
+        Alert.alert("¡Felicidades!", `Ya tenes un nuevo ${request.fromRole}`, [
           {
             text: "Ok",
             onPress: () => navigation.navigate("Requests"),
