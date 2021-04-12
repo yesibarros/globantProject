@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   body: {
     marginTop: "2.5%",
     flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   action: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     width: "150%",
   },
- 
+
   textEdit: {
     paddingLeft: 5,
     fontSize: 20,
@@ -107,15 +108,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   viewContainer: {
-    maxHeight: "90%",
+    backgroundColor: '#fff',
+    // maxHeight: "60%",
     flex: 2,
-    marginBottom: 10,
+    marginBottom: '2%',
     marginHorizontal: 10,
-    marginVertical: 320,
-    justifyContent: "flex-start",
+    marginVertical: '50%',
+    justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
-    shadowColor: "black",
+    // shadowColor: "black",
     shadowOpacity: 1.0,
     shadowRadius: 50,
     elevation: 5,
