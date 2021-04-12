@@ -1,12 +1,13 @@
-import React, {  useState } from 'react';
-import { View, StyleSheet, Dimensions, Animated } from 'react-native';
-import Tab from './Tab';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState } from "react";
+import { View, StyleSheet, Dimensions, Animated } from "react-native";
+import Tab from "./Tab";
+import { LinearGradient } from "expo-linear-gradient";
 
-const { width } = Dimensions.get('screen');
+const { width } = Dimensions.get("screen");
 
 const TabBar = ({ state, navigation }) => {
-  const [selected, setSelected] = useState('Home');
+  const [selected, setSelected] = useState("Home");
+  console.log("stateeeee", state);
   const { routes } = state;
 
   const handlePress = (activeTab, index) => {
@@ -20,37 +21,36 @@ const TabBar = ({ state, navigation }) => {
     <View style={styles.wrapper}>
       <LinearGradient
         // Background Linear Gradient
-        colors={["#ffc78f", '#ff9c38' ]}
+        colors={["#ffc78f", "#ff9c38"]}
         style={styles.background}
       />
-        {routes.map((route, index) => (
-          <Tab
-            tab={route}
-            onPress={() => handlePress(route.name, index)}
-            key={route.key}
-          />
-        ))}
+      {routes.map((route, index) => (
+        <Tab
+          tab={route}
+          onPress={() => handlePress(route.name, index)}
+          key={route.key}
+        />
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     height: 90,
     width,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   background: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 25,
     height: 100,
   },
-  
 });
 
 export default TabBar;

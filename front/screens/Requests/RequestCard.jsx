@@ -18,7 +18,7 @@ import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
 const RequestCard = ({ request, received, navigation }) => {
   const [buttonSendLoading, setButtonSendLoading] = useState(false);
   const [buttonCancelLoading, setButtonCancelLoading] = useState(false);
-
+  const opositeRole = request.fromRole == "mentee"? "mentor" : "mentee"
   const dispatch = useDispatch();
 
   const handleAccept = () => {
@@ -29,8 +29,8 @@ const RequestCard = ({ request, received, navigation }) => {
 
       if (data.meta.requestStatus === "rejected") {
         return Alert.alert(
-          "Ya tienes un mentor",
-          "Lo sentimos, no podes tener mas de 1 mentor",
+          `Ya tienes un  ${request.fromRole}`,
+          "Lo sentimos, no podes tener mas de 1",
           [
             {
               text: "Ok",
@@ -39,7 +39,7 @@ const RequestCard = ({ request, received, navigation }) => {
           ]
         );
       } else {
-        Alert.alert("¡Felicidades!", `Ya tenes un nuevo ${request.fromRole}`, [
+        Alert.alert("¡Felicidades!", `¡Ahora ${request.from.firstName} ${request.from.lastName} es tu nuevo ${request.fromRole}`, [
           {
             text: "Ok",
             onPress: () => navigation.navigate("Requests"),
@@ -66,7 +66,7 @@ const RequestCard = ({ request, received, navigation }) => {
     });
   };
 
-  const opositeRole = request.fromRole == "mentee"? "mentor" : "mentee"
+
 
   return (
     <Card style={styles.card}>

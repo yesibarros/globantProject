@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
 import { Icon } from "react-native-elements";
-
+import TabBar from "../../routes/Tab/TabBar"
 import { useTheme } from "@react-navigation/native";
 import { setMatch } from "../../state/posibleMatch/actions";
 import { sendRequest } from "../../state/requests/Thunks";
@@ -22,7 +22,40 @@ const MatchComparison = ({ navigation }) => {
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
   const allMatches = useSelector((state) => state.matchs.allMatches);
-
+const state= {
+  "history":  [
+     {
+      "key": "Mi perfil-bEYiOS9OrZVRLrjBbgrPC",
+      "type": "route",
+    },
+  ],
+  "index": 0,
+  "key": "tab-oUvNWB2kZqvz5JELanPW3",
+  "routeNames":  [
+    "Mi perfil",
+    "Matchs",
+    "Mis mentees",
+  ],
+  "routes":  [
+     {
+      "key": "Mi perfil-bEYiOS9OrZVRLrjBbgrPC",
+      "name": "Mi perfil",
+      "params": undefined,
+    },
+     {
+      "key": "Matchs-b4Uw5OPTUHoJLmKAVVhit",
+      "name": "Matchs",
+      "params": undefined,
+    },
+     {
+      "key": "Mis mentees-cCBXknLflTEPYEk92eQx2",
+      "name": "Mis mentees",
+      "params": undefined,
+    },
+  ],
+  "stale": false,
+  "type": "tab",
+}
   useEffect(() => {
     setFilterAllMatches(() =>
       allMatches.filter((match) => match._id !== singleMatch._id)
@@ -82,7 +115,7 @@ const MatchComparison = ({ navigation }) => {
   return (
     <View
       style={{
-        flex: 0.99,
+        flex: 0.9,
         justifyContent: "space-evenly",
       }}
     >
@@ -98,16 +131,7 @@ const MatchComparison = ({ navigation }) => {
         </View>
       ) : (
         <View>
-          <ScrollView
-            onScroll={() => (
-              <View style={{ backgroundColor: "red", position: "absolute" }}>
-                <Icon name="rowing" />
-              </View>
-            )}
-            horizontal
-            pagingEnabled={true}
-            fadingEdgeLength={50}
-          >
+          <ScrollView horizontal pagingEnabled={true} fadingEdgeLength={50}>
             {filterAllMatches.map((option, i) => {
               return (
                 <CardCustom matchPerson={option} key={i} okButton={okButton} />
@@ -123,6 +147,7 @@ const MatchComparison = ({ navigation }) => {
           handleSendRequest={handleSendRequest}
         />
       </View>
+      <TabBar state={state} navigation={navigation}/>
     </View>
   );
 };
