@@ -15,9 +15,9 @@ export default function MyTabs(props) {
   return (
     <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
       <Tab.Screen name="Mi perfil" component={Profile} />
-      <Tab.Screen name="Matchs" component={Search} />
+      {/* <Tab.Screen name="Matchs" component={Search} /> */}
+      <Tab.Screen name="Matchs" component={Progress} />
       <Tab.Screen name="Mis mentees" component={Mentees} />
-
     </Tab.Navigator>
   );
 }

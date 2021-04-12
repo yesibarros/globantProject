@@ -1,21 +1,19 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    header:{
-        width: "100%",
-        height: "100%",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    headerText:{
-        fontWeight: "bold",
-        fontSize: 20,
-        color: "black",
-        letterSpacing: 1
-    }
-
-
+  progressContainer: {
+    flex: 0.92,
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
+    paddingLeft: "2.5%",
+  },
+  titleProgress: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginVertical: 10,
+    color: "black",
+  },
 });
 
-export default styles
+export default styles;

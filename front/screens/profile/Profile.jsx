@@ -7,13 +7,13 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-  IconButton
+  IconButton,
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
-import {loadImageFromGallery} from "../../utils/helpers"
+import { loadImageFromGallery } from "../../utils/helpers";
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -28,79 +28,79 @@ import { setAnimation } from "../../state/Animation/actions";
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
-import * as Notifications from "expo-notifications"
-import * as Permissions from "expo-permissions"
-import {setNotificationsToken} from "../../state/notificationsToken/notificationsToken"
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+import { setNotificationsToken } from "../../state/notificationsToken/notificationsToken";
 
 Notifications.setNotificationHandler({
-  handleNotification: async ()=>{
+  handleNotification: async () => {
     return {
       shouldSetBadge: true,
-      shouldShowAlert: true
+      shouldShowAlert: true,
     };
-  }
-})
+  },
+});
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
 
-  
   //**** NOTIFICACIONES ******/
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
 
-  const notificationsToken = useSelector(state => state.notificationsToken)
-  useEffect(()=>{
+  const notificationsToken = useSelector((state) => state.notificationsToken);
+  useEffect(() => {
     Permissions.getAsync(Permissions.NOTIFICATIONS)
-    .then(statusObj => {
-      if(statusObj.status !== 'granted'){
-        return Permissions.askAsync(Permissions.NOTIFICATIONS)
+      .then((statusObj) => {
+        if (statusObj.status !== "granted") {
+          return Permissions.askAsync(Permissions.NOTIFICATIONS);
+        }
+        return statusObj;
+      })
+      .then((statusObj) => {
+        if (statusObj.status !== "granted") {
+          alert("No podremos enviarte notificaciones.");
+          throw new Error("Permission not granted");
+        }
+      })
+      .then(() => {
+        // console.log("getting token")
+        return Notifications.getExpoPushTokenAsync();
+      })
+      .then((response) => {
+        const token = response.data;
+        dispatch(setNotificationsToken(token)); //CAMBIAR ESTO POR UN UPDATE USER
+      })
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+  }, []);
+
+  useEffect(() => {
+    //Cuando la app está abierta
+    const foreGroundSuscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        // console.log(notification);
       }
-      return statusObj
-    })
-    .then(statusObj => {
-      if(statusObj.status !== 'granted'){
-        alert('No podremos enviarte notificaciones.')
-        throw new Error('Permission not granted')
+    );
+    //Cuando la app está cerrada
+    const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        // console.log(response); //Incluye notification
       }
-    })
-    .then(()=>{
-      console.log("getting token")
-      return Notifications.getExpoPushTokenAsync()
-    })
-    .then(response => {
-      const token = response.data
-      dispatch(setNotificationsToken(token)) //CAMBIAR ESTO POR UN UPDATE USER
-    })
-    .catch(err=>{
-      console.log(err)
-      return null
-    })
-},[])
+    );
+    return () => {
+      foreGroundSuscription.remove();
+      backGroundSuscription.remove();
+    };
+  }, []);
 
-useEffect(()=>{ 
-  //Cuando la app está abierta
-  const foreGroundSuscription = Notifications.addNotificationReceivedListener(notification => {
-    console.log(notification)
-  })
-  //Cuando la app está cerrada
-  const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(response => {
-    console.log(response) //Incluye notification 
-  })
-  return ()=>{
-    foreGroundSuscription.remove()
-    backGroundSuscription.remove()
-  }
-},[])
-
-//****Fin de la parte de notificaciones ******/
-
-
-
+  //****Fin de la parte de notificaciones ******/
 
   useEffect(() => {
     dispatch(setAnimation());
@@ -126,15 +126,14 @@ useEffect(()=>{
       setShowConfiguration(false);
     }
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
-  const changePhoto= async()=>{
-    const result =  await loadImageFromGallery([1, 1])
-    console.log("RESULTADO", result)
-  }
+  const changePhoto = async () => {
+    const result = await loadImageFromGallery([1, 1]);
+    // console.log("RESULTADO", result);
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
-  
-        <Header navigation={navigation}/>
+        <Header navigation={navigation} />
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
@@ -143,12 +142,9 @@ useEffect(()=>{
                 size="xlarge"
                 onPress={changePhoto}
                 source={{
-                  uri: loginUser.img
+                  uri: loginUser.img,
                 }}
-
-                avatarStyle={{zIndex: 1, width: "100%",
-                height: "100%",}}
-              
+                avatarStyle={{ zIndex: 1, width: "100%", height: "100%" }}
                 rounded
                 title={loginUser.firstName + loginUser.lastName}
                 titleStyle={{
@@ -158,7 +154,6 @@ useEffect(()=>{
                   width: "100%",
                   paddingTop: "15%",
                 }}
-                
                 activeOpacity={0.7}
               />
             ) : (
