@@ -22,8 +22,7 @@ export const login = createAsyncThunk("LOGIN_REQUEST", (data) => {
 });
 
 export const updateProfile = createAsyncThunk("UPDATE_REQUEST", (data) => {
-  console.log("THUNKS")
-  return SecureStore.getItemAsync("token").then((token) => {
+   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
       .put(`http://${localHost}/api/user/${data.id}`, data)

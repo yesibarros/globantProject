@@ -17,56 +17,71 @@ export default function Progress() {
     {
       _id: 1,
       objectiveName: "objetivo1",
-      description: "hacer el objetivo",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
       status: "pendiente",
+      feedback: "mejorable",
     },
     {
       _id: 2,
       objectiveName: "objetivo2",
-      description: "hacer el objetivoooooooooooooooo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "completado",
+      feedback: "mejorable",
     },
     {
       _id: 3,
       objectiveName: "objetivo3",
-      description: "hacerloooooo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "pendiente",
+      feedback: "podria mejorar algo pero excelente",
     },
     {
       _id: 4,
       objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "pendiente",
+      feedback: "podria mejorar algo pero excelente",
     },
     {
       _id: 5,
       objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "pendiente",
+      feedback: "podria mejorar algo pero excelente",
     },
     {
       _id: 6,
       objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "pendiente",
+      feedback: "volve a hacer el bootcamp",
     },
     {
       _id: 7,
       objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
+      description:
+        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
       status: "pendiente",
+      feedback: "volve a hacer el bootcamp",
     },
     {
       _id: 8,
       objectiveName: "objetivo4",
       description: "hacer el objetivo o no hacerlo",
       status: "pendiente",
+      feedback: "te falta el intro",
     },
     {
       _id: 9,
       objectiveName: "objetivo4",
       description: "hacer el objetivo o no hacerlo",
       status: "pendiente",
+      feedback: "te falta el intro",
     },
   ];
   return (

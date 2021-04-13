@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import { View, Alert, TouchableOpacity, Text, Modal } from "react-native";
+import {
+  View,
+  Alert,
+  TouchableOpacity,
+  Text,
+  Modal,
+  KeyboardAvoidingView,
+} from "react-native";
 import {
   Card,
+  Button,
   Title,
   Paragraph,
   Avatar,
   IconButton,
   Colors,
   ActivityIndicator,
+  TextInput,
 } from "react-native-paper";
 import { primaryGreen } from "../../utils/Colors";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../state/loggedUser/actions";
 import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
 import styles from "./cardProgressStyle";
+import { ScrollView } from "react-native-gesture-handler";
 
 const CardProgress = ({ item, last }) => {
-  const [viewModal, setViewModal] = useState(false)
+  const loggedUser = useSelector((state) => state.loggedUser.user);
+  const [viewModal, setViewModal] = useState(false);
+  const [feedbackMentor, setFeedbackMentor] = React.useState("");
+
   const dispatch = useDispatch();
   const border = last ? "transparent" : "lightgrey";
-  // objectiveName
-  // description
-  // order
-  // status: (list con estado, )
+
   return (
     <View style={[styles.container, { borderColor: border }]}>
       <Avatar.Icon
@@ -42,32 +52,148 @@ const CardProgress = ({ item, last }) => {
               color="#009387"
               icon="eye-plus"
               onPress={() => {
-                setViewModal(true)
+                setViewModal(true);
               }}
             />
           )}
         />
-
       </Card>
-      
-        <Modal visible={viewModal} transparent={true} animationType="slide">
-              <View style={styles.viewContainer}>
-                <Text style={{ flex:0.1,  fontSize:30, fontWeight:"bold", marginTop:20, alignContent:"center"}}>OBJETIVO EN PARTICULAR</Text>
-                
-                <Card style={styles.empty}>
 
-                <Text style={{fontSize:20}}>{item.description}</Text>
-                </Card>
-                {/* recuadro con comentarios del mentor */}
-                <Text>Feedback</Text>
-                <Text>Estado</Text>
-                {/* crear un select que tenga 3 opciones */}
-                <Text>Fecha</Text>
-                {/* implementar calender */}
-                <TouchableOpacity/>
-              </View>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{
+          flex: 1,
+        }}
+        enabled={Platform.OS === "android"}
+        keyboardVerticalOffset={80}
+      >
+        <Modal visible={viewModal} transparent={true} animationType="slide">
+          <View style={styles.viewContainer}>
+            <View
+              style={{
+                flex: 0.3,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  alignContent: "center",
+                  textTransform: "uppercase",
+                }}
+              >
+                {item.objectiveName}
+              </Text>
+            </View>
+
+            <Card style={styles.empty}>
+              <ScrollView>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    padding: 10,
+                  }}
+                >
+                  {item.description}
+                </Text>
+              </ScrollView>
+            </Card>
+            <View
+              style={{
+                flex: 0.7,
+                justifyContent: "space-around",
+              }}
+            >
+              <Text style={{ fontSize: 20, paddingLeft: 20 }}>
+                Fecha: 20/4/2020
+              </Text>
+              <Text style={{ fontSize: 20, paddingLeft: 20 }}>
+                Estado: {item.status}
+              </Text>
+              {loggedUser && loggedUser.role.includes("mentor") ? (
+                <View
+                  style={{
+                    alignItems: "center",
+                  }}
+                >
+                  <TextInput
+                    style={{ width: "90%" }}
+                    label="Devolucion"
+                    value={feedbackMentor}
+                    onChangeText={(feedbackMentor) =>
+                      setFeedbackMentor(feedbackMentor)
+                    }
+                  />
+                </View>
+              ) : (
+                <Text style={{ fontSize: 20, paddingLeft: 20 }}>
+                  Devolucion:
+                  {item.feedback
+                    ? item.feedback
+                    : "No hay devoluciones todavia."}
+                </Text>
+              )}
+            </View>
+            {/* crear un select que tenga 3 opciones */}
+            {/* implementar calender */}
+            <TouchableOpacity />
+
+            <View
+              style={{
+                flex: 0.4,
+                alignItems: "center",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              {/* <View > */}
+              <Button
+                style={{
+                  backgroundColor: "#009387",
+                  width: "40%",
+                  height: "40%",
+                  justifyContent: "center",
+                }}
+                onPress={() => {
+                  setViewModal(false);
+                }}
+              >
+                <Text
+                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                >
+                  Cerrar
+                </Text>
+              </Button>
+
+              {loggedUser && loggedUser.role.includes("mentor") ? (
+                <Button
+                  style={{
+                    backgroundColor: "#009387",
+                    width: "40%",
+                    height: "40%",
+                    justifyContent: "center",
+                  }}
+                  onPress={() => {
+                    setViewModal(false);
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    Guardar
+                  </Text>
+                </Button>
+              ) : null}
+            </View>
+          </View>
         </Modal>
-       
+      </KeyboardAvoidingView>
     </View>
   );
 };
