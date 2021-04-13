@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Colors from '../../utils/Colors';
+import Colors from "../../utils/Colors";
 const styles = StyleSheet.create({
   container: {
     width: "90%",
@@ -23,14 +23,13 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   viewContainer: {
-    backgroundColor: '#fff',
-    // maxHeight: "60%",
+    backgroundColor: "#fff",
     flex: 1,
-    // marginBottom: '2%',
     marginHorizontal: 10,
-    marginVertical: '50%',
-    justifyContent: "flex-start",
-    alignItems:"center",
+    marginVertical: 20,
+    maxHeight: "90%",
+    justifyContent: "space-between",
+    // alignItems: "center",
     // shadowColor: "black",
     shadowOpacity: 1.0,
     shadowRadius: 50,
@@ -41,18 +40,16 @@ const styles = StyleSheet.create({
     borderColor: Colors.primaryGreen,
     // shadowColor: Colors.primaryGreen,
   },
-  empty:{
+  empty: {
+    flex: 0.3,
     borderColor: "#DBDBDB",
-    borderWidth: 1,
+    borderWidth: 3,
     borderStyle: "dashed",
+    marginHorizontal: 10,
     elevation: 0,
-    margin: 10,
-    marginBottom: 15,
-    marginTop: 30,
-    maxHeight:50,
     width: "95%",
-    alignItems:"center"
-},
+    alignItems: "center",
+  },
 });
 
 export default styles;
