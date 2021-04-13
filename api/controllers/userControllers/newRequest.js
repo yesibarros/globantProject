@@ -104,7 +104,7 @@ const newRequest = async (req, res, next) => {
      
       const mentToSend = await userFindAndPopulate({_id: foundMents[0]._id}) //Esto funciona para un solo usuario, corregir se se va a usar un array de usuarios
       const mentPendingRequests = mentToSend.getPendingRequests()
-      sendNotification([foundMents[0].notificationsToken], `Mentor Me`, "", `Recibiste una nueva solicitud de ${user.firstName} ${user.LastName}`, {user: mentToSend, pendingRequests: mentPendingRequests})
+      sendNotification([foundMents[0].notificationsToken], `Mentor Me`, "", `Recibiste una nueva solicitud de ${user.firstName} ${user.LastName}`, {})
 
     }
     //Send all pending requests from user

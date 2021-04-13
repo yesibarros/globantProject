@@ -24,10 +24,10 @@ const getMatchs = (req, res, next) => {
       .populate("technologies")
       .then((userstype) => {
        if (!userstype) return res.sendStatus(404);
-        console.log(userstype)
+        
         //Order the results and send them
         const bestMatch = orderByMatch(userstype, req.user, areas, technologies);
-        
+        //console.log(bestMatch)
         res.status(200).send(bestMatch);
       })
       .catch(next);
