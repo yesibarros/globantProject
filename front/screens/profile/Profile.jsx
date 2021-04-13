@@ -25,12 +25,13 @@ import styles from "./profileStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
+import { updateProfile } from "../../state/loggedUser/thunks"
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
-import { setNotificationsToken } from "../../state/notificationsToken/notificationsToken";
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -73,7 +74,7 @@ const Profile = ({ navigation }) => {
       })
       .then((response) => {
         const token = response.data;
-        dispatch(setNotificationsToken(token)); //CAMBIAR ESTO POR UN UPDATE USER
+        dispatch(updateProfile({id: loginUser._id, notificationsToken: token}));
       })
       .catch((err) => {
         console.log(err);
