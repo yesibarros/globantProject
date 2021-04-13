@@ -1,4 +1,5 @@
 const { User, Request } = require("../../models");
+const sendNotification = require("../../utils/expoPushNotifications")
 
 const newRequest = async (req, res, next) => {
   // console.log(req.body)
@@ -98,6 +99,11 @@ const newRequest = async (req, res, next) => {
 
       //SEND NOTIFICATIONS TO MENTS
       //...
+      // Array de tokens, title, subtitle, body, data, sound
+      sendNotifications(foundMents[0].notificationsToken, "Hola!", "Prueba", "Este es el body", {})
+
+
+
     }
     //Send all pending requests from user
     const allPedningRequests = await user.getPendingRequests();

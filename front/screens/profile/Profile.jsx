@@ -53,7 +53,6 @@ const Profile = ({ navigation }) => {
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
 
-  const notificationsToken = useSelector((state) => state.notificationsToken);
   useEffect(() => {
     Permissions.getAsync(Permissions.NOTIFICATIONS)
       .then((statusObj) => {
