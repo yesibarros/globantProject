@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Alert, TouchableOpacity, Text } from "react-native";
+import { View, Alert, TouchableOpacity, Text, Modal } from "react-native";
 import {
   Card,
   Title,
@@ -16,6 +16,7 @@ import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
 import styles from "./cardProgressStyle";
 
 const CardProgress = ({ item, last }) => {
+  const [viewModal, setViewModal] = useState(false)
   const dispatch = useDispatch();
   const border = last ? "transparent" : "lightgrey";
   // objectiveName
@@ -40,12 +41,33 @@ const CardProgress = ({ item, last }) => {
               size={35}
               color="#009387"
               icon="eye-plus"
-              onPress={() => {}}
+              onPress={() => {
+                setViewModal(true)
+              }}
             />
           )}
         />
-        <Card.Content></Card.Content>
+
       </Card>
+      
+        <Modal visible={viewModal} transparent={true} animationType="slide">
+              <View style={styles.viewContainer}>
+                <Text style={{ flex:0.1,  fontSize:30, fontWeight:"bold", marginTop:20, alignContent:"center"}}>OBJETIVO EN PARTICULAR</Text>
+                
+                <Card style={styles.empty}>
+
+                <Text style={{fontSize:20}}>{item.description}</Text>
+                </Card>
+                {/* recuadro con comentarios del mentor */}
+                <Text>Feedback</Text>
+                <Text>Estado</Text>
+                {/* crear un select que tenga 3 opciones */}
+                <Text>Fecha</Text>
+                {/* implementar calender */}
+                <TouchableOpacity/>
+              </View>
+        </Modal>
+       
     </View>
   );
 };
