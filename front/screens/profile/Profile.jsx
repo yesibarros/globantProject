@@ -14,7 +14,7 @@ import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
 import { loadImageFromGallery } from "../../utils/helpers";
-import {updateProfile} from "../../state/loggedUser/thunks"
+
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -26,7 +26,7 @@ import styles from "./profileStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
-import { updateProfile } from "../../state/loggedUser/thunks"
+import {updateProfile} from "../../state/loggedUser/thunks"
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
