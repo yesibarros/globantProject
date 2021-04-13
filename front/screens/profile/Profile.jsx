@@ -7,13 +7,14 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-  IconButton,
+
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
 import { loadImageFromGallery } from "../../utils/helpers";
+import {updateProfile} from "../../state/loggedUser/thunks"
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -128,7 +129,10 @@ const Profile = ({ navigation }) => {
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
   const changePhoto = async () => {
     const result = await loadImageFromGallery([1, 1]);
-    // console.log("RESULTADO", result);
+    if(result.status){
+      dispatch(updateProfile({img:result.image, id:loginUser._id}))
+    }
+    console.log("RESULTADO", result);
   };
   return (
     <ScrollView>
