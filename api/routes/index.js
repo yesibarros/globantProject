@@ -11,6 +11,7 @@ router.use('/user', userRoute);
 router.use('/auth', authRoute);
 router.use('/techs', techRoute);
 router.use('/locations', locationRoute);
+router.use('/objectives', locationRoute);
 router.use('/areas', areaRoute);
 router.use('/countries', countryRoute)
 
