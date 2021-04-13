@@ -86,13 +86,13 @@ const Profile = ({ navigation }) => {
     //Cuando la app está abierta
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        // console.log(notification);
+        console.log("Cuando la app esté abierta", notification);
       }
     );
     //Cuando la app está cerrada
     const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        // console.log(response); //Incluye notification
+        console.log("Cuando la app esté cerrada",response); //Incluye notification
       }
     );
     return () => {

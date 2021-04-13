@@ -22,7 +22,7 @@ const sendNotification = (somePushTokens, title='', subtitle='' ,body = '', data
         subtitle,
         sound,
         body,
-        data,
+        data: data,
       })
     }
 
