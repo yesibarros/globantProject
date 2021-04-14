@@ -101,10 +101,11 @@ const newRequest = async (req, res, next) => {
       //SEND NOTIFICATIONS TO MENTS
       //...
       // Array de tokens, title, subtitle, body, data, sound
-     
-      const mentToSend = await userFindAndPopulate({_id: foundMents[0]._id}) //Esto funciona para un solo usuario, corregir se se va a usar un array de usuarios
-      const mentPendingRequests = mentToSend.getPendingRequests()
-      sendNotification([foundMents[0].notificationsToken], `Mentor Me`, "", `Recibiste una nueva solicitud de ${user.firstName} ${user.LastName}`, {})
+     if(foundMents[0].notificationsToken){
+        const mentToSend = await userFindAndPopulate({_id: foundMents[0]._id}) //Esto funciona para un solo usuario, corregir se se va a usar un array de usuarios
+        const mentPendingRequests = await mentToSend.getPendingRequests()
+        sendNotification([foundMents[0].notificationsToken], `Mentor Me`, "", `Recibiste una nueva solicitud de ${user.firstName} ${user.lastName}`, {type: "newRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+      }
 
     }
     //Send all pending requests from user

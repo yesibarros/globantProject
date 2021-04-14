@@ -26,12 +26,18 @@ import styles from "./profileStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
-import {updateProfile} from "../../state/loggedUser/thunks"
+import { updateProfile } from "../../state/loggedUser/thunks";
+import { setUser } from "../../state/loggedUser/actions";
+import { setRequests } from "../../state/requests/Actions"
+import { setMenuBadge } from "../../state/menuBadge/menuBadge"
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
+
+//Custom hooks
+import useNotificationsInit from "../../shared/customHooks/notificationsInit"
 
 
 Notifications.setNotificationHandler({
@@ -53,40 +59,21 @@ const Profile = ({ navigation }) => {
   //**** NOTIFICACIONES ******/
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
-
+  const notificationsInit = useNotificationsInit()
   useEffect(() => {
-    Permissions.getAsync(Permissions.NOTIFICATIONS)
-      .then((statusObj) => {
-        if (statusObj.status !== "granted") {
-          return Permissions.askAsync(Permissions.NOTIFICATIONS);
-        }
-        return statusObj;
-      })
-      .then((statusObj) => {
-        if (statusObj.status !== "granted") {
-          alert("No podremos enviarte notificaciones.");
-          throw new Error("Permission not granted");
-        }
-      })
-      .then(() => {
-        // console.log("getting token")
-        return Notifications.getExpoPushTokenAsync();
-      })
-      .then((response) => {
-        const token = response.data;
-        dispatch(updateProfile({id: loginUser._id, notificationsToken: token}));
-      })
-      .catch((err) => {
-        console.log(err);
-        return null;
-      });
+    notificationsInit()
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        console.log("Cuando la app esté abierta", notification);
+        const {type, user, pendingRequests} = notification.request.content.data
+        if(["newRequest","acceptedRequest"].includes(type)){
+          dispatch(setUser(user))
+          dispatch(setRequests(pendingRequests))
+          if(type == "newRequest") dispatch(setMenuBadge(true))
+        }
       }
     );
     //Cuando la app está cerrada
