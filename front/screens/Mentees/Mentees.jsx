@@ -69,7 +69,8 @@ const Mentees = ({ navigation }) => {
         <FAB
           style={styles.fab}
           icon="account-plus"
-          // onPress={() => console.log("Pressed")}
+        
+          onPress={() => navigation.navigate("SearchMatch")}
         />
       )}
     </>
