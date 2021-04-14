@@ -1,5 +1,6 @@
 const orderByMatch = (matchArr, userProfile, areas, technologies) => {
   matchArr.forEach((candidate) => {
+  
     candidate.score = 0;
     if (
       candidate.location._id.toString() == userProfile.location.toString()
