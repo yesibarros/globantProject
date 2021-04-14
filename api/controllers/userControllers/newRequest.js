@@ -97,12 +97,12 @@ const newRequest = async (req, res, next) => {
         { $inc: { receivedPendingRequests: 1 } }
       );
 
-      //SEND NOTIFICATIONS TO MENTS
+
+    //SEND NOTIFICATIONS TO MENTS
       //...
       // Array de tokens, title, subtitle, body, data, sound
-      sendNotifications(foundMents[0].notificationsToken, "Hola!", "Prueba", "Este es el body", {})
-
-
+      console.log("notificationsToken::::::", foundMents[0].notificationsToken)
+      sendNotification([foundMents[0].notificationsToken], "Hola!", "Prueba", "Este es el body", {})
 
     }
     //Send all pending requests from user
