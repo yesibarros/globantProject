@@ -4,8 +4,9 @@ const objectiveController = {};
 
 objectiveController.getAll = (req, res, next) => {
   //Revisar según nuevos cambios en el modelo
-  User.find(req.query)
-    .populate("objectives")
+  Objective.find({mentee: req.query._id})
+    .populate("mentee")
+    .populate("mentor")
     .then((user) => {
       return res.send(user);
     })

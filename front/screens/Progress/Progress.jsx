@@ -5,14 +5,14 @@ import { useTheme } from "@react-navigation/native";
 
 import styles from "./progressStyle";
 import CardProgress from "./CardProgress";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { getObjectives } from "../../state/objetivos/thunks";
+import { getObjectives, sendObjective } from "../../state/objetivos/thunks";
 
-export default function Progress({ idCurrent }) {
+export default function Progress({ route, navigation }) {
   const [viewModal, setViewModal] = useState(false);
+  const idCurrent = route && route.params && route.params.idCurrent
   const { colors } = useTheme();
-
+  
   const dispatch = useDispatch();
   const logginUser = useSelector((state) => state.loggedUser.user);
   const goals = useSelector((state) => state.objetivos);
@@ -20,11 +20,25 @@ export default function Progress({ idCurrent }) {
   const [objective, setObjective] = useState("")
   const [titleObjective, setTitleObjective] = useState("")
 
-  console.log("ID CURRENT", idCurrent)
-
   useEffect(() => {
+    // if(logginUser.role && logginUser.role[0] === 'mentor'){
+    //   navigation.navigate('Mis mentees')
+    // }
+  
     dispatch(getObjectives(id));
   }, [id]);
+
+  const handleObjective = () => {
+    let obj = {
+      objectiveName: titleObjective,
+      description: objective,
+      mentor: logginUser._id,
+      mentee: idCurrent,
+    }
+    dispatch(sendObjective(obj)).then((data) => 
+      dispatch(getObjectives(idCurrent))
+    )
+  }
 
   return (
     <ScrollView style={{ flexGrow: 0.92 }}>
@@ -78,7 +92,7 @@ export default function Progress({ idCurrent }) {
                 justifyContent: "space-around",
               }}
             >
-              {/* <View > */}
+            
               <Button
                 style={styles.Button}
                 onPress={() => {

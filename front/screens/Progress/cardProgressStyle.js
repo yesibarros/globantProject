@@ -50,6 +50,15 @@ const styles = StyleSheet.create({
     width: "95%",
     alignItems: "center",
   },
+  inputLocation: {
+    borderWidth: 2,
+    borderRadius: 50,
+    borderColor: "#000",
+    alignItems: "center",
+    height: "95%",
+    marginLeft: 20,
+    width: "40%",
+  },
 });
 
 export default styles;

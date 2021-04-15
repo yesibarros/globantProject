@@ -8,9 +8,9 @@ const { JWTmiddleware, roles } = require('../middleware')
 //GET ALL OBJECTIVES FROM AN USER
 router.get('/', objectiveController.getAll)
 //CREATE ONE
-router.post('/', [JWTmiddleware, roles.isAdmin, roles.isMentor], objectiveController.createOne)
+router.post('/', [JWTmiddleware, roles.isMentor], objectiveController.createOne)
 //UPDATE BY ID
-router.put('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], objectiveController.modifyOne)
+router.put('/:id', [JWTmiddleware, roles.isMentor], objectiveController.modifyOne)
 //DELETE BY ID
 router.delete('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], objectiveController.deleteOne)
 

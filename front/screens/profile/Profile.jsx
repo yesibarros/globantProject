@@ -134,6 +134,8 @@ const Profile = ({ navigation }) => {
     }
     console.log("RESULTADO", result);
   };
+
+  console.log(loginUser)
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -230,7 +232,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          {showConfiguration ? <Configuration /> : <EditProfile />}
+          {showConfiguration ? <Configuration showLogged={true}/> : <EditProfile />}
         </View>
       </View>
     </ScrollView>
