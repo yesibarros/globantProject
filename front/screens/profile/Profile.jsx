@@ -1,5 +1,7 @@
 //REACT
 import React, { useState, useEffect } from "react";
+import {state} from "../../utils/state"
+import TabBar from "../../routes/Tab/TabBar";
 import {
   ScrollView,
   View,
@@ -135,6 +137,7 @@ const Profile = ({ navigation }) => {
     console.log("RESULTADO", result);
   };
   return (
+    
     <ScrollView>
       <View style={styles.container}>
         <Header navigation={navigation} />
@@ -234,6 +237,8 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+     
+   
   );
 };
 

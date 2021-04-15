@@ -103,18 +103,7 @@ const ScreenDrawer = (props) => {
               )}
               label="Mi mentor"
               onPress={() => props.navigation.navigate("Mentor")}
-            />
-            {/* <DrawerItem
-          icon={({ color, size }) => (
-            <Icon 
-            name="settings-outline" 
-            color={color} 
-            size={size} 
-            />
-          )}
-          label="Settings"
-        onPress={()=>{}}
-        /> */}
+            />      
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />

@@ -46,7 +46,7 @@ const Mentees = ({ navigation }) => {
 
   const { colors } = useTheme();
   useEffect(() => {
-    if (loginUser.mentees.length == 0) {
+    if (loginUser?.mentees.length == 0) {
       setVisible(true);
     }
   }, []);
@@ -71,7 +71,7 @@ const Mentees = ({ navigation }) => {
           </Text>
           <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
-              {loginUser.mentees.length == 0 ? (
+              {loginUser.mentees?.length == 0 ? (
                 <View style={{ alignContent: "center", marginVertical: 250 }}>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
                   <View
@@ -93,7 +93,7 @@ const Mentees = ({ navigation }) => {
                 <UserList users={menteesToShow()} navigation={navigation} />
               )}
             </View>
-            {loginUser.mentees.length == 4 && (
+            {loginUser.mentees?.length == 4 && (
               <View style={styles.noteContainer}>
                 <Text style={styles.note}>
                   Solamente puedes tener hasta 5 mentees,
@@ -106,7 +106,7 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {loginUser.mentees.length < 5 && (
+      {loginUser.mentees?.length < 5 && (
         <Animated.View
           style={{
             position: "absolute",

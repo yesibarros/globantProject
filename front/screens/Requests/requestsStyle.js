@@ -3,7 +3,7 @@ import {primaryGreen} from "../../utils/Colors"
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flex: 1.0,
     },
     titleContainer: {
       width: "100%",

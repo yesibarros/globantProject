@@ -8,7 +8,7 @@ const { width } = Dimensions.get("screen");
 const TabBar = ({ state, navigation }) => {
   const [selected, setSelected] = useState("Home");
   const { routes } = state;
-
+console.log("STATE", state)
   const handlePress = (activeTab, index) => {
     if (state.index !== index) {
       setSelected(activeTab);
@@ -27,7 +27,7 @@ const TabBar = ({ state, navigation }) => {
         <Tab
           tab={route}
           onPress={() => handlePress(route.name, index)}
-          key={route.key}
+          key={index}
         />
       ))}
     </View>

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
   StatusBar,
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-import { Avatar, Chip, IconButton } from "react-native-paper";
+import {state} from "../../utils/state"
+import styles from "./searchStyles"
+import TabBar from "../../routes/Tab/TabBar";
+import { Avatar, Chip} from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -17,16 +19,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
 import { useTheme } from "@react-navigation/native";
 const { width } = Dimensions.get("window");
-import { primaryGreen } from "../../utils/Colors";
+
 
 const stackSize = 4;
-const colors = {
-  red: "#EC2379",
-  blue: "#0070FF",
-  gray: "#777777",
-  white: "#ffffff",
-  black: "#000000",
-};
+
 const ANIMATION_DURATION = 200;
 
 const transition = (
@@ -153,9 +149,10 @@ export default function App({ navigation }) {
   return (
     <View
       style={{
-        flex: 0.93,
+        flex: 1,
       }}
     >
+    
       {isLoading ? (
         <View
           style={{
@@ -167,16 +164,6 @@ export default function App({ navigation }) {
         </View>
       ) : (
         <>
-          <IconButton
-            icon="menu"
-            color={colors.icon}
-            size={35}
-            style={{
-              position: "absolute",
-              zIndex: 1,
-            }}
-            onPress={() => navigation.openDrawer && navigation.openDrawer()}
-          />
           <MaterialCommunityIcons
             name="crop-square"
             size={width}
@@ -260,7 +247,7 @@ export default function App({ navigation }) {
           <View style={styles.bottomContainerButtons}>
             <MaterialCommunityIcons.Button
               name="thumb-down"
-              size={94}
+              size={110}
               style={{ marginTop: 24 }}
               backgroundColor="transparent"
               underlayColor="transparent"
@@ -270,7 +257,7 @@ export default function App({ navigation }) {
             />
             <MaterialCommunityIcons.Button
               name="thumb-up"
-              size={94}
+              size={110}
               backgroundColor="transparent"
               underlayColor="transparent"
               activeOpacity={0.3}
@@ -282,61 +269,10 @@ export default function App({ navigation }) {
           </View>
         </>
       )}
+      <View style={{flex:0}}>
+       <TabBar state={state} navigation={navigation} />
+       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  bottomContainerButtons: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    flex: 0.22,
-  },
-  card: {
-    backgroundColor: "white",
-    flex: 0.84,
-    borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: { width: 1, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 30,
-  },
-  cardTitleView: {
-    flex: 0.41,
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  cardTitleText: {
-    fontSize: 35,
-    color: primaryGreen,
-  },
-  cardSubtitleText: {
-    color: colors.text,
-    fontStyle: "italic",
-    fontSize: 17,
-  },
-  cardSubtitleRole: {
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 1, height: 1 },
-    color: "gray",
-    fontSize: 20,
-    backgroundColor: "transparent",
-  },
-  mapsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    flex: 0.6,
-    justifyContent: "center",
-    alignContent: "center",
-  },
-  tecnoAndAreaText: {
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingTop: 15,
-    paddingBottom: 5,
-  },
-});
