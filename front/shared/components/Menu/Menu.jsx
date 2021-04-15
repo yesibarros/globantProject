@@ -4,6 +4,7 @@ import { IconButton, Menu, Divider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux'
 import { cancelMatch } from '../../../state/loggedUser/thunks'
 import ConfirmCancelMatch from './ConfirmCancelMatch'
+import {getSingleUser} from "../../../state/singleUser/thunks"
 
 const MyComponent = ({userId}) => {
   const [visible, setVisible] = React.useState(false);
@@ -26,6 +27,12 @@ const MyComponent = ({userId}) => {
 
   const closeMenu = () => setVisible(false);
 
+  const selectUser = (id)=>{
+    dispatch(getSingleUser({id})).then((data)=> {
+      closeMenu()
+      props.navigation.navigate("SingleUser")})
+  }
+
   return (
     
       <View
@@ -37,7 +44,7 @@ const MyComponent = ({userId}) => {
           visible={visible}
           onDismiss={closeMenu}
           anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
-          <Menu.Item icon="account-outline" onPress={() => {}} title="Ver perfil" />
+          <Menu.Item icon="account-outline" onPress={() => selectUser(userId)} title="Ver perfil" />
           <Menu.Item icon="rocket-launch-outline" onPress={() => {}} title="Objetivos" />
           <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
           <Divider />

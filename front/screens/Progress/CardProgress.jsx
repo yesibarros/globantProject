@@ -112,7 +112,7 @@ const CardProgress = ({ item, last }) => {
               <Text style={{ fontSize: 20, paddingLeft: 20 }}>
                 Estado: {item.status}
               </Text>
-              {loggedUser && loggedUser.role.includes("mentor") ? (
+              {loggedUser && loggedUser.role && loggedUser.role.includes("mentor") ? (
                 <View
                   style={{
                     alignItems: "center",
@@ -167,7 +167,7 @@ const CardProgress = ({ item, last }) => {
                 </Text>
               </Button>
 
-              {loggedUser && loggedUser.role.includes("mentor") ? (
+              {loggedUser && loggedUser.role && loggedUser.role.includes("mentor") ? (
                 <Button
                   style={{
                     backgroundColor: "#009387",
