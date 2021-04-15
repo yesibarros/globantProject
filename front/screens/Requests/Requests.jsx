@@ -17,6 +17,7 @@ import RequestCard from "./RequestCard"
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
+import {setMenuBadge} from '../../state/menuBadge/menuBadge'
 
 //UTILS
 import {state} from "../../utils/state"
@@ -32,7 +33,11 @@ const Requests = ({navigation}) => {
     const user = useSelector(state => state.loggedUser.user)
 
     useEffect(() => {
-      dispatch(getRequests()).then(() => setIsLoading(false))
+      dispatch(getRequests()).then(() => {
+        setMenuBadge(false)
+        setIsLoading(false)
+      })
+
     },[])
 
     const filteredRequests = showReceived ? solicitudes.filter(r => r.to._id === user._id) : solicitudes.filter(r => r.to._id !== user._id)

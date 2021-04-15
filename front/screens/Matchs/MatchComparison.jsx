@@ -63,7 +63,14 @@ const MatchComparison = ({ navigation }) => {
           message: message,
         },
       ];
-      dispatch(sendRequest({ mentees }));
+      dispatch(sendRequest({ mentees })).then(()=>{
+        Alert.alert("Solicitud enviada", " ", [
+          {
+            text: "Ok",
+            onPress: () => navigation.navigate("Requests"),
+          },
+        ]);
+      });
     }
   };
 

@@ -34,7 +34,7 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
             "Working since: " +
             matchPerson.workingSince +
             " | " +
-            matchPerson.location.locationName
+            (matchPerson.location && matchPerson.location.locationName)
         }
       />
 

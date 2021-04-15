@@ -40,7 +40,7 @@ return (
           )
         }
         right={(props) => (
-         <Menu {...props} id={user._id} navigation={navigation}/>
+         <Menu {...props} userId={user._id} navigation={navigation}/>
        
         )}
       />
