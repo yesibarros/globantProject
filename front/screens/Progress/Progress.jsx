@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, ScrollView, FlatList, Modal, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
 import { Title, IconButton, Card, Button } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
-
+import {state} from "../../utils/state"
+import TabBar from "../../routes/Tab/TabBar";
 import styles from "./progressStyle";
 import CardProgress from "./CardProgress";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ export default function Progress({ route, navigation }) {
   }
 
   return (
+   <View style={{flex:1}}>
     <ScrollView style={{ flexGrow: 0.92 }}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Objetivos</Text>
@@ -142,5 +144,10 @@ export default function Progress({ route, navigation }) {
         }}
       />
     </ScrollView>
+       <View style={{ flex: 0.08 }}>
+        <TabBar state={state} navigation={navigation} />
+      </View>
+    </View>
+   
   );
 }
