@@ -6,7 +6,7 @@ import { cancelMatch } from '../../../state/loggedUser/thunks'
 import ConfirmCancelMatch from './ConfirmCancelMatch'
 import {getSingleUser} from "../../../state/singleUser/thunks"
 
-const MyComponent = ({userId}) => {
+const MyComponent = ({userId, navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -30,7 +30,7 @@ const MyComponent = ({userId}) => {
   const selectUser = (id)=>{
     dispatch(getSingleUser({id})).then((data)=> {
       closeMenu()
-      props.navigation.navigate("SingleUser")})
+      navigation.navigate("SingleUser")})
   }
 
   return (
@@ -45,7 +45,11 @@ const MyComponent = ({userId}) => {
           onDismiss={closeMenu}
           anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
           <Menu.Item icon="account-outline" onPress={() => selectUser(userId)} title="Ver perfil" />
-          <Menu.Item icon="rocket-launch-outline" onPress={() => {}} title="Objetivos" />
+          <Menu.Item icon="rocket-launch-outline" onPress={() => {
+            closeMenu()
+              navigation.navigate('Progress', {idCurrent: userId})
+            }} 
+            title="Objetivos" />
           <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
           <Divider />
           <Menu.Item icon="account-cancel-outline" onPress={() => setShowModal(true)} title="Cancelar match" />

@@ -19,7 +19,7 @@ import {getSingleUser} from "../../state/singleUser/thunks"
 //COMPONENTS
 import UserList from "../../shared/components/UserList/UserList";
 
-const { width } = Dimensions.get("window");
+const { height, width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
   const [startAnimate, setStartAnimate] = React.useState(false);
@@ -29,12 +29,12 @@ const Mentees = ({ navigation }) => {
   useEffect(() => {
     if (!startAnimate) {
       Animated.timing(translation, {
-        toValue: 300,
+        toValue: width-150,
         duration: 2000,
         useNativeDriver: false,
       }).start();
       Animated.timing(yTranslation, {
-        toValue: 750,
+        toValue: height-200,
         duration: 2000,
         useNativeDriver: false,
       }).start();
@@ -44,7 +44,7 @@ const Mentees = ({ navigation }) => {
   }, []);
   //VER LO USEEFFECT
   const loginUser = useSelector((state) => state.loggedUser.user);
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const { colors } = useTheme();
   useEffect(() => {
     if (loginUser?.mentees.length == 0) {
@@ -116,7 +116,7 @@ const dispatch = useDispatch()
             height: 100,
             borderRadius: 50,
             backgroundColor: yTranslation.interpolate({
-              inputRange: [0, 375, 750],
+              inputRange: [0, 375, height-200],
               outputRange: ["grey", "lightgrey", "transparent"],
             }),
             opacity: translation.interpolate({
@@ -129,7 +129,7 @@ const dispatch = useDispatch()
 
               {
                 rotate: translation.interpolate({
-                  inputRange: [0, 50, 100],
+                  inputRange: [0, 50, width-150],
                   outputRange: ["0deg", "180deg", "360deg"],
                 }),
               },

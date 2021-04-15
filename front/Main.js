@@ -14,6 +14,7 @@ import DrawerNavigator from "./routes/Drawer/DrawerNavigator";
 import ScreenLoad from "./screens/screenLoad/screenLoad";
 import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
+import Progress from './screens/Progress/Progress';
 // import MatchComparison from "./screens/Matchs/MatchComparison"
 import { useSelector, useDispatch } from "react-redux";
 import "react-native-gesture-handler";
@@ -104,6 +105,10 @@ const Main = ({navigation}) => {
               <Stack.Screen
                 name="SingleUser"
                 component={SingleUser}
+              />
+              <Stack.Screen
+                name="Progress"
+                component={Progress}
               />
 
             </>

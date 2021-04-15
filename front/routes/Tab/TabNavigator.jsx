@@ -15,8 +15,14 @@ export default function MyTabs(props) {
   return (
     <Tab.Navigator tabBar={(props) => <TabBar{...props} />}>
       <Tab.Screen name="Mi perfil" component={Profile} />
-      <Tab.Screen name="Progress" component={Progress} />
-     
+
+      {
+        loggedUser.role && loggedUser.role[0] === 'mentee'
+        ?
+          <Tab.Screen name="Progress" component={Progress} />
+        :
+        null
+      }
       <Tab.Screen name={userType} component={Mentees} />
     </Tab.Navigator>
   );
