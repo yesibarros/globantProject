@@ -25,14 +25,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Configuration from "../configuration/Configuration";
 const { width } = Dimensions.get("window");
 
-
-
-
-
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleUser= useSelector(state=> state.singleUser.user)
-console.log("EL USUARIOOO", singleUser)
+  console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
 
   return (
