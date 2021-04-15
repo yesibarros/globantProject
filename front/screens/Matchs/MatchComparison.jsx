@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
-import { Icon } from "react-native-elements";
+import {state} from "../../utils/state"
 import TabBar from "../../routes/Tab/TabBar";
 import { useTheme } from "@react-navigation/native";
 import { setMatch } from "../../state/posibleMatch/actions";
@@ -22,36 +21,8 @@ const MatchComparison = ({ navigation }) => {
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
   const allMatches = useSelector((state) => state.matchs.allMatches);
-  const state = {
-    history: [
-      {
-        key: "Mi perfil-bEYiOS9OrZVRLrjBbgrPC",
-        type: "route",
-      },
-    ],
-    index: 0,
-    key: "tab-oUvNWB2kZqvz5JELanPW3",
-    routeNames: ["Mi perfil", "Matchs", "Mis mentees"],
-    routes: [
-      {
-        key: "Mi perfil-bEYiOS9OrZVRLrjBbgrPC",
-        name: "Mi perfil",
-        params: undefined,
-      },
-      {
-        key: "Matchs-b4Uw5OPTUHoJLmKAVVhit",
-        name: "Matchs",
-        params: undefined,
-      },
-      {
-        key: "Mis mentees-cCBXknLflTEPYEk92eQx2",
-        name: "Mis mentees",
-        params: undefined,
-      },
-    ],
-    stale: false,
-    type: "tab",
-  };
+  
+
   useEffect(() => {
     setFilterAllMatches(() =>
       allMatches.filter((match) => match._id !== singleMatch._id)

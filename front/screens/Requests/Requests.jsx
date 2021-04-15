@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native'
 import {IconButton} from 'react-native-paper';
+
+//COLORS
 import {primaryGreen} from "../../utils/Colors"
 
 //STYLE
@@ -9,12 +11,16 @@ import { useTheme } from "@react-navigation/native";
 
 
 //COMPONENTS
+import TabBar from "../../routes/Tab/TabBar";
 import RequestCard from "./RequestCard"
 
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
 import {setMenuBadge} from '../../state/menuBadge/menuBadge'
+
+//UTILS
+import {state} from "../../utils/state"
 
 const Requests = ({navigation}) => {
   
@@ -53,14 +59,7 @@ const Requests = ({navigation}) => {
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-       
-                <IconButton
-                  icon="menu"
-                  color={primaryGreen}
-                  size={30}
-                  style={{position:"absolute", zIndex:2}}
-                  onPress={() => navigation.openDrawer()}
-                />
+
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
@@ -102,6 +101,9 @@ const Requests = ({navigation}) => {
             </View>
           }
         </View>
+        <View style={{ flex: 0.08 }}>
+      </View>
+        <TabBar state={state} navigation={navigation} />
       </View>
     );
 }

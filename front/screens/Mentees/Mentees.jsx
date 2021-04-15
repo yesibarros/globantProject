@@ -47,7 +47,7 @@ const Mentees = ({ navigation }) => {
 const dispatch = useDispatch()
   const { colors } = useTheme();
   useEffect(() => {
-    if (loginUser.mentees.length == 0) {
+    if (loginUser?.mentees.length == 0) {
       setVisible(true);
     }
   }, []);
@@ -72,7 +72,7 @@ const dispatch = useDispatch()
           </Text>
           <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
-              {loginUser.mentees.length == 0 ? (
+              {loginUser.mentees?.length == 0 ? (
                 <View style={{ alignContent: "center", marginVertical: 250 }}>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
                   <View

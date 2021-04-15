@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         elevation: 8,
         margin: 10,
         marginBottom: 15,
-        marginTop: 8
+        marginTop: 8,
     },
     container:{
         flexDirection: "row"
