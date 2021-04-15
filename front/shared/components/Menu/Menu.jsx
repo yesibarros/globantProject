@@ -21,7 +21,7 @@ const MyComponent = (props) => {
           onDismiss={closeMenu}
           anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
           <Menu.Item icon="account-outline" onPress={() => {}} title="Ver perfil" />
-          <Menu.Item icon="rocket-launch-outline" onPress={() => {}} title="Objetivos" />
+          <Menu.Item icon="rocket-launch-outline" onPress={() => navigate.navigate('Progress', {idCurrent: props.id})} title="Objetivos" />
           <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
           <Divider />
           <Menu.Item icon="account-cancel-outline" onPress={() => {}} title="Eliminar" />

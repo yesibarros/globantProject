@@ -1,103 +1,128 @@
-import React from "react";
-import { StyleSheet, View, Text, ScrollView, FlatList } from "react-native";
-import { Title } from "react-native-paper";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Text, ScrollView, FlatList, Modal, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
+import { Title, IconButton, Card, Button } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 
 import styles from "./progressStyle";
 import CardProgress from "./CardProgress";
 import { SafeAreaView } from "react-native-safe-area-context";
-// objectiveName
-// description
-// order
-// status: (list con estado, )
+import { useDispatch, useSelector } from "react-redux";
+import { getObjectives } from "../../state/objetivos/thunks";
 
-export default function Progress() {
+export default function Progress({ idCurrent }) {
+  const [viewModal, setViewModal] = useState(false);
   const { colors } = useTheme();
-  const objectives = [
-    {
-      _id: 1,
-      objectiveName: "objetivo1",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-      status: "pendiente",
-      feedback: "mejorable",
-    },
-    {
-      _id: 2,
-      objectiveName: "objetivo2",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "completado",
-      feedback: "mejorable",
-    },
-    {
-      _id: 3,
-      objectiveName: "objetivo3",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "pendiente",
-      feedback: "podria mejorar algo pero excelente",
-    },
-    {
-      _id: 4,
-      objectiveName: "objetivo4",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "pendiente",
-      feedback: "podria mejorar algo pero excelente",
-    },
-    {
-      _id: 5,
-      objectiveName: "objetivo4",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "pendiente",
-      feedback: "podria mejorar algo pero excelente",
-    },
-    {
-      _id: 6,
-      objectiveName: "objetivo4",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "pendiente",
-      feedback: "volve a hacer el bootcamp",
-    },
-    {
-      _id: 7,
-      objectiveName: "objetivo4",
-      description:
-        "Quos sunt eligendi rem iste et, nihil delectus dicta commodi, tempora id voluptatem vitae, eaque amet doloribus quibusdam saepe! Reprehenderit, quae sed.",
-      status: "pendiente",
-      feedback: "volve a hacer el bootcamp",
-    },
-    {
-      _id: 8,
-      objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
-      status: "pendiente",
-      feedback: "te falta el intro",
-    },
-    {
-      _id: 9,
-      objectiveName: "objetivo4",
-      description: "hacer el objetivo o no hacerlo",
-      status: "pendiente",
-      feedback: "te falta el intro",
-    },
-  ];
+
+  const dispatch = useDispatch();
+  const logginUser = useSelector((state) => state.loggedUser.user);
+  const goals = useSelector((state) => state.objetivos);
+  const id = idCurrent || logginUser._id;
+  const [objective, setObjective] = useState("")
+  const [titleObjective, setTitleObjective] = useState("")
+
+  console.log("ID CURRENT", idCurrent)
+
+  useEffect(() => {
+    dispatch(getObjectives(id));
+  }, [id]);
+
   return (
     <ScrollView style={{ flexGrow: 0.92 }}>
-      <Text style={styles.titleProgress}>Objetivos</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
+        <Text style={styles.titleProgress}>Objetivos</Text>
+      {logginUser.role && logginUser.role[0] === 'mentor'
+      ?
+      <IconButton
+        size={35}
+        color="#009387"
+        icon="plus"
+        onPress={() => {
+          setViewModal(true)
+        }}
+      />
+      :
+      null
+      }
+      </View>
+
+        <Modal visible={viewModal} transparent={true} animationType="slide">
+        <View style={styles.viewContainer}>
+            <View
+              style={{
+                flex: 0.3,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>Titulo del objetivo:</Text>
+              <TextInput
+                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                multiline
+                value={titleObjective}
+                onChangeText={text => setTitleObjective(text)}
+              />
+              <Text>Descripción del objetivo:</Text>
+              <TextInput
+                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                multiline
+                value={objective}
+                onChangeText={text => setObjective(text)}
+              />
+            </View>
+
+            <View
+              style={{
+                flex: 0.4,
+                alignItems: "center",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              {/* <View > */}
+              <Button
+                style={styles.Button}
+                onPress={() => {
+                  setViewModal(false);
+                }}
+              >
+                <Text
+                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                >
+                  Cerrar
+                </Text>
+              </Button>
+                
+              <Button
+                  style={styles.Button}
+                  onPress={() => {
+                    setViewModal(false);
+                    return handleObjective()
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    ENVIAR
+                  </Text>
+                </Button>
+            </View>
+        </View>
+        </Modal>
 
       <FlatList
-        data={objectives}
-        renderItem={(obj) => {
+        data={goals}
+        renderItem={(goal) => {
           const last =
-            obj.item._id === objectives[objectives.length - 1]._id
+            goal.item._id === goals[goals.length - 1]._id
               ? true
               : false;
           return (
             <View style={styles.progressContainer}>
-              <CardProgress item={obj.item} last={last} />
+              <CardProgress item={goal.item} last={last} />
             </View>
           );
         }}
