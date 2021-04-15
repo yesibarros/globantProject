@@ -1,32 +1,29 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "../../screens/profile/Profile";
 import TabBar from "./TabBar";
 import Mentees from "../../screens/Mentees/Mentees";
-import Mentor from "../../screens/Mentor/Mentor"
-import {useSelector} from "react-redux"
-import Search from "../../screens/Match/Search";
 import Progress from "../../screens/Progress/Progress";
-
-import MatchComparison from "../../screens/Matchs/MatchComparison";
 
 const Tab = createBottomTabNavigator();
 
 
 export default function MyTabs(props) {
-  const loggedUser= useSelector(state => state.loggedUser.user)
-  const showMentees = loggedUser && loggedUser.role && loggedUser.role[0] == "mentor" ? true: false
+  const loggedUser = useSelector((state) => state.loggedUser.user);
+  const userType = loggedUser.role == "mentor" ? "Mis Mentees" : "Mi Mentor"
   return (
-    <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+    <Tab.Navigator tabBar={(props) => <TabBar{...props} />}>
       <Tab.Screen name="Mi perfil" component={Profile} />
-       {/* <Tab.Screen name="Matchs" component={Search} />  */}
-      <Tab.Screen name="Progress" component={Progress} />
-      {showMentees ? 
-        <Tab.Screen name="Mis mentees" component={Mentees} />
+
+      {
+        loggedUser.role && loggedUser.role[0] === 'mentee'
+        ?
+          <Tab.Screen name="Progress" component={Progress} />
         :
-        <Tab.Screen name="Mi mentor" component={Mentor} />
+        null
       }
-      
+      <Tab.Screen name={userType} component={Mentees} />
     </Tab.Navigator>
   );
 }

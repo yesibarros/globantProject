@@ -42,7 +42,7 @@ const RequestCard = ({ request, received, navigation }) => {
         Alert.alert("¡Felicidades!", `¡Ahora ${request.from.firstName} ${request.from.lastName} es tu nuevo ${request.fromRole}`, [
           {
             text: "Ok",
-            onPress: () => navigation.navigate("Requests"),
+            onPress: () => request.fromRole == "Mentor"? navigation.navigate("Mentor") : navigation.navigate("Mis mentees"),
           },
         ]);
         dispatch(setUser(data.payload.user));

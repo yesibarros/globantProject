@@ -1,5 +1,7 @@
 //REACT
 import React, { useState, useEffect } from "react";
+import {state} from "../../utils/state"
+import TabBar from "../../routes/Tab/TabBar";
 import {
   ScrollView,
   View,
@@ -26,19 +28,25 @@ import styles from "./profileStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
-import {updateProfile} from "../../state/loggedUser/thunks"
+import { updateProfile } from "../../state/loggedUser/thunks";
+import { setUser } from "../../state/loggedUser/actions";
+import { setRequests } from "../../state/requests/Actions"
+import { setMenuBadge } from "../../state/menuBadge/menuBadge"
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
+
+//Custom hooks
+import useNotificationsInit from "../../utils/customHooks/notificationsInit"
 
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
     return {
       shouldSetBadge: true,
-      shouldShowAlert: true,
+      shouldShowAlert: false,
+      shouldPlaySound: false
     };
   },
 });
@@ -53,46 +61,38 @@ const Profile = ({ navigation }) => {
   //**** NOTIFICACIONES ******/
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
-
+  const notificationsInit = useNotificationsInit()
   useEffect(() => {
-    Permissions.getAsync(Permissions.NOTIFICATIONS)
-      .then((statusObj) => {
-        if (statusObj.status !== "granted") {
-          return Permissions.askAsync(Permissions.NOTIFICATIONS);
-        }
-        return statusObj;
-      })
-      .then((statusObj) => {
-        if (statusObj.status !== "granted") {
-          alert("No podremos enviarte notificaciones.");
-          throw new Error("Permission not granted");
-        }
-      })
-      .then(() => {
-        // console.log("getting token")
-        return Notifications.getExpoPushTokenAsync();
-      })
-      .then((response) => {
-        const token = response.data;
-        dispatch(updateProfile({id: loginUser._id, notificationsToken: token}));
-      })
-      .catch((err) => {
-        console.log(err);
-        return null;
-      });
+    notificationsInit()
+    
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        console.log("Cuando la app esté abierta", notification);
+        const {type, user, pendingRequests} = notification.request.content.data
+        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
+          if(user._id == loginUser._id){
+            dispatch(setUser(user))
+            dispatch(setRequests(pendingRequests))
+            if(type == "newRequest") dispatch(setMenuBadge(true))
+          }
+        }
       }
     );
     //Cuando la app está cerrada
     const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log("Cuando la app esté cerrada",response); //Incluye notification
+        const {type, user, pendingRequests} = response.notification.request.content.data
+        if(user._id == loginUser._id){
+          dispatch(setUser(user))
+          dispatch(setRequests(pendingRequests))
+          if(type == "newRequest") {
+            dispatch(setMenuBadge(true))
+            navigation.navigate("Requests")
+          }
+        }
       }
     );
     return () => {
@@ -137,6 +137,7 @@ const Profile = ({ navigation }) => {
 
   console.log(loginUser)
   return (
+    
     <ScrollView>
       <View style={styles.container}>
         <Header navigation={navigation} />
@@ -236,6 +237,8 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+     
+   
   );
 };
 

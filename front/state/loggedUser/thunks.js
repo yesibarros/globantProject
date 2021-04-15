@@ -29,3 +29,12 @@ export const updateProfile = createAsyncThunk("UPDATE_REQUEST", (data) => {
       .then((respuesta) => respuesta.data);
   });
 });
+
+export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
+  return SecureStore.getItemAsync("token").then((token) => {
+   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+   return axios
+     .post(`http://${localHost}/api/user/cancelMatch`, data)
+     .then((respuesta) => respuesta.data);
+ });
+});

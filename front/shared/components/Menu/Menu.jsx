@@ -1,11 +1,28 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Modal } from 'react-native';
 import { IconButton, Menu, Divider } from 'react-native-paper';
-import {useDispatch} from "react-redux"
+import { useSelector, useDispatch } from 'react-redux'
+import { cancelMatch } from '../../../state/loggedUser/thunks'
+import ConfirmCancelMatch from './ConfirmCancelMatch'
 import {getSingleUser} from "../../../state/singleUser/thunks"
-const MyComponent = (props) => {
+
+const MyComponent = ({userId, navigation}) => {
   const [visible, setVisible] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const user = useSelector(state => state.loggedUser.user)
   const dispatch = useDispatch()
+  const mentor = user.mentor?._id == userId && userId
+  const mentee = (user.mentees?.filter(ment => ment._id == userId))[0]
+  const handleCancelMatch = (rol)=>{
+      setIsLoading(true)
+      closeMenu()
+      dispatch(cancelMatch({[rol]: userId})).then(()=>{
+        setIsLoading(false)
+        setShowModal(false)
+      })
+  }
+
   const openMenu = () => setVisible(true);
 
   const closeMenu = () => setVisible(false);
@@ -13,10 +30,9 @@ const MyComponent = (props) => {
   const selectUser = (id)=>{
     dispatch(getSingleUser({id})).then((data)=> {
       closeMenu()
-      props.navigation.navigate("SingleUser")})
+      navigation.navigate("SingleUser")})
   }
 
-  console.log("props.id", props.id)
   return (
     
       <View
@@ -28,16 +44,25 @@ const MyComponent = (props) => {
           visible={visible}
           onDismiss={closeMenu}
           anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
-          <Menu.Item icon="account-outline" onPress={() => selectUser(props.id)} title="Ver perfil" />
+          <Menu.Item icon="account-outline" onPress={() => selectUser(userId)} title="Ver perfil" />
           <Menu.Item icon="rocket-launch-outline" onPress={() => {
             closeMenu()
-            props.navigation.navigate('Progress', {idCurrent: props.id})
+              navigation.navigate('Progress', {idCurrent: userId})
             }} 
             title="Objetivos" />
           <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
           <Divider />
-          <Menu.Item icon="account-cancel-outline" onPress={() => {}} title="Eliminar" />
+          <Menu.Item icon="account-cancel-outline" onPress={() => setShowModal(true)} title="Cancelar match" />
         </Menu>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+        animationType="slide"
+        onRequestClose={() => setShowModal(!showModal)}
+        >
+          <ConfirmCancelMatch cancelMatch={handleCancelMatch} setShowModal={setShowModal} mentee={mentee} mentor={mentor} isLoading={isLoading}/>
+        </Modal>
       </View>
     
   );
