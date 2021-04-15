@@ -12,11 +12,13 @@ const styles = StyleSheet.create({
     paddingBottom: "30%"
   },
   title: {
+    shadowOpacity:0.5,
+    elevation:1,
     color: "white",
     fontSize: 40,
     position: "absolute",
-    top: "12%",
-    marginLeft: "10%"
+    marginVertical:"25%",
+    marginHorizontal:"20%"
   },
   usersContainer:{
     marginTop: "15%",
@@ -24,9 +26,8 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    margin: 16,
+    margin:20,
     right: 0,
-    bottom: 60,
     backgroundColor: primaryGreen
   },
   note: {
@@ -45,10 +46,13 @@ const styles = StyleSheet.create({
     backgroundColor: primaryGreen,
     height: 30,
     width: 60
+  },
+  containerSnackBar: {
+    flex: 1,
+    justifyContent: 'space-between',
+
+
   }
-
-
-
   
 });
 
