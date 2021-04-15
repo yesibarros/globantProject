@@ -6,9 +6,7 @@ import {createReducer} from "@reduxjs/toolkit"
 
 
 const objetivosReducer= createReducer([], {
-
-   
+    
 })
 
-  
 export default objetivosReducer
