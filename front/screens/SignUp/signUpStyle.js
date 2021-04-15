@@ -1,7 +1,8 @@
 import { StyleSheet, Platform} from "react-native";
 
+
 const styles = StyleSheet.create({
-    container: {
+    container: { 
         flex: 1,
         backgroundColor: "#009387",
       },
@@ -12,12 +13,12 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
       },
       footer: {
-        flex: 3,
+        flexGrow: 0.1,
         backgroundColor: "#fff",
         borderTopLeftRadius: 30,
         borderRightColor: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30,
+        // paddingVertical: 30,
       },
       text_header: {
         color: "#fff",
