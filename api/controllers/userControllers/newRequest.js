@@ -98,7 +98,8 @@ const newRequest = async (req, res, next) => {
         { $inc: { receivedPendingRequests: 1 } }
       );
 
-      //SEND NOTIFICATIONS TO MENTS
+
+    //SEND NOTIFICATIONS TO MENTS
       //...
       // Array de tokens, title, subtitle, body, data, sound
      

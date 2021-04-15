@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
       },
       footer: {
-        flex: 3,
+        flexGrow: 0.1,
         backgroundColor: "#fff",
         borderTopLeftRadius: 30,
         borderRightColor: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30,
+        paddingVertical: 10,
       },
       text_header: {
         color: "#fff",
@@ -41,9 +41,8 @@ const styles = StyleSheet.create({
         color: "#05375a",
       },
       button: {
-      
         alignItems:'center', 
-        marginTop:50
+        marginTop: '10%'
       },
       singIn: {
         // paddingHorizontal:50,

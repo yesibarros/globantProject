@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-
   TouchableOpacity,
-
   StatusBar,
-
+  KeyboardAvoidingView,
   TextInput,
 } from "react-native";
 import * as Animatable from 'react-native-animatable';
@@ -18,10 +16,12 @@ import styles from "./signUpStyle"
 import { useDispatch, useSelector } from "react-redux";
 import {register} from '../../state/loggedUser/thunks'
 import { primaryGreen }  from '../../utils/Colors'
+import { ScrollView } from "react-native-gesture-handler";
 
 const SignUp = ({navigation}) => {
   
   const dispatch= useDispatch()
+  const [enableShift, setEnabledShift] = useState(false);
   const [wrongDataAlert, setWrongDataAlert]= useState(false)
   const [existingUser, setExistingUser]= useState(false)
   const [wrongPasswordAlert, setWrongPasswordAlert]= useState(false)
@@ -113,13 +113,20 @@ const SignUp = ({navigation}) => {
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      
       <View style={styles.header}>
         <Text style={styles.text_header}>Registrate ahora!</Text>
       </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+    <ScrollView style={styles.footer}>
+
+      <KeyboardAvoidingView enabled={enableShift}>
+
+      <Animatable.View animation="fadeInUpBig">
+
         <Text style={styles.text_footer}>Nombre</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -128,8 +135,10 @@ const SignUp = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => handleNameChange(val)}
+            onFocus={() => setEnabledShift(true)}
           />
         </View>
+        
         <Text style={styles.text_footer}>Apellido</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -138,6 +147,8 @@ const SignUp = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => handleLastNameChange(val)}
+            onFocus={() => setEnabledShift(true)}
+
           />
           <AwesomeAlert
             show={wrongDataAlert}
@@ -162,6 +173,8 @@ const SignUp = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
+            onFocus={() => setEnabledShift(true)}
+
           />
           {data.check_textInputChange ? (
             //   <Animatable.View animation="bounceIn">
@@ -187,13 +200,16 @@ const SignUp = ({navigation}) => {
         <Text style={styles.text_footer}>Contraseña</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={20} />
+          
           <TextInput
             placeholder="Your Password"
             secureTextEntry={data.confirm_secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => handlePasswordChange(val)}
-          />
+            onFocus={() => setEnabledShift(true)}
+            
+            />
           <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
             {data.secureTextEntry ? (
               <Feather name="eye-off" color="grey" size={20} />
@@ -202,8 +218,9 @@ const SignUp = ({navigation}) => {
             )}
           </TouchableOpacity>
         </View>
-
+  
         <Text style={styles.text_footer}>Confirmar contraseña</Text>
+
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={20} />
           <TextInput
@@ -212,7 +229,8 @@ const SignUp = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => handleConfirmPasswordChange(val)}
-          />
+            onFocus={() => setEnabledShift(true)}
+            />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
               <Feather name="eye-off" color="grey" size={20} />
@@ -233,7 +251,7 @@ const SignUp = ({navigation}) => {
             onConfirmPressed={() => {
               setWrongPasswordAlert(false);
             }}
-          />
+            />
           <AwesomeAlert
             show={existingUser}
             showProgress={false}
@@ -247,8 +265,8 @@ const SignUp = ({navigation}) => {
             onConfirmPressed={() => {
               setExistingUser(false);
             }}
-          />
-          
+            />
+        
         </View>
 
         <View style={styles.button}>
@@ -275,7 +293,12 @@ const SignUp = ({navigation}) => {
             </TouchableOpacity>
           </LinearGradient>
         </View>
+
       </Animatable.View>
+
+      </KeyboardAvoidingView>
+      
+    </ScrollView>
     </View>
   );
 };
