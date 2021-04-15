@@ -1,20 +1,14 @@
 //REACT
-import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {useRoute} from '@react-navigation/native';
+import { ScrollView, View, Dimensions, Animated } from "react-native";
 
 //SCREENS
 import Header from "../header/Header";
 
 //STYLE
 import styles from "./menteesStyle";
-import { FAB } from "react-native-paper";
+import { FAB, Divider, Text } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 import { primaryGreen } from "../../utils/Colors";
 
@@ -27,10 +21,35 @@ import UserList from "../../shared/components/UserList/UserList";
 const { width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
+  const [startAnimate, setStartAnimate] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const translation = useRef(new Animated.Value(100)).current;
+  const yTranslation = useRef(new Animated.Value(100)).current;
+  useEffect(() => {
+    if(!startAnimate){
+      Animated.timing(translation, {
+        toValue: 300,
+        duration: 2000,
+        useNativeDriver: false,
+      }).start();
+      Animated.timing(yTranslation, {
+        toValue: 750,
+        duration: 2000,
+        useNativeDriver: false,
+      }).start();
+    }
+    
+    setStartAnimate(true)
+  }, []);
+//VER LO USEEFFECT
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
-
+  useEffect(() => {
+    if (loginUser.mentees.length == 0) {
+      setVisible(true);
+    }
+  }, []);
   const menteesToShow = () => {
     let mentees = [...loginUser.mentees] || [];
     const length = mentees.length;
@@ -47,10 +66,29 @@ const Mentees = ({ navigation }) => {
       <ScrollView>
         <View style={styles.container}>
           <Header navigation={navigation} />
-          <Text style={styles.title}>Mis mentees</Text>
-          <View style={[styles.body, { backgroundColor: colors.background }]}>
+          <Text style={styles.title}>{loginUser.role=="mentor"? "MIS MENTEES" : "MI MENTOR"}</Text>
+          <View style={[styles.body, { backgroundColor: colors.background}]}>
             <View style={styles.usersContainer}>
-              <UserList users={menteesToShow()} navigation={navigation} />
+              {loginUser.mentees.length == 0 ? (
+                <View style={{alignContent:"center", marginVertical:250}}>
+                  <Divider style={{ backgroundColor: "grey", height: 2 }} />
+                  <View
+                    style={{
+                      alignItems: "center",
+                      height: 80,
+                      justifyContent: "center",
+                    }}
+                  >
+
+                    <Text style={{ fontSize: 30, textTransform: "italic" }}>
+                      No tenes ningún {loginUser.role=="mentor"? "Mentee" : "Mentor"} todavía.
+                    </Text>
+                  </View>
+                  <Divider style={{ backgroundColor: "grey", height: 2 }} />
+                </View>
+              ) : (
+                <UserList users={menteesToShow()} navigation={navigation} />
+              )}
             </View>
             {loginUser.mentees.length == 4 && (
               <View style={styles.noteContainer}>
@@ -66,11 +104,40 @@ const Mentees = ({ navigation }) => {
         </View>
       </ScrollView>
       {loginUser.mentees.length < 5 && (
-        <FAB
-          style={styles.fab}
-          icon="account-plus"
-          // onPress={() => console.log("Pressed")}
-        />
+        <Animated.View
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            width: 100,
+            height: 100,
+            borderRadius:50,
+            backgroundColor: yTranslation.interpolate({
+              inputRange: [0, 375, 750],
+              outputRange: ["grey","lightgrey", "transparent"],
+            }),
+            opacity: translation.interpolate({
+              inputRange: [0, 100],
+              outputRange: [0, 1],
+            }),
+            transform: [
+              { translateX: translation },
+              { translateY: yTranslation },
+
+              {
+                rotate: translation.interpolate({
+                  inputRange: [0, 50, 100],
+                  outputRange: ["0deg", "180deg", "360deg"],
+                }),
+              },
+            ],
+          }}
+        >
+          <FAB
+            style={styles.fab}
+            icon="account-plus"
+            onPress={() => navigation.navigate("SearchMatch")}
+          />
+        </Animated.View>
       )}
     </>
   );
