@@ -5,6 +5,7 @@ const cancelRequest = require('./cancelRequest')
 const getMatchs = require('./getMatchs')
 const getUser = require('./getUser')
 const getPendingRequests = require('./getPendingRequests')
+const cancelMatch = require('./cancelMatch')
 
 module.exports = {
                     getUser,
@@ -13,5 +14,6 @@ module.exports = {
                     getMatchs, 
                     acceptRequest, 
                     cancelRequest,
-                    getPendingRequests
+                    getPendingRequests,
+                    cancelMatch
                 }

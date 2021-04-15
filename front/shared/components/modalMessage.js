@@ -51,6 +51,7 @@ const ModalMessage = ({visible, setModalVisible, handleSendRequest}) => {
                             }else{
                                 handleSendRequest(inputMessage) //ENVIA EL MENSAJE CON LO INGRESADO AL INPUT
                             }
+                            
                         }}
                         >
                         <Text style={[styles.textStyle, {color: (colors.text === "#ffffff" ? "#000": "#fff")}]}>Enviar solicitud</Text>
