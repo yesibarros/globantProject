@@ -7,7 +7,7 @@ objectiveController.getAll = (req, res, next) => {
   User.find(req.query)
     .populate("objectives")
     .then((user) => {
-      return res.send(user.objectives);
+      return res.send(user);
     })
     .catch(next);
 };
