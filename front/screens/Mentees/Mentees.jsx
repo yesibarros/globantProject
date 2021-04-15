@@ -1,6 +1,6 @@
 //REACT
 import React, { useState, useEffect, useRef } from "react";
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from "@react-navigation/native";
 import { ScrollView, View, Dimensions, Animated } from "react-native";
 
 //SCREENS
@@ -27,7 +27,7 @@ const Mentees = ({ navigation }) => {
   const translation = useRef(new Animated.Value(100)).current;
   const yTranslation = useRef(new Animated.Value(100)).current;
   useEffect(() => {
-    if(!startAnimate){
+    if (!startAnimate) {
       Animated.timing(translation, {
         toValue: 300,
         duration: 2000,
@@ -39,10 +39,10 @@ const Mentees = ({ navigation }) => {
         useNativeDriver: false,
       }).start();
     }
-    
-    setStartAnimate(true)
+
+    setStartAnimate(true);
   }, []);
-//VER LO USEEFFECT
+  //VER LO USEEFFECT
   const loginUser = useSelector((state) => state.loggedUser.user);
 const dispatch = useDispatch()
   const { colors } = useTheme();
@@ -67,11 +67,13 @@ const dispatch = useDispatch()
       <ScrollView>
         <View style={styles.container}>
           <Header navigation={navigation} />
-          <Text style={styles.title}>{loginUser.role=="mentor"? "MIS MENTEES" : "MI MENTOR"}</Text>
-          <View style={[styles.body, { backgroundColor: colors.background}]}>
+          <Text style={styles.title}>
+            {loginUser.role == "mentor" ? "MIS MENTEES" : "MI MENTOR"}
+          </Text>
+          <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
               {loginUser.mentees.length == 0 ? (
-                <View style={{alignContent:"center", marginVertical:250}}>
+                <View style={{ alignContent: "center", marginVertical: 250 }}>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
                   <View
                     style={{
@@ -80,9 +82,10 @@ const dispatch = useDispatch()
                       justifyContent: "center",
                     }}
                   >
-
-                    <Text style={{ fontSize: 30, textTransform: "italic" }}>
-                      No tenes ningún {loginUser.role=="mentor"? "Mentee" : "Mentor"} todavía.
+                    <Text style={{ fontSize: 30 }}>
+                      No tenes ningún{" "}
+                      {loginUser.role == "mentor" ? "Mentee" : "Mentor"}{" "}
+                      todavía.
                     </Text>
                   </View>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
@@ -111,10 +114,10 @@ const dispatch = useDispatch()
             zIndex: 1,
             width: 100,
             height: 100,
-            borderRadius:50,
+            borderRadius: 50,
             backgroundColor: yTranslation.interpolate({
               inputRange: [0, 375, 750],
-              outputRange: ["grey","lightgrey", "transparent"],
+              outputRange: ["grey", "lightgrey", "transparent"],
             }),
             opacity: translation.interpolate({
               inputRange: [0, 100],
