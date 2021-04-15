@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   StatusBar,
   TextInput,
-  Button
+  Button,
+  KeyboardAvoidingView,
+  ScrollView
 } from "react-native";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +48,7 @@ const SignIn = ({navigation}) => {
   //     const { authentication } = response;
   //     }
   // }, [response]);
-
+  const [enableShift, setEnabledShift] = useState(false);
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
   const [wrongDataAlert, setWrongDataAlert]= useState(false)
@@ -76,7 +78,7 @@ const SignIn = ({navigation}) => {
   };
   const handleLogin =()=>{
     if(data.check_textInputChange == false || !data.password){
-     
+    
       return setWrongDataAlert(true)}
     
     dispatch(login(data))
@@ -89,7 +91,7 @@ const SignIn = ({navigation}) => {
           //navigation.navigate('TabBar')
             }
         }
-       
+      
       )
   };
   const handlePasswordChange = (val) => {
@@ -110,10 +112,10 @@ const SignIn = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.text_header}>Bienvenido!</Text>
       </View>
-      <Animatable.View
-      animation="fadeInUpBig"
-      style={styles.footer}
-      >
+      <ScrollView style={styles.footer}>
+
+      <KeyboardAvoidingView enabled={enableShift}>
+      <Animatable.View animation="fadeInUpBig">
         <Text style={styles.text_footer}>Email</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -192,7 +194,7 @@ const SignIn = ({navigation}) => {
                   },
                 ]}
               >
-               Iniciar sesión
+              Iniciar sesión
               </Text>
             </TouchableOpacity>
           </LinearGradient>
@@ -210,6 +212,10 @@ const SignIn = ({navigation}) => {
           </LinearGradient>
         </View>
         </Animatable.View>
+
+        </KeyboardAvoidingView>
+        
+        </ScrollView>
         {/* <Button
       disabled={!request}
       title="Login"
