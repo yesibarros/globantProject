@@ -13,42 +13,42 @@ import { useSelector } from "react-redux";
 //EXPO
 import { Ionicons } from "@expo/vector-icons";
 
-const Configuration = () => {
+const Configuration = ({showLogged}) => {
   const { colors } = useTheme();
 
-  const loginUser = useSelector((state) => state.loggedUser.user);
+  const user = showLogged ? useSelector((state) => state.loggedUser.user) : useSelector((state) => state.singleUser.user);
   //AREAS
   const [showMoreAreas, setShowMoreAreas] = React.useState(false);
   const areasArray = showMoreAreas
-    ? loginUser.areas
-    : loginUser._id && loginUser.areas.slice(0, 3);
+    ? user.areas
+    : user._id && user.areas.slice(0, 3);
   const initEditArea = areasArray && areasArray.length ? false : true;
   const [editArea, setEditArea] = React.useState(initEditArea);
 
   //TECHS
   const [showMore, setShowMore] = React.useState(false);
   const technologiesArray =
-    loginUser._id && showMore
-      ? loginUser.technologies
-      : loginUser._id && loginUser.technologies.slice(0, 3);
+  user._id && showMore
+      ? user.technologies
+      : user._id && user.technologies.slice(0, 3);
   const initEditTech =
     technologiesArray && technologiesArray.length ? false : true;
   const [editTech, setEditTech] = React.useState(initEditTech);
 
   React.useEffect(() => {
-    if (loginUser.areas && loginUser.areas.length < 1) {
+    if (user.areas && user.areas.length < 1) {
       setEditArea(true);
       setEditTech(false);
     }
     if (
-      loginUser.areas &&
-      loginUser.areas.length >= 1 &&
-      loginUser.technologies.length < 1
+      user.areas &&
+      user.areas.length >= 1 &&
+      user.technologies.length < 1
     ) {
       setEditArea(false);
       setEditTech(true);
     }
-  }, [loginUser.areas]);
+  }, [user.areas]);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -62,18 +62,19 @@ const Configuration = () => {
           ]}
         >
           <Text style={[styles.text, { color: colors.text }]}>Tu Perfil:</Text>
-          <TouchableOpacity onPress={() => setEditArea(true)}>
+          {showLogged ? <TouchableOpacity onPress={() => setEditArea(true)}>
             <Ionicons
               name="create-outline"
               color={colors.text}
               size={25}
             ></Ionicons>
-          </TouchableOpacity>
+          </TouchableOpacity>: null}
+          
         </View>
 
         <View style={styles.mapContainer}>
-          {loginUser.areas &&
-            loginUser.areas.length > 0 &&
+          {user.areas &&
+            user.areas.length > 0 &&
             areasArray.map((item) => {
               return (
                 <PillButton
@@ -87,7 +88,7 @@ const Configuration = () => {
 
         <AreaModal visible={editArea} setEditArea={setEditArea} />
 
-        {loginUser.areas && loginUser.areas.length > 3 && (
+        {user.areas && user.areas.length > 3 && (
           <TouchableOpacity
             style={styles.userBtn}
             onPress={() => {
@@ -106,18 +107,19 @@ const Configuration = () => {
           <Text style={[styles.text, { color: colors.text }]}>
             Tus Tecnologías:
           </Text>
-          <TouchableOpacity onPress={() => setEditTech(true)}>
+          {showLogged ?  <TouchableOpacity onPress={() => setEditTech(true)}>
             <Ionicons
               name="create-outline"
               color={colors.text}
               size={25}
             ></Ionicons>
-          </TouchableOpacity>
+          </TouchableOpacity>: null }
+         
         </View>
 
         <View style={styles.mapContainer}>
-          {loginUser.technologies &&
-            loginUser.technologies.length > 0 &&
+          {user.technologies &&
+            user.technologies.length > 0 &&
             technologiesArray.map((item) => {
               return (
                 <PillButton
@@ -131,7 +133,7 @@ const Configuration = () => {
 
         <TechModal visible={editTech} setEditTech={setEditTech} />
 
-        {loginUser.technologies && loginUser.technologies.length > 3 && (
+        {user.technologies && user.technologies.length > 3 && (
           <TouchableOpacity
             style={styles.userBtn}
             onPress={() => {

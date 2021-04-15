@@ -48,7 +48,7 @@ const Mentor = ({ navigation }) => {
                   icon="account-plus"
                   mode="contained"
                   color={primaryGreen}
-                  // onPress={() => console.log("Pressed")}
+                   onPress={() => navigation.navigate("SearchMatch")}
                   style={{ marginTop: 20, marginHorizontal: "3%" }}
                 >
                   Buscar mentor
