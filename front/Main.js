@@ -20,6 +20,7 @@ import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
+import SingleUser from "./screens/SingleUser/SingleUser"
 
 
 
@@ -99,6 +100,10 @@ const Main = ({navigation}) => {
               <Stack.Screen
                 name="Mentor"
                 component={Mentees}
+              />
+              <Stack.Screen
+                name="SingleUser"
+                component={SingleUser}
               />
 
             </>

@@ -19,7 +19,8 @@ import { useTheme } from "@react-navigation/native";
 import { primaryGreen } from "../../utils/Colors";
 
 //REDUX
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {getSingleUser} from "../../state/singleUser/thunks"
 
 //COMPONENTS
 import UserList from "../../shared/components/UserList/UserList";
@@ -28,11 +29,11 @@ const { width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
   const loginUser = useSelector((state) => state.loggedUser.user);
-
+const dispatch = useDispatch()
   const { colors } = useTheme();
 
   const menteesToShow = () => {
-    let mentees = [...loginUser.mentees] || [];
+    let mentees = loginUser._id ? [...loginUser.mentees] || []: [];
     const length = mentees.length;
     if (length !== 4) {
       for (let i = 0; i < 5 - length; i++) {
@@ -52,7 +53,7 @@ const Mentees = ({ navigation }) => {
             <View style={styles.usersContainer}>
               <UserList users={menteesToShow()} navigation={navigation} />
             </View>
-            {loginUser.mentees.length == 4 && (
+            {loginUser && loginUser.mentees && loginUser.mentees.length == 4 && (
               <View style={styles.noteContainer}>
                 <Text style={styles.note}>
                   Solamente puedes tener hasta 5 mentees,
@@ -65,12 +66,14 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {loginUser.mentees.length < 5 && (
+      {loginUser && loginUser.mentees && loginUser.mentees.length < 5 && (
         <FAB
           style={styles.fab}
           icon="account-plus"
         
-          onPress={() => navigation.navigate("SearchMatch")}
+          onPress={() => {
+            navigation.navigate("SearchMatch")
+          }}
         />
       )}
     </>
