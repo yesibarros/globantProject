@@ -1,5 +1,6 @@
 const { User, Request } = require("../../models");
 const userFindAndPopulate = require("../../utils/userFindAndPopulate");
+const sendNotification = require("../../utils/expoPushNotifications")
 
 const cancelRequest = async (req, res, next)=>{
     let user = await User.findById(req.user._id) //can be either mentee or mentor
@@ -15,14 +16,26 @@ const cancelRequest = async (req, res, next)=>{
                 await User.findOneAndUpdate({_id: user._id}, {$inc:{receivedPendingRequests: -1}})
 
                 //Enviar notificaciones a los ments
-                //const ment = await User.find({_id: requests[i].from})
-                //...
+                const mentToSend = await userFindAndPopulate({_id: requests[i].from})
+                // Array de tokens, title, subtitle, body, data, sound
+                if(mentToSend.notificationsToken){
+                    const mentPendingRequests = await mentToSend.getPendingRequests()
+                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `${user.firstName} ${user.lastName} ha rechazado tu solicitud.`, {type: "cancelRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                }
             }
             if(requests[i].from.toString() == user._id.toString()){
                 //Save the user in the ment, and save the ment in user
                 requests[i].status = "canceled"  
                 await User.findOneAndUpdate({_id: requests[i].to}, {$inc: {receivedPendingRequests: -1}})        
                 await requests[i].save()
+
+                //Enviar notificaciones a los ments
+                const mentToSend = await userFindAndPopulate({_id: requests[i].to})
+                // Array de tokens, title, subtitle, body, data, sound
+                if(mentToSend.notificationsToken){
+                    const mentPendingRequests = await mentToSend.getPendingRequests()
+                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `Solicitud cancelada`, {type: "cancelRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                }
             }
         }      
 

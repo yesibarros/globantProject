@@ -99,7 +99,7 @@ const newRequest = async (req, res, next) => {
       );
 
       //SEND NOTIFICATIONS TO MENTS
-      //...
+      
       // Array de tokens, title, subtitle, body, data, sound
      if(foundMents[0].notificationsToken){
         const mentToSend = await userFindAndPopulate({_id: foundMents[0]._id}) //Esto funciona para un solo usuario, corregir se se va a usar un array de usuarios

@@ -12,18 +12,22 @@ const acceptRequest = async (req, res, next)=>{
          for(let i = 0; i < requests.length; i++){
             if(requests[i].to.toString() == user._id.toString()){
                 let done = false
+                console.log(requests[i].fromRole)
                 if(requests[i].fromRole == "mentee"){
+                    
                     if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})
                     
                     await User.findOneAndUpdate({_id: user._id},{$push: {mentees: requests[i].from}, $inc: {receivedPendingRequests: -1}})
                     await User.findOneAndUpdate({_id: requests[i].from},{$set: {mentor: user._id}})   
                     done = true   
                 }
+            
                 if(requests[i].fromRole == "mentor") {
+                   
                     if(user.mentor) return res.status(400).json({message: "You can't accept a mentor while already having one."})
                     
                     await User.findOneAndUpdate({_id: user._id},{$set: {mentor: requests[i].from}, $inc: {receivedPendingRequests: -1}})
-                    await User.findOneAndUpdate({_id: requests[i].from}, {$push: user._id})
+                    await User.findOneAndUpdate({_id: requests[i].from}, {$push: {mentees: user._id}})
                     done = true
                 }
                 
@@ -33,7 +37,7 @@ const acceptRequest = async (req, res, next)=>{
                     //sendNotification
                     const mentToSend = await userFindAndPopulate({_id: requests[i].from})
                     const mentPendingRequests = await mentToSend.getPendingRequests()
-                    sendNotification([foundMents[0].notificationsToken], `Mentor Me`, "", `¡${user.firstName} ${user.lastName} ha haceptado tu solicitud!`, {type: "acceptedRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                    if(mentToSend.notificationsToken) sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `¡${user.firstName} ${user.lastName} ha haceptado tu solicitud!`, {type: "acceptedRequest", user: mentToSend, pendingRequests: mentPendingRequests})
                 }
             }
         }      

@@ -4,8 +4,15 @@ import React from 'react'
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 
+//Redux
+import {useSelector, useDispatch} from "react-redux"
+import {updateProfile} from "../../state/loggedUser/thunks"
+
 const useNotificationsInit = () => {
-    return Permissions.getAsync(Permissions.NOTIFICATIONS)
+    const loginUser = useSelector(state => state.loggedUser.user)
+    const dispatch = useDispatch()
+
+    return () => Permissions.getAsync(Permissions.NOTIFICATIONS)
     .then((statusObj) => {
       if (statusObj.status !== "granted") {
         return Permissions.askAsync(Permissions.NOTIFICATIONS);

@@ -34,17 +34,17 @@ const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
 
 //Custom hooks
-import useNotificationsInit from "../../shared/customHooks/notificationsInit"
+import useNotificationsInit from "../../utils/customHooks/notificationsInit"
 
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
     return {
       shouldSetBadge: true,
-      shouldShowAlert: true,
+      shouldShowAlert: false,
+      shouldPlaySound: false
     };
   },
 });
@@ -62,6 +62,7 @@ const Profile = ({ navigation }) => {
   const notificationsInit = useNotificationsInit()
   useEffect(() => {
     notificationsInit()
+    
   }, []);
 
   useEffect(() => {
@@ -69,17 +70,27 @@ const Profile = ({ navigation }) => {
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
         const {type, user, pendingRequests} = notification.request.content.data
-        if(["newRequest","acceptedRequest"].includes(type)){
-          dispatch(setUser(user))
-          dispatch(setRequests(pendingRequests))
-          if(type == "newRequest") dispatch(setMenuBadge(true))
+        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
+          if(user._id == loginUser._id){
+            dispatch(setUser(user))
+            dispatch(setRequests(pendingRequests))
+            if(type == "newRequest") dispatch(setMenuBadge(true))
+          }
         }
       }
     );
     //Cuando la app está cerrada
     const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log("Cuando la app esté cerrada",response); //Incluye notification
+        const {type, user, pendingRequests} = response.notification.request.content.data
+        if(user._id == loginUser._id){
+          dispatch(setUser(user))
+          dispatch(setRequests(pendingRequests))
+          if(type == "newRequest") {
+            dispatch(setMenuBadge(true))
+            navigation.navigate("Requests")
+          }
+        }
       }
     );
     return () => {

@@ -7,6 +7,7 @@ const {
   updateById,
   getUser,
   getPendingRequests,
+  cancelMatch
 } = require("../controllers/userControllers");
 const checkJWT = require("../middleware/JWTmiddleware");
 const { verifyData } = require("../middleware");
@@ -17,6 +18,8 @@ router.get("/", checkJWT, getUser);
 router.get("/userstype", checkJWT, getMatchs);
 // GET MATCHES
 router.get("/pendingRequests", checkJWT, getPendingRequests);
+//CANCEL MATCH
+router.post("/cancelMatch", [checkJWT], cancelMatch);
 //NEW REQUEST
 router.post("/:id/newRequest", [checkJWT], newRequest);
 //ACCEPT REQUEST
