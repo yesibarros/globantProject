@@ -14,7 +14,7 @@ export default function MyTabs() {
   return (
     <Drawer.Navigator drawerContent={props=><ScreenDrawer {...props}/>}>
       <Drawer.Screen name="TabBarNavigator" component={TabBarNavigator}/>
-      {/* <Drawer.Screen name="Requests" component={Requests}/> */}
+      <Drawer.Screen name="Requests" component={Requests}/> 
       <Drawer.Screen name="Mentor" component={Mentor}/>
     </Drawer.Navigator>
 

@@ -32,6 +32,7 @@ import { updateProfile } from "../../state/loggedUser/thunks";
 import { setUser } from "../../state/loggedUser/actions";
 import { setRequests } from "../../state/requests/Actions"
 import { setMenuBadge } from "../../state/menuBadge/menuBadge"
+import { setObjectives } from "../../state/objetivos/actions"
 const { width } = Dimensions.get("window");
 
 //Expo - notificaciones
@@ -64,14 +65,13 @@ const Profile = ({ navigation }) => {
   const notificationsInit = useNotificationsInit()
   useEffect(() => {
     notificationsInit()
-    
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        const {type, user, pendingRequests} = notification.request.content.data
+        const {type, user, pendingRequests, objectives} = notification.request.content.data
         if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
           if(user._id == loginUser._id){
             dispatch(setUser(user))
@@ -79,19 +79,27 @@ const Profile = ({ navigation }) => {
             if(type == "newRequest") dispatch(setMenuBadge(true))
           }
         }
+        if(type == "goals"){
+          console.log("goal!")
+        }
       }
     );
     //Cuando la app está cerrada
     const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        const {type, user, pendingRequests} = response.notification.request.content.data
-        if(user._id == loginUser._id){
-          dispatch(setUser(user))
-          dispatch(setRequests(pendingRequests))
-          if(type == "newRequest") {
-            dispatch(setMenuBadge(true))
-            navigation.navigate("Requests")
+        const {type, user, pendingRequests, objectives} = response.notification.request.content.data
+        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
+          if(user._id == loginUser._id){
+            dispatch(setUser(user))
+            dispatch(setRequests(pendingRequests))
+            if(type == "newRequest") {
+              dispatch(setMenuBadge(true))
+              navigation.navigate("Requests")
+            }
           }
+        }
+        if(type=="goals"){
+          console.log("goal!")
         }
       }
     );

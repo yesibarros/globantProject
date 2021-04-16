@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 import { getObjectives, sendObjective, updateObjective } from "./thunks";
-import { getObjective } from "./actions";
+import { getObjective, setObjectives } from "./actions";
 
 let objetives = [];
 
@@ -15,6 +15,7 @@ const objetivosReducer = createReducer(objetives, {
   [updateObjective.fulfilled]: (state, action) => {
     return action.payload
   },
+  [setObjectives]: (state, action) => action.payload
 });
 
 export default objetivosReducer;

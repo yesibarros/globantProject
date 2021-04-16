@@ -18,6 +18,7 @@ import {getSingleUser} from "../../state/singleUser/thunks"
 
 //COMPONENTS
 import UserList from "../../shared/components/UserList/UserList";
+import Mentor from "../../screens/Mentor/Mentor"
 
 const { height, width } = Dimensions.get("window");
 
@@ -62,6 +63,8 @@ const Mentees = ({ navigation }) => {
     return mentees;
   };
 
+  if(loginUser.role.includes("mentee")) return <Mentor navigation={navigation}/>
+
   return (
     <>
       <ScrollView>
@@ -83,9 +86,7 @@ const Mentees = ({ navigation }) => {
                     }}
                   >
                     <Text style={{ fontSize: 30 }}>
-                      No tenes ningún{" "}
-                      {loginUser.role == "mentor" ? "Mentee" : "Mentor"}{" "}
-                      todavía.
+                      No tenes ningún {loginUser.role == "mentor" ? "Mentee" : "Mentor"} todavía.
                     </Text>
                   </View>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
@@ -94,7 +95,7 @@ const Mentees = ({ navigation }) => {
                 <UserList users={menteesToShow()} navigation={navigation} />
               )}
             </View>
-            {loginUser && loginUser.mentees && loginUser.mentees.length == 4 && (
+            {loginUser?.mentees?.length == 4 && (
               <View style={styles.noteContainer}>
                 <Text style={styles.note}>
                   Solamente puedes tener hasta 5 mentees,
@@ -107,7 +108,7 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {loginUser && loginUser.mentees && loginUser.mentees.length < 5 && (
+      {loginUser?.mentees?.length < 5 && (
         <Animated.View
           style={{
             position: "absolute",

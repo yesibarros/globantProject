@@ -45,11 +45,13 @@ const MyComponent = ({userId, navigation}) => {
           onDismiss={closeMenu}
           anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}>
           <Menu.Item icon="account-outline" onPress={() => selectUser(userId)} title="Ver perfil" />
-          <Menu.Item icon="rocket-launch-outline" onPress={() => {
+          {user?.role?.includes("mentor") && (
+            <Menu.Item icon="rocket-launch-outline" onPress={() => {
             closeMenu()
               navigation.navigate('Progress', {idCurrent: userId})
             }} 
             title="Objetivos" />
+          )}
           <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
           <Divider />
           <Menu.Item icon="account-cancel-outline" onPress={() => setShowModal(true)} title="Cancelar match" />
