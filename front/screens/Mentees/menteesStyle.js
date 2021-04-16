@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 40,
     position: "absolute",
-    marginVertical:"25%",
+    marginVertical:"20%",
     marginHorizontal:"20%"
   },
   usersContainer:{

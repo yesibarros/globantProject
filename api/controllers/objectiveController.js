@@ -16,11 +16,12 @@ objectiveController.getAll = (req, res, next) => {
 
 objectiveController.createOne = (req, res, next) => {
   //Revisar según nuevos cambios en el modelo
+  
   Objective.create(req.body)
     .then((objectives) => {
       User.find({_id: req.body.mentee})
           .then(mentee => {
-            if(mentee[0].notificationsToken) sendNotification([mentee[0].notificationsToken], `Mentor Me`, "", `¡Tienes un nuevo objetivo!`, {type: "goals"})
+            if(mentee[0].notificationsToken) sendNotification([mentee[0].notificationsToken], `Mentor Me`, "", `¡Tienes un nuevo objetivo!`, {type: "goals", mentee: mentee[0]._id})
             res.status(201).send(objectives)
           })  
     })
@@ -39,7 +40,7 @@ objectiveController.modifyOne = (req, res, next) => {
       .then((objectives) => {
         User.find({_id: objectives[0].mentee})
           .then(mentee => {
-            if(mentee[0].notificationsToken) sendNotification([mentee[0].notificationsToken], `Mentor Me`, "", `¡Uno de tus objetivos fué modificado!`, {type: "goals"})
+            if(mentee[0].notificationsToken) sendNotification([mentee[0].notificationsToken], `Mentor Me`, "", `¡Uno de tus objetivos fué modificado!`, {type: "goals", mentee: mentee[0]._id})
             res.send("The objective was updated!");
           }) 
       })    
