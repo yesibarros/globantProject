@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
-import {state} from "../../utils/state"
+import { Avatar } from "react-native-paper";
+
+import { state } from "../../utils/state";
 import TabBar from "../../routes/Tab/TabBar";
 import { useTheme } from "@react-navigation/native";
 import { setMatch } from "../../state/posibleMatch/actions";
@@ -21,7 +23,6 @@ const MatchComparison = ({ navigation }) => {
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
   const allMatches = useSelector((state) => state.matchs.allMatches);
-  
 
   useEffect(() => {
     setFilterAllMatches(() =>
@@ -63,7 +64,7 @@ const MatchComparison = ({ navigation }) => {
           message: message,
         },
       ];
-      dispatch(sendRequest({ mentees })).then(()=>{
+      dispatch(sendRequest({ mentees })).then(() => {
         Alert.alert("Solicitud enviada", " ", [
           {
             text: "Ok",
@@ -121,11 +122,13 @@ const MatchComparison = ({ navigation }) => {
             >
               {filterAllMatches.map((option, i) => {
                 return (
-                  <CardCustom
-                    matchPerson={option}
-                    key={i}
-                    okButton={okButton}
-                  />
+                  <CardCustom matchPerson={option} key={i} okButton={okButton}>
+                    <Avatar.Icon
+                      size={24}
+                      icon="arrow-right-thin-circle-outline"
+                      style={{ position: "absolute" }}
+                    />
+                  </CardCustom>
                 );
               })}
             </ScrollView>
