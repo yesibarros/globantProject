@@ -71,7 +71,7 @@ const Profile = ({ navigation }) => {
     //Cuando la app está abierta
     const foreGroundSuscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        const {type, user, pendingRequests, objectives} = notification.request.content.data
+        const {type, user, pendingRequests, objectives, mentee} = notification.request.content.data
         if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
           if(user._id == loginUser._id){
             dispatch(setUser(user))
@@ -79,8 +79,9 @@ const Profile = ({ navigation }) => {
             if(type == "newRequest") dispatch(setMenuBadge(true))
           }
         }
-        if(type == "goals"){
-          console.log("goal!")
+        else{
+          console.log("menteeee",mentee)
+          navigation.navigate("Progress", {idCurrent: mentee})
         }
       }
     );
@@ -98,8 +99,8 @@ const Profile = ({ navigation }) => {
             }
           }
         }
-        if(type=="goals"){
-          console.log("goal!")
+        else{
+          navigation.navigate("Progress", {idCurrent: mentee})
         }
       }
     );

@@ -90,6 +90,7 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 
       <Card.Actions style={styles.buttonActions}>
         {selected ? (
+          <View style={{flexDirection:"row"}}>
           <Button
             onPress={() => cancelButton(selected)}
             mode="contained"
@@ -98,6 +99,15 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
           >
             Volver atras
           </Button>
+           <Button
+           onPress={() => okButton(selected, matchPerson)}
+           icon="account-check"
+           mode="contained"
+           color="#ffc78f"
+         >
+           {selected ? "Seleccionar" : "Mejor este!"}
+         </Button>
+         </View>
         ) : (
           <View
             style={{

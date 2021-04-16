@@ -63,7 +63,7 @@ const Mentees = ({ navigation }) => {
     return mentees;
   };
 
-  if(loginUser.role.includes("mentee")) return <Mentor navigation={navigation}/>
+  if(loginUser?.role?.includes("mentee")) return <Mentor navigation={navigation}/>
 
   return (
     <>
