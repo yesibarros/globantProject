@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     paddingLeft: "2.5%",
+    marginLeft: 5
   },
   titleProgress: {
     fontSize: 40,
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingLeft: 10,
     color: "black",
+    marginBottom: 15
   },
   viewContainer: {
     backgroundColor: "#fff",

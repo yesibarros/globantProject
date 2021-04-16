@@ -99,6 +99,7 @@ const CardProgress = ({ item, last }) => {
                   fontWeight: "bold",
                   alignContent: "center",
                   textTransform: "uppercase",
+                  marginLeft: 10
                 }}
               >
                 {item.objectiveName}
