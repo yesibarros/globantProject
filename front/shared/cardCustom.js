@@ -98,15 +98,37 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
           >
             Volver atras
           </Button>
-        ) : null}
-        <Button
-          onPress={() => okButton(selected, matchPerson)}
-          icon="account-check"
-          mode="contained"
-          color="#ffc78f"
-        >
-          {selected ? "Seleccionar" : "Mejor este!"}
-        </Button>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              // backgroundColor: "red",
+              flex: 1,
+            }}
+          >
+            <Avatar.Icon
+              size={30}
+              icon="arrow-left-bold-outline"
+              color="grey"
+              style={{ backgroundColor: "transparent" }}
+            />
+            <Button
+              onPress={() => okButton(selected, matchPerson)}
+              icon="account-check"
+              mode="contained"
+              color="#ffc78f"
+            >
+              {selected ? "Seleccionar" : "Mejor este!"}
+            </Button>
+            <Avatar.Icon
+              size={30}
+              icon="arrow-right-bold-outline"
+              color="grey"
+              style={{ backgroundColor: "transparent" }}
+            />
+          </View>
+        )}
       </Card.Actions>
     </View>
   );
