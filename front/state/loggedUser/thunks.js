@@ -30,6 +30,15 @@ export const updateProfile = createAsyncThunk("UPDATE_REQUEST", (data) => {
   });
 });
 
+export const getProfile = createAsyncThunk("GET_PROFILE", (data) => {
+  return SecureStore.getItemAsync("token").then((token) => {
+   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+   return axios
+     .get(`http://${localHost}/api/user/`)
+     .then((respuesta) => respuesta.data);
+ });
+});
+
 export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
   return SecureStore.getItemAsync("token").then((token) => {
    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

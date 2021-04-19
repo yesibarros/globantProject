@@ -1,8 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 
-import { register, login, updateProfile, cancelMatch } from "./thunks";
-import { logout, setUser } from "./actions";
+import { register, login, updateProfile, cancelMatch, getProfile } from "./thunks";
+import { logout, setUser, setReceivedPendingRequests } from "./actions";
 
 const inicialState = { user: {}, token: "" };
 
@@ -20,11 +20,15 @@ const loggedUserReducer = createReducer(inicialState, {
   [updateProfile.fulfilled]: (state, action) => {
     state.user = action.payload;
   },
+  [getProfile.fulfilled]: (state, action) => {
+    state.user = action.payload;
+  },
   [cancelMatch.fulfilled]: (state, action) => {
     state.user = action.payload;
   },
   [logout]: (state, action) => inicialState,
-  [setUser]: (state, action) => {state.user = action.payload}
+  [setUser]: (state, action) => {state.user = action.payload},
+  [setReceivedPendingRequests]: (state, action) => {state.user.receivedPendingRequests = action.payload}
 });
 
 export default loggedUserReducer;
