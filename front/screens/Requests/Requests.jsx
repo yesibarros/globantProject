@@ -38,7 +38,7 @@ const Requests = ({navigation}) => {
 
     },[])
 
-    const filteredRequests = showReceived ? solicitudes.filter(r => r.to._id === user._id) : solicitudes.filter(r => r.to._id !== user._id)
+    const filteredRequests = showReceived ? solicitudes.filter(r => r?.to?._id === user._id) : solicitudes.filter(r => r?.to?._id !== user._id)
 
     if(isLoading){
       return(
