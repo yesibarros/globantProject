@@ -56,7 +56,8 @@ const Mentees = ({ navigation }) => {
     }
   }, []);
   const menteesToShow = () => {
-    let mentees = loginUser._id ? [...loginUser.mentees] || []: [];
+    console.log("YESIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",loginUser.mentees)
+    let mentees =loginUser?._id ? loginUser?.mentees? [...loginUser.mentees] || []: []: [];
     const length = mentees.length;
     if (length !== 4) {
       for (let i = 0; i < 5 - length; i++) {
@@ -67,8 +68,8 @@ const Mentees = ({ navigation }) => {
   };
   const mentor = loginUser.mentor || "hola";
 
-  if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
-  if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
+  // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
+  // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
 
   return (
     <>
