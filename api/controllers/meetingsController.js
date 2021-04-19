@@ -5,7 +5,8 @@ const meetingsController = {};
 //buscar todas las reuniones del usuario
 //Revisar que dato deberia recibir --- capaz si se usa para buscar las meets de mentee y de mentor desde el front deberia venir el objeto con el que se quiere trabajar y poner solo req.body
 meetingsController.getMeet = (req, res, next) => {
-  Meeting.find(req.body)
+  console.log(req.user)
+  Meeting.find({ host: req.user._id } || { guest: req.user._id })
     .populate("host", [
       "role",
       "firstName",

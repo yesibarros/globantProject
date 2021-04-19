@@ -22,6 +22,7 @@ import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
 import SingleUser from "./screens/SingleUser/SingleUser"
+import Meeting from "./screens/Meeting/Meeting";
 
 
 
@@ -109,6 +110,10 @@ const Main = ({navigation}) => {
               <Stack.Screen
                 name="Progress"
                 component={Progress}
+              />
+              <Stack.Screen 
+                name="Meeting"
+                component={Meeting}
               />
 
             </>
