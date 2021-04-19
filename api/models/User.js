@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
       type: Schema.Types.ObjectId,
       ref: "location",
   },
+  meeting: [{
+    type: Schema.Types.ObjectId,
+    ref: "meeting",
+  }],
   employeeId: {
     type: String,
     // required: true,

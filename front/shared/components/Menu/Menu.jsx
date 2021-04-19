@@ -38,7 +38,7 @@ const MyComponent = ({userId, navigation}) => {
 
   const handleSendMeeting = (meeting) => {
       dispatch(createMeets(meeting))
-      navigation.navigate("Meeting")
+      // navigation.navigate("Meeting")
   }
 
   return (

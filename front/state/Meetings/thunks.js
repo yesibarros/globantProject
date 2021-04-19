@@ -38,6 +38,6 @@ export const createMeets = createAsyncThunk("CREATE_MEETS", (meet) => {
     axios.defaults.headers.common["Authorizarization"] = `Bearer ${token}`;
     return axios
       .post(`http://${localHost}/api/meetings/create`, meet)
-      .then((response) => response.data);
+      .then((response) => {console.log("response", response.data), response.data});
   });
 });

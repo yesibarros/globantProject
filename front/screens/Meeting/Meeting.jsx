@@ -18,7 +18,7 @@ export default function Meeting({ route, navigation }) {
   const logginUser = useSelector((state) => state.loggedUser.user);
   const id = idCurrent || logginUser._id;
   const meeting = route && route.params && route.params.meeting && [route.params.meeting] //MODIFICARLO POR UN DISPATCH EN USEEFFECT
-
+  console.log(logginUser)
   const meetings = useSelector(state => state.meetings)
 
   
@@ -26,10 +26,9 @@ export default function Meeting({ route, navigation }) {
     dispatch(getMyMeets());
   }, []);
   
-  console.log("MEETINGS", meetings)
   return (
     <View style={{flex:1}}>
-    <ScrollView style={{ flexGrow: 0.92 }}>
+    <View style={{height: "100%", paddingBottom: 55}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Reuniones</Text>
       </View>
@@ -47,7 +46,7 @@ export default function Meeting({ route, navigation }) {
           );
         }}
       />
-    </ScrollView>
+    </View>
         <View style={{ flex: 0.08 }}>
         <TabBar state={state} navigation={navigation} />
       </View>

@@ -11,9 +11,9 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
 
     const loggedUser = useSelector(state => state.loggedUser.user)
     const { colors } = useTheme();
-    const firstName = mentee?.firstName || mentor?.fisrtName
-    const lastName = mentee?.lastName || mentor?.lastName
-    const id = mentee?._id || mentor?._id
+    const firstName = mentee?.firstName 
+    const lastName = mentee?.lastName 
+    const id = mentee?._id 
     const [messageDefault, setMessageDefault] = useState(`Hola ${firstName? firstName : loggedUser.mentor.firstName} ${lastName ? lastName : loggedUser.mentor.lastName} quiero una reunion`)
     const [inputMessage, setInputMessage] = useState(messageDefault)
     const [inputTitle, setInputTitle] = useState('Motivo de reunion')
@@ -22,7 +22,7 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [dateMeeting, setDateMeeting] = useState('')
-
+    
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -43,10 +43,10 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
     };
 
     const sendInfoMeeting = () => {
-
+        
         let meetingInfo = {
             host: loggedUser._id,
-            guest: id,
+            guest: (loggedUser.mentor._id ? loggedUser.mentor._id : id),
             title: inputTitle,
             description: (inputMessage === ' ' ? messageDefault : inputMessage),
             date: dateMeeting,
