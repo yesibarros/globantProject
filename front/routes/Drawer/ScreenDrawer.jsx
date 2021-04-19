@@ -85,6 +85,15 @@ const ScreenDrawer = (props) => {
                 props.navigation.navigate("Mi perfil");
               }}
             />
+             <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="bell-outline" color={color} size={size} />
+              )}
+              label="Notifications"
+              onPress={() => {
+                props.navigation.navigate("Notifications");
+              }}
+            />
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
@@ -105,17 +114,17 @@ const ScreenDrawer = (props) => {
               label={oppositeRole}
                 onPress={() => props.navigation.navigate(oppositeRole)}
             />
-            {/* <DrawerItem
-          icon={({ color, size }) => (
-            <Icon 
-            name="settings-outline" 
-            color={color} 
-            size={size} 
+                <DrawerItem
+              icon={({ color, size }) => (
+                <Icon 
+                name="shield-account-outline" 
+                color={color} 
+                size={size} 
+                />
+              )}
+              label="Admin"
+            onPress={()=>props.navigation.navigate("Admin")}
             />
-          )}
-          label="Settings"
-        onPress={()=>{}}
-        /> */}
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />

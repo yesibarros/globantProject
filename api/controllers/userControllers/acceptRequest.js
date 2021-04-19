@@ -36,8 +36,7 @@ const acceptRequest = async (req, res, next)=>{
                 if(done){
                     //sendNotification
                     const mentToSend = await userFindAndPopulate({_id: requests[i].from})
-                    const mentPendingRequests = await mentToSend.getPendingRequests()
-                    if(mentToSend.notificationsToken) sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `¡${user.firstName} ${user.lastName} ha haceptado tu solicitud!`, {type: "acceptedRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                    if(mentToSend.notificationsToken) sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `¡${user.firstName} ${user.lastName} ha haceptado tu solicitud!`, {type: "acceptedRequest", user: mentToSend._id, receivedPendingRequests: mentToSend.receivedPendingRequests, date: (new Date()).toString()})
                 }
             }
         }      

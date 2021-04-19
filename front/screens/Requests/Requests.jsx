@@ -17,7 +17,6 @@ import RequestCard from "./RequestCard"
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
-import {setMenuBadge} from '../../state/menuBadge/menuBadge'
 
 //UTILS
 
@@ -50,7 +49,6 @@ const Requests = ({navigation}) => {
 
     useEffect(() => {
       dispatch(getRequests()).then(() => {
-        setMenuBadge(false)
         setIsLoading(false)
       })
 
