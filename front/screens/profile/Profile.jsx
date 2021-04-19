@@ -1,7 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
-import {state} from "../../utils/state"
-import TabBar from "../../routes/Tab/TabBar";
+
 import {
   ScrollView,
   View,
@@ -16,7 +15,13 @@ import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
 import { loadImageFromGallery } from "../../utils/helpers";
+// VER PRUEBA IMAGE
 
+
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
+
+import ImagePicker from 'react-native-image-crop-picker';
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
@@ -57,6 +62,65 @@ Notifications.setNotificationHandler({
 });
 
 const Profile = ({ navigation }) => {
+
+  //PRUEB IMAGEN
+
+  bs = React.createRef();
+  fall = new Animated.Value(1);
+
+  const takePhotoFromCamera = () => {
+   console.log("TAKEFOTO")
+  }
+
+ 
+
+  const choosePhotoFromLibrary = async () => {
+    const result = await loadImageFromGallery([1, 1]);
+    if(result.status){
+      dispatch(updateProfile({img:result.image, id:loginUser._id}))
+    }
+    console.log("RESULTADO", result);
+  };
+
+const renderInner = () => (
+    <View style={styles.panel}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+      </View>
+      <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={() => this.bs.current.snapTo(1)}>
+        <Text style={styles.panelButtonTitle}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderHeader = () => (
+    <View style={styles.headerImage}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle} />
+      </View>
+    </View>
+  );
+
+
+
+
+
+
+
+
+
+
+
+  //TERMINA PRUEBA IMAGEN
   const dispatch = useDispatch();
   const [showConfiguration, setShowConfiguration] = useState(true);
   const loginUser = useSelector((state) => state.loggedUser.user);
@@ -110,15 +174,9 @@ const Profile = ({ navigation }) => {
       setShowConfiguration(false);
     }
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
-  const changePhoto = async () => {
-    const result = await loadImageFromGallery([1, 1]);
-    if(result.status){
-      dispatch(updateProfile({img:result.image, id:loginUser._id}))
-    }
-    //console.log("RESULTADO", result);
-  };
+  
 
-  //console.log(loginUser)
+
   return (
     
     <ScrollView>
@@ -126,7 +184,53 @@ const Profile = ({ navigation }) => {
         <Header navigation={navigation} />
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
-          <ProfileAvatar loginUser={loginUser} changePhoto={changePhoto}/>
+          <View style={{ top: -70, left: width / 3 }}>
+            {loginUser.img ? (
+              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+              <Avatar
+                size="xlarge"
+               
+                source={{
+                  uri: loginUser.img,
+                }}
+                avatarStyle={{ zIndex: 1, width: "100%", height: "100%" }}
+                rounded
+                title={loginUser.firstName + loginUser.lastName}
+                titleStyle={{
+                  color: "white",
+                  backgroundColor: "gray",
+                  flex: 1,
+                  width: "100%",
+                  paddingTop: "15%",
+                }}
+                activeOpacity={0.7}
+              />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+              <Avatar
+                size="xlarge"
+               
+                rounded
+                title={
+                  loginUser._id &&
+                  `${loginUser.firstName[0]}${loginUser.lastName[0]}`
+                }
+                titleStyle={{
+                  color: "white",
+                  backgroundColor: "gray",
+                  flex: 1,
+                  width: "100%",
+                  paddingTop: "15%",
+                  zIndex: 1,
+                }}
+                // onPress={() => console.log("Works!")}
+                activeOpacity={0.7}
+              />
+              </TouchableOpacity>
+            )}
+          </View>
+
           <View
             style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
           >
@@ -177,6 +281,36 @@ const Profile = ({ navigation }) => {
           {showConfiguration ? <Configuration showLogged={true}/> : <EditProfile />}
         </View>
       </View>
+      <View style={styles.container}>
+      <BottomSheet
+        ref={bs}
+        snapPoints={[500, 0]}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
+        initialSnap={1}
+        callbackNode={fall}
+        enabledGestureInteraction={true}
+      />
+      <Animated.View style={{margin: 20,
+        opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
+    }}>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+            <View
+              style={{
+                height: 100,
+                width: 100,
+                borderRadius: 15,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+           
+            </View>
+          </TouchableOpacity>
+         
+        </View>
+      </Animated.View>
+    </View>
     </ScrollView>
      
    
