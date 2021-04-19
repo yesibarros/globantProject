@@ -5,7 +5,7 @@ import Profile from "../../screens/profile/Profile";
 import TabBar from "./TabBar";
 import Mentees from "../../screens/Mentees/Mentees";
 import Progress from "../../screens/Progress/Progress";
-
+import Search from "../../screens/Match/Search"
 const Tab = createBottomTabNavigator();
 
 
@@ -23,7 +23,13 @@ export default function MyTabs(props) {
         :
         null
       }
-      <Tab.Screen name={userType} component={Mentees} />
+      {
+        loggedUser.role == "mentor" ?
+        <Tab.Screen name="Mis mentees" component={Mentees} />
+        :
+        <Tab.Screen name="Mi mentor" component={Mentees} />
+      }
+     
     </Tab.Navigator>
   );
 }

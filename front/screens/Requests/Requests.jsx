@@ -20,7 +20,7 @@ import {getRequests} from '../../state/requests/Thunks';
 import {setMenuBadge} from '../../state/menuBadge/menuBadge'
 
 //UTILS
-import {state} from "../../utils/state"
+
 
 const Requests = ({navigation}) => {
   
@@ -31,6 +31,22 @@ const Requests = ({navigation}) => {
     const dispatch = useDispatch()
     const solicitudes = useSelector(state => state.requests)
     const user = useSelector(state => state.loggedUser.user)
+    const state = {
+      routes: [
+        {
+          name: "Mi perfil",
+        },
+        {
+          name: "Progress",
+        },
+        {
+          name: user.role == "mentor" ? "Mis mentees": "Mi mentor",
+        },
+      ],
+      stale: false,
+      type: "tab",
+    };
+    <TabBar state={state} navigation={navigation} />
 
     useEffect(() => {
       dispatch(getRequests()).then(() => {

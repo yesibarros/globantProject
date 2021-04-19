@@ -15,6 +15,8 @@ console.log("STATE", state)
       navigation.navigate(activeTab);
     }
   };
+const showTabs= [routes[0], routes[1], routes[2]]
+
 
   return (
     <View style={styles.wrapper}>

@@ -23,13 +23,30 @@ import styles from "./singleUserStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import Configuration from "../configuration/Configuration";
+import TabBar from "../../routes/Tab/TabBar";
 const { width } = Dimensions.get("window");
+
 
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleUser= useSelector(state=> state.singleUser.user)
   console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
+  const state = {
+    routes: [
+      {
+        name: "Mi perfil",
+      },
+      {
+        name: "Progress",
+      },
+      {
+        name: loginUser.role == "mentor" ? "Mis mentees": "Mi mentor",
+      },
+    ],
+    stale: false,
+    type: "tab",
+  };
 
   return (
     <ScrollView>
@@ -111,6 +128,7 @@ const SingleUser = ({ navigation }) => {
           <Configuration showLogged={false}/>
         </View>
       </View>
+      <TabBar />
     </ScrollView>
   );
 };

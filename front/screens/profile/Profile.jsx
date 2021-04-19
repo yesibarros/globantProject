@@ -144,7 +144,7 @@ const Profile = ({ navigation }) => {
     console.log("RESULTADO", result);
   };
 
-  console.log(loginUser)
+  console.log("EL MENTOOOOOOOR", loginUser.mentor)
   return (
     
     <ScrollView>

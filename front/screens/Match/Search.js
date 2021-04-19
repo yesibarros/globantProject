@@ -7,7 +7,7 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-import {state} from "../../utils/state"
+
 import styles from "./searchStyles"
 import TabBar from "../../routes/Tab/TabBar";
 import { Avatar, Chip} from "react-native-paper";
@@ -54,9 +54,26 @@ const transitionRef = React.createRef();
 export default function App({ navigation }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
+  const loginUser= useSelector(state=> state.loggedUser.user)
   const matches = useSelector((state) => state.matchs.allMatches);
   const [index, setIndex] = React.useState(0);
   const [isLoading, setIsLoeading] = useState(true);
+  const state = {
+    routes: [
+      {
+        name: "Mi perfil",
+      },
+      {
+        name: "Progress",
+      },
+      {
+        name: loginUser.role == "mentor" ? "Mis mentees": "Mi mentor",
+      },
+    ],
+    stale: false,
+    type: "tab",
+  };
+ 
 
   const onSwiped = () => {
     {

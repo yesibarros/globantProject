@@ -22,6 +22,7 @@ import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
 import SingleUser from "./screens/SingleUser/SingleUser"
+import TabBarNavigator from "./routes/Tab/TabNavigator"
 
 
 
@@ -110,6 +111,7 @@ const Main = ({navigation}) => {
                 name="Progress"
                 component={Progress}
               />
+               <Stack.Screen name="TabBarNavigator" component={TabBarNavigator}/>
 
             </>
           ) : (

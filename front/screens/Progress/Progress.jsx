@@ -145,7 +145,7 @@ export default function Progress({ route, navigation }) {
       />
     </ScrollView>
        <View style={{ flex: 0.08 }}>
-        <TabBar state={state} navigation={navigation} />
+       
       </View>
     </View>
    
