@@ -42,7 +42,7 @@ const CardMeeting = ({ item, last }) => {
 
   let guest = loggedUser.mentees.filter(g => g._id === item.guest)
   console.log("guest", guest)
-  console.log("item", item)
+  console.log('itemmmmmmmms', item)
   
   return (
     <View style={[styles.container, { borderColor: border }]}>
@@ -54,7 +54,7 @@ const CardMeeting = ({ item, last }) => {
       ></Avatar.Icon>
       <Card style={styles.card}>
         <Card.Title
-          title={`Reunión con ${guest[0].firstName}`}
+          title={`Reunión con ${item.guest.firstName}`}
           subtitle={item.description}
           right={(props) => (
             <IconButton
@@ -96,7 +96,7 @@ const CardMeeting = ({ item, last }) => {
                   marginLeft: 10
                 }}
               >
-                Destinatario: {guest[0].firstName}
+                Destinatario: {item.guest.firstName}
               </Text>
             </View>
 
@@ -120,6 +120,16 @@ const CardMeeting = ({ item, last }) => {
               >
                 <Text style={{ fontSize: 20, paddingLeft: 20 }}>
                   Fecha de reunión: {item.date.toString()}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 0.7,
+                  justifyContent: "space-around",
+                }}
+              >
+                <Text style={{ fontSize: 20, paddingLeft: 20 }}>
+                  Link de reunión: {item.link}
                 </Text>
               </View>
             <TouchableOpacity />

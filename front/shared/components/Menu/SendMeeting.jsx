@@ -16,7 +16,8 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
     const id = mentee?._id || mentor?._id
     const [messageDefault, setMessageDefault] = useState(`Hola ${firstName? firstName : loggedUser.mentor.firstName} ${lastName ? lastName : loggedUser.mentor.lastName} quiero una reunion`)
     const [inputMessage, setInputMessage] = useState(messageDefault)
-
+    const [inputTitle, setInputTitle] = useState('Motivo de reunion')
+    const [inputLink, setInputLink] = useState('Link')
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -46,13 +47,13 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
         let meetingInfo = {
             host: loggedUser._id,
             guest: id,
-            title: 'Reunión',
+            title: inputTitle,
             description: (inputMessage === ' ' ? messageDefault : inputMessage),
             date: dateMeeting,
-            link: ' ',
+            link: inputLink,
         }
         
-        if(dateMeeting == ''){
+        if(dateMeeting == '' || inputTitle == '' || inputLink == ' '){
             alert('Para establecer una reunión debes especificar fecha y hora de reunion.')
         }else{
             alert('Solicitud enviada')
@@ -65,6 +66,13 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
             <BlurView style={styles.container} intensity={100} tint="dark">
                 <View style={[styles.surface, {backgroundColor: colors.background}]}>
                     <View style={[styles.surface, {backgroundColor: colors.background}]}>
+                        <Text style={[styles.textMsj, {color: colors.text}]}>Tema a tratar</Text>
+                            <TextInput
+                                style={[{color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                                multiline
+                                value={inputTitle}
+                                onChangeText={text => setInputTitle(text)}
+                            />
                         <Text style={[styles.textMsj, {color: colors.text}]}>Escribe un mensaje</Text>
                             <TextInput
                                 style={[{color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
@@ -72,7 +80,13 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
                                 value={inputMessage}
                                 onChangeText={text => setInputMessage(text)}
                             />
-                    
+                        <Text style={[styles.textMsj, {color: colors.text}]}>Link a reunion</Text>
+                            <TextInput
+                                style={[{color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                                multiline
+                                value={inputLink}
+                                onChangeText={text => setInputLink(text)}
+                            />
                         <View style={styles.buttonsContainer}>
                             <View style={styles.button}>
                                 <Button onPress={showDatepicker} title="Establecer fecha" />

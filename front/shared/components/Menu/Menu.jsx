@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { cancelMatch } from '../../../state/loggedUser/thunks'
 import ConfirmCancelMatch from './ConfirmCancelMatch'
 import {getSingleUser} from "../../../state/singleUser/thunks"
+import {createMeets} from '../../../state/Meetings/thunks';
 import SendMeeting from './SendMeeting';
 
 const MyComponent = ({userId, navigation}) => {
@@ -36,7 +37,8 @@ const MyComponent = ({userId, navigation}) => {
   }
 
   const handleSendMeeting = (meeting) => {
-      navigation.navigate("Meeting", {meeting})
+      dispatch(createMeets(meeting))
+      navigation.navigate("Meeting")
   }
 
   return (

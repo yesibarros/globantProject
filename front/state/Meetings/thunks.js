@@ -31,7 +31,9 @@ export const deleteMeets = createAsyncThunk("DELETE_MEETS", (meet) => {
   });
 });
 
-export const createMeet = createAsyncThunk("CREATE_MEETS", (meet) => {
+export const createMeets = createAsyncThunk("CREATE_MEETS", (meet) => {
+  console.log("creacion de meet", meet)
+
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorizarization"] = `Bearer ${token}`;
     return axios
