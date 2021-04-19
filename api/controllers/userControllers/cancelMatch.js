@@ -10,14 +10,14 @@ const cancelMatch = async (req, res, next) => {
             await User.findByIdAndUpdate(req.user._id, {$pull: {mentees: req.body.mentee}})
             //Enviar notificación al mentee
             const menteeToSend = await userFindAndPopulate({_id: req.body.mentee})
-            if(menteeToSend.notificationsToken) sendNotification([menteeToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentor.`, {type: "cancelMatch", user: menteeToSend})
+            if(menteeToSend.notificationsToken) sendNotification([menteeToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentor.`, {type: "cancelMatch", user: menteeToSend._id, date: String(new Date())})
         }
         if(req.body.mentor){
             await User.findByIdAndUpdate(req.user._id, {$unset: {mentor: ""}})
             await User.findByIdAndUpdate(req.body.mentor, {$pull: {mentees: req.user._id}})
             //Enviar notificación al mentor
             const mentorToSend = await userFindAndPopulate({_id: req.body.mentor})
-            if(mentorToSend.notificationsToken) sendNotification([mentorToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentee.`, {type: "cancelMatch", user: mentorToSend})
+            if(mentorToSend.notificationsToken) sendNotification([mentorToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentee.`, {type: "cancelMatch", user: mentorToSend._id, date: String(new Date())})
         }
 
         const userToSend = await userFindAndPopulate({_id: req.user._id})
