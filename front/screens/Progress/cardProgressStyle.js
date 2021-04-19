@@ -1,6 +1,15 @@
 import { StyleSheet } from "react-native";
 import Colors from "../../utils/Colors";
 const styles = StyleSheet.create({
+  progressContainer: {
+    flex: 0.93,
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
+    paddingLeft: "2.5%",
+    marginLeft: 5,
+    paddingTop: 3
+  },
   container: {
     width: "90%",
     paddingLeft: "10%",
@@ -17,10 +26,11 @@ const styles = StyleSheet.create({
     // borderWidth: 3,
     shadowColor: "grey",
     elevation: 5,
+    marginTop: -3,
   },
   card: {
     shadowColor: "grey",
-    elevation: 10,
+    elevation: 5,
   },
   viewContainer: {
     backgroundColor: "#fff",

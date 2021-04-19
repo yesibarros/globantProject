@@ -28,7 +28,7 @@ const { width } = Dimensions.get("window");
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleUser= useSelector(state=> state.singleUser.user)
-  console.log("NAVIGATION", navigation)
+  //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
 
   return (

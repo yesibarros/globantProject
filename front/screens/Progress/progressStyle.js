@@ -1,14 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  progressContainer: {
-    flex: 0.92,
-    justifyContent: "center",
-    width: "100%",
-    alignItems: "center",
-    paddingLeft: "2.5%",
-    marginLeft: 5
-  },
   titleProgress: {
     fontSize: 40,
     fontWeight: "bold",

@@ -22,6 +22,9 @@ import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile";
 
+//COMPONENTS
+import ProfileAvatar from "./ProfileAvatar"
+
 //STYLE
 import styles from "./profileStyle";
 
@@ -40,7 +43,8 @@ import * as Notifications from "expo-notifications";
 
 //Custom hooks
 import useNotificationsInit from "../../utils/customHooks/notificationsInit"
-
+import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications"
+import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications"
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -63,47 +67,17 @@ const Profile = ({ navigation }) => {
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
   const notificationsInit = useNotificationsInit()
+  const foregroundNotifications = useForegroundNotifications()
+  const backgroundNotifications = useBackgroundNotifications()
   useEffect(() => {
     notificationsInit()
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
-    const foreGroundSuscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        const {type, user, pendingRequests, objectives, mentee} = notification.request.content.data
-        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
-          if(user._id == loginUser._id){
-            dispatch(setUser(user))
-            dispatch(setRequests(pendingRequests))
-            if(type == "newRequest") dispatch(setMenuBadge(true))
-          }
-        }
-        else{
-          console.log("menteeee",mentee)
-          navigation.navigate("Progress", {idCurrent: mentee})
-        }
-      }
-    );
+    const foreGroundSuscription = foregroundNotifications(Notifications, navigation)
     //Cuando la app está cerrada
-    const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const {type, user, pendingRequests, objectives} = response.notification.request.content.data
-        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
-          if(user._id == loginUser._id){
-            dispatch(setUser(user))
-            dispatch(setRequests(pendingRequests))
-            if(type == "newRequest") {
-              dispatch(setMenuBadge(true))
-              navigation.navigate("Requests")
-            }
-          }
-        }
-        else{
-          navigation.navigate("Progress", {idCurrent: mentee})
-        }
-      }
-    );
+    const backGroundSuscription = backgroundNotifications(Notifications, navigation)
     return () => {
       foreGroundSuscription.remove();
       backGroundSuscription.remove();
@@ -141,10 +115,10 @@ const Profile = ({ navigation }) => {
     if(result.status){
       dispatch(updateProfile({img:result.image, id:loginUser._id}))
     }
-    console.log("RESULTADO", result);
+    //console.log("RESULTADO", result);
   };
 
-  console.log(loginUser)
+  //console.log(loginUser)
   return (
     
     <ScrollView>
@@ -152,49 +126,7 @@ const Profile = ({ navigation }) => {
         <Header navigation={navigation} />
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
-          <View style={{ top: -70, left: width / 3 }}>
-            {loginUser.img ? (
-              <Avatar
-                size="xlarge"
-                onPress={changePhoto}
-                source={{
-                  uri: loginUser.img,
-                }}
-                avatarStyle={{ zIndex: 1, width: "100%", height: "100%" }}
-                rounded
-                title={loginUser.firstName + loginUser.lastName}
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                }}
-                activeOpacity={0.7}
-              />
-            ) : (
-              <Avatar
-                size="xlarge"
-                onPress={changePhoto}
-                rounded
-                title={
-                  loginUser._id &&
-                  `${loginUser.firstName[0]}${loginUser.lastName[0]}`
-                }
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                  zIndex: 1,
-                }}
-                // onPress={() => console.log("Works!")}
-                activeOpacity={0.7}
-              />
-            )}
-          </View>
-
+          <ProfileAvatar loginUser={loginUser} changePhoto={changePhoto}/>
           <View
             style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
           >
