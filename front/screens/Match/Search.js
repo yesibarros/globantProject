@@ -58,9 +58,8 @@ export default function App({ navigation }) {
   const matches = useSelector((state) => state.matchs.allMatches);
   const [index, setIndex] = React.useState(0);
   const [isLoading, setIsLoeading] = useState(true);
- 
- 
-
+  const isMentor = useSelector((state) => state.toggleRole);
+  console.log("ES MENTOR?",  isMentor)
   const onSwiped = () => {
     {
       transitionRef.current && transitionRef.current.animateNextTransition();

@@ -6,6 +6,7 @@ import { ScrollView, View, Dimensions, Animated } from "react-native";
 //SCREENS
 import Header from "../header/Header";
 
+
 //STYLE
 import styles from "./menteesStyle";
 import { FAB, Divider, Text } from "react-native-paper";
@@ -24,6 +25,7 @@ import UserCard from "../../shared/components/UserList/UserCard";
 const { height, width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
+  const isMentor = useSelector((state) => state.toggleRole);
   const [startAnimate, setStartAnimate] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const translation = useRef(new Animated.Value(100)).current;
@@ -65,7 +67,8 @@ const Mentees = ({ navigation }) => {
   };
   const mentor = loginUser.mentor || "hola";
 
-  
+  if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
+  if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
 
   return (
     <>

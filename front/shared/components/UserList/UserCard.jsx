@@ -14,7 +14,8 @@ import styles from "./userCardStyle";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../state/loggedUser/actions";
 import { cancelRequest, acceptRequest } from "../../../state/requests/Thunks";
-import Menu from "../Menu/Menu"
+import Menu from "../Menu/Menu";
+
 
 const UserCard = ({ user, received, navigation }) => {
  
@@ -41,8 +42,8 @@ return (
           )
         }
         right={(props) => (
-         <Menu {...props} userId={user._id} navigation={navigation}/>
-       
+        <Menu {...props} userId={user._id} navigation={navigation}/>
+      
         )}
       />
     </Card>
