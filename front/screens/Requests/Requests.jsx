@@ -30,22 +30,8 @@ const Requests = ({navigation}) => {
     const dispatch = useDispatch()
     const solicitudes = useSelector(state => state.requests)
     const user = useSelector(state => state.loggedUser.user)
-    const state = {
-      routes: [
-        {
-          name: "Mi perfil",
-        },
-        {
-          name: "Progress",
-        },
-        {
-          name: user.role == "mentor" ? "Mis mentees": "Mi mentor",
-        },
-      ],
-      stale: false,
-      type: "tab",
-    };
-    <TabBar state={state} navigation={navigation} />
+    
+
 
     useEffect(() => {
       dispatch(getRequests()).then(() => {
@@ -73,7 +59,13 @@ const Requests = ({navigation}) => {
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-
+         <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position: "absolute"}}
+                    onPress={() => navigation.openDrawer()}
+                  />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
@@ -117,7 +109,7 @@ const Requests = ({navigation}) => {
         </View>
         <View style={{ flex: 0.08 }}>
       </View>
-        <TabBar state={state} navigation={navigation} />
+        <TabBar navigation={navigation} />
       </View>
     );
 }

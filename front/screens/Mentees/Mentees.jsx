@@ -64,7 +64,7 @@ const Mentees = ({ navigation }) => {
     return mentees;
   };
   const mentor = loginUser.mentor || "hola";
-  console.log("chauuuuu", mentor)
+
   
 
   return (
@@ -113,7 +113,7 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {loginUser?.mentees?.length < 5 && (
+      {(loginUser.role=="mentor" && loginUser.mentees?.length < 5) || (loginUser.role == "mentee" && !loginUser.mentor) && (
         <Animated.View
           style={{
             position: "absolute",

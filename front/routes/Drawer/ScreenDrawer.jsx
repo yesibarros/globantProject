@@ -104,7 +104,7 @@ const ScreenDrawer = (props) => {
                   : user.receivedPendingRequests
               }`}
               onPress={() => {
-                props.navigation.navigate("Requests");
+                props.navigation.navigate("Solicitudes");
               }}
             />
             <DrawerItem

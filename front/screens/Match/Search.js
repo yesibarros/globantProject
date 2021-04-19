@@ -58,21 +58,7 @@ export default function App({ navigation }) {
   const matches = useSelector((state) => state.matchs.allMatches);
   const [index, setIndex] = React.useState(0);
   const [isLoading, setIsLoeading] = useState(true);
-  const state = {
-    routes: [
-      {
-        name: "Mi perfil",
-      },
-      {
-        name: "Progress",
-      },
-      {
-        name: loginUser.role == "mentor" ? "Mis mentees": "Mi mentor",
-      },
-    ],
-    stale: false,
-    type: "tab",
-  };
+ 
  
 
   const onSwiped = () => {
@@ -287,7 +273,7 @@ export default function App({ navigation }) {
         </>
       )}
       <View style={{flex:0}}>
-       <TabBar state={state} navigation={navigation} />
+       <TabBar navigation={navigation} />
        </View>
     </View>
   );

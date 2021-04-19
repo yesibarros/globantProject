@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, ActivityIndicator} from 'react-native'
 import { FlatList } from "react-native-gesture-handler";
-
+import {IconButton} from "react-native-paper"
 
 //STYLE
 import styles from "./NotificationsStyle";
@@ -16,11 +16,11 @@ import { useSelector } from 'react-redux';
 import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 
 //UTILS
-import {state} from "../../utils/state"
+
 
 const Notifications = ({ navigation }) => {
+  const loginUser= useSelector(state => state.loggedUser.user)
   
-    
     const [isLoading, setIsLoading] = useState(true)
     const notifications = useSelector(state => state.notifications)
 
@@ -50,6 +50,13 @@ const Notifications = ({ navigation }) => {
    
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <IconButton
+      icon="menu"
+      color={colors.icon}
+      size={35}
+      style={{position: "absolute"}}
+      onPress={() => navigation.openDrawer()}
+    />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
@@ -71,7 +78,7 @@ const Notifications = ({ navigation }) => {
           </View>
         )}
         <View style={{ flex: 0.08 }}></View>
-        <TabBar state={state} navigation={navigation} />
+        <TabBar navigation={navigation} />
       </View>
     );
 }

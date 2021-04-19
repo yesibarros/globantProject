@@ -43,9 +43,16 @@ export default function Progress({ route, navigation }) {
 
   return (
    <View style={{flex:1}}>
+     <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position: "absolute"}}
+                    onPress={() => navigation.openDrawer()}
+                  />
      {console.log("CURRENT ID", idCurrent)}
     <View style={{height: "100%", paddingBottom: 55, maxHeight: height}}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Objetivos</Text>
       {logginUser.role && logginUser.role[0] === 'mentor'
       ?
@@ -129,26 +136,6 @@ export default function Progress({ route, navigation }) {
             </View>
         </View>
         </Modal>
-<<<<<<< HEAD
-
-      <FlatList
-        data={goals}
-        renderItem={(goal) => {
-          const last =
-            goal.item._id === goals[goals.length - 1]._id
-              ? true
-              : false;
-          return (
-            <View style={styles.progressContainer}>
-              <CardProgress item={goal.item} last={last} />
-            </View>
-          );
-        }}
-      />
-    </ScrollView>
-       <View style={{ flex: 0.08 }}>
-       
-=======
       <View style={{flex: 1,}}>
         {goals?.length > 0 && <FlatList
           data={goals}
@@ -164,7 +151,6 @@ export default function Progress({ route, navigation }) {
     </View>
        <View style={{}}>
         <TabBar state={state} navigation={navigation} />
->>>>>>> 6f5f04b2caf5aa91ef51c2bd0701402f488f33b8
       </View>
     </View>
    

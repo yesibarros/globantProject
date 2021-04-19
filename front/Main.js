@@ -111,7 +111,7 @@ const Main = ({navigation}) => {
                 name="Progress"
                 component={Progress}
               />
-               <Stack.Screen name="TabBarNavigator" component={TabBarNavigator}/>
+               
 
             </>
           ) : (

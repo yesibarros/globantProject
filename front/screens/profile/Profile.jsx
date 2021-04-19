@@ -177,10 +177,6 @@ const renderInner = () => (
   
 
 
-<<<<<<< HEAD
-  console.log("EL MENTOOOOOOOR", loginUser.mentor)
-=======
->>>>>>> 6f5f04b2caf5aa91ef51c2bd0701402f488f33b8
   return (
     
     <ScrollView>

@@ -12,6 +12,7 @@ import requestsReducer from './requests/Reducer';
 import toggleRoleReducer from "./ToggleRole/reducer"
 import menuBadgeReducer from './menuBadge/menuBadge'
 import notificationsReducer from './Notifications/reducers'
+import adminReducer from "./admin/reducer";
 
 const store = configureStore({
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -27,7 +28,8 @@ const store = configureStore({
         requests: requestsReducer,
         toggleRole:toggleRoleReducer, 
         menuBadge: menuBadgeReducer,
-        notifications: notificationsReducer
+        notifications: notificationsReducer,
+        admin: adminReducer
     },
 });
 
