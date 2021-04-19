@@ -1,5 +1,5 @@
 const { Objective, User } = require("../models");
-const sendNotification = require("../utils/expoPushNotifications")
+const sendNotification = require("../utils/expoPushNotifications");
 
 const objectiveController = {};
 
@@ -17,7 +17,7 @@ objectiveController.getAll = (req, res, next) => {
 
 objectiveController.createOne = (req, res, next) => {
   //Revisar según nuevos cambios en el modelo
-  
+
   Objective.create(req.body)
     .then((objectives) => {
       User.find({_id: req.body.mentee})
@@ -43,8 +43,8 @@ objectiveController.modifyOne = (req, res, next) => {
           .then(mentee => {
             if(mentee[0].notificationsToken) sendNotification([mentee[0].notificationsToken], `Mentor Me`, "", `¡Uno de tus objetivos fue modificado!`, {type: "goals", user: mentee[0]._id, date: String(new Date())})
             res.send("The objective was updated!");
-          }) 
-      })    
+          });
+        });
     })
     .catch(next);
 };
