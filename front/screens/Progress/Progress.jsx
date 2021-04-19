@@ -43,9 +43,16 @@ export default function Progress({ route, navigation }) {
 
   return (
    <View style={{flex:1}}>
+     <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position: "absolute"}}
+                    onPress={() => navigation.openDrawer()}
+                  />
      {console.log("CURRENT ID", idCurrent)}
     <View style={{height: "100%", paddingBottom: 55, maxHeight: height}}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Objetivos</Text>
       {logginUser.role && logginUser.role[0] === 'mentor'
       ?

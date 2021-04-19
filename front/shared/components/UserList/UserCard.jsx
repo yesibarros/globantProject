@@ -18,10 +18,11 @@ import Menu from "../Menu/Menu";
 
 
 const UserCard = ({ user, received, navigation }) => {
-
-const initials = user && user.firstName[0]+user.lastName[0]
+ 
+const initials = user && user.firstName && user.firstName[0]+user.lastName[0]
   
 if(!user) return <Card style={styles.empty}></Card>
+
 
 return (
     <Card style={styles.card}>

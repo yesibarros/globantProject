@@ -22,6 +22,7 @@ import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
 import SingleUser from "./screens/SingleUser/SingleUser"
+import TabBarNavigator from "./routes/Tab/TabNavigator"
 import Meeting from "./screens/Meeting/Meeting";
 
 

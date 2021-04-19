@@ -1,23 +1,13 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  titleProgress: {
-    fontSize: 40,
-    fontWeight: "bold",
-    marginVertical: 10,
-    paddingLeft: 10,
-    color: "black",
-    marginBottom: 15,
-    marginTop: 45,
-   
-  },
   viewContainer: {
     backgroundColor: "#fff",
     flex: 1,
     marginHorizontal: 10,
     marginTop: '15%',
     maxHeight: '70%',
-    justifyContent: "center",
+    // justifyContent: "center",
     shadowOpacity: 1.0,
     shadowRadius: 50,
     elevation: 20,

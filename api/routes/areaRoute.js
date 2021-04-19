@@ -10,6 +10,6 @@ router.post('/', [JWTmiddleware, roles.isAdmin, roles.isMentor], areaController.
 //UPDATE BY ID
 router.put('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], areaController.modifyOne)
 //DELETE BY ID
-router.delete('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], areaController.deleteOne)
+router.delete('/:id', [JWTmiddleware], areaController.deleteOne)
 
 module.exports = router

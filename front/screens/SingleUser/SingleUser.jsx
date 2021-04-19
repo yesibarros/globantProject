@@ -1,5 +1,6 @@
 //REACT
 import React, { useState, useEffect } from "react";
+
 import {
   ScrollView,
   View,
@@ -23,13 +24,17 @@ import styles from "./singleUserStyle";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import Configuration from "../configuration/Configuration";
+import TabBar from "../../routes/Tab/TabBar";
 const { width } = Dimensions.get("window");
+
 
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleUser= useSelector(state=> state.singleUser.user)
+  const loginUser= useSelector(state=> state.loggedUser.user)
   //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
+ 
 
   return (
     <ScrollView>
@@ -111,6 +116,7 @@ const SingleUser = ({ navigation }) => {
           <Configuration showLogged={false}/>
         </View>
       </View>
+      <TabBar navigation={navigation}/>
     </ScrollView>
   );
 };

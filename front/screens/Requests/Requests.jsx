@@ -19,7 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
 
 //UTILS
-import {state} from "../../utils/state"
+
 
 const Requests = ({navigation}) => {
   
@@ -30,6 +30,8 @@ const Requests = ({navigation}) => {
     const dispatch = useDispatch()
     const solicitudes = useSelector(state => state.requests)
     const user = useSelector(state => state.loggedUser.user)
+    
+
 
     useEffect(() => {
       dispatch(getRequests()).then(() => {
@@ -57,7 +59,13 @@ const Requests = ({navigation}) => {
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-
+         <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position: "absolute"}}
+                    onPress={() => navigation.openDrawer()}
+                  />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
@@ -101,7 +109,7 @@ const Requests = ({navigation}) => {
         </View>
         <View style={{ flex: 0.08 }}>
       </View>
-        <TabBar state={state} navigation={navigation} />
+        <TabBar navigation={navigation} />
       </View>
     );
 }

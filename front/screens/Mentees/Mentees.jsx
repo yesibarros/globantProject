@@ -20,6 +20,7 @@ import {getSingleUser} from "../../state/singleUser/thunks"
 //COMPONENTS
 import UserList from "../../shared/components/UserList/UserList";
 import Mentor from "../../screens/Mentor/Mentor"
+import UserCard from "../../shared/components/UserList/UserCard";
 
 const { height, width } = Dimensions.get("window");
 
@@ -55,7 +56,8 @@ const Mentees = ({ navigation }) => {
     }
   }, []);
   const menteesToShow = () => {
-    let mentees = loginUser._id ? [...loginUser.mentees] || []: [];
+    console.log("YESIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",loginUser.mentees)
+    let mentees =loginUser?._id ? loginUser?.mentees? [...loginUser.mentees] || []: []: [];
     const length = mentees.length;
     if (length !== 4) {
       for (let i = 0; i < 5 - length; i++) {
@@ -64,9 +66,10 @@ const Mentees = ({ navigation }) => {
     }
     return mentees;
   };
+  const mentor = loginUser.mentor || "hola";
 
-  if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
-  if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
+  // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
+  // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
 
   return (
     <>
@@ -78,7 +81,7 @@ const Mentees = ({ navigation }) => {
           </Text>
           <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
-              {loginUser.mentees?.length == 0 ? (
+              {(loginUser.role=="mentor" && loginUser.mentees?.length == 0) || (loginUser.role == "mentee" && !loginUser.mentor) ? (
                 <View style={{ alignContent: "center", marginVertical: 250 }}>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
                   <View
@@ -89,12 +92,15 @@ const Mentees = ({ navigation }) => {
                     }}
                   >
                     <Text style={{ fontSize: 30 }}>
-                      No tenes ningún {loginUser.role == "mentor" ? "Mentee" : "Mentor"} todavía.
+                      No tenes  {loginUser.role == "mentor" ? "ningún mentee" : "mentor"} todavía.
                     </Text>
                   </View>
                   <Divider style={{ backgroundColor: "grey", height: 2 }} />
                 </View>
               ) : (
+                loginUser.role== "mentee" ? 
+                <UserCard user={mentor} navigation={navigation}/>
+                :
                 <UserList users={menteesToShow()} navigation={navigation} />
               )}
             </View>
@@ -111,7 +117,7 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {loginUser?.mentees?.length < 5 && (
+      {(loginUser.role=="mentor" && loginUser.mentees?.length < 5) || (loginUser.role == "mentee" && !loginUser.mentor) && (
         <Animated.View
           style={{
             position: "absolute",

@@ -2,11 +2,29 @@ import React, { useState } from "react";
 import { View, StyleSheet, Dimensions, Animated } from "react-native";
 import Tab from "./Tab";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSelector } from "react-redux";
 
 const { width } = Dimensions.get("screen");
 
-const TabBar = ({ state, navigation }) => {
+const TabBar = ({ navigation }) => {
   const [selected, setSelected] = useState("Home");
+  const loginUser = useSelector(state=> state.loggedUser.user)
+  const state = {
+    routes: [
+      {
+        name: "Mi perfil",
+      },
+      
+      {
+        name: loginUser.role == "admin" ? "Admin" : loginUser.role == "mentee" ? "Progress" : "Solicitudes",
+      },
+      {
+        name: loginUser.role == "mentor" ? "Mis mentees": "Mi mentor",
+      },
+    ],
+    stale: false,
+    type: "tab",
+  };
   const { routes } = state;
 //console.log("STATE", state)
   const handlePress = (activeTab, index) => {
@@ -15,6 +33,8 @@ const TabBar = ({ state, navigation }) => {
       navigation.navigate(activeTab);
     }
   };
+const showTabs= [routes[0], routes[1], routes[2]]
+
 
   return (
     <View style={styles.wrapper}>

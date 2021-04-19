@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
 import { Avatar } from "react-native-paper";
 
-import { state } from "../../utils/state";
+
 import TabBar from "../../routes/Tab/TabBar";
 import { useTheme } from "@react-navigation/native";
 import { setMatch } from "../../state/posibleMatch/actions";
@@ -21,6 +21,7 @@ const MatchComparison = ({ navigation }) => {
   const [filterAllMatches, setFilterAllMatches] = useState([]);
 
   const loggedUser = useSelector((state) => state.loggedUser.user);
+  
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
   const allMatches = useSelector((state) => state.matchs.allMatches);
 
@@ -143,7 +144,7 @@ const MatchComparison = ({ navigation }) => {
         />
       </View>
       <View style={{ flex: 0.08 }}>
-        <TabBar state={state} navigation={navigation} />
+        <TabBar  navigation={navigation} />
       </View>
     </View>
   );

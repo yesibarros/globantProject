@@ -32,7 +32,8 @@ const Mentor = ({ navigation }) => {
 
   const { colors } = useTheme();
 
-  const mentor = loginUser.mentor || null;
+  const [mentor] = loginUser.mentor || null;
+
 
   return (
     <>

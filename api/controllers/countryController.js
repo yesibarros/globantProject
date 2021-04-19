@@ -30,4 +30,4 @@ countryController.deleteOne = (req,res,next)=>{
             .catch(next)
 }
 
-module.exports = locationController
+module.exports = countryController
