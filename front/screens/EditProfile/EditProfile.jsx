@@ -9,7 +9,7 @@ import {
   Dimensions,
   Modal,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
@@ -26,7 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../../state/loggedUser/thunks";
 import SelectPicker from "react-native-form-select-picker";
 import { useTheme } from "@react-navigation/native";
-import Colors from '../../utils/Colors';
+import Colors from "../../utils/Colors";
 
 const EditProfile = ({ navigation }) => {
   const { colors } = useTheme();
@@ -51,6 +51,8 @@ const EditProfile = ({ navigation }) => {
   const handleDescriptionChange = (val) => {
     setDescription(val);
   };
+
+  const meets = useSelector((state) => state.meetings);
 
   useEffect(() => {
     if (loginUser.technologies.length > 0 && !loginUser.location) {
@@ -80,9 +82,11 @@ const EditProfile = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{
-        marginLeft: '2.5%'
-      }}>
+      <View
+        style={{
+          marginLeft: "2.5%",
+        }}
+      >
         <View style={styles.viewProfile}>
           <Card.Title
             left={() => (
@@ -142,120 +146,116 @@ const EditProfile = ({ navigation }) => {
           <Text style={{ fontSize: 20, justifyContent: "center" }}>Editar</Text>
         </Button>
       </View>
-      
+
       <KeyboardAvoidingView enabled={enableShift}>
-      <Modal visible={editMode} animationType="slide" transparent={true}>
-        
-        {isLoading ? (
-          <View
-            style={[
-              styles.viewContainer,
-              { 
-                backgroundColor: colors.background,
-              },
-            ]}
-          >
-            <ActivityIndicator
-              style={{ flex: 1, alignItems: "Center" }}
-              size="large"
-              color="#0000ff"
-            />
-          </View>
-        ) : (
-
-          <ScrollView>
-          <View
-            style={[
-              styles.viewContainer,
-              { 
-                backgroundColor: colors.background,
-                borderRadius: 50,
-                borderWidth: 1.5,
-                borderColor: Colors.primaryGreen,
-                shadowColor: Colors.primaryGreen,
-              },
-            ]}
-          >
-            
-            <Title style={styles.titleDates}>Edita tus datos personales:</Title>
-            
-            
-            <View style={[styles.cardContainer, { marginTop: 0 }]}>
-              {/* icon="account"  */}
-              {/* icon="card-text-outline"  */}
-              {/* icon="map-marker" */}
-
-              <TextInput
-                style={styles.textInput}
-                label="Nombre"
-                placeholder="Nombre"
-                value={firstName}
-                onChangeText={(val) => handleFirstNameChange(val)}
-                onFocus={() => setEnabledShift(true)}
-              />
-            
-              <TextInput
-                style={styles.textInput}
-                label="Apellido"
-                placeholder="Apellido"
-                value={lastName}
-                onChangeText={(val) => handleLastNameChange(val)}
-                onFocus={() => setEnabledShift(true)}
-              />
-              
-              <TextInput
-                style={styles.textInput}
-                label="SobreMi"
-                placeholder="Acerca de mi"
-                value={description}
-                onChangeText={(val) => handleDescriptionChange(val)}
-                onFocus={() => setEnabledShift(true)}
-              />
-            
-              <View style={styles.action}>
-                {editMode ? (
-                  <SelectPicker
-                    onValueChange={(value) => {
-                      setSelected(value);
-                    }}
-                    selected={selected}
-                    style={styles.inputLocation}
-                    placeholder="Elegí tu sede"
-                  >
-                    {locations.length > 0 &&
-                      locations.map((val) => {
-                        return (
-                          <SelectPicker.Item
-                            label={`${val.locationName} (${val.country.countryName})`}
-                            value={val._id}
-                            key={val._id}
-                          />
-                        );
-                      })}
-                  </SelectPicker>
-                ) : loginUser.location ? (
-                  <Text style={styles.textEdit}>
-                    {loginUser.location.locationName}
-                  </Text>
-                ) : null}
-              </View>
-            </View>
-            
-
-            
-            <Button
-              style={styles.buttonSize}
-              mode="contained"
-              onPress={saveProfile}
+        <Modal visible={editMode} animationType="slide" transparent={true}>
+          {isLoading ? (
+            <View
+              style={[
+                styles.viewContainer,
+                {
+                  backgroundColor: colors.background,
+                },
+              ]}
             >
-              <Text style={{ fontSize: 20, justifyContent: "center" }}>
-                Guardar
-              </Text>
-            </Button>
-          </View>
-          </ScrollView>
-        )}
-      </Modal>
+              <ActivityIndicator
+                style={{ flex: 1, alignItems: "Center" }}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : (
+            <ScrollView>
+              <View
+                style={[
+                  styles.viewContainer,
+                  {
+                    backgroundColor: colors.background,
+                    borderRadius: 50,
+                    borderWidth: 1.5,
+                    borderColor: Colors.primaryGreen,
+                    shadowColor: Colors.primaryGreen,
+                  },
+                ]}
+              >
+                <Title style={styles.titleDates}>
+                  Edita tus datos personales:
+                </Title>
+
+                <View style={[styles.cardContainer, { marginTop: 0 }]}>
+                  {/* icon="account"  */}
+                  {/* icon="card-text-outline"  */}
+                  {/* icon="map-marker" */}
+
+                  <TextInput
+                    style={styles.textInput}
+                    label="Nombre"
+                    placeholder="Nombre"
+                    value={firstName}
+                    onChangeText={(val) => handleFirstNameChange(val)}
+                    onFocus={() => setEnabledShift(true)}
+                  />
+
+                  <TextInput
+                    style={styles.textInput}
+                    label="Apellido"
+                    placeholder="Apellido"
+                    value={lastName}
+                    onChangeText={(val) => handleLastNameChange(val)}
+                    onFocus={() => setEnabledShift(true)}
+                  />
+
+                  <TextInput
+                    style={styles.textInput}
+                    label="SobreMi"
+                    placeholder="Acerca de mi"
+                    value={description}
+                    onChangeText={(val) => handleDescriptionChange(val)}
+                    onFocus={() => setEnabledShift(true)}
+                  />
+
+                  <View style={styles.action}>
+                    {editMode ? (
+                      <SelectPicker
+                        onValueChange={(value) => {
+                          setSelected(value);
+                        }}
+                        selected={selected}
+                        style={styles.inputLocation}
+                        placeholder="Elegí tu sede"
+                      >
+                        {locations.length > 0 &&
+                          locations.map((val) => {
+                            return (
+                              <SelectPicker.Item
+                                label={`${val.locationName} (${val.country.countryName})`}
+                                value={val._id}
+                                key={val._id}
+                              />
+                            );
+                          })}
+                      </SelectPicker>
+                    ) : loginUser.location ? (
+                      <Text style={styles.textEdit}>
+                        {loginUser.location.locationName}
+                      </Text>
+                    ) : null}
+                  </View>
+                </View>
+
+                <Button
+                  style={styles.buttonSize}
+                  mode="contained"
+                  onPress={saveProfile}
+                >
+                  <Text style={{ fontSize: 20, justifyContent: "center" }}>
+                    Guardar
+                  </Text>
+                </Button>
+              </View>
+            </ScrollView>
+          )}
+        </Modal>
       </KeyboardAvoidingView>
     </View>
   );
