@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   body: {
     borderTopLeftRadius: 60,
     flex: 3,
-    paddingBottom: "15%"
+    paddingBottom: "40%"
   },
   button: {
     position: "absolute",

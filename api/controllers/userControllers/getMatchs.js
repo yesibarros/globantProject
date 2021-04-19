@@ -2,10 +2,11 @@ const { User } = require("../../models");
 const orderByMatch = require("../../utils/orderByMatch");
 
 const getMatchs = (req, res, next) => {
+  console.log("reqqqqqq",req.query)
     let roleForUser = req.user.role
     if(!req.user.role.includes("admin") && !req.user.role.includes("mentor")) roleForUser = ["mentor"]
     if(!req.user.role.includes("admin") && !req.user.role.includes("mentee")) roleForUser = ["mentee"]
-    const role = req.query.role? req.query.role.split(",") : roleForUser;
+    const role = req.query.role? req.query.role : roleForUser;
     const areas = req.query.areas? req.query.areas.split(",") : req.user.areas
     const technologies = req.query.technologies? req.query.technologies.split(",") : req.user.technologies
     
