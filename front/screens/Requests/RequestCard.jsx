@@ -94,7 +94,7 @@ const RequestCard = ({ request, received, navigation }) => {
                     : `${request?.to?.firstName} ${request?.to?.lastName}`}
                 </Title>
               </View>
-            </View>
+            </View>       
             <Paragraph style={styles.message} numberOfLines={1}>
               {request.message}
             </Paragraph>
