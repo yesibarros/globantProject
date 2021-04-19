@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { cancelMatch } from '../../../state/loggedUser/thunks'
 import ConfirmCancelMatch from './ConfirmCancelMatch'
 import {getSingleUser} from "../../../state/singleUser/thunks"
+import SendMeeting from './SendMeeting';
 
 const MyComponent = ({userId, navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false)
+  const [showModalMeeting, setModalMeeting] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const user = useSelector(state => state.loggedUser.user)
   const dispatch = useDispatch()
@@ -33,6 +35,10 @@ const MyComponent = ({userId, navigation}) => {
       navigation.navigate("SingleUser")})
   }
 
+  const handleSendMeeting = (meeting) => {
+      navigation.navigate("Meeting", {meeting})
+  }
+
   return (
     
       <View
@@ -47,29 +53,41 @@ const MyComponent = ({userId, navigation}) => {
           <Menu.Item icon="account-outline" onPress={() => selectUser(userId)} title="Ver perfil" />
           {user?.role?.includes("mentor") && (
             <Menu.Item icon="rocket-launch-outline" onPress={() => {
-            closeMenu()
-              navigation.navigate('Progress', {idCurrent: userId})
+            closeMenu()  
+            navigation.navigate('Progress', {idCurrent: userId})
             }} 
             title="Objetivos" />
           )}
-          <Menu.Item icon="account-multiple-outline" onPress={() => {}} title="Reunirse" disabled/>
+          <Menu.Item icon="account-multiple-outline" onPress={() => {
+            setModalMeeting(true)
+          }} title="Reunirse" />
           <Divider />
           <Menu.Item icon="account-cancel-outline" onPress={() => setShowModal(true)} title="Cancelar match" />
         </Menu>
         <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-        animationType="slide"
-        onRequestClose={() => setShowModal(!showModal)}
+          animationType="slide"
+          transparent={true}
+          visible={showModalMeeting}
+          animationType="slide"
+          onRequestClose={() => setModalMeeting(!showModalMeeting)}
+        >
+          <SendMeeting handleSendMeeting={handleSendMeeting} setModalMeeting={setModalMeeting} mentee={mentee} mentor={mentor} isLoading={isLoading} closeMenu={closeMenu}/>
+        </Modal>
+      
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={showModal}
+          animationType="slide"
+          onRequestClose={() => setShowModal(!showModal)}
         >
           <ConfirmCancelMatch cancelMatch={handleCancelMatch} setShowModal={setShowModal} mentee={mentee} mentor={mentor} isLoading={isLoading}/>
         </Modal>
+        
       </View>
     
   );
 };
 
 export default MyComponent;
-
 

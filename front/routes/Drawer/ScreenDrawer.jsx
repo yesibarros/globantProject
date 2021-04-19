@@ -118,6 +118,13 @@ const ScreenDrawer = (props) => {
         /> */}
             <DrawerItem
               icon={({ color, size }) => (
+                <Icon name="account-outline" color={color} size={size} />
+              )}
+              label="Reuniones"
+              onPress={() => props.navigation.navigate("Meeting")}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />
               )}
               label="Support"

@@ -14,10 +14,11 @@ import styles from "./userCardStyle";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../state/loggedUser/actions";
 import { cancelRequest, acceptRequest } from "../../../state/requests/Thunks";
-import Menu from "../Menu/Menu"
+import Menu from "../Menu/Menu";
+
 
 const UserCard = ({ user, received, navigation }) => {
- 
+
 const initials = user && user.firstName[0]+user.lastName[0]
   
 if(!user) return <Card style={styles.empty}></Card>
@@ -40,8 +41,8 @@ return (
           )
         }
         right={(props) => (
-         <Menu {...props} userId={user._id} navigation={navigation}/>
-       
+        <Menu {...props} userId={user._id} navigation={navigation}/>
+      
         )}
       />
     </Card>
