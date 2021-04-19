@@ -24,6 +24,7 @@ import Mentor from "../../screens/Mentor/Mentor"
 const { height, width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
+  const isMentor = useSelector((state) => state.toggleRole);
   const [startAnimate, setStartAnimate] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const translation = useRef(new Animated.Value(100)).current;
@@ -64,7 +65,8 @@ const Mentees = ({ navigation }) => {
     return mentees;
   };
 
-  if(loginUser?.role?.includes("mentee")) return <Mentor navigation={navigation}/>
+  if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
+  if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
 
   return (
     <>

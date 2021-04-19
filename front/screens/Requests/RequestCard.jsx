@@ -81,7 +81,7 @@ const RequestCard = ({ request, received, navigation }) => {
               <Avatar.Image
                 size={50}
                 source={{
-                  uri: received ? request.from.img : request.to.img,
+                  uri: received ? request.from.img : request?.to?.img,
                 }}
               />
               <View style={styles.title}>
@@ -91,10 +91,10 @@ const RequestCard = ({ request, received, navigation }) => {
                 <Title style={styles.name}>
                   {received
                     ? `${request.from.firstName} ${request.from.lastName}`
-                    : `${request.to.firstName} ${request.to.lastName}`}
+                    : `${request?.to?.firstName} ${request?.to?.lastName}`}
                 </Title>
               </View>
-            </View>
+            </View>       
             <Paragraph style={styles.message} numberOfLines={1}>
               {request.message}
             </Paragraph>
