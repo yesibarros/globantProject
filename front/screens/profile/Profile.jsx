@@ -27,6 +27,9 @@ import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile";
 
+//COMPONENTS
+import ProfileAvatar from "./ProfileAvatar"
+
 //STYLE
 import styles from "./profileStyle";
 
@@ -45,7 +48,8 @@ import * as Notifications from "expo-notifications";
 
 //Custom hooks
 import useNotificationsInit from "../../utils/customHooks/notificationsInit"
-
+import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications"
+import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications"
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -127,47 +131,17 @@ const renderInner = () => (
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
   const notificationsInit = useNotificationsInit()
+  const foregroundNotifications = useForegroundNotifications()
+  const backgroundNotifications = useBackgroundNotifications()
   useEffect(() => {
     notificationsInit()
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
-    const foreGroundSuscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        const {type, user, pendingRequests, objectives, mentee} = notification.request.content.data
-        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
-          if(user._id == loginUser._id){
-            dispatch(setUser(user))
-            dispatch(setRequests(pendingRequests))
-            if(type == "newRequest") dispatch(setMenuBadge(true))
-          }
-        }
-        else{
-          console.log("menteeee",mentee)
-          navigation.navigate("Progress", {idCurrent: mentee})
-        }
-      }
-    );
+    const foreGroundSuscription = foregroundNotifications(Notifications, navigation)
     //Cuando la app está cerrada
-    const backGroundSuscription = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const {type, user, pendingRequests, objectives} = response.notification.request.content.data
-        if(["newRequest", "acceptedRequest", "cancelRequest", "cancelMatch"].includes(type)){
-          if(user._id == loginUser._id){
-            dispatch(setUser(user))
-            dispatch(setRequests(pendingRequests))
-            if(type == "newRequest") {
-              dispatch(setMenuBadge(true))
-              navigation.navigate("Requests")
-            }
-          }
-        }
-        else{
-          navigation.navigate("Progress", {idCurrent: mentee})
-        }
-      }
-    );
+    const backGroundSuscription = backgroundNotifications(Notifications, navigation)
     return () => {
       foreGroundSuscription.remove();
       backGroundSuscription.remove();

@@ -51,6 +51,7 @@ const CardProgress = ({ item, last }) => {
   }
 
   return (
+    <View style={styles.progressContainer}>
     <View style={[styles.container, { borderColor: border }]}>
       <Avatar.Icon
         size={55}
@@ -246,6 +247,7 @@ const CardProgress = ({ item, last }) => {
           </View>
         </Modal>
       </KeyboardAvoidingView>
+    </View>
     </View>
   );
 };

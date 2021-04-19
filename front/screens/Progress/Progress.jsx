@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView, FlatList, Modal, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, ScrollView, FlatList, Modal, TextInput, Dimensions,KeyboardAvoidingView, TouchableOpacity} from "react-native";
 import { Title, IconButton, Card, Button } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 import {state} from "../../utils/state"
@@ -13,7 +13,7 @@ export default function Progress({ route, navigation }) {
   const [viewModal, setViewModal] = useState(false);
   const idCurrent = route && route.params && route.params.idCurrent
   const { colors } = useTheme();
-  
+  const { height } = Dimensions.get("window");
   const dispatch = useDispatch();
   const logginUser = useSelector((state) => state.loggedUser.user);
   const goals = useSelector((state) => state.objetivos);
@@ -43,7 +43,8 @@ export default function Progress({ route, navigation }) {
 
   return (
    <View style={{flex:1}}>
-    <ScrollView style={{ flexGrow: 0.92 }}>
+     {console.log("CURRENT ID", idCurrent)}
+    <View style={{height: "100%", paddingBottom: 55, maxHeight: height}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Objetivos</Text>
       {logginUser.role && logginUser.role[0] === 'mentor'
@@ -128,23 +129,20 @@ export default function Progress({ route, navigation }) {
             </View>
         </View>
         </Modal>
-
-      <FlatList
-        data={goals}
-        renderItem={(goal) => {
-          const last =
-            goal.item._id === goals[goals.length - 1]._id
-              ? true
-              : false;
-          return (
-            <View style={styles.progressContainer}>
-              <CardProgress item={goal.item} last={last} />
-            </View>
-          );
-        }}
-      />
-    </ScrollView>
-       <View style={{ flex: 0.08 }}>
+      <View style={{flex: 1,}}>
+        {goals?.length > 0 && <FlatList
+          data={goals}
+          keyExtractor={item => item._id}
+          renderItem={(goal) => {
+            const last = goal.item._id === goals[goals.length - 1]._id ? true : false;
+            return (
+                <CardProgress item={goal.item} last={last} />
+            )
+          }}
+        />}
+      </View>
+    </View>
+       <View style={{}}>
         <TabBar state={state} navigation={navigation} />
       </View>
     </View>

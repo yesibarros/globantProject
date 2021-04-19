@@ -20,7 +20,7 @@ const cancelRequest = async (req, res, next)=>{
                 // Array de tokens, title, subtitle, body, data, sound
                 if(mentToSend.notificationsToken){
                     const mentPendingRequests = await mentToSend.getPendingRequests()
-                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `${user.firstName} ${user.lastName} ha rechazado tu solicitud.`, {type: "cancelRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `${user.firstName} ${user.lastName} ha rechazado tu solicitud.`, {type: "rejectedRequest", user: mentToSend, pendingRequests: mentPendingRequests, date: String(new Date())})
                 }
             }
             if(requests[i].from.toString() == user._id.toString()){
@@ -34,7 +34,7 @@ const cancelRequest = async (req, res, next)=>{
                 // Array de tokens, title, subtitle, body, data, sound
                 if(mentToSend.notificationsToken){
                     const mentPendingRequests = await mentToSend.getPendingRequests()
-                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `Solicitud cancelada`, {type: "cancelRequest", user: mentToSend, pendingRequests: mentPendingRequests})
+                    sendNotification([mentToSend.notificationsToken], `Mentor Me`, "", `Solicitud cancelada`, {type: "canceledRequest", user: mentToSend, pendingRequests: mentPendingRequests, date: String(new Date())})
                 }
             }
         }      
