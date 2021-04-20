@@ -7,7 +7,10 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import styles from "./searchStyles"
 import TabBar from "../../routes/Tab/TabBar";
 import { Avatar, Chip} from "react-native-paper";
@@ -59,7 +62,7 @@ export default function App({ navigation }) {
   const [index, setIndex] = React.useState(0);
   const [isLoading, setIsLoeading] = useState(true);
   const isMentor = useSelector((state) => state.toggleRole);
-  console.log("ES MENTOR?",  isMentor)
+
   const onSwiped = () => {
     {
       transitionRef.current && transitionRef.current.animateNextTransition();
@@ -86,7 +89,7 @@ export default function App({ navigation }) {
               <Text style={[styles.cardSubtitleRole, { color: colors.text }]}>
                 {card.role.join(" | ")}
               </Text>
-              <Avatar.Image size={130} source={{ uri: card.img }} />
+              <Avatar.Image size={hp('15%')} source={{ uri: card.img }} />
             </View>
             <CardDetails index={index} />
           </View>
@@ -99,11 +102,11 @@ export default function App({ navigation }) {
     <View
       key={matches[index].id}
       style={{
-        flex: 0.6,
+        height:hp('35%'),
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
       }}
-    >
+     >
       <Text style={[styles.tecnoAndAreaText, { color: colors.text }]}>
         AREAS
       </Text>
@@ -115,7 +118,6 @@ export default function App({ navigation }) {
               key={j}
               style={{ height: 35 }}
               mode="contained"
-              textStyle={styles.chipText}
             >
               {area.areaName}
             </Chip>
@@ -129,11 +131,10 @@ export default function App({ navigation }) {
         {matches[index].technologies.map((tech, i) => {
           return (
             <Chip
-              margin={2}
+              margin={hp('0.3%')}
               key={i}
-              style={{ height: 35 }}
+              style={{ height: hp('4%') }}
               mode="contained"
-              textStyle={styles.chipText}
             >
               {tech.technologyName}
             </Chip>
@@ -249,8 +250,8 @@ export default function App({ navigation }) {
           <View style={styles.bottomContainerButtons}>
             <MaterialCommunityIcons.Button
               name="thumb-down"
-              size={110}
-              style={{ marginTop: 24 }}
+              size={hp('12%')}
+              style={{ marginTop: hp('4%') }}
               backgroundColor="transparent"
               underlayColor="transparent"
               activeOpacity={0.3}
@@ -259,7 +260,8 @@ export default function App({ navigation }) {
             />
             <MaterialCommunityIcons.Button
               name="thumb-up"
-              size={110}
+              size={hp('12%')}
+              style={{ marginTop: hp('4.5%') }}
               backgroundColor="transparent"
               underlayColor="transparent"
               activeOpacity={0.3}
@@ -271,7 +273,7 @@ export default function App({ navigation }) {
           </View>
         </>
       )}
-      <View style={{flex:0}}>
+      <View style={{ backgroundColor:'blue'}}>
        <TabBar navigation={navigation} />
        </View>
     </View>

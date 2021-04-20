@@ -6,69 +6,62 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-  ScrollView
+  ScrollView,
+  KeyboardAvoidingView
 } from "react-native";
 import {Button} from "react-native-paper"
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../bajaStyles"
-import {getLocations, deleteLocation} from "../../../../state/admin/locaciones/thunks"
+import styles from "../modificacionStyles"
+import {getLocations, deleteLocation, modifyLocation} from "../../../../state/admin/locaciones/thunks"
 import PillButton from "../../../../shared/components/PillButton";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 
 
-const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
+const ModificacionLocacion = ({nombre, setViewModModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     const locations= useSelector(state=> state.admin.locaciones)
-    const [selectedLocations, setSelectedLocations] = React.useState([])
+    const [selectedLocations, setSelectedLocations] = React.useState("")
+    const [name, setName] = React.useState("")
 
     React.useEffect(()=>{
         dispatch(getLocations()).then(()=> setIsLoading(false))
     }, [])
-    console.log(locations)
+ 
     
     const handleSelect = (id) => {
-        const location = selectedLocations.filter((t) => t._id == id);
-        if (location.length) {
-          setSelectedLocations((prevState) => prevState.filter((t) => t._id !== id));
-        } else {
-          setSelectedLocations((prevState) => [...prevState, { _id: id }]);
-        }
+        setSelectedLocations(id)
       };
-    const handleDelete= ()=>{
-      selectedLocations.forEach(location => {
-            dispatch(deleteLocation({_id: location._id}))
-          });
-    
-        
-          setViewDelModal(false)
-          return Alert.alert("Acción completa", "Locacion/es borrada/s exitosamente", [
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ])
-        }
+
+    const handlePut= ()=>{
+     if(!selectedLocations){
+        return alert("Debes seleccionar una locación")
+     }   
+     else if(!name){
+         return alert("Debes ingresar un nombre")
+     }else{
+         dispatch(modifyLocation({_id:selectedLocations, name: name})).then((data)=>{
+             setViewModModal(false)
+             return Alert.alert("Acción completa", "Locación modificada exitosamente", [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ])
+         })
+     }
+      }
 
     return (
         
-        <View style={styles.viewContainer}>
-             
-             
-             <Text style={styles.title}>Baja de {nombre}</Text>
+          <View style={styles.viewContainer}>             
+            
+             <Text style={styles.title}>Modificacion de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
              <ScrollView>
              {locations && locations.length > 0  &&  locations.map(locacion=>{
-                  const selected = selectedLocations.filter(
-                    (singleLocation) => singleLocation._id == locacion._id
-                  ).length
-                    ? true
-                    : false;
+                  const selected = selectedLocations == locacion._id ? true : false
                   return (
-                    
                     <PillButton
                       title={locacion.locationName}
                       key={locacion._id}
@@ -76,19 +69,29 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                       selected={selected}
                       onSelect={handleSelect}
                     />
-         
+               
              )})}
-              </ScrollView>
-              </View>
-         <View
+             </ScrollView>
+             </View>
+
+             
+              <Text style={styles.title}>Nuevo nombre:</Text>         
+          
+            <TextInput
+              value={name}
+              onChangeText={text => setName(text)}
+                style={styles.input}
+                multiline
+              />
+
+           <View
              style={styles.buttonContainer}
            >
-            
            
              <Button
                style={styles.Button}
                onPress={() => {
-                   setViewDelModal(false);
+                setViewModModal(false);
                }}
              >
                <Text
@@ -100,7 +103,7 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  handleDelete()}
+                 onPress={() =>  handlePut()}
                >
                  <Text
                    style={styles.textButton}
@@ -108,16 +111,10 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                    GUARDAR
                  </Text>
                </Button>
-            
-           </View>
-           
-           
-         
-            
-          
+           </View>   
        </View>
             
        
     )
 }
-export default BajaLocacion
+export default ModificacionLocacion
