@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -9,7 +9,7 @@ import {
 
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
   const { colors } = useTheme();
-  const borderWidth = selected ? 5 : 1;
+  const borderWidth = selected ? wp("0.8%") : wp("0.5%");
   const borderColor = selected ? "#009387" : "";
 
   return (
@@ -21,11 +21,11 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
       ]}
     >
       <Card.Title
-        style={{ flex: 0.3 }}
+        style={{ height: hp("11%") }}
         right={() => (
           <Avatar.Image
             style={styles.avatar}
-            size={90}
+            size={hp("10%")}
             source={{ uri: matchPerson.img }}
           />
         )}
@@ -43,12 +43,8 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
         }
       />
 
-      <Card.Content style={{ flex: 1 }}>
-        <Title
-          style={{ shadowOpacity: 0.4, shadowOffset: { width: 1, height: 1 } }}
-        >
-          Areas
-        </Title>
+      <Card.Content style={styles.chipContainer}>
+        <Title style={styles.areaTechTitles}>Areas</Title>
         <View style={styles.techMapContainer}>
           {matchPerson.areas.map((area, j) => {
             if (j < 8) {
@@ -56,7 +52,8 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
                 <View style={styles.chipView} key={j}>
                   <Chip
                     mode="contained"
-                    height={25}
+                    margin={hp("0.1%")}
+                    style={{ height: hp("3%"), alignItems: "center" }}
                     textStyle={styles.chipText}
                   >
                     {area.areaName}
@@ -66,14 +63,8 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
             }
           })}
         </View>
-      </Card.Content>
 
-      <Card.Content style={styles.chipContainer}>
-        <Title
-          style={{ shadowOpacity: 0.4, shadowOffset: { width: 1, height: 1 } }}
-        >
-          Technologies
-        </Title>
+        <Title style={styles.areaTechTitles}>Technologies</Title>
         <View style={styles.techMapContainer}>
           {matchPerson.technologies.map((tech, i) => {
             if (i < 8) {
@@ -81,7 +72,8 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
                 <View style={styles.chipView} key={i}>
                   <Chip
                     mode="contained"
-                    height={25}
+                    margin={hp("0.1%")}
+                    style={{ height: hp("3%"), alignItems: "center" }}
                     textStyle={styles.chipText}
                   >
                     {tech.technologyName}
@@ -95,49 +87,62 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 
       <Card.Actions style={styles.buttonActions}>
         {selected ? (
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              height: hp("5%"),
+            }}
+          >
             <Button
+              margin={hp("0.2%")}
+              style={{ height: hp("4.5%") }}
               onPress={() => cancelButton(selected)}
               mode="contained"
               color="#ffc78f"
               icon="account-convert"
             >
-              Volver atras
+              <Text style={{ fontSize: hp("1.8%") }}>Volver atras </Text>
             </Button>
             <Button
+              margin={hp("0.2%")}
+              style={{ height: hp("4.5%") }}
               onPress={() => okButton(selected, matchPerson)}
               icon="account-check"
               mode="contained"
               color="#ffc78f"
             >
-              {selected ? "Seleccionar" : "Mejor este!"}
+              <Text style={{ fontSize: hp("1.8%") }}>
+                {selected ? "Seleccionar" : "Mejor este!"}
+              </Text>
             </Button>
           </View>
         ) : (
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
-              // backgroundColor: "red",
-              flex: 1,
+              height: hp("5%"),
             }}
           >
             <Avatar.Icon
-              size={30}
+              size={hp("4.5%")}
               icon="arrow-left-bold-outline"
               color="grey"
               style={{ backgroundColor: "transparent" }}
             />
             <Button
+              margin={hp("0.2%")}
+              style={{ height: hp("4.5%") }}
               onPress={() => okButton(selected, matchPerson)}
               icon="account-check"
               mode="contained"
               color="#ffc78f"
             >
-              {selected ? "Seleccionar" : "Mejor este!"}
+              <Text style={{ fontSize: hp("1.8%") }}>
+                {selected ? "Seleccionar" : "Mejor este!"}
+              </Text>
             </Button>
             <Avatar.Icon
-              size={30}
+              size={hp("4.5%")}
               icon="arrow-right-bold-outline"
               color="grey"
               style={{ backgroundColor: "transparent" }}
@@ -151,45 +156,50 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 
 export default CardCustom;
 
-const screenWidth = wp("100%") / 1.05;
-const screenHeigth = hp("100%") / 2.4;
-
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 2,
+    // borderWidth: ,
     borderRadius: 10,
     backgroundColor: "white",
-    width: screenWidth,
-    height: screenHeigth,
-    justifyContent: "space-around",
+    width: wp("95%"),
+    height: hp("45%"),
+    margin: hp("0.5%"),
+    justifyContent: "space-between",
     marginHorizontal: 9.7,
   },
   cardTitle: {
     fontWeight: "bold",
-    fontSize: 28,
+    fontSize: hp("4%"),
   },
   techMapContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  areaTechTitles: {
+    fontSize: hp("2.7%"),
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 1, height: 1 },
+  },
   chipText: {
-    marginVertical: 1,
+    fontSize: hp("1.4%"),
   },
   cardSubtitle: {
     fontStyle: "italic",
-    fontSize: 12,
+    fontSize: hp("2%"),
   },
   chipContainer: {
-    flex: 1,
+    height: hp("26%"),
+    justifyContent: "space-around",
   },
   chipView: {
-    margin: 1,
+    margin: hp("0.1%"),
   },
   avatar: {
-    margin: 5,
+    marginTop: hp("0.w%"),
+    marginRight: hp("0.3%"),
   },
   buttonActions: {
-    flex: 0.4,
-    justifyContent: "space-evenly",
+    height: hp("5.5%"),
+    justifyContent: "space-around",
   },
 });
