@@ -83,19 +83,14 @@ const Mentees = ({ navigation }) => {
             <View style={styles.usersContainer}>
               {(loginUser.role=="mentor" && loginUser.mentees?.length == 0) || (loginUser.role == "mentee" && !loginUser.mentor) ? (
                 <View style={{ alignContent: "center", marginVertical: 250 }}>
-                  <Divider style={{ backgroundColor: "grey", height: 2 }} />
-                  <View
-                    style={{
-                      alignItems: "center",
-                      height: 80,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{ fontSize: 30 }}>
+                  
+                  <View style={styles.n}>
+                 
+                    <Text style={styles.nText}>
                       No tenes  {loginUser.role == "mentor" ? "ningún mentee" : "mentor"} todavía.
                     </Text>
                   </View>
-                  <Divider style={{ backgroundColor: "grey", height: 2 }} />
+                
                 </View>
               ) : (
                 loginUser.role== "mentee" ? 
