@@ -6,82 +6,88 @@ import {
   TextInput,
   ActivityIndicator,
   ScrollView,
-  Alert
+  Alert,
+  KeyboardAvoidingView,
+  
 } from "react-native";
 import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../bajaStyles"
-import {getAreas, deleteArea} from "../../../../state/admin/areas/thunks"
+import styles from "../modificacionStyles"
+import {getAreas, deleteArea, modifyArea} from "../../../../state/admin/areas/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 
 
-const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
+const ModificacionAreas = ({nombre, setViewModModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     const areas= useSelector(state=> state.admin.areas)
-    const [selectedAreas, setSelectedAreas] = React.useState([])
+    const [selectedAreas, setSelectedAreas] = React.useState("")
+    const [name, setName] = React.useState("")
 
     React.useEffect(()=>{
         dispatch(getAreas()).then(()=> setIsLoading(false))
     }, [])
     
     const handleSelect = (id) => {
-        const area = selectedAreas.filter((t) => t._id == id);
-        if (area.length) {
-            setSelectedAreas((prevState) => prevState.filter((t) => t._id !== id));
-        } else {
-            setSelectedAreas((prevState) => [...prevState, { _id: id }]);
-        }
+        setSelectedAreas(id)
       };
 
-    const handleDelete= ()=>{
-      selectedAreas.forEach(area => {
-          dispatch(deleteArea({_id: area._id}))
-        });
-  
-      
-        setViewDelModal(false)
-        return Alert.alert("Acción completa", "Area/s borrada/s exitosamente", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ])
+    const handlePut= ()=>{
+     if(!selectedAreas){
+        return alert("Debes seleccionar un area")
+     }   
+     else if(!name){
+         return alert("Debes ingresar un nombre")
+     }else{
+         dispatch(modifyArea({_id:selectedAreas, name: name})).then((data)=>{
+             console.log("HOLAAAAAAAAAAAAA")
+             setViewModModal(false)
+             return Alert.alert("Acción completa", "Area modificada exitosamente", [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ])
+         })
+     }
       }
 
     return (
         
-        <View style={styles.viewContainer}>
+        <KeyboardAvoidingView behavior="position"style={styles.viewContainer}>
              
              
-           
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={styles.title}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
              {areas && areas.length > 0 && areas.map(area=>{
-                  const selected = selectedAreas.filter(
-                    (singleArea) => singleArea._id == area._id
-                  ).length
-                    ? true
-                    : false;
+                  const selected = selectedAreas == area._id ? true : false
                   return (
-                    <View>
-
+                   
                     <PillButton
-                    
                       title={area.areaName}
                       key={area._id}
                       id={area._id}
                       selected={selected}
                       onSelect={handleSelect}
                     />
-
-                      </View>
                    
+               
              )})}
-             
+            
            </View>
-   
+            
+           <Text style={styles.title}>Nuevo nombre:</Text>
+           
+            <View style={styles.mapContainer}>
+            <TextInput
+              value={name}
+              onChangeText={text => setName(text)}
+                style={styles.input}
+                multiline
+              />
+              </View>
+ 
            <View
              style={styles.buttonContainer}
            >
@@ -89,7 +95,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
              <Button
                style={styles.Button}
                onPress={() => {
-                   setViewDelModal(false);
+                setViewModModal(false);
                }}
              >
                <Text
@@ -101,7 +107,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  handleDelete()}
+                 onPress={() =>  handlePut()}
                >
                  <Text
                    style={{
@@ -114,9 +120,9 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  </Text>
                </Button>
            </View>
-       </View>
+       </KeyboardAvoidingView>
             
        
     )
 }
-export default BajaAreas
+export default ModificacionAreas

@@ -284,7 +284,7 @@ const renderInner = () => (
       <View style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={[400, 0]}
+        snapPoints={[900, 0]}
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}

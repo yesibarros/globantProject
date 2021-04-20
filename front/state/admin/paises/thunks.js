@@ -18,7 +18,7 @@ export const getCountries = createAsyncThunk("GET_COUNTRIES", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .post(`http://${localHost}/api/countries`, data)
+       .post(`http://${localHost}/api/countries`, {countryName: data})
        .then((respuesta) => respuesta.data);
    });
  });
@@ -37,7 +37,7 @@ export const getCountries = createAsyncThunk("GET_COUNTRIES", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .put(`http://${localHost}/api/countries/${data._id}`, data)
+       .put(`http://${localHost}/api/countries/${data._id}`, {countryName: data.name})
        .then((respuesta) => respuesta.data);
    });
  });

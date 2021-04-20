@@ -22,39 +22,61 @@ const MyComponent = ({navigation}) => {
     <List.Section title="Panel de administración">
       <List.Accordion
         title="Areas"
-        onPress={()=> setName("area")}
         left={props => <List.Icon {...props} icon="laptop" />}>
         
-        <List.Item title="Alta" onPress={()=> setViewModal(true)}/>
-        <List.Item title="Modificación" onPress={()=> setViewModModal(true)}/>
-        <List.Item title="Baja" onPress={()=> setViewDelModal(true)}/>
+        <List.Item title="Alta" onPress={()=>{ 
+          setName("area")
+          setViewModal(true)}}/>
+        <List.Item title="Modificación" onPress={()=> {
+          setName("area")
+          setViewModModal(true)}}/>
+        <List.Item title="Baja" onPress={()=> {
+          setName("area")
+          setViewDelModal(true)}}/>
       </List.Accordion>
 
       <List.Accordion
         title="Tecnologías"
-        onPress={()=> setName("tecnologia")}
         left={props => <List.Icon {...props} icon="wrench-outline" />}>
-        <List.Item title="Alta" onPress={()=> setViewModal(true)}/>
-        <List.Item title="Modificación" onPress={()=> setViewModModal(true)} />
-        <List.Item title="Baja" onPress={()=> setViewDelModal(true)}/>
+        <List.Item title="Alta" onPress={()=> {
+          setName("tecnologia")
+          setViewModal(true)}}/>
+        <List.Item title="Modificación" onPress={()=> {
+          setName("tecnologia")
+          setViewModModal(true)}} />
+        <List.Item title="Baja" onPress={()=> {
+          setName("tecnologia")
+          setViewDelModal(true)}}/>
       </List.Accordion>
 
       <List.Accordion
         title="Países"
-        onPress={()=> setName("país")}
+        
         left={props => <List.Icon {...props} icon="flag-variant-outline" />}>
-        <List.Item title="Alta" onPress={()=> setViewModal(true)}/>
-        <List.Item title="Modificación" onPress={()=> setViewModModal(true)}/>
-        <List.Item title="Baja" onPress={()=> setViewDelModal(true)} />
+        <List.Item title="Alta" onPress={()=> {
+          setName("país")
+          setViewModal(true)}}/>
+        <List.Item title="Modificación" onPress={()=> {
+          setName("país")
+          setViewModModal(true)}}/>
+        <List.Item title="Baja" onPress={()=> {
+          setName("país")
+          setViewDelModal(true)}} />
       </List.Accordion>
 
       <List.Accordion
         title="Locaciones"
-        onPress={()=> setName("locación")}
+     
         left={props => <List.Icon {...props} icon="map-marker" />}>
-        <List.Item title="Alta" />
-        <List.Item title="Modificación" onPress={()=> setViewModModal(true)}/>
-        <List.Item title="Baja" onPress={()=> setViewDelModal(true)} />
+        <List.Item title="Alta" onPress={()=> {
+          setName("locación")
+          setViewModal(true)}} />
+        <List.Item title="Modificación" onPress={()=> {
+          setName("locación")
+          setViewModModal(true)}}/>
+        <List.Item title="Baja" onPress={()=> {
+          setName("locación")
+          setViewDelModal(true)}} />
       </List.Accordion>
       
     </List.Section>

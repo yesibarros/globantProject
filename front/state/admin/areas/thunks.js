@@ -17,8 +17,9 @@ export const getAreas = createAsyncThunk("GET_AREAS", (data) => {
  export const createArea = createAsyncThunk("CREATE_AREA", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+     
      return axios
-       .post(`http://${localHost}/api/areas`, data)
+       .post(`http://${localHost}/api/areas`, {areaName: data})
        .then((respuesta) => respuesta.data);
    });
  });
@@ -36,7 +37,7 @@ export const getAreas = createAsyncThunk("GET_AREAS", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .put(`http://${localHost}/api/areas/${data._id}`, data)
+       .put(`http://${localHost}/api/areas/${data._id}`, {areaName: data.name})
        .then((respuesta) => respuesta.data);
    });
  });

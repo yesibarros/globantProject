@@ -6,67 +6,63 @@ import {
   TextInput,
   ActivityIndicator,
   ScrollView,
-  Alert
+  Alert,
+  KeyboardAvoidingView
 } from "react-native";
 import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../bajaStyles"
-import {getTechs, deleteTech} from "../../../../state/admin/tecnologias/thunks"
+import styles from "../modificacionStyles"
+import {getTechs, deleteTech, modifyTech} from "../../../../state/admin/tecnologias/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 
 
-const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
+const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     const techs= useSelector(state=> state.admin.tecnologias)
-    const [selectedTechs, setSelectedTechs] = React.useState([])
+    const [selectedTechs, setSelectedTechs] = React.useState("")
+    const [name, setName] = React.useState("")
 
     React.useEffect(()=>{
         dispatch(getTechs()).then(()=> setIsLoading(false))
     }, [])
     
     const handleSelect = (id) => {
-        const tech = selectedTechs.filter((t) => t._id == id);
-        if (tech.length) {
-            setSelectedTechs((prevState) => prevState.filter((t) => t._id !== id));
-        } else {
-            setSelectedTechs((prevState) => [...prevState, { _id: id }]);
-        }
+        setSelectedTechs(id)
       };
 
-    const handleDelete= ()=>{
-      selectedTechs.forEach(tech => {
-              dispatch(deleteTech({_id: tech._id}))
-            });
-      
-          
-            setViewDelModal(false)
-            return Alert.alert("Acción completa", "Tecnología/s borrada/s exitosamente", [
-              { text: "OK", onPress: () => console.log("OK Pressed") },
-            ])
-          }
-
-      console.log("Las techs", techs)
+      const handlePut= ()=>{
+        if(!selectedTechs){
+           return alert("Debes seleccionar una tecnología")
+        }   
+        else if(!name){
+            return alert("Debes ingresar un nombre")
+        }else{
+            dispatch(modifyTech({_id:selectedTechs, name: name})).then((data)=>{
+                setViewModModal(false)
+                return Alert.alert("Acción completa", "Tecnología modificada exitosamente", [
+                   { text: "OK", onPress: () => console.log("OK Pressed") },
+                 ])
+            })
+        }
+         }
+   
 
     return (
         
-        <View style={styles.viewContainer}>
+        <KeyboardAvoidingView behavior="position" style={styles.viewContainer}>
              
              
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={styles.title}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
+             <ScrollView>
              {techs && techs.length > 0 && techs.map(tech=>{
-                  const selected = selectedTechs.filter(
-                    (singleTech) => singleTech._id == tech._id
-                  ).length
-                    ? true
-                    : false;
+                  const selected = selectedTechs == tech._id ? true : false
                   return (
-
                     <PillButton
                       title={tech.technologyName}
                       key={tech._id}
@@ -76,17 +72,27 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     />
                
              )})}
-            
-           </View>
+           
+
+           <Text style={styles.title}>Nuevo nombre:</Text>
+           <View style={styles.mapContainer}>
+                
+            <TextInput
+              value={name}
+              onChangeText={text => setName(text)}
+                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                multiline
+              />
+            </View>
    
            <View
-             style={styles.buttonContainer}
+             style={styles.buttonContainer, {flexDirection: "row", marginTop:20,justifyContent:"space-evenly", marginBottom: 350}}
            >
            
              <Button
                style={styles.Button}
                onPress={() => {
-                   setViewDelModal(false);
+                setViewModModal(false);
                }}
              >
                <Text
@@ -98,7 +104,7 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  handleDelete()}
+                 onPress={() =>  handlePut()}
                >
                  <Text
                    style={{
@@ -111,9 +117,11 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  </Text>
                </Button>
            </View>
-       </View>
+           </ScrollView>
+           </View>
+       </KeyboardAvoidingView>
             
        
     )
 }
-export default BajaTech
+export default ModificacionTechs
