@@ -19,6 +19,7 @@ import localHost from "../../localHostIp";
 
 const AreaModal = ({ visible, setEditArea }) => {
   const { colors } = useTheme();
+  const [saveLoad, setSaveLoad] = React.useState(false)
   const [areasArray, setAreasArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const user = useSelector((state) => state.loggedUser.user);
@@ -50,6 +51,7 @@ const AreaModal = ({ visible, setEditArea }) => {
   };
 
   const handleSave = () => {
+    setSaveLoad(true)
     const arrayToSave = selectedAreas.map((a) => a._id);
     let obj = {
       id: user._id,
@@ -57,6 +59,7 @@ const AreaModal = ({ visible, setEditArea }) => {
     };
     dispatch(updateProfile(obj)).then(() => {
       setEditArea(false);
+      setSaveLoad(false)
     });
   };
 
@@ -98,11 +101,16 @@ const AreaModal = ({ visible, setEditArea }) => {
               <Button onPress={handleCloseModal} title="Cerrar" />
             </View>
             <View style={{ width: "40%" }}>
+              {saveLoad ?
+               <ActivityIndicator size="large" color="#0000ff" />
+              :
               <Button
-                onPress={handleSave}
-                title="Guardar"
-                disabled={selectedAreas.length ? false : true}
-              />
+              onPress={handleSave}
+              title="Guardar"
+              disabled={selectedAreas.length ? false : true}
+            />
+            }
+              
             </View>
           </View>
         </View>

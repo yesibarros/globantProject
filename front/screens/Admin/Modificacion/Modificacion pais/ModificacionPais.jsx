@@ -5,26 +5,25 @@ import {
   Text,
   TextInput,
   ActivityIndicator,
-  Alert
+  Alert,
+  KeyboardAvoidingView
 } from "react-native";
 import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../bajaStyles"
-import {getCountries, deleteCountry} from "../../../../state/admin/paises/thunks"
+import styles from "../modificacionStyles"
+import {getCountries, deleteCountry, modifyCountry} from "../../../../state/admin/paises/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 import { ScrollView } from "react-native-gesture-handler";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 
-const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
+
+const ModificacionPais = ({viewDelModal, nombre, setViewModModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     const countries= useSelector(state=> state.admin.paises)
-    const [selectedCountries, setSelectedCountries] = React.useState([])
+    const [selectedCountries, setSelectedCountries] = React.useState("")
+    const [name, setName] = React.useState("")
 
     React.useEffect(()=>{
         dispatch(getCountries()).then(()=> setIsLoading(false))
@@ -32,44 +31,39 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
   
     
     const handleSelect = (id) => {
-        const country = selectedCountries.filter((t) => t._id == id);
-        if (country.length) {
-            setSelectedCountries((prevState) => prevState.filter((t) => t._id !== id));
-        } else {
-            setSelectedCountries((prevState) => [...prevState, { _id: id }]);
-        }
+        setSelectedCountries(id)
       };
 
-    const handleDelete= ()=>{
-      selectedCountries.forEach(country => {
-        dispatch(deleteCountry({_id: country._id}))
-      });
-
-    
-      setViewDelModal(false)
-      return Alert.alert("Acción completa", "Pais/es borrado/s exitosamente", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ])
-    }
+    const handlePut= ()=>{
+     if(!selectedCountries){
+        return alert("Debes seleccionar un area")
+     }   
+     else if(!name){
+         return alert("Debes ingresar un nombre")
+     }else{
+         dispatch(modifyCountry({_id:selectedCountries, name: name})).then((data)=>{
+   
+             setViewModModal(false)
+             return Alert.alert("Acción completa", "Pais modificado exitosamente", [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ])
+         })
+     }
+      }
 
     return (
         
-        <View style={styles.viewContainer}>
+      <View style={styles.viewContainer}>             
              
-             
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={styles.title}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
              <ScrollView>
              {countries && countries.length > 0 && countries.map(country=>{
-                  const selected = selectedCountries.filter(
-                    (singleCountry) => singleCountry._id == country._id
-                  ).length
-                    ? true
-                    : false;
+                  const selected = selectedCountries == country._id ? true : false
                   return (
-                  
+                     
                     <PillButton
                       title={country.countryName}
                       key={country._id}
@@ -77,12 +71,21 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                       selected={selected}
                       onSelect={handleSelect}
                     />
-                
+                  
                
              )})}
-             </ScrollView>
-            
+            </ScrollView>
            </View>
+           
+
+           <Text style={styles.title}>Nuevo nombre:</Text>
+  
+            <TextInput
+              value={name}
+              onChangeText={text => setName(text)}
+                style={styles.input}
+                multiline
+              />
    
            <View
              style={styles.buttonContainer}
@@ -91,11 +94,11 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
              <Button
                style={styles.Button}
                onPress={() => {
-                   setViewDelModal(false);
+                setViewModModal(false);
                }}
              >
                <Text
-                 style={styles.textButton}
+               style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -103,18 +106,19 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  handleDelete()}
+                 onPress={() =>  handlePut()}
                >
                  <Text
-                   style={styles.textButton}
+                  style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
            </View>
+           
        </View>
             
        
     )
 }
-export default BajaPais
+export default ModificacionPais

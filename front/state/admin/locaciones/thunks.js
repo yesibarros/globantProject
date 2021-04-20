@@ -18,7 +18,7 @@ export const getLocations = createAsyncThunk("GET_LOCATIONS", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .post(`http://${localHost}/api/locations`, data)
+       .post(`http://${localHost}/api/locations`, {locationName: data})
        .then((respuesta) => respuesta.data);
    });
  });
@@ -36,7 +36,7 @@ export const getLocations = createAsyncThunk("GET_LOCATIONS", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .put(`http://${localHost}/api/locations/${data._id}`, data)
+       .put(`http://${localHost}/api/locations/${data._id}`, {locationName: data.name})
        .then((respuesta) => respuesta.data);
    });
  });

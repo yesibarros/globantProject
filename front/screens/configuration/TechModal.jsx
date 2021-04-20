@@ -18,6 +18,7 @@ import { useTheme } from "@react-navigation/native";
 import localHost from "../../localHostIp";
 const TechModal = ({ visible, setEditTech }) => {
   const { colors } = useTheme();
+  const [saveLoad, setSaveLoad] = React.useState(false)
   const [technologiesArray, setTechnologiesArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const user = useSelector((state) => state.loggedUser.user);
@@ -53,6 +54,7 @@ const TechModal = ({ visible, setEditTech }) => {
   };
 
   const handleSave = () => {
+    setSaveLoad(true)
     const arrayToSave = selectedTechs.map((t) => t._id);
     let obj = {
       id: user._id,
@@ -60,6 +62,7 @@ const TechModal = ({ visible, setEditTech }) => {
     };
     dispatch(updateProfile(obj)).then(() => {
       setEditTech(false);
+      setSaveLoad(false)
     });
   };
 
@@ -103,11 +106,16 @@ const TechModal = ({ visible, setEditTech }) => {
               <Button onPress={handleCloseModal} title="Cerrar" />
             </View>
             <View style={{ width: "40%" }}>
+              {saveLoad ? 
+              <ActivityIndicator size="large" color="#0000ff" />
+              :
               <Button
                 onPress={handleSave}
                 title="Guardar"
                 disabled={selectedTechs.length ? false : true}
               />
+            }
+              
             </View>
           </View>
         </View>
