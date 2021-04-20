@@ -1,5 +1,9 @@
 import { StyleSheet} from "react-native";
 import { primaryGreen } from "../../utils/Colors";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const colors = {
   red: "#EC2379",
   blue: "#0070FF",
@@ -9,56 +13,56 @@ const colors = {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height:hp('75%'),
+     
       },
       bottomContainerButtons: {
         flexDirection: "row",
         justifyContent: "space-evenly",
-        flex: 0.32,
+        height:hp('25%'),
       },
       card: {
         backgroundColor: "white",
-        flex: 0.75,
+        height:hp('68%'),
         borderRadius: 25,
         shadowColor: "#000",
-        // shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 1.0,
         shadowRadius: 3.84,
         elevation: 30,
       },
       cardTitleView: {
-        flex: 0.41,
+        height:hp('30%'),
         alignItems: "center",
         justifyContent: "space-around",
       },
       cardTitleText: {
-        fontSize: 35,
+        
+        fontSize:hp('4%'),
         color: primaryGreen,
       },
       cardSubtitleText: {
         color: colors.text,
         fontStyle: "italic",
-        fontSize: 17,
+        fontSize:hp('2%'),
       },
       cardSubtitleRole: {
         shadowOpacity: 0.2,
         shadowOffset: { width: 1, height: 1 },
         color: "gray",
-        fontSize: 20,
+        fontSize: hp('2%'),
         backgroundColor: "transparent",
       },
       mapsContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
-        flex: 0.6,
         justifyContent: "center",
         alignContent: "center",
       },
       tecnoAndAreaText: {
         fontWeight: "bold",
-        fontSize: 20,
-        paddingTop: 15,
-        paddingBottom: 5,
+        fontSize: hp('2%'),
+        paddingTop: hp('4%'),
+        paddingBottom:hp('1%') ,
       },
 
 });

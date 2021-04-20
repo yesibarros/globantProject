@@ -96,7 +96,7 @@ const renderInner = () => (
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.panelButton}
-        onPress={() => this.bs.current.snapTo(1)}>
+        onPress={() => bs.current.snapTo(1)}>
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
@@ -284,7 +284,7 @@ const renderInner = () => (
       <View style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={[900, 0]}
+        snapPoints={[700, 0]}
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}

@@ -52,7 +52,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 
 
-  }
+  },
+  nText: {
+    fontWeight: 'bold',
+    color: '#c9c9c9',
+    fontSize:30,
+    
+  },
+  n: {
+    alignItems: "center",
+  },
   
 });
 
