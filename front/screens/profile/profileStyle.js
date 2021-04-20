@@ -1,15 +1,23 @@
 import { StyleSheet } from "react-native";
 import {primaryGreen} from "../../utils/Colors"
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:hp('100%'),
     backgroundColor: "#009387",
+  
   },
   body: {
     borderTopLeftRadius: 60,
-    flex: 3,
-    paddingBottom: "40%"
+    height:hp('74%'),
+   
+  },
+  photo:{
+    top: hp('-9%'), left: hp('15%'), 
   },
   button: {
     position: "absolute",
@@ -67,11 +75,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userBtnWrapper: {
-    top: -20,
+    top: hp('-3%'),
     flexDirection: "row",
     justifyContent: "space-evenly",
-    width: "100%",
-    marginBottom: 10,
+    width: wp('100%'),
+    marginBottom: hp('3%'),
   },
   userBtn: {
     borderColor: "transparent",
@@ -139,7 +147,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.4,
     // elevation: 5,
-    paddingTop:20,
+    paddingTop: hp('5%'),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   
@@ -149,10 +157,10 @@ const styles = StyleSheet.create({
   },
   panelHandle: {
     width: 40,
-    height: 8,
+    height:hp('2%') ,
     borderRadius: 4,
     backgroundColor: '#00000040',
-    marginBottom: 10,
+    marginBottom: hp('2%') ,
   },
 });
 

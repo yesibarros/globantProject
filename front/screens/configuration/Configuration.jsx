@@ -2,6 +2,11 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal";
@@ -54,13 +59,13 @@ const Configuration = ({showLogged}) => {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View
         style={[styles.areasContainer, { backgroundColor: colors.background }]}
-      >
+       >
         <View
           style={[
             styles.titleContainer,
             { backgroundColor: colors.background },
           ]}
-        >
+         >
           <Text style={[styles.text, { color: colors.text }]}>Tu Perfil:</Text>
           {showLogged ? <TouchableOpacity onPress={() => setEditArea(true)}>
             <Ionicons
@@ -156,17 +161,19 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: wp('100%'),
   },
   text: {
-    marginLeft: 10,
-    fontSize: 20,
+    marginLeft: hp('2%'),
+    fontSize: hp('2.3%'),
     fontWeight: "bold",
     color: "#000",
+    
   },
   areasContainer: {
-    width: "90%",
-    marginBottom: 50,
+    width: wp('90%'),
+    marginBottom: hp('2%'),
+    
   },
   textSign: {
     fontSize: 15,
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
     color: "#009387",
   },
   titleContainer: {
-    width: "100%",
+    width: wp('100%'),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
