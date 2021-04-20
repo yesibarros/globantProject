@@ -11,6 +11,7 @@ import SingleUser from "../../screens/SingleUser/SingleUser";
 import Search from "../../screens/Match/Search";
 import Progress from "../../screens/Progress/Progress";
 import Meeting from "../../screens/Meeting/Meeting";
+import Header from "../../screens/header/Header";
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +27,7 @@ export default function MyTabs() {
       <Drawer.Screen name="SearchMatch" component={Search} />
       <Drawer.Screen name="Progress" component={Progress} />
       <Drawer.Screen name="Meeting" component={Meeting} />
+      <Drawer.Screen name="Header" component={Header} />
     </Drawer.Navigator>
   );
 }

@@ -13,7 +13,7 @@ import { useTheme } from "@react-navigation/native";
 //COMPONENTS
 import TabBar from "../../routes/Tab/TabBar";
 import RequestCard from "./RequestCard"
-
+import Header from "../header/Header"
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
@@ -59,11 +59,12 @@ const Requests = ({navigation}) => {
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
+        {/* <Header navigation={navigation}/> */}
          <IconButton
                     icon="menu"
                     color={colors.icon}
                     size={35}
-                    style={{position: "absolute"}}
+                    style={{position: "absolute", top:30, zIndex:1}}
                     onPress={() => navigation.openDrawer()}
                   />
         <View style={styles.titleContainer}>
