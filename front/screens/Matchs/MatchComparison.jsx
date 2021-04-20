@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
 import { Avatar } from "react-native-paper";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import TabBar from "../../routes/Tab/TabBar";
 import { useTheme } from "@react-navigation/native";
@@ -21,7 +24,7 @@ const MatchComparison = ({ navigation }) => {
   const [filterAllMatches, setFilterAllMatches] = useState([]);
 
   const loggedUser = useSelector((state) => state.loggedUser.user);
-  
+
   const singleMatch = useSelector((state) => state.matchs.singleMatch);
   const allMatches = useSelector((state) => state.matchs.allMatches);
 
@@ -95,7 +98,7 @@ const MatchComparison = ({ navigation }) => {
         justifyContent: "flex-end",
       }}
     >
-      <View style={{ flex: 0.45 }}>
+      <View style={{ height: hp("45%") }}>
         <CardCustom
           matchPerson={singleMatch}
           selected="true"
@@ -103,11 +106,11 @@ const MatchComparison = ({ navigation }) => {
           okButton={okButton}
         />
       </View>
-      <View style={{ flex: 0.45 }}>
+      <View style={{ height: hp("45%") }}>
         {isLoading ? (
           <View
             style={{
-              flex: 1,
+              height: hp("45%"),
               justifyContent: "space-around",
             }}
           >
@@ -143,8 +146,8 @@ const MatchComparison = ({ navigation }) => {
           handleSendRequest={handleSendRequest}
         />
       </View>
-      <View style={{ flex: 0.08 }}>
-        <TabBar  navigation={navigation} />
+      <View style={{ height: hp("8%") }}>
+        <TabBar navigation={navigation} />
       </View>
     </View>
   );

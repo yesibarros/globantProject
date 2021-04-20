@@ -46,6 +46,7 @@ const NotificationCard = ({notification, navigation}) => {
             case "canceledRequest": return navigation.navigate("Requests")
             case "rejectedRequest": return navigation.navigate("Requests")
             case "cancelMatch": return navigation.navigate("TabBarNavigator")
+            case "meeting": return navigation.navigate("Meeting")
             default: return navigation.navigate("TabBarNavigator")
         }
    }

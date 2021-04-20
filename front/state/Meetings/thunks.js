@@ -26,7 +26,7 @@ export const deleteMeets = createAsyncThunk("DELETE_MEETS", (meet) => {
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
-      .delete(`http://${localHost}/api/meetings/delete/${meet._id}`)
+      .delete(`http://${localHost}/api/meetings/delete/${meet}`)
       .then((response) => response.data);
   });
 });

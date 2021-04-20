@@ -13,36 +13,24 @@ import {
   IconButton,
 } from "react-native-paper";
 import { primaryGreen } from "../../utils/Colors";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./CardMeetingStyle";
 import { ScrollView } from "react-native-gesture-handler";
+import { deleteMeets, getMyMeets } from "../../state/Meetings/thunks"
 
 const CardMeeting = ({ item, last }) => {
+  const dispatch = useDispatch()
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const [viewModal, setViewModal] = useState(false);
   const border = last ? "transparent" : "lightgrey";
-  // const idMentee = item.mentee && item.mentee._id 
-  // const [feedbackMentor, setFeedbackMentor] = React.useState("");
-  // const [selected, setSelected] = useState();
-  // const dispatch = useDispatch();
 
-  // const handleUpdate = ( ) => {
-  //   if(!feedbackMentor && selected !== 'pending'){
-  //     return alert('Debes dar una devolución')
-  //   }else{
-  //     dispatch(updateObjective({
-  //       id: item._id,
-  //       status: selected,
-  //       feedback: feedbackMentor
-  //     })).then(() => dispatch(getObjectives(idMentee))).then(() => {
-  //       setViewModal(false)
-  //     })
-  //   }
-  // }
+   
+  const name = loggedUser.firstName == item.guest.firstName ? item.host.firstName : item.guest.firstName
 
-  let guest = loggedUser.mentees.filter(g => g._id === item.guest)
-  console.log("guest", guest)
-  console.log('itemmmmmmmms', item)
+  const handleCancel = ()=>{
+    setViewModal(false)
+    dispatch(deleteMeets(item._id)).then(()=>dispatch(getMyMeets()))
+  }
   
   return (
     <View style={[styles.container, { borderColor: border }]}>
@@ -54,7 +42,7 @@ const CardMeeting = ({ item, last }) => {
       ></Avatar.Icon>
       <Card style={styles.card}>
         <Card.Title
-          title={`Reunión con ${item.guest.firstName}`}
+          title={`Reunión con ${name}`}
           subtitle={item.description}
           right={(props) => (
             <IconButton
@@ -142,6 +130,21 @@ const CardMeeting = ({ item, last }) => {
                 justifyContent: "space-around",
               }}
             >
+              <Button
+                style={{
+                  backgroundColor: "#009387",
+                  width: "40%",
+                  height: "40%",
+                  justifyContent: "center",
+                }}
+                onPress={handleCancel}
+              >
+                <Text
+                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                >
+                  Cancelar reunión
+                </Text>
+              </Button>
               <Button
                 style={{
                   backgroundColor: "#009387",
