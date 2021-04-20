@@ -1,53 +1,58 @@
 import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const styles = StyleSheet.create({
-    viewContainer: {
-      flex: 2,
-      marginBottom: 10,
-      marginHorizontal: 30,
-      marginVertical: 50,
-      
-      justifyContent: "flex-start",
-      alignItems: "center",
-      backgroundColor: "white",
-      borderRadius: 50,
-      // shadowOffset:{  width: 10,  height: 10,  },
-      shadowColor: "black",
-      shadowOpacity: 1.0,
-      shadowRadius: 50,
-      elevation: 5,
+  viewContainer: {
+    height: hp("60%"),
+    marginHorizontal: wp("5%"),
+    marginVertical: hp("10%"),
+    justifyContent: "center",
+    paddingVertical: hp("5%"),
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 50,
+    shadowColor: "black",
+    shadowOpacity: 1.0,
+    shadowRadius: 50,
+    elevation: 55,
+  },
+  wrapper: {
+    height: hp("20%"),
+    marginVertical: hp("25%"),
+    width: wp("90%"),
+    alignItems: "center",
+ 
+    marginTop: hp("10%")
+  },
+  title: {
+    fontSize: hp("4%"),
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    marginVertical: wp("5%"),
+    marginBottom: hp("2%"),
+    textAlign: "center"
+  },
+  buttonContainer: {
+    width:wp("90%"), 
+    flexDirection: "row", 
+    marginTop:hp("5%"), 
+    justifyContent:"space-evenly"
+  },
+  Button: {
+      backgroundColor: "#009387",
+      width: wp("35%"),
+      justifyContent: "center",
+      height: hp("7%")
     },
-    mapContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-     justifyContent: "center",
-     alignItems: "center"
-    //   padding: 1,
-    },
-    title: {
-      fontSize: 25,
-      fontWeight: "bold",
-      textDecorationLine: "underline",
-      marginVertical: 30,
-      marginBottom: 20,
-      textAlign: "center"
-    },
-    buttonContainer: {
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      marginTop: 30,
-      marginBottom: 20
-    },
-    Button: {
-        backgroundColor: "#009387",
-        width: "45%",
-        height: "20%",
-        justifyContent: "center",
-        paddingVertical: 10,
-        height: 40
-      },
-      input: {
-        width: '90%',
+  textButton:{
+    fontSize: hp("3%"), 
+    color: "white", 
+    textAlign: "center"
+  },
+  input: {
+        width: wp("80%"),
         padding: 10,
         margin: 12,
         borderWidth: 0.5,

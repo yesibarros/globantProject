@@ -29,18 +29,18 @@ const AltaLocacion = ({nombre, setViewModal}) =>{
     return(
 
         <View style={styles.viewContainer}>
-            
-              <Text style={styles.title}>Creación de {nombre}</Text>
-              <View
-              style={styles.mapContainer}
+            <View
+              style={styles.wrapper}
             >
+              <Text style={styles.title}>Creación de {nombre}</Text>
+              
               <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                style={styles.input}
                 multiline
               />
-            </View>
+         
 
             <View
               style={styles.buttonContainer}
@@ -53,7 +53,7 @@ const AltaLocacion = ({nombre, setViewModal}) =>{
                 }}
               >
                 <Text
-                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                  style={styles.textButton}
                 >
                   Cerrar
                 </Text>
@@ -64,16 +64,13 @@ const AltaLocacion = ({nombre, setViewModal}) =>{
                   onPress={() =>  handleCreation()}
                 >
                   <Text
-                    style={{
-                      fontSize: 22,
-                      color: "white",
-                      textAlign: "center",
-                    }}
+                    style={styles.textButton}
                   >
                     GUARDAR
                   </Text>
                 </Button>
             </View>
+        </View>
         </View>
     
 

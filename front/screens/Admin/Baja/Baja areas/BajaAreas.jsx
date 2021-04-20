@@ -58,6 +58,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
              <View
              style={styles.mapContainer}
            >
+             <ScrollView>
              {areas && areas.length > 0 && areas.map(area=>{
                   const selected = selectedAreas.filter(
                     (singleArea) => singleArea._id == area._id
@@ -65,7 +66,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     ? true
                     : false;
                   return (
-                    <View>
+                  
 
                     <PillButton
                     
@@ -76,10 +77,10 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                       onSelect={handleSelect}
                     />
 
-                      </View>
+                    
                    
              )})}
-             
+             </ScrollView>
            </View>
    
            <View
@@ -93,7 +94,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                 style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -104,11 +105,7 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>

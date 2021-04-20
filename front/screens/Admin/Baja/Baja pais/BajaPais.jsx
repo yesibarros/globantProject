@@ -15,7 +15,10 @@ import styles from "../bajaStyles"
 import {getCountries, deleteCountry} from "../../../../state/admin/paises/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 import { ScrollView } from "react-native-gesture-handler";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -58,6 +61,7 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
              <View
              style={styles.mapContainer}
            >
+             <ScrollView>
              {countries && countries.length > 0 && countries.map(country=>{
                   const selected = selectedCountries.filter(
                     (singleCountry) => singleCountry._id == country._id
@@ -65,7 +69,7 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     ? true
                     : false;
                   return (
-                      <View >
+                  
                     <PillButton
                       title={country.countryName}
                       key={country._id}
@@ -73,9 +77,10 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                       selected={selected}
                       onSelect={handleSelect}
                     />
-                    </View>
+                
                
              )})}
+             </ScrollView>
             
            </View>
    
@@ -90,7 +95,7 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                 style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -101,11 +106,7 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>

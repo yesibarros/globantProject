@@ -9,12 +9,15 @@ import {
   ScrollView
 } from "react-native";
 import {Button} from "react-native-paper"
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
 import styles from "../bajaStyles"
 import {getLocations, deleteLocation} from "../../../../state/admin/locaciones/thunks"
 import PillButton from "../../../../shared/components/PillButton";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 
 const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
@@ -75,9 +78,10 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     />
          
              )})}
-              
+              </ScrollView>
+              </View>
          <View
-             style={styles.buttonContainer, {flexDirection: "row", marginTop:20,justifyContent:"space-evenly", marginBottom: 150}}
+             style={styles.buttonContainer}
            >
             
            
@@ -88,7 +92,7 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                 style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -99,11 +103,7 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
@@ -111,9 +111,9 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
             
            </View>
            
-            </ScrollView>
+           
          
-            </View>
+            
           
        </View>
             

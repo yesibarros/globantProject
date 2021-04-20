@@ -15,7 +15,10 @@ import { useTheme } from "@react-navigation/native";
 import styles from "../bajaStyles"
 import {getTechs, deleteTech} from "../../../../state/admin/tecnologias/thunks"
 import PillButton from "../../../../shared/components/PillButton";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -59,6 +62,7 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
              <View
              style={styles.mapContainer}
            >
+             <ScrollView>
              {techs && techs.length > 0 && techs.map(tech=>{
                   const selected = selectedTechs.filter(
                     (singleTech) => singleTech._id == tech._id
@@ -76,11 +80,11 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     />
                
              )})}
-            
+            </ScrollView>
            </View>
    
            <View
-             style={styles.buttonContainer}
+           style={styles.buttonContainer}
            >
            
              <Button
@@ -90,7 +94,7 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+               style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -101,11 +105,7 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>

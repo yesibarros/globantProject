@@ -52,8 +52,7 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
 
     return (
         
-        <KeyboardAvoidingView behavior="position" style={styles.viewContainer}>
-             
+      <View style={styles.viewContainer}>             
              
              <Text style={styles.title}>Modificación de {nombre}</Text>
              <View
@@ -72,10 +71,10 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
                     />
                
              )})}
-           
+           </ScrollView>
+           </View>
 
            <Text style={styles.title}>Nuevo nombre:</Text>
-           <View style={styles.mapContainer}>
                 
             <TextInput
               value={name}
@@ -83,10 +82,9 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
                 style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
-            </View>
    
            <View
-             style={styles.buttonContainer, {flexDirection: "row", marginTop:20,justifyContent:"space-evenly", marginBottom: 350}}
+             style={styles.buttonContainer}
            >
            
              <Button
@@ -96,7 +94,7 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+               style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -107,19 +105,14 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
                  onPress={() =>  handlePut()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
            </View>
-           </ScrollView>
-           </View>
-       </KeyboardAvoidingView>
+           
+       </View>
             
        
     )

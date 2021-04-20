@@ -1,49 +1,51 @@
 import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const styles = StyleSheet.create({
     viewContainer: {
-      flex: 2,
-      marginBottom: 10,
-      marginHorizontal: 30,
-      marginVertical: 50,
-      
+      height: hp("90%"),
+      marginHorizontal: wp("5%"),
+      marginVertical: hp("5%"),
       justifyContent: "flex-start",
       alignItems: "center",
       backgroundColor: "white",
       borderRadius: 50,
-      // shadowOffset:{  width: 10,  height: 10,  },
       shadowColor: "black",
       shadowOpacity: 1.0,
       shadowRadius: 50,
       elevation: 5,
     },
     mapContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-     justifyContent: "center",
-     alignItems: "center"
-    //   padding: 1,
+      height: hp("60%"),
+      width: wp("70%"),
+     justifyContent: "space-between",
+      paddingRight: hp("1%"),
     },
     title: {
-      fontSize: 25,
+      fontSize: hp("4%"),
       fontWeight: "bold",
       textDecorationLine: "underline",
-      marginVertical: 30,
-      marginBottom: 20,
+      marginVertical: wp("5%"),
+      marginBottom: hp("2%")
     },
     buttonContainer: {
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      marginTop: 30,
-      marginBottom: 20
+      width:wp("80%"), 
+      flexDirection: "row", 
+      marginTop:hp("5%"), 
+      justifyContent:"space-evenly"
     },
     Button: {
         backgroundColor: "#009387",
-        width: "45%",
-        height: "20%",
+        width: wp("35%"),
         justifyContent: "center",
-        paddingVertical: 10,
-        height: 40
-      }
+        height: hp("7%")
+      },
+    textButton:{
+      fontSize: hp("3%"), 
+      color: "white", 
+      textAlign: "center"
+    }
   });
   export default styles

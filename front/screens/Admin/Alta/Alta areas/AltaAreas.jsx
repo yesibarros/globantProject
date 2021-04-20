@@ -28,20 +28,20 @@ const AltaArea = ({nombre, setViewModal}) =>{
     return(
 
         <View style={styles.viewContainer}>
-           
+            <View
+             style={styles.wrapper}
+             >
               <Text style={styles.title}>Creación de {nombre}</Text>
-              <View
-              style={styles.mapContainer}
-            >
+             
               <TextInput
               value={name}
               onChangeText={text => setName(text)}
                 style={styles.input}
                 multiline
               />
-            </View>
 
-            <View
+              
+               <View
               style={styles.buttonContainer}
             >
             
@@ -52,7 +52,7 @@ const AltaArea = ({nombre, setViewModal}) =>{
                 }}
               >
                 <Text
-                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                  style={styles.textButton}
                 >
                   Cerrar
                 </Text>
@@ -63,16 +63,16 @@ const AltaArea = ({nombre, setViewModal}) =>{
                   onPress={() =>  handleCreation()}
                 >
                   <Text
-                    style={{
-                      fontSize: 22,
-                      color: "white",
-                      textAlign: "center",
-                    }}
+                    style={styles.textButton}
                   >
                     GUARDAR
                   </Text>
                 </Button>
             </View>
+            
+            </View>
+           
+       
         </View>
     
 

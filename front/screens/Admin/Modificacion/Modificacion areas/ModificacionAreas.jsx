@@ -53,13 +53,14 @@ const ModificacionAreas = ({nombre, setViewModModal, setIsLoading}) =>{
 
     return (
         
-        <KeyboardAvoidingView behavior="position"style={styles.viewContainer}>
+        <View style={styles.viewContainer}>
              
              
              <Text style={styles.title}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
+             <ScrollView>
              {areas && areas.length > 0 && areas.map(area=>{
                   const selected = selectedAreas == area._id ? true : false
                   return (
@@ -74,20 +75,17 @@ const ModificacionAreas = ({nombre, setViewModModal, setIsLoading}) =>{
                    
                
              )})}
+            </ScrollView>
             
            </View>
             
            <Text style={styles.title}>Nuevo nombre:</Text>
-           
-            <View style={styles.mapContainer}>
-            <TextInput
+           <TextInput
               value={name}
               onChangeText={text => setName(text)}
                 style={styles.input}
                 multiline
               />
-              </View>
- 
            <View
              style={styles.buttonContainer}
            >
@@ -99,7 +97,7 @@ const ModificacionAreas = ({nombre, setViewModModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+               style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -110,17 +108,13 @@ const ModificacionAreas = ({nombre, setViewModModal, setIsLoading}) =>{
                  onPress={() =>  handlePut()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
            </View>
-       </KeyboardAvoidingView>
+       </View>
             
        
     )
