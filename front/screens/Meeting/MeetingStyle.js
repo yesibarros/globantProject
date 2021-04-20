@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingLeft: 10,
     color: "black",
-    marginBottom: 15
+    marginBottom: 15,
+    marginTop: 45,
   },
   viewContainer: {
     backgroundColor: "#fff",
@@ -42,6 +43,18 @@ const styles = StyleSheet.create({
     width: "40%",
     height: "20%",
     justifyContent: "center",
+  },
+  n: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: 50,
+    marginTop: '50%',
+  },
+  nText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#c9c9c9'
   }
 });
 
