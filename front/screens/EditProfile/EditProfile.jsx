@@ -41,7 +41,7 @@ const EditProfile = ({ navigation }) => {
   const [lastName, setLastName] = useState(loginUser.lastName);
   const [description, setDescription] = React.useState(loginUser.description);
   const locations = useSelector((state) => state.locations);
-
+  console.log(locations)
   const handleFirstNameChange = (val) => {
     setFirstName(val);
   };
@@ -87,7 +87,7 @@ const EditProfile = ({ navigation }) => {
           marginLeft: "2.5%",
         }}
       >
-        <View style={styles.viewProfile}>
+        <View >
           <Card.Title
             left={() => (
               <Avatar.Icon
@@ -151,12 +151,7 @@ const EditProfile = ({ navigation }) => {
         <Modal visible={editMode} animationType="slide" transparent={true}>
           {isLoading ? (
             <View
-              style={[
-                styles.viewContainer,
-                {
-                  backgroundColor: colors.background,
-                },
-              ]}
+              style={{backgroundColor: colors.background}}
             >
               <ActivityIndicator
                 style={{ flex: 1, alignItems: "Center" }}
@@ -228,7 +223,7 @@ const EditProfile = ({ navigation }) => {
                           locations.map((val) => {
                             return (
                               <SelectPicker.Item
-                                label={`${val.locationName} (${val.country.countryName})`}
+                                label={`${val.locationName} (${val?.country?.countryName})`}
                                 value={val._id}
                                 key={val._id}
                               />
@@ -236,7 +231,7 @@ const EditProfile = ({ navigation }) => {
                           })}
                       </SelectPicker>
                     ) : loginUser.location ? (
-                      <Text style={styles.textEdit}>
+                      <Text>
                         {loginUser.location.locationName}
                       </Text>
                     ) : null}
