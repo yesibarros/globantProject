@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
-import { IconButton } from "react-native-paper";
+import React, { useEffect } from "react";
+import { View, Text, FlatList } from "react-native";
+import {IconButton} from 'react-native-paper';
 import { useTheme } from "@react-navigation/native";
 import {state} from "../../utils/state"
 import TabBar from "../../routes/Tab/TabBar";
@@ -11,14 +11,9 @@ import { getMyMeets } from "../../state/Meetings/thunks";
 
 
 export default function Meeting({ route, navigation }) {
-  const [viewModal, setViewModal] = useState(false);
-  const idCurrent = route && route.params && route.params.idCurrent
+  
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const logginUser = useSelector((state) => state.loggedUser.user);
-  const id = idCurrent || logginUser._id;
-  const meeting = route && route.params && route.params.meeting && [route.params.meeting] //MODIFICARLO POR UN DISPATCH EN USEEFFECT
-  console.log(logginUser)
   const meetings = useSelector(state => state.meetings)
 
   
@@ -28,15 +23,24 @@ export default function Meeting({ route, navigation }) {
   
   return (
     <View style={{flex:1}}>
+      <IconButton
+                    icon="menu"
+                    color={colors.icon}
+                    size={35}
+                    style={{position: "absolute"}}
+                    onPress={() => navigation.openDrawer()}
+                  />
     <View style={{height: "100%", paddingBottom: 55}}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between',alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
         <Text style={styles.titleProgress}>Reuniones</Text>
       </View>
+      {meetings && meetings.length > 0? (
       <FlatList
         data={meetings}
+        keyExtractor={item=>item._id}
         renderItem={(meeting) => {
           const last =
-            meeting.item._id === meeting[meetings.length - 1]
+            meeting.item._id === meetings[meetings.length - 1]._id
               ? true
               : false;
           return (
@@ -45,7 +49,12 @@ export default function Meeting({ route, navigation }) {
             </View>
           );
         }}
-      />
+      />)
+      :
+      <View style={styles.n}>
+        <Text style={styles.nText}>No tienes reuniones programadas</Text>
+      </View>
+      }
     </View>
         <View style={{ flex: 0.08 }}>
         <TabBar state={state} navigation={navigation} />
