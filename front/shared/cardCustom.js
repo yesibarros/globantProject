@@ -2,6 +2,11 @@ import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
   const { colors } = useTheme();
   const borderWidth = selected ? 5 : 1;
@@ -90,24 +95,24 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 
       <Card.Actions style={styles.buttonActions}>
         {selected ? (
-          <View style={{flexDirection:"row"}}>
-          <Button
-            onPress={() => cancelButton(selected)}
-            mode="contained"
-            color="#ffc78f"
-            icon="account-convert"
-          >
-            Volver atras
-          </Button>
-           <Button
-           onPress={() => okButton(selected, matchPerson)}
-           icon="account-check"
-           mode="contained"
-           color="#ffc78f"
-         >
-           {selected ? "Seleccionar" : "Mejor este!"}
-         </Button>
-         </View>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              onPress={() => cancelButton(selected)}
+              mode="contained"
+              color="#ffc78f"
+              icon="account-convert"
+            >
+              Volver atras
+            </Button>
+            <Button
+              onPress={() => okButton(selected, matchPerson)}
+              icon="account-check"
+              mode="contained"
+              color="#ffc78f"
+            >
+              {selected ? "Seleccionar" : "Mejor este!"}
+            </Button>
+          </View>
         ) : (
           <View
             style={{
@@ -146,8 +151,8 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
 
 export default CardCustom;
 
-const screenWidth = Dimensions.get("window").width / 1.05;
-const screenHeigth = Dimensions.get("window").height / 2.4;
+const screenWidth = wp("100%") / 1.05;
+const screenHeigth = hp("100%") / 2.4;
 
 const styles = StyleSheet.create({
   card: {
