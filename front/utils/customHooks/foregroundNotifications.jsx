@@ -6,6 +6,7 @@ import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 import { newNotification } from '../../state/Notifications/actions'
 import { getObjectives } from '../../state/objetivos/thunks'
 import { getRequests } from '../../state/requests/Thunks'
+import { getMyMeets } from '../../state/Meetings/thunks'
 
 
 const useForegroundNotifications = () => {
@@ -34,6 +35,9 @@ const useForegroundNotifications = () => {
                 break;
               case "goals":
                 dispatch(getObjectives(user))
+                break;
+              case "meeting":
+                dispatch(getMyMeets())
                 break;
             }
           }

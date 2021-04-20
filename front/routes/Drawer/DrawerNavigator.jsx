@@ -11,6 +11,7 @@ import Admin from '../../screens/Admin/Admin'
 import SingleUser from "../../screens/SingleUser/SingleUser";
 import Search from "../../screens/Match/Search"
 import Progress from "../../screens/Progress/Progress";
+import Meeting from "../../screens/Meeting/Meeting"
 
 
 
@@ -27,6 +28,8 @@ export default function MyTabs() {
       <Drawer.Screen name="Admin" component={Admin}/>
       <Drawer.Screen name="SearchMatch" component={Search} />
       <Drawer.Screen name="Progress" component={Progress} />
+      <Drawer.Screen name="Meeting" component={Meeting} />
+
       
     </Drawer.Navigator>
 

@@ -45,8 +45,8 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
     const sendInfoMeeting = () => {
         
         let meetingInfo = {
-            host: loggedUser._id,
-            guest: (loggedUser.mentor._id ? loggedUser.mentor._id : id),
+            host: loggedUser?._id,
+            guest: (loggedUser?.mentor?._id ? loggedUser.mentor._id : id),
             title: inputTitle,
             description: (inputMessage === ' ' ? messageDefault : inputMessage),
             date: dateMeeting,
@@ -111,7 +111,7 @@ const SendMeeting = ({mentor, mentee, setModalMeeting, handleSendMeeting, isLoad
                     </View>
 
                     <View style={styles.textContainer}>
-                        <Text style={[styles.text, {color: colors.text}]}>¿Confirmas reunioń con {firstName?firstName : loggedUser.mentor.firstName} {lastName ? lastName: loggedUser.mentor.lastName}?</Text>
+                        <Text style={[styles.text, {color: colors.text}]}>¿Confirmas reunioń con {firstName?firstName : loggedUser?.mentor?.firstName} {lastName ? lastName: loggedUser.mentor?.lastName}?</Text>
                     </View>
                     <View style={styles.buttonsContainer}>
                         <View style={styles.button}>
