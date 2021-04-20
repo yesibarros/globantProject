@@ -54,7 +54,7 @@ const Notifications = ({ navigation }) => {
       icon="menu"
       color={colors.icon}
       size={35}
-      style={{position: "absolute"}}
+      style={{position: "absolute", top:30, zIndex:1}}
       onPress={() => navigation.openDrawer()}
     />
         <View style={styles.titleContainer}>

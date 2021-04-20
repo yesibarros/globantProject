@@ -8,9 +8,9 @@ const { JWTmiddleware, roles } = require('../middleware')
 //GET ALL COUNTRIES
 router.get('/', countryController.getAll)
 //CREATE ONE
-router.post('/', [JWTmiddleware, roles.isAdmin], countryController.createOne)
+router.post('/', [JWTmiddleware], countryController.createOne)
 //UPDATE BY ID
-router.put('/:id', [JWTmiddleware, roles.isAdmin], countryController.modifyOne)
+router.put('/:id', [JWTmiddleware], countryController.modifyOne)
 //DELETE BY ID
 router.delete('/:id', [JWTmiddleware], countryController.deleteOne)
 //FALTA EL IS ADMIN

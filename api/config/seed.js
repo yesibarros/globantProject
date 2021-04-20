@@ -76,7 +76,7 @@ const setup = async () => {
     console.log("    ✓ Areas seeded successfully!")
 
     //CREATE OBJECTIVES
-    console.log("🎯 Objective seeds...")
+    /* console.log("🎯 Objective seeds...")
     const startObjectivesObjs = []
     for(let i = 0; i < objectiveNames.length; i++){
         startObjectivesObjs.push({
@@ -86,7 +86,7 @@ const setup = async () => {
         })
     }
     const objectives = await Objective.create(startObjectivesObjs)
-    console.log("    ✓ Objectives seeded successfully!")
+    console.log("    ✓ Objectives seeded successfully!") */
 
 
     //CREATE USERS
@@ -139,7 +139,7 @@ const setup = async () => {
             role: ["mentee"],
             workingSince: new Date().getFullYear() - Math.floor(Math.random()*3),
             img: faker.image.image(),
-            objectives: getRandom(objectives, maxAmountOfObjectivesPerUser),
+            //objectives: getRandom(objectives, maxAmountOfObjectivesPerUser),
             areas: getRandom(areas, maxAmountOfAreasPerUser),
             technologies: getRandom(technologies, maxAmountOfTechnologiesPerUser),
             location: locations[Math.floor(Math.random() * locations.length)],
@@ -175,7 +175,7 @@ const setup = async () => {
             email: faker.internet.email(),
             role: ["mentee","mentor"],
             workingSince: new Date().getFullYear() - 1 - Math.floor(Math.random()*10),
-            objectives: getRandom(objectives, maxAmountOfObjectivesPerUser),
+            //objectives: getRandom(objectives, maxAmountOfObjectivesPerUser),
             areas: getRandom(areas, maxAmountOfAreasPerUser),
             img: faker.image.image(),
             technologies: getRandom(technologies, maxAmountOfTechnologiesPerUser),

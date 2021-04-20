@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     nText: {
       fontSize: 22,
       fontWeight: 'bold',
-      color: '#c9c9c9'
+      color: '#c9c9c9',
+      
     }
 
   });

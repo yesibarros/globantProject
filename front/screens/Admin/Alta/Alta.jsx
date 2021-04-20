@@ -10,66 +10,36 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
 import styles from "../adminStyle"
+import AltaArea from "./Alta areas/AltaAreas";
+import AltaTechs from "./Alta tech/AltaTech";
+import AltaPais from "./Alta pais/AltaPais";
+import AltaLocacion from "./Alta locacion/AltaLocacion";
 
 
 const AltaModal = ({viewModal, nombre, setViewModal}) =>{
+  const [isLoading, setIsLoading] = React.useState(false)
+  const { colors } = useTheme();
 
-    return(
-        <Modal visible={viewModal} transparent={true} animationType="slide">
-        <View style={styles.viewContainer}>
-            <View
-              style={{
-                flex: 0.3,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text>Creacion de {nombre}</Text>
-              <TextInput
-                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
-                multiline
-              />
-            </View>
 
-            <View
-              style={{
-                flex: 0.4,
-                alignItems: "center",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-            
-              <Button
-                style={styles.Button}
-                onPress={() => {
-                  setViewModal(false);
-                }}
-              >
-                <Text
-                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
-                >
-                  Cerrar
-                </Text>
-              </Button>
-                
-              <Button
-                  style={styles.Button}
-                  onPress={() =>  setViewModal(false)}
-                >
-                  <Text
-                    style={{
-                      fontSize: 22,
-                      color: "white",
-                      textAlign: "center",
-                    }}
-                  >
-                    GUARDAR
-                  </Text>
-                </Button>
-            </View>
-        </View>
-        </Modal>
+  return(
+    <Modal visible={viewModal} transparent={true} animationType="slide">
+        {isLoading ? (
+    <View
+      style={[styles.viewContainer, { backgroundColor: colors.background }]}
+    >
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  ) : 
+         nombre == "area" ? <AltaArea nombre={nombre}  setViewModal={setViewModal}/> 
+         : 
+         nombre == "locación" ? <AltaLocacion nombre={nombre}  setViewModal={setViewModal}/> 
+         :
+         nombre == "país" ? <AltaPais nombre={nombre}  setViewModal={setViewModal}/> 
+         :
+         nombre == "tecnologia" ? <AltaTechs nombre={nombre} setViewModal={setViewModal}/> : null
+  
+  }
+    </Modal>
 
 
 
@@ -78,7 +48,7 @@ const AltaModal = ({viewModal, nombre, setViewModal}) =>{
 
 
 
-    )
+)
 }
 
 export default AltaModal;

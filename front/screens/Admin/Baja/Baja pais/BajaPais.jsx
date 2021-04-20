@@ -11,11 +11,14 @@ import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../../adminStyle"
+import styles from "../bajaStyles"
 import {getCountries, deleteCountry} from "../../../../state/admin/paises/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 import { ScrollView } from "react-native-gesture-handler";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -51,24 +54,22 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
 
     return (
         
-        <ScrollView style={styles.viewContainer}>
+        <View style={styles.viewContainer}>
              
+             
+             <Text style={styles.title}>Baja de {nombre}</Text>
              <View
-             style={{
-               flex: 0.3,
-               justifyContent: "center",
-               alignItems: "center",
-             }}
+             style={styles.mapContainer}
            >
-             <Text>Baja de {nombre}</Text>
-             {countries && countries.map(country=>{
+             <ScrollView>
+             {countries && countries.length > 0 && countries.map(country=>{
                   const selected = selectedCountries.filter(
                     (singleCountry) => singleCountry._id == country._id
                   ).length
                     ? true
                     : false;
                   return (
-                      <View style={{ width: 120}}>
+                  
                     <PillButton
                       title={country.countryName}
                       key={country._id}
@@ -76,19 +77,15 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                       selected={selected}
                       onSelect={handleSelect}
                     />
-                    </View>
+                
                
              )})}
+             </ScrollView>
             
            </View>
    
            <View
-             style={{
-               flex: 0.4,
-               alignItems: "center",
-               flexDirection: "row",
-               justifyContent: "space-around",
-             }}
+             style={styles.buttonContainer}
            >
            
              <Button
@@ -98,7 +95,7 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                 style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -109,17 +106,13 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                  onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
            </View>
-       </ScrollView>
+       </View>
             
        
     )

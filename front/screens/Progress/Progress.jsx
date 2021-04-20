@@ -137,7 +137,9 @@ export default function Progress({ route, navigation }) {
         </View>
         </Modal>
       <View style={{flex: 1,}}>
-        {goals?.length > 0 && <FlatList
+        {goals && goals.length > 0 
+        ? 
+        <FlatList
           data={goals}
           keyExtractor={item => item._id}
           renderItem={(goal) => {
@@ -146,13 +148,18 @@ export default function Progress({ route, navigation }) {
                 <CardProgress item={goal.item} last={last} />
             )
           }}
-        />}
+        />
+        :
+        <View style={styles.n}>
+          <Text style={styles.nText}>No tienes objetivos establecidos</Text>
+        </View>
+        }
       </View>
     </View>
-       <View style={{}}>
+      <View style={{}}>
         <TabBar state={state} navigation={navigation} />
       </View>
     </View>
-   
+  
   );
 }

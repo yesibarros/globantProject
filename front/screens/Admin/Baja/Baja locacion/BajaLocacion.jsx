@@ -4,75 +4,86 @@ import {
   View,
   Text,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert,
+  ScrollView
 } from "react-native";
 import {Button} from "react-native-paper"
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../../adminStyle"
-import {getAreas} from "../../../../state/admin/areas/thunks"
+import styles from "../bajaStyles"
+import {getLocations, deleteLocation} from "../../../../state/admin/locaciones/thunks"
 import PillButton from "../../../../shared/components/PillButton";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 
 const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
-    const areas= useSelector(state=> state.admin.areas)
-    const [selectedAreas, setSelectedAreas] = React.useState([])
+    const locations= useSelector(state=> state.admin.locaciones)
+    const [selectedLocations, setSelectedLocations] = React.useState([])
 
     React.useEffect(()=>{
-        dispatch(getAreas()).then(()=> setIsLoading(false))
+        dispatch(getLocations()).then(()=> setIsLoading(false))
     }, [])
+    console.log(locations)
     
     const handleSelect = (id) => {
-        const area = selectedAreas.filter((t) => t._id == id);
-        if (area.length) {
-            setSelectedAreas((prevState) => prevState.filter((t) => t._id !== id));
+        const location = selectedLocations.filter((t) => t._id == id);
+        if (location.length) {
+          setSelectedLocations((prevState) => prevState.filter((t) => t._id !== id));
         } else {
-            setSelectedAreas((prevState) => [...prevState, { _id: id }]);
+          setSelectedLocations((prevState) => [...prevState, { _id: id }]);
         }
       };
+    const handleDelete= ()=>{
+      selectedLocations.forEach(location => {
+            dispatch(deleteLocation({_id: location._id}))
+          });
+    
+        
+          setViewDelModal(false)
+          return Alert.alert("Acción completa", "Locacion/es borrada/s exitosamente", [
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ])
+        }
 
     return (
         
         <View style={styles.viewContainer}>
              
+             
+             <Text style={styles.title}>Baja de {nombre}</Text>
              <View
-             style={{
-               flex: 0.3,
-               justifyContent: "center",
-               alignItems: "center",
-             }}
+             style={styles.mapContainer}
            >
-             <Text>Baja de {nombre}</Text>
-             {areas && areas.map(area=>{
-                  const selected = selectedAreas.filter(
-                    (singleArea) => singleArea._id == area._id
+             <ScrollView>
+             {locations && locations.length > 0  &&  locations.map(locacion=>{
+                  const selected = selectedLocations.filter(
+                    (singleLocation) => singleLocation._id == locacion._id
                   ).length
                     ? true
                     : false;
                   return (
+                    
                     <PillButton
-                      title={area.areaName}
-                      key={area._id}
-                      id={area._id}
+                      title={locacion.locationName}
+                      key={locacion._id}
+                      id={locacion._id}
                       selected={selected}
                       onSelect={handleSelect}
                     />
-               
+         
              )})}
-            
-           </View>
-   
-           <View
-             style={{
-               flex: 0.4,
-               alignItems: "center",
-               flexDirection: "row",
-               justifyContent: "space-around",
-             }}
+              </ScrollView>
+              </View>
+         <View
+             style={styles.buttonContainer}
            >
+            
            
              <Button
                style={styles.Button}
@@ -81,7 +92,7 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                 style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -89,19 +100,21 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  setViewDelModal(false)}
+                 onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
+            
            </View>
+           
+           
+         
+            
+          
        </View>
             
        

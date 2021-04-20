@@ -18,7 +18,7 @@ export const getTechs = createAsyncThunk("GET_TECHS", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .post(`http://${localHost}/api/techs`, data)
+       .post(`http://${localHost}/api/techs`, {technologyName: data})
        .then((respuesta) => respuesta.data);
    });
  });
@@ -36,7 +36,7 @@ export const getTechs = createAsyncThunk("GET_TECHS", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
      return axios
-       .put(`http://${localHost}/api/techs/${data._id}`, data)
+       .put(`http://${localHost}/api/techs/${data._id}`, {technologyName: data.name})
        .then((respuesta) => respuesta.data);
    });
  });
