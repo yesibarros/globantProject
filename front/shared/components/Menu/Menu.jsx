@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Modal, Alert } from 'react-native';
 import { IconButton, Menu, Divider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux'
-import { cancelMatch } from '../../../state/loggedUser/thunks'
+import { cancelMatch, finishMentoring } from '../../../state/loggedUser/thunks'
 import {getSingleUser} from "../../../state/singleUser/thunks"
 import {createMeets, getMyMeets} from '../../../state/Meetings/thunks';
 import ConfirmCancelMatch from './ConfirmCancelMatch'
@@ -55,23 +55,20 @@ const MyComponent = ({userId, navigation}) => {
   const handleSendEndOfMentoring = (message) => { //message es lo ingresado por input sirve para la notificacion o dispatch
     // console.log('MENSAJE DE DESPEDIDA QUE LLEGA DEL INPUT', message)
     // console.log('NOMBRE DEL MENTEE', mentee.firstName)
-
-    // dispatch(finishMentoring(message)).then(() => {
-        //EL ALERT IRIA ACA O SINO UN DISPATCH PARA ACTUALIZAR LOS MENTEES DE LA VISTA
-    // })
-
-    return Alert.alert(
-      "Felicidades",
-      `${mentee.firstName} dejo de ser tu meente, gracias por acompañarlo en este proceso.`,
-      [
-        {
-          text: "Ok",
-          onPress: () => navigation.navigate("Mis mentees"),
-        },
-      ]
-    );
+    dispatch(finishMentoring({['mentee']: userId, messageEndOfMentoring: message})).then(() => {
+      return Alert.alert(
+        "Felicidades",
+        `${mentee.firstName} dejo de ser tu meente, gracias por acompañarlo en este proceso.`,
+        [
+          {
+            text: "Ok",
+            onPress: () => navigation.navigate("Mis mentees"),
+          },
+        ]
+      );
+    })
   }
-  // console.log('USERR', user.role[0])
+
   return (
     
       <View

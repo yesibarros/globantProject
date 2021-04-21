@@ -38,6 +38,7 @@ export const getProfile = createAsyncThunk("GET_PROFILE", (data) => {
 });
 
 export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
+  console.log("DATAAA canbcel", data)
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
@@ -46,11 +47,12 @@ export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
   });
 });
 
-// export const finishMentoring = createAsyncThunk("FINISH_MENTORING", (data) => {
-//   return SecureStore.getItemAsync("token").then((token) => {
-//    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-//    return axios
-//      .post(`http://${localHost}/api/user/cancelMatch`, data)
-//      .then((respuesta) => respuesta.data);
-//  });
-// });
+export const finishMentoring = createAsyncThunk("FINISH_MENTORING", (data) => {
+  console.log("DATA finish", data)
+  return SecureStore.getItemAsync("token").then((token) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return axios
+      .post(`http://${localHost}/api/user/cancelMatch`, data)
+      .then((respuesta) => respuesta.data);
+  });
+});
