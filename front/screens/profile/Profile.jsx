@@ -296,10 +296,10 @@ const Profile = ({ navigation }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-           
+          
             </View>
           </TouchableOpacity>
-         
+        
         </View> */}
       {/* </Animated.View> */}
       {/* </View> */}
