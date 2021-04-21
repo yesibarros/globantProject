@@ -1,21 +1,18 @@
 import * as React from "react";
 import {
-  Modal,
   View,
   Text,
   TextInput,
-  ActivityIndicator,
   ScrollView,
   Alert,
   KeyboardAvoidingView,
   
 } from "react-native";
 import {Button} from "react-native-paper"
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
 import styles from "../modificacionStyles"
-import {getAreas, deleteArea, modifyArea} from "../../../../state/admin/areas/thunks"
+import {getAreas, modifyArea} from "../../../../state/admin/areas/thunks"
 import PillButton from "../../../../shared/components/PillButton";
 
 

@@ -16,11 +16,11 @@ import {createArea} from "../../../../state/admin/areas/thunks"
 const AltaArea = ({nombre, setViewModal}) =>{
     const [name, setName]= React.useState("")
     const dispatch= useDispatch()
+  
     const handleCreation= ()=>{
         dispatch(createArea(name)).then(()=>{
-            setViewModal(false)
             return Alert.alert("Acción completa", "Area creada exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
+                { text: "OK", onPress: () =>setViewModal(false) },
               ])
         })
     }

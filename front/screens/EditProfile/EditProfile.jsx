@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -152,7 +152,7 @@ const EditProfile = ({ navigation }) => {
         </Button>
       </View>
 
-      <KeyboardAvoidingView enabled={enableShift}>
+ 
         <Modal visible={editMode} animationType="slide" transparent={true}>
           {isLoading ? (
             <View style={{ backgroundColor: colors.background }}>
@@ -249,10 +249,11 @@ const EditProfile = ({ navigation }) => {
                   </Text>
                 </Button>
               </View>
+              <KeyboardSpacer/>
             </ScrollView>
           )}
         </Modal>
-      </KeyboardAvoidingView>
+
     </View>
   );
 };
