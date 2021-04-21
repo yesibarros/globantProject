@@ -2,7 +2,10 @@ import React, {useState, useEffect} from 'react'
 import {View, Text, ActivityIndicator} from 'react-native'
 import { FlatList } from "react-native-gesture-handler";
 import {IconButton} from "react-native-paper"
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //STYLE
 import styles from "./NotificationsStyle";
 import { useTheme } from "@react-navigation/native";
@@ -10,6 +13,7 @@ import { useTheme } from "@react-navigation/native";
 //COMPONENTS
 import TabBar from "../../routes/Tab/TabBar";
 import NotificationCard from "./NotificationCard"
+import Header from "../header/Header";
 
 //REDUX
 import { useSelector, useDispatch} from 'react-redux';
@@ -48,14 +52,11 @@ const Notifications = ({ navigation }) => {
     }
   
     return (
+      <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+
+      
+         <Header navigation={navigation} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <IconButton
-          icon="menu"
-          color={colors.icon}
-          size={35}
-          style={{position: "absolute", top:30, zIndex:1}}
-          onPress={() => navigation.openDrawer()}
-        />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
@@ -77,7 +78,8 @@ const Notifications = ({ navigation }) => {
           </View>
         )}
       
-        <TabBar navigation={navigation} />
+      </View>
+      <TabBar  navigation={navigation} />
       </View>
     );
 }

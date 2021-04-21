@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native'
 import {IconButton} from 'react-native-paper';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //COLORS
 import {primaryGreen} from "../../utils/Colors"
 
@@ -58,15 +61,10 @@ const Requests = ({navigation}) => {
     }
 
     return (
+      <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+        <Header navigation={navigation}/> 
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        {/* <Header navigation={navigation}/> */}
-         <IconButton
-                    icon="menu"
-                    color={colors.icon}
-                    size={35}
-                    style={{position: "absolute", top:30, zIndex:1}}
-                    onPress={() => navigation.openDrawer()}
-                  />
+     
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
@@ -108,9 +106,10 @@ const Requests = ({navigation}) => {
             </View>
           }
         </View>
-        <View style={{ flex: 0.08 }}>
+        
       </View>
         <TabBar navigation={navigation} />
+    
       </View>
     );
 }

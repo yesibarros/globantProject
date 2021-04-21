@@ -11,18 +11,12 @@ const Tab = createBottomTabNavigator();
 export default function MyTabs(props) {
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const userType = loggedUser.role == "mentor" ? "Mis Mentees" : "Mi Mentor";
+  console.log(loggedUser.role == "mentee");
   return (
     <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
       <Tab.Screen name="Mi perfil" component={Profile} />
-
-      {/* {loggedUser.role && loggedUser.role[0] === "mentee" ? (
-        <Tab.Screen name="Progress" component={Progress} />
-      ) : null} */}
-      {loggedUser.role == "mentor" ? (
-        <Tab.Screen name="Mis mentees" component={Mentees} />
-      ) : (
-        <Tab.Screen name="Mi mentor" component={Mentees} />
-      )}
+      <Tab.Screen name="Mis mentees" component={Mentees} />
+      <Tab.Screen name="Mi mentor" component={Mentees} />
     </Tab.Navigator>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List } from 'react-native-paper';
-import {View, Modal, ScrollView} from "react-native"
+import {View, Modal, ScrollView, Text} from "react-native"
 import {useSelector} from "react-redux"
 import TabBar from "../../routes/Tab/TabBar"
 import {IconButton} from "react-native-paper"
@@ -13,6 +13,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import styles from './adminStyle';
+import Header from "../header/Header"
 
 const MyComponent = ({navigation}) => {
   const [expanded, setExpanded] = React.useState(true);
@@ -24,21 +25,21 @@ const MyComponent = ({navigation}) => {
   const [viewDelModal, setViewDelModal] = React.useState(false)
   const {colors}= useTheme()
   return (
-    <View style={styles.listContainer}>
-       <IconButton
-                    icon="menu"
-                    color={colors.icon}
-                    size={35}
-                    style={{position: "absolute"}}
-                    onPress={() => navigation.openDrawer()}
-                  />
-    <List.Section style={styles.list} title="Panel de administración">
+    <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+      <Header navigation={navigation}/>
+    <View style={[styles.listContainer, {backgroundColor: colors.background}]}>
+      
+  
+    
+    <List.Section style={styles.list}>
+    <Text style={{textAlign: "center", fontSize:hp("4%"),  shadowOpacity:0.2, elevation:3,
+      fontWeight: "bold", marginTop:hp("-3%"), paddingBottom: hp("5%"), color: colors.text}}>Panel de administración</Text>
       <ScrollView>
       <List.Accordion
         title="Areas"
         left={props => <List.Icon {...props} icon="laptop" />}>
         
-        <List.Item title="Alta" onPress={()=>{ 
+        <List.Item title="Alta"  onPress={()=>{ 
           setName("area")
           setViewModal(true)}}/>
         <List.Item title="Modificación" onPress={()=> {
@@ -97,8 +98,11 @@ const MyComponent = ({navigation}) => {
     {viewModal ? <AltaModal viewModal={viewModal} nombre={name} setViewModal={setViewModal}/> : null}
     {viewModModal ? <ModificacionModal viewModModal={viewModModal} nombre={name} setViewModModal={setViewModModal}/> : null}
     {viewDelModal ? <BorrarModal viewDelModal={viewDelModal} nombre={name} setViewDelModal={setViewDelModal}/> : null}
+    
+
     <TabBar navigation={navigation} />
-  
+    
+    </View>
     </View>
   );
 };

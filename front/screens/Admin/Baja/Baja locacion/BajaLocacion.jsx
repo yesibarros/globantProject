@@ -20,6 +20,7 @@ import {
 } from "react-native-responsive-screen";
 
 
+
 const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
@@ -43,20 +44,18 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
       selectedLocations.forEach(location => {
             dispatch(deleteLocation({_id: location._id}))
           });
-    
-        
-          setViewDelModal(false)
+
           return Alert.alert("Acción completa", "Locacion/es borrada/s exitosamente", [
-            { text: "OK", onPress: () => console.log("OK Pressed") },
+            { text: "OK", onPress: () =>  setViewDelModal(false) },
           ])
         }
 
     return (
         
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
              
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >

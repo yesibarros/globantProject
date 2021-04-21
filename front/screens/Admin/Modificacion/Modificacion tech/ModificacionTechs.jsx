@@ -16,7 +16,10 @@ import { useTheme } from "@react-navigation/native";
 import styles from "../modificacionStyles"
 import {getTechs, deleteTech, modifyTech} from "../../../../state/admin/tecnologias/thunks"
 import PillButton from "../../../../shared/components/PillButton";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -41,9 +44,9 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
             return alert("Debes ingresar un nombre")
         }else{
             dispatch(modifyTech({_id:selectedTechs, name: name})).then((data)=>{
-                setViewModModal(false)
+               
                 return Alert.alert("Acción completa", "Tecnología modificada exitosamente", [
-                   { text: "OK", onPress: () => console.log("OK Pressed") },
+                   { text: "OK", onPress: () =>  setViewModModal(false) },
                  ])
             })
         }
@@ -52,9 +55,9 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
 
     return (
         
-      <View style={styles.viewContainer}>             
+      <View style={[styles.viewContainer, {backgroundColor: colors.background, height: hp("65%")}]}>             
              
-             <Text style={styles.title}>Modificación de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text, paddingHorizontal: wp("1%")}]}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
@@ -74,12 +77,13 @@ const ModificacionTechs = ({nombre, setViewModModal, setIsLoading}) =>{
            </ScrollView>
            </View>
 
-           <Text style={styles.title}>Nuevo nombre:</Text>
+           <Text style={[styles.title, {color: colors.text}]}>Nuevo nombre:</Text>
                 
             <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={[styles.input, {color: "#858585", fontSize: 15, backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+              style={[styles.input, { color: "black",
+              backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
    

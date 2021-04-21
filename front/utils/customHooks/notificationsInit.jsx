@@ -19,24 +19,28 @@ const useNotificationsInit = () => {
       }
       return statusObj;
     })
-    .then((statusObj) => {
-      if (statusObj.status !== "granted") {
-        alert("No podremos enviarte notificaciones.");
-        throw new Error("Permission not granted");
-      }
-    })
+    // .then((response) => {
+    //   if (response.status !== "granted") {
+    //     alert("No podremos enviarte notificaciones.");
+    //     throw new Error("Permission not granted");
+    //   }
+    // })
     .then(() => {
-      // console.log("getting token")
+     
       return Notifications.getExpoPushTokenAsync();
     })
     .then((response) => {
       const token = response.data;
+      console.log("getting token", token)
       dispatch(updateProfile({id: loginUser._id, notificationsToken: token}));
     })
     .catch((err) => {
       console.log(err);
       return null;
     });
+    
 }
 
 export default useNotificationsInit
+
+

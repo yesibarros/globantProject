@@ -16,27 +16,33 @@ import {createTech} from "../../../../state/admin/tecnologias/thunks"
 const AltaTechs = ({nombre, setViewModal}) =>{
     const [name, setName]= React.useState("")
     const dispatch= useDispatch()
+    const {colors}= useTheme()
     const handleCreation= ()=>{
+      if(!name){
+        return alert("Debes ingresar un nombre")
+    }else{
         dispatch(createTech(name)).then(()=>{
-            setViewModal(false)
+         
             return Alert.alert("Acción completa", "Tecnología creada exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
+                { text: "OK", onPress: () =>  setViewModal(false) },
               ])
         })
     }
+  }
 
     return(
 
-        <View style={styles.viewContainer}>
+      <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
             <View
               style={styles.wrapper}
             >
-              <Text style={styles.title}>Creación de {nombre}</Text>
+              <Text style={[styles.title, {color: colors.text}]}>Creación de {nombre}</Text>
               
               <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={styles.input}
+              style={[styles.input, { color: "black",
+              backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
            

@@ -42,9 +42,9 @@ const ModificacionLocacion = ({nombre, setViewModModal, setIsLoading}) =>{
          return alert("Debes ingresar un nombre")
      }else{
          dispatch(modifyLocation({_id:selectedLocations, name: name})).then((data)=>{
-             setViewModModal(false)
+            
              return Alert.alert("Acción completa", "Locación modificada exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
+                { text: "OK", onPress: () =>  setViewModModal(false) },
               ])
          })
      }
@@ -52,9 +52,9 @@ const ModificacionLocacion = ({nombre, setViewModModal, setIsLoading}) =>{
 
     return (
         
-          <View style={styles.viewContainer}>             
+      <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>             
             
-             <Text style={styles.title}>Modificacion de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Modificacion de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
@@ -75,12 +75,13 @@ const ModificacionLocacion = ({nombre, setViewModModal, setIsLoading}) =>{
              </View>
 
              
-              <Text style={styles.title}>Nuevo nombre:</Text>         
+              <Text style={[styles.title, {color: colors.text}]}>Nuevo nombre:</Text>         
           
             <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={styles.input}
+              style={[styles.input, { color: "black",
+              backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
 

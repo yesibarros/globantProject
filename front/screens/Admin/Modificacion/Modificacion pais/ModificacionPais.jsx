@@ -43,9 +43,9 @@ const ModificacionPais = ({viewDelModal, nombre, setViewModModal, setIsLoading})
      }else{
          dispatch(modifyCountry({_id:selectedCountries, name: name})).then((data)=>{
    
-             setViewModModal(false)
+             
              return Alert.alert("Acción completa", "Pais modificado exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
+                { text: "OK", onPress: () => setViewModModal(false) },
               ])
          })
      }
@@ -53,9 +53,9 @@ const ModificacionPais = ({viewDelModal, nombre, setViewModModal, setIsLoading})
 
     return (
         
-      <View style={styles.viewContainer}>             
+      <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>             
              
-             <Text style={styles.title}>Modificación de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Modificación de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
@@ -78,12 +78,13 @@ const ModificacionPais = ({viewDelModal, nombre, setViewModModal, setIsLoading})
            </View>
            
 
-           <Text style={styles.title}>Nuevo nombre:</Text>
+           <Text style={[styles.title, {color: colors.text}]}>Nuevo nombre:</Text>
   
             <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={styles.input}
+              style={[styles.input, { color: "black",
+              backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
    
