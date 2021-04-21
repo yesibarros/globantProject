@@ -167,7 +167,7 @@ const Profile = ({ navigation }) => {
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={styles.photo}>
             {loginUser.img ? (
-              <TouchableOpacity onPress={choosePhotoFromLibrary}>
+            
                 <Avatar
                   size={hp("20%")}
                   rounded
@@ -182,9 +182,9 @@ const Profile = ({ navigation }) => {
                   }}
                   activeOpacity={0.7}
                 />
-              </TouchableOpacity>
+              
             ) : (
-              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+              
                 <Avatar
                   size={hp("20%")}
                   rounded
@@ -199,7 +199,7 @@ const Profile = ({ navigation }) => {
                   }}
                   activeOpacity={0.7}
                 />
-              </TouchableOpacity>
+          
             )}
           </View>
 
