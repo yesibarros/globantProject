@@ -7,13 +7,14 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import styles from "./searchStyles"
+import styles from "./searchStyles";
 import TabBar from "../../routes/Tab/TabBar";
-import { Avatar, Chip} from "react-native-paper";
+import { Avatar, Chip, IconButton } from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -22,7 +23,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
 import { useTheme } from "@react-navigation/native";
 const { width } = Dimensions.get("window");
-
 
 const stackSize = 4;
 
@@ -57,7 +57,7 @@ const transitionRef = React.createRef();
 export default function App({ navigation }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
-  const loginUser= useSelector(state=> state.loggedUser.user)
+  const loginUser = useSelector((state) => state.loggedUser.user);
   const matches = useSelector((state) => state.matchs.allMatches);
   const [index, setIndex] = React.useState(0);
   const [isLoading, setIsLoeading] = useState(true);
@@ -89,7 +89,7 @@ export default function App({ navigation }) {
               <Text style={[styles.cardSubtitleRole, { color: colors.text }]}>
                 {card.role.join(" | ")}
               </Text>
-              <Avatar.Image size={hp('15%')} source={{ uri: card.img }} />
+              <Avatar.Image size={hp("15%")} source={{ uri: card.img }} />
             </View>
             <CardDetails index={index} />
           </View>
@@ -102,11 +102,13 @@ export default function App({ navigation }) {
     <View
       key={matches[index].id}
       style={{
-        height:hp('35%'),
+        height: hp("44%"),
+        width: wp("87%"),
+        marginHorizontal: wp("1.5%"),
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
       }}
-     >
+    >
       <Text style={[styles.tecnoAndAreaText, { color: colors.text }]}>
         AREAS
       </Text>
@@ -114,9 +116,9 @@ export default function App({ navigation }) {
         {matches[index].areas.map((area, j) => {
           return (
             <Chip
-              margin={2}
+              margin={hp("0.2%")}
               key={j}
-              style={{ height: 35 }}
+              style={{ height: hp("4%"), alignItems: "center" }}
               mode="contained"
             >
               {area.areaName}
@@ -131,9 +133,9 @@ export default function App({ navigation }) {
         {matches[index].technologies.map((tech, i) => {
           return (
             <Chip
-              margin={hp('0.3%')}
+              margin={hp("0.2%")}
               key={i}
-              style={{ height: hp('4%') }}
+              style={{ height: hp("4%"), alignItems: "center" }}
               mode="contained"
             >
               {tech.technologyName}
@@ -153,10 +155,8 @@ export default function App({ navigation }) {
     <View
       style={{
         flex: 1,
-       
       }}
     >
-    
       {isLoading ? (
         <View
           style={{
@@ -251,8 +251,8 @@ export default function App({ navigation }) {
           <View style={styles.bottomContainerButtons}>
             <MaterialCommunityIcons.Button
               name="thumb-down"
-              size={hp('12%')}
-              style={{ marginTop: hp('4%') }}
+              size={hp("12%")}
+              style={{ marginTop: hp("4%") }}
               backgroundColor="transparent"
               underlayColor="transparent"
               activeOpacity={0.3}
@@ -261,8 +261,8 @@ export default function App({ navigation }) {
             />
             <MaterialCommunityIcons.Button
               name="thumb-up"
-              size={hp('12%')}
-              style={{ marginTop: hp('4.5%') }}
+              size={hp("12%")}
+              style={{ marginTop: hp("4.5%") }}
               backgroundColor="transparent"
               underlayColor="transparent"
               activeOpacity={0.3}
@@ -274,10 +274,8 @@ export default function App({ navigation }) {
           </View>
         </>
       )}
-      
-       <TabBar navigation={navigation} />
-     
+
+      <TabBar navigation={navigation} />
     </View>
   );
 }
-
