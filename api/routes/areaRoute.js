@@ -6,10 +6,10 @@ const { JWTmiddleware, roles } = require('../middleware')
 //GET ALL AREAS
 router.get('/', areaController.getAll)
 //CREATE ONE
-router.post('/', [JWTmiddleware, roles.isMentor], areaController.createOne)
+router.post('/', [JWTmiddleware], areaController.createOne)
 //UPDATE BY ID
-router.put('/:id', [JWTmiddleware, roles.isMentor], areaController.modifyOne)
+router.put('/:id', [JWTmiddleware], areaController.modifyOne)
 //DELETE BY ID
-router.delete('/:id', [JWTmiddleware, roles.isMentor], areaController.deleteOne)
+router.delete('/:id', [JWTmiddleware], areaController.deleteOne)
 
 module.exports = router

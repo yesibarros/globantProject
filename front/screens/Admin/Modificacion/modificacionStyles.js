@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
       },
       Button: {
           backgroundColor: "#009387",
-          width: wp("35%"),
+          width: wp("38%"),
           justifyContent: "center",
           height: hp("7%")
         },
@@ -54,8 +54,6 @@ const styles = StyleSheet.create({
       input: {
         width: wp("80%"),
         height: hp("5%"),
- 
-        borderWidth: 2,
       },
   });
   export default styles
