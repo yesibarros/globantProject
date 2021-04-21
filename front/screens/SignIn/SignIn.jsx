@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
   StatusBar,
   TextInput,
   Button,
-  KeyboardAvoidingView,
   ScrollView
 } from "react-native";
 //REDUX
@@ -112,9 +112,7 @@ const SignIn = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.text_header}>Bienvenido!</Text>
       </View>
-      <ScrollView style={styles.footer}>
-
-      <KeyboardAvoidingView enabled={enableShift}>
+      <ScrollView style={styles.footer}> 
       <Animatable.View animation="fadeInUpBig">
         <Text style={styles.text_footer}>Email</Text>
         <View style={styles.action}>
@@ -213,8 +211,8 @@ const SignIn = ({navigation}) => {
         </View>
         </Animatable.View>
 
-        </KeyboardAvoidingView>
-        
+  
+        <KeyboardSpacer/>
         </ScrollView>
         {/* <Button
       disabled={!request}

@@ -74,7 +74,7 @@ const TabBar = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: "yellow",
-    width: wp("100%"),
+    width: wp("100"),
   },
   background: {
     height: hp("6%"),
