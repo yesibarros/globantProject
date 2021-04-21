@@ -11,13 +11,13 @@ import {
 const Tab = ({ color, tab, onPress, icon }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Avatar.Icon
+      {/* <Avatar.Icon
         backgroundColor="transparent"
         color="white"
         rounded
         icon={icon}
         size={hp("4%")}
-      />
+      /> */}
       <Text style={styles.tabText}>{tab.name}</Text>
     </TouchableOpacity>
   );

@@ -1,13 +1,12 @@
 import * as Permissions from "expo-permissions"
 import * as ImagePicker from "expo-image-picker"
-import {Alert} from "react-native"
-
+import { Dialog} from 'react-native-paper';
 
 export const loadImageFromGallery = async(array)=>{
     const response = {status:false, image:null}
     const resultPremissions = await Permissions.askAsync(Permissions.CAMERA)
     if(resultPremissions.status === "denied"){
-        Alert.alert("Acepta los permisos para acceder a las imágenes del teléfono.")
+        Dialog.alert("Acepta los permisos para acceder a las imágenes del teléfono.")
         return response
     }
     const result = await ImagePicker.launchImageLibraryAsync({

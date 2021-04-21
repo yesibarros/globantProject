@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, Animated } from "react-native";
+import { View, StyleSheet} from "react-native";
 import Tab from "./Tab";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSelector } from "react-redux";
@@ -40,8 +40,7 @@ const TabBar = ({ navigation }) => {
       navigation.navigate(activeTab);
     }
   };
-  const icnoName = ["account-box-outline", "progress-upload", "school-outline"];
-  const showTabs = [routes[0], routes[1], routes[2]];
+
 
   return (
     <View style={styles.wrapper}>
@@ -62,7 +61,6 @@ const TabBar = ({ navigation }) => {
               tab={route}
               onPress={() => handlePress(route.name, index)}
               key={index}
-              icon={icnoName[index]}
             />
           ))}
         </View>

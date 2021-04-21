@@ -1,42 +1,48 @@
 import * as React from "react";
 import {
-  Modal,
   View,
   Text,
   TextInput,
   Alert
 } from "react-native";
 import {Button} from "react-native-paper"
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useTheme } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import styles from "../altaStyles"
 import {createCountry} from "../../../../state/admin/paises/thunks"
+import { useTheme } from "@react-navigation/native";
+
+    
 
 const AltaPais = ({nombre, setViewModal}) =>{
     const [name, setName]= React.useState("")
     const dispatch= useDispatch()
+    const {colors}= useTheme()
     const handleCreation= ()=>{
+      if(!name){
+        return alert("Debes ingresar un nombre")
+    }else{
         dispatch(createCountry(name)).then(()=>{
-            setViewModal(false)
+            
             return Alert.alert("Acción completa", "País creado exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
+                { text: "OK", onPress: () => setViewModal(false) },
               ])
         })
+      }
     }
 
     return(
 
-        <View style={styles.viewContainer}>
+      <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
             <View
               style={styles.wrapper}
             >
-              <Text style={styles.title}>Creación de {nombre}</Text>
+              <Text style={[styles.title, {color: colors.text}]}>Creación de {nombre}</Text>
              
               <TextInput
               value={name}
               onChangeText={text => setName(text)}
-                style={styles.input}
+              style={[styles.input, { color: "black",
+              backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                 multiline
               />
            

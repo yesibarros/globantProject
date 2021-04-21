@@ -36,25 +36,24 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
         }
       };
 
-    const handleDelete= ()=>{
-      selectedAreas.forEach(area => {
-          dispatch(deleteArea({_id: area._id}))
-        });
-  
-      
-        setViewDelModal(false)
-        return Alert.alert("Acción completa", "Area/s borrada/s exitosamente", [
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ])
-      }
+      const handleDelete= ()=>{
+        selectedAreas.forEach(area => {
+            dispatch(deleteArea({_id: area._id}))
+          })
+    
+          Alert.alert("Acción completa", "Area/s borrada/s exitosamente", [
+            { text: "OK", onPress: () => setViewDelModal(false) },
+          ])
+        
+        }
 
     return (
         
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
              
            
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >

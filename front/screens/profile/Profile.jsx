@@ -17,8 +17,6 @@ import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
 import { loadImageFromGallery } from "../../utils/helpers";
-
-import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 
 //SCREENS
@@ -36,11 +34,7 @@ import styles from "./profileStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 import { updateProfile } from "../../state/loggedUser/thunks";
-import { setUser } from "../../state/loggedUser/actions";
-import { setRequests } from "../../state/requests/Actions";
-import { setMenuBadge } from "../../state/menuBadge/menuBadge";
-import { setObjectives } from "../../state/objetivos/actions";
-const { width } = Dimensions.get("window");
+
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
@@ -173,7 +167,7 @@ const Profile = ({ navigation }) => {
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={styles.photo}>
             {loginUser.img ? (
-              <TouchableOpacity onPress={choosePhotoFromLibrary}>
+            
                 <Avatar
                   size={hp("20%")}
                   rounded
@@ -188,9 +182,9 @@ const Profile = ({ navigation }) => {
                   }}
                   activeOpacity={0.7}
                 />
-              </TouchableOpacity>
+              
             ) : (
-              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+              
                 <Avatar
                   size={hp("20%")}
                   rounded
@@ -205,7 +199,7 @@ const Profile = ({ navigation }) => {
                   }}
                   activeOpacity={0.7}
                 />
-              </TouchableOpacity>
+          
             )}
           </View>
 
@@ -230,7 +224,6 @@ const Profile = ({ navigation }) => {
             <Text
               style={{
                 fontSize: hp("2%"),
-                // marginTop: hp("3%"),
                 alignContent: "center",
                 color: colors.text,
               }}
