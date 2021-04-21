@@ -19,9 +19,7 @@ const AltaArea = ({nombre, setViewModal}) =>{
     const handleCreation= ()=>{
         dispatch(createArea(name)).then(()=>{
             setViewModal(false)
-            return Alert.alert("Acción completa", "Area creada exitosamente", [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
-              ])
+            return alert("CHAUUUU")
         })
     }
 
