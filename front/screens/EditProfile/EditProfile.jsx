@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
+import {
   ScrollView,
   View,
   Text,
@@ -41,7 +46,7 @@ const EditProfile = ({ navigation }) => {
   const [lastName, setLastName] = useState(loginUser.lastName);
   const [description, setDescription] = React.useState(loginUser.description);
   const locations = useSelector((state) => state.locations);
-  console.log(locations)
+  console.log(locations);
   const handleFirstNameChange = (val) => {
     setFirstName(val);
   };
@@ -87,7 +92,7 @@ const EditProfile = ({ navigation }) => {
           marginLeft: "2.5%",
         }}
       >
-        <View >
+        <View>
           <Card.Title
             left={() => (
               <Avatar.Icon
@@ -150,9 +155,7 @@ const EditProfile = ({ navigation }) => {
       <KeyboardAvoidingView enabled={enableShift}>
         <Modal visible={editMode} animationType="slide" transparent={true}>
           {isLoading ? (
-            <View
-              style={{backgroundColor: colors.background}}
-            >
+            <View style={{ backgroundColor: colors.background }}>
               <ActivityIndicator
                 style={{ flex: 1, alignItems: "Center" }}
                 size="large"
@@ -231,9 +234,7 @@ const EditProfile = ({ navigation }) => {
                           })}
                       </SelectPicker>
                     ) : loginUser.location ? (
-                      <Text>
-                        {loginUser.location.locationName}
-                      </Text>
+                      <Text>{loginUser.location.locationName}</Text>
                     ) : null}
                   </View>
                 </View>

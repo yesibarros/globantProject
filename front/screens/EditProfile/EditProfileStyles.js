@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
     fontSize: hp("4%"),
     marginLeft: wp("2%"),
   },
- 
+
   cardSubtitle: {
     fontStyle: "italic",
     marginLeft: wp("2%"),
   },
 
   viewContainer: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     flex: 2, //Hay que cambiar esto?
     marginBottom: hp("2%"),
     marginHorizontal: wp("2%"),
