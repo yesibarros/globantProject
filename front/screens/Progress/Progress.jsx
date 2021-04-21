@@ -20,6 +20,7 @@ import CardProgress from "./CardProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { getObjectives, sendObjective } from "../../state/objetivos/thunks";
 import Header from "../header/Header";
+import { color } from "react-native-reanimated";
 
 export default function Progress({ route, navigation }) {
   const [viewModal, setViewModal] = useState(false);
@@ -52,11 +53,14 @@ export default function Progress({ route, navigation }) {
       <Header navigation={navigation} />
 
       <View
-        style={{
-          height: hp("100%"),
-          borderTopLeftRadius: 60,
-          backgroundColor: "white",
-        }}
+        style={[
+          {
+            height: hp("80%"),
+            borderTopLeftRadius: 60,
+            backgroundColor: "white",
+          },
+          { backgroundColor: colors.background },
+        ]}
       >
         <View
           style={{
@@ -66,7 +70,9 @@ export default function Progress({ route, navigation }) {
             height: hp("11%"),
           }}
         >
-          <Text style={styles.titleProgress}>Objetivos</Text>
+          <Text style={[styles.titleProgress, { color: colors.text }]}>
+            Objetivos
+          </Text>
           {/* logginUser.role && logginUser.role[0] === "mentor" */}
           {true ? (
             <View
@@ -89,7 +95,12 @@ export default function Progress({ route, navigation }) {
         </View>
 
         <Modal visible={viewModal} transparent={true} animationType="slide">
-          <View style={styles.viewContainer}>
+          <View
+            style={[
+              styles.viewContainer,
+              { backgroundColor: colors.background },
+            ]}
+          >
             <View
               style={{
                 height: hp("40%"),
@@ -97,7 +108,9 @@ export default function Progress({ route, navigation }) {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.modalInstruction}>Titulo del objetivo:</Text>
+              <Text style={[styles.modalInstruction, { color: colors.text }]}>
+                Titulo del objetivo:
+              </Text>
               <TextInput
                 style={[
                   styles.input,
@@ -111,7 +124,7 @@ export default function Progress({ route, navigation }) {
                 value={titleObjective}
                 onChangeText={(text) => setTitleObjective(text)}
               />
-              <Text style={styles.modalInstruction}>
+              <Text style={[styles.modalInstruction, { color: colors.text }]}>
                 Descripción del objetivo:
               </Text>
               <TextInput
@@ -175,26 +188,25 @@ export default function Progress({ route, navigation }) {
           </View>
         </Modal>
 
-        <View style={{}}>
-          {goals && goals.length > 0 ? (
-            <FlatList
-              data={goals}
-              keyExtractor={(item) => item._id}
-              renderItem={(goal) => {
-                const last =
-                  goal.item._id === goals[goals.length - 1]._id ? true : false;
-                return <CardProgress item={goal.item} last={last} />;
-              }}
-            />
-          ) : (
-            <View style={styles.n}>
-              <Text style={styles.nText}>No tienes objetivos establecidos</Text>
-            </View>
-          )}
-        </View>
-      </View>
-      <View style={{}}>
+        {goals && goals.length > 0 ? (
+          <FlatList
+            data={goals}
+            style={{ height: hp("50%") }}
+            keyExtractor={(item) => item._id}
+            renderItem={(goal) => {
+              const last =
+                goal.item._id === goals[goals.length - 1]._id ? true : false;
+              return <CardProgress item={goal.item} last={last} />;
+            }}
+          />
+        ) : (
+          <View style={styles.n}>
+            <Text style={styles.nText}>No tienes objetivos establecidos</Text>
+          </View>
+        )}
+        {/* <View style={{ marginTop: hp("12.9%") }}> */}
         <TabBar state={state} navigation={navigation} />
+        {/* </View> */}
       </View>
     </View>
   );
