@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   View,
   Text,
-  ScrollView,
   FlatList,
   Modal,
   TextInput,
   Dimensions,
-  KeyboardAvoidingView,
-  TouchableOpacity,
 } from "react-native";
-import { Title, IconButton, Card, Button } from "react-native-paper";
+import { IconButton, Button } from "react-native-paper";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -28,8 +24,6 @@ import Header from "../header/Header";
 export default function Progress({ route, navigation }) {
   const [viewModal, setViewModal] = useState(false);
   const idCurrent = route && route.params && route.params.idCurrent;
-  const { colors } = useTheme();
-  const { height } = Dimensions.get("window");
   const dispatch = useDispatch();
   const logginUser = useSelector((state) => state.loggedUser.user);
   const goals = useSelector((state) => state.objetivos);
