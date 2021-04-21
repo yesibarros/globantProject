@@ -1,15 +1,12 @@
 import * as React from "react";
 import {
-  Modal,
   View,
   Text,
   TextInput,
   Alert
 } from "react-native";
 import {Button} from "react-native-paper"
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useTheme } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import styles from "../altaStyles"
 import {createCountry} from "../../../../state/admin/paises/thunks"
 
