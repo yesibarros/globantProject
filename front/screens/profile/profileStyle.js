@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   },
   photo: {
     top: hp("-9%"),
-    left: hp("15%"),
+    width:wp('100%'),
+    alignItems:"center",
   },
   button: {
     position: "absolute",
