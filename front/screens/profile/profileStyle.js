@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import {primaryGreen} from "../../utils/Colors"
+import { primaryGreen } from "../../utils/Colors";
 
 import {
   widthPercentageToDP as wp,
@@ -7,17 +7,15 @@ import {
 } from "react-native-responsive-screen";
 const styles = StyleSheet.create({
   container: {
-    height:hp('100%'),
     backgroundColor: "#009387",
-  
   },
   body: {
     borderTopLeftRadius: 60,
-    height:hp('74%'),
-   
+    // height: hp("74%"),
   },
-  photo:{
-    top: hp('-9%'), left: hp('15%'), 
+  photo: {
+    top: hp("-9%"),
+    left: hp("15%"),
   },
   button: {
     position: "absolute",
@@ -75,11 +73,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userBtnWrapper: {
-    top: hp('-3%'),
+    top: hp("-5%"),
     flexDirection: "row",
     justifyContent: "space-evenly",
-    width: wp('100%'),
-    marginBottom: hp('3%'),
+    width: wp("100%"),
+    // marginBottom: hp("3%"),
   },
   userBtn: {
     borderColor: "transparent",
@@ -94,6 +92,7 @@ const styles = StyleSheet.create({
   },
   userBtnTxt: {
     color: primaryGreen,
+    fontSize: hp("2.4%"),
   },
   userName: {
     fontSize: 18,
@@ -109,13 +108,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-
-
-
-
   panel: {
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     paddingTop: 20,
   },
   panelTitle: {
@@ -124,43 +119,42 @@ const styles = StyleSheet.create({
   },
   panelSubtitle: {
     fontSize: 14,
-    color: 'gray',
+    color: "gray",
     height: 30,
     marginBottom: 10,
   },
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
+    backgroundColor: "#FF6347",
+    alignItems: "center",
     marginVertical: 7,
   },
   panelButtonTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
   headerImage: {
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#333333',
-    shadowOffset: {width: -1, height: -3},
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#333333",
+    shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
     shadowOpacity: 0.4,
     // elevation: 5,
-    paddingTop: hp('5%'),
+    paddingTop: hp("5%"),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-  
   },
   panelHeader: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   panelHandle: {
     width: 40,
-    height:hp('2%') ,
+    height: hp("2%"),
     borderRadius: 4,
-    backgroundColor: '#00000040',
-    marginBottom: hp('2%') ,
+    backgroundColor: "#00000040",
+    marginBottom: hp("2%"),
   },
 });
 
