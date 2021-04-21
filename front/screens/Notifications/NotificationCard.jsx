@@ -35,8 +35,9 @@ const NotificationCard = ({notification, navigation}) => {
    const swipeSettings = {
     autoClose: true,
     backgroundColor: "transparent",
-    right: [{text: "Eliminar", color: "red", backgroundColor: "transparent", onPress:()=>{dispatch(removeNotification(notification.data.date))}}]
-   }
+    right: [{text: "Eliminar", color: "red", backgroundColor: "transparent", onPress:()=>{
+        dispatch(removeNotification(notification.data.date))}}]
+    }
 
    const handleTouch = (t)=>{
         switch(t){

@@ -12,7 +12,7 @@ import TabBar from "../../routes/Tab/TabBar";
 import NotificationCard from "./NotificationCard"
 
 //REDUX
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 
 //UTILS
@@ -20,15 +20,14 @@ import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 
 const Notifications = ({ navigation }) => {
   const loginUser= useSelector(state => state.loggedUser.user)
-  
-    const [isLoading, setIsLoading] = useState(true)
-    const notifications = useSelector(state => state.notifications)
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(true)
+  const notifications = useSelector(state => state.notifications)
 
     const { colors } = useTheme();
 
     useEffect(() => {
-    
-        setMenuBadge(false)
+        dispatch(setMenuBadge(false))
         setIsLoading(false)
  
     },[notifications])
@@ -51,12 +50,12 @@ const Notifications = ({ navigation }) => {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <IconButton
-      icon="menu"
-      color={colors.icon}
-      size={35}
-      style={{position: "absolute", top:30, zIndex:1}}
-      onPress={() => navigation.openDrawer()}
-    />
+          icon="menu"
+          color={colors.icon}
+          size={35}
+          style={{position: "absolute", top:30, zIndex:1}}
+          onPress={() => navigation.openDrawer()}
+        />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
