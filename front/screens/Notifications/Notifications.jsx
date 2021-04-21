@@ -47,7 +47,7 @@ const Notifications = ({ navigation }) => {
         </View>
       )
     }
-   
+  
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <IconButton
@@ -60,7 +60,7 @@ const Notifications = ({ navigation }) => {
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
-        {notifications?.length ? (
+        {!notifications?.length ? (
           <View style={styles.noNotificationsContainer}>
             <Text style={styles.noNotificationsText}>¡Estás al día! No hay nuevas notificaciones.</Text>
           </View>
