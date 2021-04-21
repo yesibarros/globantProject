@@ -23,6 +23,8 @@ import Header from "../header/Header";
 import { color } from "react-native-reanimated";
 
 export default function Progress({ route, navigation }) {
+  const { colors } = useTheme();
+
   const [viewModal, setViewModal] = useState(false);
   const idCurrent = route && route.params && route.params.idCurrent;
   const dispatch = useDispatch();
