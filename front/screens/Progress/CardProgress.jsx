@@ -18,6 +18,11 @@ import {
   ActivityIndicator,
   TextInput,
 } from "react-native-paper";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 import SelectPicker from "react-native-form-select-picker";
 import { primaryGreen } from "../../utils/Colors";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,7 +63,7 @@ const CardProgress = ({ item, last }) => {
     <View style={styles.progressContainer}>
       <View style={[styles.container, { borderColor: border }]}>
         <Avatar.Icon
-          size={55}
+          size={hp("7%")}
           color="#009387"
           icon={item.status === "pending" ? "progress-clock" : "check-bold"}
           style={styles.avatar}

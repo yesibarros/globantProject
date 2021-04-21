@@ -45,14 +45,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   n: {
+    marginHorizontal: wp("5%"),
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    height: 50,
-    marginTop: "50%",
+    width: wp("90%"),
+    height: hp("50%"),
   },
   nText: {
-    fontSize: 22,
+    fontSize: hp("3%"),
     fontWeight: "bold",
     color: "#c9c9c9",
   },
