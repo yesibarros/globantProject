@@ -47,7 +47,7 @@ export default function Progress({ route, navigation }) {
                     icon="menu"
                     color={colors.icon}
                     size={35}
-                    style={{position: "absolute"}}
+                    style={{position: "absolute", marginTop:30, zIndex:1}}
                     onPress={() => navigation.openDrawer()}
                   />
      {console.log("CURRENT ID", idCurrent)}
