@@ -180,10 +180,9 @@ const Profile = ({ navigation }) => {
                   source={{
                     uri: loginUser.img,
                   }}
-                  title={loginUser.firstName + loginUser.lastName}
+                  title={loginUser?.firstName[0] + loginUser?.lastName[0]}
                   titleStyle={{
                     color: "white",
-                    backgroundColor: "gray",
                     width: wp("100%"),
                     paddingTop: "15%",
                   }}

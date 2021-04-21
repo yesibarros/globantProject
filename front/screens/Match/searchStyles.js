@@ -19,11 +19,13 @@ const styles = StyleSheet.create({
       bottomContainerButtons: {
         flexDirection: "row",
         justifyContent: "space-evenly",
-        height:hp('25%'),
+        height:hp('19%'),
+       
       },
       card: {
         backgroundColor: "white",
-        height:hp('68%'),
+        height:hp('72%'),
+        marginTop:hp('-5%'),
         borderRadius: 25,
         shadowColor: "#000",
         shadowOpacity: 1.0,

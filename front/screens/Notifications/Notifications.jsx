@@ -60,7 +60,7 @@ const Notifications = ({ navigation }) => {
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
-        {!notifications?.length ? (
+        {notifications?.length ? (
           <View style={styles.noNotificationsContainer}>
             <Text style={styles.noNotificationsText}>¡Estás al día! No hay nuevas notificaciones.</Text>
           </View>
@@ -77,7 +77,7 @@ const Notifications = ({ navigation }) => {
         </View>
           </View>
         )}
-        <View style={{ flex: 0.08 }}></View>
+      
         <TabBar navigation={navigation} />
       </View>
     );
