@@ -146,9 +146,7 @@ const MatchComparison = ({ navigation }) => {
           handleSendRequest={handleSendRequest}
         />
       </View>
-      <View style={{ height: hp("8%") }}>
-        <TabBar navigation={navigation} />
-      </View>
+      <TabBar navigation={navigation} />
     </View>
   );
 };
