@@ -46,18 +46,18 @@ const BajaPais = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
       });
 
     
-      setViewDelModal(false)
+      
       return Alert.alert("Acción completa", "Pais/es borrado/s exitosamente", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "OK", onPress: () => setViewDelModal(false) },
       ])
     }
 
     return (
         
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
              
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >

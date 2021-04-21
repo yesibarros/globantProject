@@ -19,6 +19,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { color } from "react-native-reanimated";
 
 const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -45,20 +46,18 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
             });
       
           
-            setViewDelModal(false)
+           
             return Alert.alert("Acción completa", "Tecnología/s borrada/s exitosamente", [
-              { text: "OK", onPress: () => console.log("OK Pressed") },
+              { text: "OK", onPress: () =>  setViewDelModal(false) },
             ])
           }
 
-      console.log("Las techs", techs)
-
     return (
         
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
              
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >

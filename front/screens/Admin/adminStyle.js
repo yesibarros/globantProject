@@ -20,12 +20,15 @@ const styles = StyleSheet.create({
     elevation: 55,
   },
   listContainer:{
-    flex:1
+    borderTopLeftRadius: 60,
   },
   list:{ 
-    height:hp("80%"), 
-    marginVertical: hp("8%")
-  }
+    height:hp("55%"), 
+    marginVertical: hp("9.5%"),
+  
+  },
+  
+
 });
 
 export default styles;

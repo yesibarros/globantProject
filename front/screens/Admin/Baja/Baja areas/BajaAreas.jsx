@@ -49,11 +49,11 @@ const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
 
     return (
         
-        <View style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
              
            
-             <Text style={styles.title}>Baja de {nombre}</Text>
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
              style={styles.mapContainer}
            >
