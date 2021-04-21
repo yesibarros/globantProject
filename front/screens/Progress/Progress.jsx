@@ -38,10 +38,6 @@ export default function Progress({ route, navigation }) {
   const [titleObjective, setTitleObjective] = useState("");
 
   useEffect(() => {
-    // if(logginUser.role && logginUser.role[0] === 'mentor'){
-    //   navigation.navigate('Mis mentees')
-    // }
-
     dispatch(getObjectives(id));
   }, [id]);
 

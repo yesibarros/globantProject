@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Modal, Alert } from 'react-native';
 import { IconButton, Menu, Divider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux'
-import { cancelMatch } from '../../../state/loggedUser/thunks'
+import { cancelMatch, finishMentoring } from '../../../state/loggedUser/thunks'
 import {getSingleUser} from "../../../state/singleUser/thunks"
 import {createMeets, getMyMeets} from '../../../state/Meetings/thunks';
 import ConfirmCancelMatch from './ConfirmCancelMatch'
@@ -18,6 +18,7 @@ const MyComponent = ({userId, navigation}) => {
   const [showModalTextEnd, setModalTextEnd] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const user = useSelector(state => state.loggedUser.user)
+  // const toggleRole = useSelector(state => state.toggleRole) //PODRIA SER USADO CUANDO TIENE AMBOS PERFILES PERO EN LA SESION ESTA CON UNO
   const dispatch = useDispatch()
   const mentor = user.mentor?._id == userId && userId
   const mentee = (user.mentees?.filter(ment => ment._id == userId))[0]
@@ -54,16 +55,18 @@ const MyComponent = ({userId, navigation}) => {
   const handleSendEndOfMentoring = (message) => { //message es lo ingresado por input sirve para la notificacion o dispatch
     // console.log('MENSAJE DE DESPEDIDA QUE LLEGA DEL INPUT', message)
     // console.log('NOMBRE DEL MENTEE', mentee.firstName)
-    return Alert.alert(
-      "Felicidades",
-      `${mentee.firstName} dejo de ser tu meente, gracias por acompañarlo en este proceso.`,
-      [
-        {
-          text: "Ok",
-          onPress: () => navigation.navigate("Mis mentees"),
-        },
-      ]
-    );
+    dispatch(finishMentoring({['mentee']: userId, messageEndOfMentoring: message})).then(() => {
+      return Alert.alert(
+        "Felicidades",
+        `${mentee.firstName} dejo de ser tu meente, gracias por acompañarlo en este proceso.`,
+        [
+          {
+            text: "Ok",
+            onPress: () => navigation.navigate("Mis mentees"),
+          },
+        ]
+      );
+    })
   }
 
   return (
@@ -88,10 +91,11 @@ const MyComponent = ({userId, navigation}) => {
           <Menu.Item icon="account-multiple-outline" onPress={() => {
             setModalMeeting(true)
           }} title="Reunirse" />
-
-          <Menu.Item icon="account-check-outline" onPress={() => {
-            setModalEndOfMeeting(true)
-          }} title="Finalizar mentoreo" />
+          {user?.role?.[0] === 'mentor' && (
+            <Menu.Item icon="account-check-outline" onPress={() => {
+              setModalEndOfMeeting(true)
+            }} title="Finalizar mentoreo" />
+          )}
     
           <Divider />
           <Menu.Item icon="account-cancel-outline" onPress={() => setShowModal(true)} title="Cancelar match" />
