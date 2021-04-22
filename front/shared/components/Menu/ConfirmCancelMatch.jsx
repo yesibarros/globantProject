@@ -9,7 +9,7 @@ import { useTheme } from "@react-navigation/native";
 const ConfirmCancelMatch = ({mentor, mentee, setShowModal, cancelMatch, isLoading}) => {
 
     const { colors } = useTheme();
-    const firstName = mentee?.firstName || mentor?.fisrtName
+    const firstName = mentee?.firstName || mentor?.firstName
     const lastName = mentee?.lastName || mentor?.lastName
     const rol = mentee? "mentee" : "mentor"
 

@@ -137,7 +137,7 @@ const MyComponent = ({userId, navigation}) => {
           animationType="slide"
           onRequestClose={() => setShowModal(!showModal)}
         >
-          <ConfirmCancelMatch cancelMatch={handleCancelMatch} setShowModal={setShowModal} mentee={mentee} mentor={mentor} isLoading={isLoading}/>
+          <ConfirmCancelMatch cancelMatch={handleCancelMatch} setShowModal={setShowModal} mentee={mentee} mentor={user?.mentor} isLoading={isLoading} />
         </Modal>
         
       </View>
