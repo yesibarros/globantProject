@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
       borderBottomWidth: 3
     },
     cardsContainer:{
-      height:hp('52.9%'),
+      height:hp('53.9%'),
     },
     n: {
       justifyContent: "center",

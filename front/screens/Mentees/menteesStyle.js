@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     shadowOpacity:0.5,
     elevation:1,
     color: "white",
-    fontSize: hp('5%'),
+    fontSize: hp('4%'),
     position: "absolute",
     marginVertical:hp('9%'),
-    marginHorizontal:wp('27%')
+    marginHorizontal:wp('30%')
   },
   usersContainer:{
     marginTop: "15%",
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   nText: {
     fontWeight: 'bold',
     color: '#c9c9c9',
-    fontSize:hp('4%'),
+    fontSize:hp('3%'),
     
   },
   n: {
