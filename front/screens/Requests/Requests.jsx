@@ -61,7 +61,7 @@ const Requests = ({navigation}) => {
     }
 
     return (
-      <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+      <View style={{backgroundColor: "#009387"}}>
         <Header navigation={navigation}/> 
       <View style={[styles.container, { backgroundColor: colors.background }]}>
      
@@ -108,8 +108,8 @@ const Requests = ({navigation}) => {
           }
         </View>
         
-        <TabBar navigation={navigation} />
       </View>
+        <TabBar  navigation={navigation} />
     
       </View>
     );
