@@ -24,8 +24,6 @@ import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile";
 
-//COMPONENTS
-import ProfileAvatar from "./ProfileAvatar";
 
 //STYLE
 import styles from "./profileStyle";
@@ -219,6 +217,9 @@ const Profile = ({ navigation }) => {
                 fontSize: hp("3%"),
               }}
             >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
+             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
+              {loginUser.role.join(" | ").toUpperCase()}
+            </Text>
             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {loginUser.email}
             </Text>

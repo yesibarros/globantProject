@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     fromRole:{
         textTransform: "uppercase",
         lineHeight: 13
+        
     },
     name:{
         marginTop: hp('0.1%')
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     },
     cancelContainer: {
         justifyContent: "center",
-        width: wp('30%'),
+        width: wp('35%'),
         alignItems: "center"
     }
 

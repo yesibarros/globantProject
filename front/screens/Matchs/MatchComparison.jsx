@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, ScrollView, Alert, ActivityIndicator } from "react-native";
+import { View, ScrollView, Alert, ActivityIndicator, SafeAreaView } from "react-native";
 import { Avatar } from "react-native-paper";
 import {
   widthPercentageToDP as wp,
@@ -92,7 +92,8 @@ const MatchComparison = ({ navigation }) => {
   };
 
   return (
-    <View
+    
+    <SafeAreaView
       style={{
         flex: 1,
         justifyContent: "space-between",
@@ -147,7 +148,7 @@ const MatchComparison = ({ navigation }) => {
         />
       </View>
       <TabBar navigation={navigation} />
-    </View>
+    </SafeAreaView>
   );
 };
 

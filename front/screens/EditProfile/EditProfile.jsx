@@ -90,7 +90,7 @@ const EditProfile = ({ navigation }) => {
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View
         style={{
-          marginLeft: "2.5%",
+          marginLeft: wp("1"),
         }}
       >
         <View>
@@ -101,8 +101,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="account"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%') }}
               />
             )}
             title={`${loginUser.firstName} ${loginUser.lastName} `}
@@ -117,8 +117,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="map-marker"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%')}}
               />
             )}
             title={loginUser.location?.locationName ? loginUser.location?.locationName: "Sin sede"}
@@ -133,8 +133,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="card-text-outline"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%')}}
               />
             )}
             title={loginUser.description ? loginUser.description : "Sin descripción"}

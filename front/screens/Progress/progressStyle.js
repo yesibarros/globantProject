@@ -8,12 +8,7 @@ const styles = StyleSheet.create({
   titleProgress: {
     fontSize: hp("5%"),
     fontWeight: "bold",
-    // marginVertical: 10,
-
-    // paddingLeft: 10,
     color: "black",
-    // marginBottom: 15,
-    // marginTop: 45,
   },
   viewContainer: {
     backgroundColor: "white",
@@ -21,9 +16,6 @@ const styles = StyleSheet.create({
     width: wp("90%"),
     alignSelf: "center",
     marginVertical: hp("15%"),
-    // marginHorizontal: 10,
-    // marginTop: "15%",
-    // maxHeight: "70%",
     justifyContent: "center",
     shadowOpacity: 1.0,
     shadowRadius: 50,
@@ -49,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: wp("90%"),
-    height: hp("50%"),
+    height: hp("63%"),
   },
   nText: {
     fontSize: hp("3%"),

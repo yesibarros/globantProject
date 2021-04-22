@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { View, Alert, TouchableOpacity } from "react-native";
 import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import {
   Card,
   Title,
   Paragraph,
@@ -75,7 +79,7 @@ const RequestCard = ({ request, received, navigation }) => {
           <TouchableOpacity
             activeOpacity={1}
             style={styles.infoContainer}
-            onPress={() => Alert.alert(`${request.from}`, `${request.message}`)}
+            onPress={() => Alert.alert(`${request.from.firstName} ${request.from.lastName}`, `${request.message}`)}
           >
             <View style={styles.titleContainer}>
               <Avatar.Image
@@ -103,7 +107,7 @@ const RequestCard = ({ request, received, navigation }) => {
             <View style={styles.buttonContainer}>
               {buttonSendLoading ? (
                 <ActivityIndicator
-                  size={30}
+                  size={hp('5%')}
                   style={{ marginLeft: 15 }}
                   color={primaryGreen}
                 />
@@ -111,14 +115,14 @@ const RequestCard = ({ request, received, navigation }) => {
                 <IconButton
                   icon="check-outline"
                   color={primaryGreen}
-                  size={30}
+                  size={hp('5%')}
                   onPress={() => handleAccept()}
                 />
               )}
 
               {buttonCancelLoading ? (
                 <ActivityIndicator
-                  size={30}
+                  size={hp('5%')}
                   style={{ marginRight: 15 }}
                   color={Colors.red500}
                 />
@@ -126,22 +130,23 @@ const RequestCard = ({ request, received, navigation }) => {
                 <IconButton
                   icon="close-outline"
                   color={Colors.red500}
-                  size={30}
+                  size={hp('5%')}
                   onPress={() => handleCancel()}
                 />
               )}
             </View>
           ) : buttonCancelLoading ? (
             <ActivityIndicator
-              size={30}
-              style={{ marginRight: 15 }}
+              size={hp('5%')}
+              style={{ marginLeft:wp("16")}}
               color={Colors.red500}
             />
           ) : (
             <IconButton
               icon="delete-outline"
               color={Colors.red500}
-              size={30}
+              size={hp('5%')}
+              style={{marginLeft:wp("16")}}
               onPress={() => handleCancel()}
             />
           )}

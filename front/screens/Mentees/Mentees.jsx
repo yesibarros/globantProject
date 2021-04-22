@@ -114,9 +114,10 @@ const Mentees = ({ navigation }) => {
               </View>
             )}
           </View>
+          {console.log("QUE SOS MEN", loginUser?.role?.includes('mentor'))}
         </View>
       </ScrollView>
-      {(loginUser.role=="mentor" && loginUser.mentees?.length < 5) || (loginUser.role == "mentee" && !loginUser.mentor) && (
+      {(loginUser?.role?.includes('mentor') && loginUser.mentees?.length < 5) || (loginUser?.role?.includes("mentee") && !loginUser.mentor) ? (
         <Animated.View
           style={{
             position: "absolute",
@@ -151,7 +152,8 @@ const Mentees = ({ navigation }) => {
             onPress={() => navigation.navigate("SearchMatch")}
           />
         </Animated.View>
-      )}
+      ):
+      null}
     </>
   );
 };

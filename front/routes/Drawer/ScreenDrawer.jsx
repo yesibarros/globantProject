@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text } from "react-native";
+import * as Linking from 'expo-linking';
 import {
   Avatar,
   Title,
@@ -145,7 +146,7 @@ const ScreenDrawer = (props) => {
                 <Icon name="account-check-outline" color={color} size={size} />
               )}
               label="Support"
-              onPress={() => {}}
+              onPress={() => {Linking.openURL('https://github.com/yesibarros/globantProject');}}
             />
           </Drawer.Section>
           <Drawer.Section title="Preferences">

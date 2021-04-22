@@ -16,11 +16,9 @@ const styles = StyleSheet.create({
     paddingBottom: hp("5%"),
   },
   footer: {
-    // flexGrow: 0.1,
-    height: hp("80%"),
+    height: hp("90%"),
     backgroundColor: "#fff",
     borderTopLeftRadius: hp("8%"),
-    // borderRightColor: 30,
     paddingHorizontal: wp("7%"),
     paddingVertical: hp("4%"),
   },
@@ -69,6 +67,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: "bold",
     alignContent: "center",
+    elevation:1,
+    shadowOpacity:0.2,
   },
 });
 
