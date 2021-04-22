@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   titleDates: {
     marginTop: hp("5%"),
-    fontSize: hp("4%"),
+    fontSize: hp("3%"),
     fontWeight: "bold",
   },
   buttonSize: {
