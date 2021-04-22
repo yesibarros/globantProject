@@ -1,20 +1,21 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { View, Text, Animated, Dimensions } from "react-native";
+import { View, Text, Animated, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./screenLoadStyle";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import logo from '../../utils/Globant-Logo.png';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const ScreenLoad = ({ navigation }) => {
-  const { height } = Dimensions.get("window");
 
   const [animateY, setAnimateY] = useState(new Animated.Value(0));
   const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
+  const [animateLogo, setAnimateLogo] = useState(new Animated.Value(0));
   const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
@@ -38,10 +39,11 @@ const ScreenLoad = ({ navigation }) => {
 
     setAnimated(true);
 
-    setTimeout(function () {
-      navigation.navigate("SignIn");
-    }, 5000);
+    // setTimeout(function () {
+    //   navigation.navigate("SignIn");
+    // }, 5000);
   }, []);
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -79,6 +81,17 @@ const ScreenLoad = ({ navigation }) => {
       >
         MENTOR
       </AnimatedText>
+    
+        <Image
+          source={logo}
+          style={{
+              width: wp("100%"),
+              height: hp("10%"),
+              marginTop: hp("60%"),
+              zIndex: 4,
+          }}
+        />
+
 
       <StatusBar style="auto" />
     </View>
