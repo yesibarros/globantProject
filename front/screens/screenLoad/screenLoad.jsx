@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Animated, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./screenLoadStyle";
+import {primaryGreen} from "../../utils/Colors"
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -28,7 +29,7 @@ const ScreenLoad = ({ navigation }) => {
       }).start();
 
       Animated.spring(animateYwelcome, {
-        toValue: hp("100%") / 2.3,
+        toValue: hp("50%"),
         duration: 3500,
         bounciness: 22, //default 8
         speed: 0.5, //default 12
@@ -53,11 +54,11 @@ const ScreenLoad = ({ navigation }) => {
         style={{
           top: animateY,
           position: "absolute",
-          fontSize: hp("7%"),
+          fontSize: hp("10%"),
           fontStyle: "italic",
           fontWeight: "bold",
-          color: "white",
-          right: wp("13%"),
+          color: primaryGreen,
+          right: wp("10%"),
           zIndex: 2,
         }}
       >
@@ -69,11 +70,11 @@ const ScreenLoad = ({ navigation }) => {
           bottom: animateYwelcome,
           position: "absolute",
           fontSize: hp("7%"),
-
+            
           fontStyle: "italic",
           fontWeight: "bold",
-          color: "white",
-          left: wp("8%"),
+          color:"white",
+          left: wp("5%"),
           zIndex: 3,
         }}
       >
