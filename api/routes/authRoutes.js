@@ -7,6 +7,8 @@ const {JWTmiddleware, verifyData} = require('../middleware')
 
 //LOGIN
 router.post("/login", authController.login);
+//LOGIN Y REGISTER WITH GOOGLE
+router.post("/google", authController.google);
 //REGISTER
 router.post("/register", verifyData, authController.register);
 //ME
