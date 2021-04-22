@@ -15,10 +15,10 @@ import {
 } from "react-native-responsive-screen";
 
 import { Avatar } from "react-native-elements";
-import { Divider, IconButton } from "react-native-paper"
+import { Divider, IconButton } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 
-import * as MailComposer from 'expo-mail-composer';
+import * as MailComposer from "expo-mail-composer";
 
 //SCREENS
 import Header from "../header/Header";
@@ -32,30 +32,40 @@ import Configuration from "../configuration/Configuration";
 import TabBar from "../../routes/Tab/TabBar";
 const { width } = Dimensions.get("window");
 
-
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
-  const singleUser= useSelector(state=> state.singleUser.user)
-  const loginUser= useSelector(state=> state.loggedUser.user)
+  const singleUser = useSelector((state) => state.singleUser.user);
+  const loginUser = useSelector((state) => state.loggedUser.user);
   //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
 
-  const handleShare = ()=>{
-    MailComposer.composeAsync({subject: `Mentor Me: perfil de ${singleUser.firstName} ${singleUser.lastName}`, isHtml: true, body: `<h1>${singleUser.firstName} ${singleUser.lastName}</h1><h2>${singleUser.description}</h2><h2>${singleUser.role.join(" ")}</h2><h3>Areas</h3><p>${singleUser.areas.map(a=>a.areaName).join(", ")}</p><h3>Tecnologías</h3><p>${singleUser.technologies.map(t=>t.technologyName).join(", ")}</p>`})
-  }
- 
+  const handleShare = () => {
+    MailComposer.composeAsync({
+      subject: `Mentor Me: perfil de ${singleUser.firstName} ${singleUser.lastName}`,
+      isHtml: true,
+      body: `<h1>${singleUser.firstName} ${singleUser.lastName}</h1><h2>${
+        singleUser.description
+      }</h2><h2>${singleUser.role.join(
+        " "
+      )}</h2><h3>Areas</h3><p>${singleUser.areas
+        .map((a) => a.areaName)
+        .join(", ")}</p><h3>Tecnologías</h3><p>${singleUser.technologies
+        .map((t) => t.technologyName)
+        .join(", ")}</p>`,
+    });
+  };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
         <Header navigation={navigation} />
         <View style={styles.shareContainer}>
-            <IconButton
-              icon="share-variant"
-              color="white"
-              size={20}
-              onPress={handleShare}
-            />
+          <IconButton
+            icon="share-variant"
+            color="white"
+            size={20}
+            onPress={handleShare}
+          />
         </View>
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
@@ -63,7 +73,6 @@ const SingleUser = ({ navigation }) => {
             {singleUser.img ? (
               <Avatar
                 size={hp("20%")}
-                
                 source={{
                   uri: singleUser.img,
                 }}
@@ -73,22 +82,21 @@ const SingleUser = ({ navigation }) => {
                 titleStyle={{
                   color: "white",
                   width: wp("100%"),
-                  paddingTop: "15%"
+                  paddingTop: "15%",
                 }}
                 activeOpacity={0.7}
               />
             ) : (
-              <Avatar 
-              size={hp("20%")}
-             
+              <Avatar
+                size={hp("20%")}
                 rounded
                 title={
-                    singleUser._id &&
+                  singleUser._id &&
                   `${singleUser.firstName[0]}${singleUser.lastName[0]}`
                 }
                 titleStyle={{
                   color: "white",
-                  width: wp("100%"), 
+                  width: wp("100%"),
                 }}
                 // onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
@@ -101,15 +109,15 @@ const SingleUser = ({ navigation }) => {
               alignItems: "center",
               bottom: hp("7%"),
               justifyContent: "space-between",
-              height: hp("12%"),
+              height: hp("15%"),
             }}
           >
             <Text
-             style={{
-              fontWeight: "bold",
-              color: colors.text,
-              fontSize: hp("3%"),
-            }}
+              style={{
+                fontWeight: "bold",
+                color: colors.text,
+                fontSize: hp("3%"),
+              }}
             >{`${singleUser.firstName} ${singleUser.lastName}`}</Text>
             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {singleUser.email}
@@ -120,25 +128,22 @@ const SingleUser = ({ navigation }) => {
                 alignContent: "center",
                 color: colors.text,
               }}
-              >
+            >
               {singleUser.description}
-             
             </Text>
 
- 
-           
-            
-            <Text> Location: {singleUser.location && singleUser.location.locationName}</Text>
-             
-          
-            </View>
-          
+            <Text>
+              {" "}
+              Location:{" "}
+              {singleUser.location && singleUser.location.locationName}
+            </Text>
+          </View>
 
-          <Configuration showLogged={false}/>
+          <Configuration showLogged={false} />
         </View>
-      </View>
-      <TabBar navigation={navigation}/>
-    </ScrollView>
+      </ScrollView>
+      <TabBar navigation={navigation} />
+    </View>
   );
 };
 
