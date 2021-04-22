@@ -8,12 +8,13 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
-import {Divider } from "react-native-paper"
+import { Divider, IconButton } from "react-native-paper"
 import { useTheme } from "@react-navigation/native";
+
+import * as MailComposer from 'expo-mail-composer';
 
 //SCREENS
 import Header from "../header/Header";
@@ -34,12 +35,24 @@ const SingleUser = ({ navigation }) => {
   const loginUser= useSelector(state=> state.loggedUser.user)
   //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
+
+  const handleShare = ()=>{
+    MailComposer.composeAsync({subject: `Mentor Me: perfil de ${singleUser.firstName} ${singleUser.lastName}`, isHtml: true, body: `<h1>${singleUser.firstName} ${singleUser.lastName}</h1><h2>${singleUser.description}</h2><h2>${singleUser.role.join(" ")}</h2><h3>Areas</h3><p>${singleUser.areas.map(a=>a.areaName).join(", ")}</p><h3>Tecnologías</h3><p>${singleUser.technologies.map(t=>t.technologyName).join(", ")}</p>`})
+  }
  
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <Header navigation={navigation} />
+        <View style={styles.shareContainer}>
+            <IconButton
+              icon="share-variant"
+              color="white"
+              size={20}
+              onPress={handleShare}
+            />
+        </View>
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
@@ -100,7 +113,7 @@ const SingleUser = ({ navigation }) => {
                 alignContent: "center",
                 color: colors.text,
               }}
-            >
+              >
               {singleUser.description}
              
             </Text>
@@ -109,6 +122,7 @@ const SingleUser = ({ navigation }) => {
            
             
             <Text> Location: {singleUser.location && singleUser.location.locationName}</Text>
+             
           
             </View>
           

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import {login} from '../../state/loggedUser/thunks'
+import {login, googleAuth} from '../../state/loggedUser/thunks'
 import {logout} from '../../state/loggedUser/actions'
 import AwesomeAlert from 'react-native-awesome-alerts';
 
@@ -24,30 +24,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 //STYLE
 import styles from "./signInStyle"
 
-//AUTH
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import * as AuthSession from 'expo-auth-session';
+//COMPONENTS
+import GoogleButton from '../../shared/components/GoogleButton/GoogleButton'
 
-WebBrowser.maybeCompleteAuthSession();
 
 
 const SignIn = ({navigation}) => {
-  // const [request, response, promptAsync] = Google.useAuthRequest({
-  //   expoClientId: '258776343712-lqpid5ilh84carq4no613sd17ea5mmjg.apps.googleusercontent.com',
-  //   iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-  //   androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-  //   webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-  //   behavior: "web",
-  // });
-
  
-
-  // React.useEffect(() => {
-  //   if (response?.type === 'success') {
-  //     const { authentication } = response;
-  //     }
-  // }, [response]);
   const [enableShift, setEnabledShift] = useState(false);
   const dispatch = useDispatch();
   const loginUser= useSelector((state) => state.loggedUser.user);
@@ -106,6 +89,9 @@ const SignIn = ({navigation}) => {
       secureTextEntry: !data.secureTextEntry,
     });
   };
+
+ 
+
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor='#009387' barStyle='light-content'/>
@@ -210,19 +196,16 @@ const SignIn = ({navigation}) => {
             </Text>
           </TouchableOpacity>
           </LinearGradient>
+          
+          <GoogleButton />
+
         </View>
         </Animatable.View>
 
         </KeyboardAvoidingView>
-        
+         
         </ScrollView>
-        {/* <Button
-      disabled={!request}
-      title="Login"
-      onPress={() => {
-        promptAsync();
-        }}
-    /> */}
+       
     </View>
   );
 };

@@ -100,6 +100,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
   },
+  shareContainer:{
+    position: "absolute",
+    right: 30,
+    top: 40
+  }
 });
 
 export default styles;

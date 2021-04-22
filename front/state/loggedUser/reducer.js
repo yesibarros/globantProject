@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 
-import { register, login, updateProfile, cancelMatch, getProfile } from "./thunks";
+import { register, login, updateProfile, cancelMatch, getProfile, googleAuth } from "./thunks";
 import { logout, setUser, setReceivedPendingRequests } from "./actions";
 
 const inicialState = { user: {}, token: "" };
@@ -16,7 +16,10 @@ const loggedUserReducer = createReducer(inicialState, {
     SecureStore.setItemAsync("token", action.payload.token).then(() => {});
     state.user = action.payload.user;
   },
-
+  [googleAuth.fulfilled]: (state, action) => {
+    SecureStore.setItemAsync("token", action.payload.token).then(() => {});
+    state.user = action.payload.user;
+  },
   [updateProfile.fulfilled]: (state, action) => {
     state.user = action.payload;
   },

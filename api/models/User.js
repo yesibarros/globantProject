@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema({
     max: 120,
   },
   password: {
-    type: String, 
-    required: true, 
+    type: String,  
     trim: true
   },
   workingSince: {
@@ -97,6 +96,9 @@ const userSchema = new mongoose.Schema({
     default: ""
   },
   salt: {
+    type: String
+  }, 
+  googleId: {
     type: String
   }
 });
