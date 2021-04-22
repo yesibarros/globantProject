@@ -53,7 +53,7 @@ const ScreenDrawer = (props) => {
                 <Title style={styles.title}>
                   {`${user.firstName} ${user.lastName}`}
                 </Title>
-                <Caption style={styles.caption}>{user.email.length > 17 ? `${user.email.slice(1, 18)}...` : user.email}</Caption>
+                <Caption style={styles.caption}>{user.email?.length > 17 ? `${user.email.slice(1, 18)}...` : user.email}</Caption>
               </View>
             </View>
             <View style={styles.row}>
