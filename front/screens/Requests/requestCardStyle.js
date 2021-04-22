@@ -1,28 +1,30 @@
 import { StyleSheet } from "react-native";
 import {primaryGreen} from "../../utils/Colors"
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const styles = StyleSheet.create({
     card: {
         shadowColor: "#000",
         shadowOpacity: 1,
         shadowRadius: 10,
         elevation: 8,
-        margin: 10,
-        marginBottom: 15,
-        marginTop: 8,
+        margin: hp('1.3%'),
+        marginTop: hp('7'),
     },
     container:{
         flexDirection: "row"
     },
     infoContainer: {
-        width: "70%",
+        width: wp('55%'),
         
     },
     titleContainer: {
         flexDirection: "row", 
     },
     title: {
-        marginLeft: 10,
+        marginLeft: hp('2%'),
       
     },
     fromRole:{
@@ -30,20 +32,20 @@ const styles = StyleSheet.create({
         lineHeight: 13
     },
     name:{
-        marginTop: -5
+        marginTop: hp('0.1%')
     },
     message: {
-        marginTop: 10
+        marginTop: hp('2%')
     },
     buttonContainer:{
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "30%",
+        width: wp('30%'),
         alignItems: "center",
     },
     cancelContainer: {
         justifyContent: "center",
-        width: "30%",
+        width: wp('30%'),
         alignItems: "center"
     }
 
