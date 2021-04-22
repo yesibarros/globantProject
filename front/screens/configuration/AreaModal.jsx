@@ -106,9 +106,12 @@ const AreaModal = ({ visible, setEditArea }) => {
               </Button> 
             <View style={{ width: wp("40%") }}>
               {saveLoad ?
-               <ActivityIndicator size="large" color="#0000ff" />
+              <ActivityIndicator size="large" color="#0000ff" />
               :
-              <Button style={styles.button} onPress={handleCloseModal}>
+              <Button style={styles.button} onPress={() => {
+                handleSave()
+                handleCloseModal()
+                }}>
               <Text style={styles.textButton}>GUARDAR</Text>
                 
               </Button>
