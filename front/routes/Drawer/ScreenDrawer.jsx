@@ -53,7 +53,11 @@ const ScreenDrawer = (props) => {
                 <Title style={styles.title}>
                   {`${user.firstName} ${user.lastName}`}
                 </Title>
-                <Caption style={styles.caption}>{user.email.length > 17 ? `${user.email.slice(1, 18)}...` : user.email}</Caption>
+                <Caption style={styles.caption}>
+                  {user?.email?.length > 17
+                    ? `${user.email.slice(1, 18)}...`
+                    : user.email}
+                </Caption>
               </View>
             </View>
             <View style={styles.row}>
@@ -115,16 +119,20 @@ const ScreenDrawer = (props) => {
               label={oppositeRole}
               onPress={() => props.navigation.navigate(oppositeRole)}
             />
-            {user.role == "mentor" &&
-            <DrawerItem
-            icon={({ color, size }) => (
-              <Icon name="shield-account-outline" color={color} size={size} />
+            {user.role == "mentor" && (
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <Icon
+                    name="shield-account-outline"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Admin"
+                onPress={() => props.navigation.navigate("Admin")}
+              />
             )}
-            label="Admin"
-            onPress={() => props.navigation.navigate("Admin")}
-          />
-            }
-            
+
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />

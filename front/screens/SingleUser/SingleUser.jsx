@@ -8,7 +8,6 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -16,7 +15,7 @@ import {
 } from "react-native-responsive-screen";
 
 import { Avatar } from "react-native-elements";
-import {Divider } from "react-native-paper"
+import { Divider } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 
 //SCREENS
@@ -31,18 +30,16 @@ import Configuration from "../configuration/Configuration";
 import TabBar from "../../routes/Tab/TabBar";
 const { width } = Dimensions.get("window");
 
-
 const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
-  const singleUser= useSelector(state=> state.singleUser.user)
-  const loginUser= useSelector(state=> state.loggedUser.user)
+  const singleUser = useSelector((state) => state.singleUser.user);
+  const loginUser = useSelector((state) => state.loggedUser.user);
   //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
- 
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
         <Header navigation={navigation} />
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
@@ -50,7 +47,6 @@ const SingleUser = ({ navigation }) => {
             {singleUser.img ? (
               <Avatar
                 size={hp("20%")}
-                
                 source={{
                   uri: singleUser.img,
                 }}
@@ -60,22 +56,21 @@ const SingleUser = ({ navigation }) => {
                 titleStyle={{
                   color: "white",
                   width: wp("100%"),
-                  paddingTop: "15%"
+                  paddingTop: "15%",
                 }}
                 activeOpacity={0.7}
               />
             ) : (
-              <Avatar 
-              size={hp("20%")}
-             
+              <Avatar
+                size={hp("20%")}
                 rounded
                 title={
-                    singleUser._id &&
+                  singleUser._id &&
                   `${singleUser.firstName[0]}${singleUser.lastName[0]}`
                 }
                 titleStyle={{
                   color: "white",
-                  width: wp("100%"), 
+                  width: wp("100%"),
                 }}
                 // onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
@@ -88,15 +83,15 @@ const SingleUser = ({ navigation }) => {
               alignItems: "center",
               bottom: hp("7%"),
               justifyContent: "space-between",
-              height: hp("12%"),
+              height: hp("15%"),
             }}
           >
             <Text
-             style={{
-              fontWeight: "bold",
-              color: colors.text,
-              fontSize: hp("3%"),
-            }}
+              style={{
+                fontWeight: "bold",
+                color: colors.text,
+                fontSize: hp("3%"),
+              }}
             >{`${singleUser.firstName} ${singleUser.lastName}`}</Text>
             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {singleUser.email}
@@ -109,22 +104,19 @@ const SingleUser = ({ navigation }) => {
               }}
             >
               {singleUser.description}
-             
             </Text>
 
- 
-           
-            
-            <Text> Location: {singleUser.location && singleUser.location.locationName}</Text>
-          
-            </View>
-          
+            <Text>
+              Location:{" "}
+              {singleUser.location && singleUser.location.locationName}
+            </Text>
+          </View>
 
-          <Configuration showLogged={false}/>
+          <Configuration showLogged={false} />
         </View>
-      </View>
-      <TabBar navigation={navigation}/>
-    </ScrollView>
+      </ScrollView>
+      <TabBar navigation={navigation} />
+    </View>
   );
 };
 
