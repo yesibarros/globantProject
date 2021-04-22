@@ -47,8 +47,9 @@ authController.google = (req, res, next) => {
     userFindAndPopulate({email: data.email})
     .then(user=>{
       console.log(user)
-      if(user?.email && !user.googleId) return res.status(400).send("This user already exists")
-      if(user?.email && user.googleId){
+      //user?.email && !user.googleId
+      if(user && user.email && !user.googleId) return res.status(400).send("This user already exists")
+      if(user && user.email && user.googleId){
         const token = jwt.sign({id: user._id}, JWT_SECRET)
         return res.status(201).send({user,token})
       }

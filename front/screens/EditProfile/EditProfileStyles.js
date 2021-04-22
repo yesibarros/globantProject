@@ -1,7 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { height } = Dimensions.get("window");
-const screenWidth = Dimensions.get("window").width / 1.05;
-const screenHeigth = Dimensions.get("window").height / 2.3;
+import { StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -60,7 +57,7 @@ const styles = StyleSheet.create({
   },
   titleDates: {
     marginTop: hp("5%"),
-    fontSize: hp("4%"),
+    fontSize: hp("3%"),
     fontWeight: "bold",
   },
   buttonSize: {
