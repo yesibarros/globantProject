@@ -74,7 +74,7 @@ const Mentees = ({ navigation }) => {
 
   // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
   // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
-
+  console.log("todo funciona")
   return (
     <>
       <ScrollView>
@@ -89,7 +89,7 @@ const Mentees = ({ navigation }) => {
                 <View style={{ marginVertical:hp('25%') }}>
                   
                   <View style={styles.n}>
-                 
+                
                     <Text style={styles.nText}>
                       No tenes  {loginUser.role == "mentor" ? "ningún mentee" : "mentor"} todavía.
                     </Text>
