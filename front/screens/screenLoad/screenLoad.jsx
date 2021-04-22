@@ -78,7 +78,7 @@ const ScreenLoad = ({ navigation }) => {
           fontWeight: "bold",
           color: '#BFD732',
           opacity: 1,
-          right: wp("10%"),
+          right: wp("8%"),
           // zIndex: 2,
         }}
       >
@@ -94,7 +94,7 @@ const ScreenLoad = ({ navigation }) => {
           fontWeight: "bold",
           color:"#303030",
           opacity: 1,
-          left: wp("5%"),
+          left: wp("8%"),
           // zIndex: 3,
         }}
       >
