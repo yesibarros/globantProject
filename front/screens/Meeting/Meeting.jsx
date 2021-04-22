@@ -52,12 +52,13 @@ export default function Meeting({ route, navigation }) {
       />)
       :
       <View style={styles.n}>
+        
         <Text style={styles.nText}>No tienes reuniones programadas</Text>
       </View>
       }
     </View>
         <View style={{ flex: 0.08 }}>
-        <TabBar state={state} navigation={navigation} />
+        <TabBar  navigation={navigation} />
       </View>
     </View>
   
