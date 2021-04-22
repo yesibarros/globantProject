@@ -188,6 +188,7 @@ export default function App({ navigation }) {
                 cardIndex={index}
                 renderCard={(match) => <Card card={match} />}
                 infinite
+                swipeBack	
                 onSwiped={onSwiped}
                 backgroundColor="transparent"
                 onTapCard={() =>
