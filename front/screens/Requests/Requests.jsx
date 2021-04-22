@@ -102,6 +102,7 @@ const Requests = ({navigation}) => {
             <View style={styles.n}>
               <Text style={styles.nText}>
                 No tenes solicitudes {showReceived ? 'recibidas' : 'enviadas'}
+
               </Text>
             </View>
           }

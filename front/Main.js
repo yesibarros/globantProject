@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
@@ -14,19 +14,16 @@ import DrawerNavigator from "./routes/Drawer/DrawerNavigator";
 import ScreenLoad from "./screens/screenLoad/screenLoad";
 import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
-import Progress from './screens/Progress/Progress';
+import Progress from "./screens/Progress/Progress";
 // import MatchComparison from "./screens/Matchs/MatchComparison"
 import { useSelector, useDispatch } from "react-redux";
 import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
-import SingleUser from "./screens/SingleUser/SingleUser"
-import TabBarNavigator from "./routes/Tab/TabNavigator"
+import SingleUser from "./screens/SingleUser/SingleUser";
+import TabBarNavigator from "./routes/Tab/TabNavigator";
 import Meeting from "./screens/Meeting/Meeting";
-
-
-
 
 const Stack = createStackNavigator();
 
@@ -42,7 +39,7 @@ const MyTheme = {
   },
 };
 
-const Main = ({navigation}) => {
+const Main = ({ navigation }) => {
   const showAnimation = useSelector((state) => state.animation);
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const isDarkTheme = useSelector((state) => state.darkTheme);
@@ -70,15 +67,11 @@ const Main = ({navigation}) => {
   };
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-
-
-
- return (
+  return (
     <PaperProvider theme={theme}>
-     
       <NavigationContainer theme={theme}>
-    
-        <Stack.Navigator initialRouteName="ScreenLoad"
+        <Stack.Navigator
+          initialRouteName="ScreenLoad"
           headerMode={false}
           // screenOptions={{
           //   headerStyle: {
@@ -89,7 +82,6 @@ const Main = ({navigation}) => {
         >
           {loggedUser._id ? (
             <>
-              
               <Stack.Screen
                 name="DrawerNavigator"
                 component={DrawerNavigator}
@@ -100,36 +92,43 @@ const Main = ({navigation}) => {
                 component={MatchComparison}
               />
               <Stack.Screen name="SearchMatch" component={Search} />
-              <Stack.Screen
-                name="Mentor"
-                component={Mentees}
-              />
-              <Stack.Screen
-                name="SingleUser"
-                component={SingleUser}
-              />
-              <Stack.Screen
-                name="Progress"
-                component={Progress}
-              />
-              <Stack.Screen 
-                name="Meeting"
-                component={Meeting}
-              />
-
+              <Stack.Screen name="Mentor" component={Mentees} />
+              <Stack.Screen name="SingleUser" component={SingleUser} />
+              <Stack.Screen name="Progreso" component={Progress} />
+              <Stack.Screen name="Meeting" component={Meeting} />
             </>
           ) : (
             <>
               {showAnimation ? (
                 <>
-                  <Stack.Screen options={{headerShown: false}} name="ScreenLoad" component={ScreenLoad} />
-                  <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
-                  <Stack.Screen options={{headerShown: false}} name="SignUp" component={SignUp} />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="ScreenLoad"
+                    component={ScreenLoad}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignIn"
+                    component={SignIn}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignUp"
+                    component={SignUp}
+                  />
                 </>
               ) : (
                 <>
-                  <Stack.Screen options={{headerShown: false}} name="SignIn" component={SignIn} />
-                  <Stack.Screen options={{headerShown: false}} name="SignUp" component={SignUp} />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignIn"
+                    component={SignIn}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignUp"
+                    component={SignUp}
+                  />
                 </>
               )}
             </>
