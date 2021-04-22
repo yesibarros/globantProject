@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet} from "react-native";
+import { View, StyleSheet } from "react-native";
 import Tab from "./Tab";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const TabBar = ({ navigation }) => {
           loginUser.role == "admin"
             ? "Admin"
             : loginUser.role == "mentee"
-            ? "Progress"
+            ? "Progreso"
             : "Solicitudes",
       },
       {
@@ -40,7 +40,6 @@ const TabBar = ({ navigation }) => {
       navigation.navigate(activeTab);
     }
   };
-
 
   return (
     <View style={styles.wrapper}>

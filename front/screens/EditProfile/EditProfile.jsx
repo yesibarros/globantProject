@@ -120,7 +120,7 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={`${loginUser.location && loginUser.location.locationName} `}
+            title={loginUser.location?.locationName ? loginUser.location?.locationName: "Sin sede"}
             subtitle="Sede"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
@@ -136,7 +136,7 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={`${loginUser.location && loginUser.description} `}
+            title={loginUser.description ? loginUser.description : "Sin descripción"}
             subtitle="Acerca de mi"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
