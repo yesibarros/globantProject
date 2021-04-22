@@ -18,6 +18,9 @@ import { register } from "../../state/loggedUser/thunks";
 import { primaryGreen } from "../../utils/Colors";
 import { ScrollView } from "react-native-gesture-handler";
 
+//COMPONENTS
+import GoogleButton from '../../shared/components/GoogleButton/GoogleButton'
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -304,6 +307,7 @@ const SignUp = ({ navigation }) => {
                     </Text>
                   </LinearGradient>
                 </TouchableOpacity>
+                <GoogleButton />
               </View>
             </Animatable.View>
           </KeyboardAvoidingView>

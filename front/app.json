@@ -1,10 +1,12 @@
 {
   "expo": {
     "name": "globantProject",
-    "slug": "globantProject",
+    "slug": "MentorMe",
+    "owner": "guilledev1990",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "mycoolredirect",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
