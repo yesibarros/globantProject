@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#ff9c38',
     },
     background: {
@@ -19,8 +18,6 @@ const styles = StyleSheet.create({
         top: hp('0%'),
         height: hp('30%'),
     },
-  
-
 });
 
 export default styles

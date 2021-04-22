@@ -181,10 +181,6 @@ const EditProfile = ({ navigation }) => {
                 </Title>
 
                 <View style={[styles.cardContainer, { marginTop: 0 }]}>
-                  {/* icon="account"  */}
-                  {/* icon="card-text-outline"  */}
-                  {/* icon="map-marker" */}
-
                   <TextInput
                     style={styles.textInput}
                     label="Nombre"
@@ -221,6 +217,7 @@ const EditProfile = ({ navigation }) => {
                         selected={selected}
                         style={styles.inputLocation}
                         placeholder="Elegí tu sede"
+                        containerStyle={{backgroundColor: colors.background}}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {
