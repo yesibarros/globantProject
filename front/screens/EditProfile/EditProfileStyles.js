@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     marginTop: hp("5%"),
     width: wp("130%"),
   },
-
   inputLocation: {
     borderWidth: 2,
     borderRadius: 50,
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: hp("6%"),
     marginLeft: wp("5%"),
-    width: wp("75%"),
+    width: wp("75%")
   },
   cardTitle: {
     fontWeight: "bold",
