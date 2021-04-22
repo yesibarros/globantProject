@@ -1,39 +1,42 @@
 import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   progressContainer: {
-    flex: 0.92,
     justifyContent: "center",
-    width: "100%",
+    width: wp("97%"),
     alignItems: "center",
     paddingLeft: "2.5%",
-    marginLeft: 5
+    marginLeft: wp("3%"),
   },
   titleProgress: {
-    fontSize: 40,
+    width: wp("60%"),
+    height: hp("12%"),
+    fontSize: hp("4%"),
     fontWeight: "bold",
-    marginVertical: 10,
-    paddingLeft: 10,
     color: "black",
-    marginBottom: 15,
-    marginTop: 45,
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   viewContainer: {
     backgroundColor: "#fff",
     flex: 1,
     marginHorizontal: 10,
-    marginTop: '15%',
-    maxHeight: '70%',
+    marginTop: "15%",
+    maxHeight: "70%",
     justifyContent: "center",
     shadowOpacity: 1.0,
     shadowRadius: 50,
     elevation: 20,
     borderRadius: 50,
     borderWidth: 1.5,
-    borderColor: 'green',
+    borderColor: "green",
   },
   input: {
-    width: '90%',
+    width: "90%",
     padding: 10,
     margin: 12,
     borderWidth: 0.5,
@@ -47,15 +50,14 @@ const styles = StyleSheet.create({
   n: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    height: 50,
-    marginTop: '50%',
+    width: wp("100%"),
+    height: hp("50%"),
   },
   nText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#c9c9c9'
-  }
+    fontSize: wp("5%"),
+    fontWeight: "bold",
+    color: "#c9c9c9",
+  },
 });
 
 export default styles;

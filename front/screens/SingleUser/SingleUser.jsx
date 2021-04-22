@@ -1,6 +1,5 @@
 //REACT
 import React, { useState, useEffect } from "react";
-
 import {
   ScrollView,
   View,
@@ -63,7 +62,14 @@ const SingleUser = ({ navigation }) => {
           <IconButton
             icon="share-variant"
             color="white"
-            size={20}
+            size={hp("5%")}
+            style={{
+              position: "absolute",
+              zIndex: 1,
+              width: wp("94%"),
+              top: hp("-9%"),
+              alignItems: "flex-end",
+            }}
             onPress={handleShare}
           />
         </View>

@@ -6,38 +6,41 @@ import {
   Modal,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  Card,
-  Button,
-  Avatar,
-  IconButton,
-} from "react-native-paper";
+import { Card, Button, Avatar, IconButton } from "react-native-paper";
 import { primaryGreen } from "../../utils/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./CardMeetingStyle";
 import { ScrollView } from "react-native-gesture-handler";
-import { deleteMeets, getMyMeets } from "../../state/Meetings/thunks"
+import { deleteMeets, getMyMeets } from "../../state/Meetings/thunks";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { BlurView } from "expo-blur";
+import * as Linking from "expo-linking";
 
 const CardMeeting = ({ item, last }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser.user);
   const [viewModal, setViewModal] = useState(false);
   const border = last ? "transparent" : "lightgrey";
 
-   
-  const name = loggedUser.firstName == item.guest.firstName ? item.host.firstName : item.guest.firstName
+  const name =
+    loggedUser.firstName == item.guest.firstName
+      ? item.host.firstName
+      : item.guest.firstName;
 
-  const handleCancel = ()=>{
-    setViewModal(false)
-    dispatch(deleteMeets(item._id)).then(()=>dispatch(getMyMeets()))
-  }
-  
+  const handleCancel = () => {
+    setViewModal(false);
+    dispatch(deleteMeets(item._id)).then(() => dispatch(getMyMeets()));
+  };
+
   return (
     <View style={[styles.container, { borderColor: border }]}>
       <Avatar.Icon
-        size={55}
+        size={hp("7%")}
         color="#009387"
-        icon='calendar'
+        icon="calendar"
         style={styles.avatar}
       ></Avatar.Icon>
       <Card style={styles.card}>
@@ -47,7 +50,7 @@ const CardMeeting = ({ item, last }) => {
           right={(props) => (
             <IconButton
               {...props}
-              size={35}
+              size={hp("4%")}
               color="#009387"
               icon="eye-plus"
               onPress={() => {
@@ -67,104 +70,124 @@ const CardMeeting = ({ item, last }) => {
         keyboardVerticalOffset={80}
       >
         <Modal visible={viewModal} transparent={true} animationType="slide">
-          <View style={styles.viewContainer}>
-            <View
-              style={{
-                flex: 0.3,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 30,
-                  fontWeight: "bold",
-                  alignContent: "center",
-                  textTransform: "uppercase",
-                  marginLeft: 10
-                }}
-              >
-                Destinatario: {item.guest.firstName}
-              </Text>
-            </View>
-
-            <Card style={styles.empty}>
-              <ScrollView>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    padding: 10,
-                  }}
-                >
-                  {item.description}
-                </Text>
-              </ScrollView>
-            </Card>
+          <BlurView
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            intensity={110}
+            tint="dark"
+          >
+            <View style={styles.viewContainer}>
               <View
                 style={{
-                  flex: 0.7,
+                  height: hp("10%"),
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: hp("3.7%"),
+                    fontWeight: "bold",
+                    alignContent: "center",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Destinatario: {item.guest.firstName}
+                </Text>
+              </View>
+
+              <Card style={styles.empty}>
+                <ScrollView>
+                  <Text
+                    style={{
+                      fontSize: hp("3%"),
+                      padding: hp("2%"),
+                    }}
+                  >
+                    {item.description}
+                  </Text>
+                </ScrollView>
+              </Card>
+              <View
+                style={{
+                  height: hp("10%"),
                   justifyContent: "space-around",
                 }}
               >
-                <Text style={{ fontSize: 20, paddingLeft: 20 }}>
-                  Fecha de reunión: {item.date.toString()}
+                <Text style={{ fontSize: hp("2.2%"), paddingLeft: hp("2%") }}>
+                  Fecha de reunión: {item.date.split("T").join("\nHora: ")}
                 </Text>
               </View>
               <View
                 style={{
-                  flex: 0.7,
+                  height: hp("6%"),
                   justifyContent: "space-around",
                 }}
               >
-                <Text style={{ fontSize: 20, paddingLeft: 20 }}>
+                <Text
+                  style={{ fontSize: 20, paddingLeft: 20 }}
+                  onPress={() => Linking.openURL(`${item.link}`)}
+                >
                   Link de reunión: {item.link}
                 </Text>
               </View>
-            <TouchableOpacity />
+              <TouchableOpacity />
 
-            <View
-              style={{
-                flex: 0.4,
-                alignItems: "center",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <Button
+              <View
                 style={{
-                  backgroundColor: "#009387",
-                  width: "40%",
-                  height: "40%",
-                  justifyContent: "center",
-                }}
-                onPress={handleCancel}
-              >
-                <Text
-                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
-                >
-                  Cancelar reunión
-                </Text>
-              </Button>
-              <Button
-                style={{
-                  backgroundColor: "#009387",
-                  width: "40%",
-                  height: "40%",
-                  justifyContent: "center",
-                }}
-                onPress={() => {
-                  setViewModal(false);
+                  height: hp("7%"),
+                  alignItems: "center",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
                 }}
               >
-                <Text
-                  style={{ fontSize: 22, color: "white", textAlign: "center" }}
+                <Button
+                  style={{
+                    backgroundColor: "#009387",
+                    width: wp("60%"),
+                    height: hp("5%"),
+                    justifyContent: "center",
+                  }}
+                  onPress={handleCancel}
                 >
-                  Ok
-                </Text>
-              </Button>
-
+                  <Text
+                    style={{
+                      fontSize: hp("2%"),
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    Cancelar reunión
+                  </Text>
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: "#009387",
+                    width: wp("20%"),
+                    height: hp("5%"),
+                    justifyContent: "center",
+                  }}
+                  onPress={() => {
+                    setViewModal(false);
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: hp("2%"),
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    Ok
+                  </Text>
+                </Button>
+              </View>
             </View>
-          </View>
+          </BlurView>
         </Modal>
       </KeyboardAvoidingView>
     </View>

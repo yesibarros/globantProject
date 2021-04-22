@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -87,7 +87,7 @@ const EditProfile = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, {backgroundColor: colors.background}]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View
         style={{
           marginLeft: "2.5%",
@@ -121,7 +121,11 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={loginUser.location?.locationName ? loginUser.location?.locationName: "Sin sede"}
+            title={
+              loginUser.location?.locationName
+                ? loginUser.location?.locationName
+                : "Sin sede"
+            }
             subtitle="Sede"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
@@ -137,7 +141,9 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={loginUser.description ? loginUser.description : "Sin descripción"}
+            title={
+              loginUser.description ? loginUser.description : "Sin descripción"
+            }
             subtitle="Acerca de mi"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
@@ -149,15 +155,21 @@ const EditProfile = ({ navigation }) => {
           mode="contained"
           onPress={editProfile}
         >
-          <Text style={{ fontSize: hp("3%"), justifyContent: "center", color: colors.text }}>Editar</Text>
+          <Text
+            style={{
+              fontSize: hp("3%"),
+              justifyContent: "center",
+              color: colors.text,
+            }}
+          >
+            Editar
+          </Text>
         </Button>
       </View>
 
- 
-        <Modal visible={editMode} animationType="slide" transparent={true}>
+      <Modal visible={editMode} animationType="slide" transparent={true}>
         <BlurView style={styles.container} intensity={100} tint="dark">
           {isLoading ? (
-            
             <View style={{ backgroundColor: colors.background }}>
               <ActivityIndicator
                 style={{ flex: 1, alignItems: "Center" }}
@@ -218,8 +230,13 @@ const EditProfile = ({ navigation }) => {
                           setSelected(value);
                         }}
                         selected={selected}
-                        style={[styles.inputLocation, { color: "black",
-                        backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
+                        style={[
+                          styles.inputLocation,
+                          {
+                            color: "black",
+                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                          },
+                        ]}
                         placeholder="Elegí tu sede"
                         // containerStyle={{backgroundColor: colors.background}}
                       >
@@ -245,17 +262,22 @@ const EditProfile = ({ navigation }) => {
                   mode="contained"
                   onPress={saveProfile}
                 >
-                  <Text style={{ fontSize: hp("3%"), justifyContent: "center", color: colors.text }}>
+                  <Text
+                    style={{
+                      fontSize: hp("3%"),
+                      justifyContent: "center",
+                      color: colors.text,
+                    }}
+                  >
                     Guardar
                   </Text>
                 </Button>
               </View>
-              <KeyboardSpacer/>
+              <KeyboardSpacer />
             </ScrollView>
           )}
-          </BlurView>
-        </Modal>
-
+        </BlurView>
+      </Modal>
     </View>
   );
 };
