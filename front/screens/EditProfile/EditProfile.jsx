@@ -221,7 +221,7 @@ const EditProfile = ({ navigation }) => {
                         style={[styles.inputLocation, { color: "black",
                         backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                         placeholder="Elegí tu sede"
-                        containerStyle={{backgroundColor: colors.background}}
+                        // containerStyle={{backgroundColor: colors.background}}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {
