@@ -1,40 +1,45 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, Animated } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Tab from "./Tab";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSelector } from "react-redux";
-
-const { width } = Dimensions.get("screen");
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const TabBar = ({ navigation }) => {
   const [selected, setSelected] = useState("Home");
-  const loginUser = useSelector(state=> state.loggedUser.user)
+  const loginUser = useSelector((state) => state.loggedUser.user);
   const state = {
     routes: [
       {
         name: "Mi perfil",
       },
-      
+
       {
-        name: loginUser.role == "admin" ? "Admin" : loginUser.role == "mentee" ? "Progress" : "Solicitudes",
+        name:
+          loginUser.role == "admin"
+            ? "Admin"
+            : loginUser.role == "mentee"
+            ? "Progreso"
+            : "Solicitudes",
       },
       {
-        name: loginUser.role == "mentor" ? "Mis mentees": "Mi mentor",
+        name: loginUser.role == "mentor" ? "Mis mentees" : "Mi mentor",
       },
     ],
     stale: false,
     type: "tab",
   };
   const { routes } = state;
-//console.log("STATE", state)
+  //console.log("STATE", state)
   const handlePress = (activeTab, index) => {
     if (state.index !== index) {
       setSelected(activeTab);
       navigation.navigate(activeTab);
     }
   };
-const showTabs= [routes[0], routes[1], routes[2]]
-
 
   return (
     <View style={styles.wrapper}>
@@ -42,33 +47,34 @@ const showTabs= [routes[0], routes[1], routes[2]]
         // Background Linear Gradient
         colors={["#ffc78f", "#ff9c38"]}
         style={styles.background}
-      />
-      {routes.map((route, index) => (
-        <Tab
-          tab={route}
-          onPress={() => handlePress(route.name, index)}
-          key={index}
-        />
-      ))}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+          }}
+        >
+          {routes.map((route, index) => (
+            <Tab
+              tab={route}
+              onPress={() => handlePress(route.name, index)}
+              key={index}
+            />
+          ))}
+        </View>
+      </LinearGradient>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: "absolute",
-    bottom: 0,
-    height: 90,
-    width,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    backgroundColor: "yellow",
+    width: wp("100%"),
   },
   background: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 25,
-    height: 100,
+    height: hp("6%"),
   },
 });
 

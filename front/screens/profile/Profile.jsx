@@ -1,6 +1,9 @@
 //REACT
 import React, { useState, useEffect } from "react";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import {
   ScrollView,
   View,
@@ -8,19 +11,13 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
-
 } from "react-native";
 
 import { Avatar } from "react-native-elements";
 import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
 import { loadImageFromGallery } from "../../utils/helpers";
-
-
-
-import BottomSheet from 'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
-
+import Animated from "react-native-reanimated";
 
 //SCREENS
 import Header from "../header/Header";
@@ -28,7 +25,7 @@ import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile";
 
 //COMPONENTS
-import ProfileAvatar from "./ProfileAvatar"
+import ProfileAvatar from "./ProfileAvatar";
 
 //STYLE
 import styles from "./profileStyle";
@@ -37,34 +34,27 @@ import styles from "./profileStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { setAnimation } from "../../state/Animation/actions";
 import { updateProfile } from "../../state/loggedUser/thunks";
-import { setUser } from "../../state/loggedUser/actions";
-import { setRequests } from "../../state/requests/Actions"
-import { setMenuBadge } from "../../state/menuBadge/menuBadge"
-import { setObjectives } from "../../state/objetivos/actions"
-const { width } = Dimensions.get("window");
+
 
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
 
 //Custom hooks
-import useNotificationsInit from "../../utils/customHooks/notificationsInit"
-import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications"
-import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications"
+import useNotificationsInit from "../../utils/customHooks/notificationsInit";
+import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications";
+import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
     return {
       shouldSetBadge: true,
       shouldShowAlert: false,
-      shouldPlaySound: false
+      shouldPlaySound: false,
     };
   },
 });
 
 const Profile = ({ navigation }) => {
-
-
-
   bs = React.createRef();
   fall = new Animated.Value(1);
 
@@ -72,53 +62,41 @@ const Profile = ({ navigation }) => {
   //  console.log("TAKEFOTO")
   // }
 
- 
-
   const choosePhotoFromLibrary = async () => {
     const result = await loadImageFromGallery([1, 1]);
-    if(result.status){
-      dispatch(updateProfile({img:result.image, id:loginUser._id}))
+    if (result.status) {
+      dispatch(updateProfile({ img: result.image, id: loginUser._id }));
     }
     console.log("RESULTADO", result);
   };
 
-const renderInner = () => (
-    <View style={styles.panel}>
-      <View style={{alignItems: 'center'}}>
-        <Text style={styles.panelTitle}>Upload Photo</Text>
-        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
-      </View>
-      {/* <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
-        <Text style={styles.panelButtonTitle}>Take Photo</Text>
-      </TouchableOpacity> */}
-      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
-        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.panelButton}
-        onPress={() => this.bs.current.snapTo(1)}>
-        <Text style={styles.panelButtonTitle}>Cancel</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  // const renderInner = () => (
+  //     <View style={styles.panel}>
+  //       <View style={{alignItems: 'center'}}>
+  //         <Text style={styles.panelTitle}>Upload Photo</Text>
+  //         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+  //       </View>
+  //       <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+  //         <Text style={styles.panelButtonTitle}>Take Photo</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+  //         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={styles.panelButton}
+  //         onPress={() => bs.current.snapTo(1)}>
+  //         <Text style={styles.panelButtonTitle}>Cancel</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
 
-  const renderHeader = () => (
-    <View style={styles.headerImage}>
-      <View style={styles.panelHeader}>
-        <View style={styles.panelHandle} />
-      </View>
-    </View>
-  );
-
-
-
-
-
-
-
-
-
-
+  // const renderHeader = () => (
+  //   <View style={styles.headerImage}>
+  //     <View style={styles.panelHeader}>
+  //       <View style={styles.panelHandle} />
+  //     </View>
+  //   </View>
+  // );
 
   //TERMINA PRUEBA IMAGEN
   const dispatch = useDispatch();
@@ -130,18 +108,24 @@ const renderInner = () => (
   //**** NOTIFICACIONES ******/
   // Hacer log in con expo: correr en la consola expo login
   //Se puede probar con https://expo.io/notifications
-  const notificationsInit = useNotificationsInit()
-  const foregroundNotifications = useForegroundNotifications()
-  const backgroundNotifications = useBackgroundNotifications()
+  const notificationsInit = useNotificationsInit();
+  const foregroundNotifications = useForegroundNotifications();
+  const backgroundNotifications = useBackgroundNotifications();
   useEffect(() => {
-    notificationsInit()
+    notificationsInit();
   }, []);
 
   useEffect(() => {
     //Cuando la app está abierta
-    const foreGroundSuscription = foregroundNotifications(Notifications, navigation)
+    const foreGroundSuscription = foregroundNotifications(
+      Notifications,
+      navigation
+    );
     //Cuando la app está cerrada
-    const backGroundSuscription = backgroundNotifications(Notifications, navigation)
+    const backGroundSuscription = backgroundNotifications(
+      Notifications,
+      navigation
+    );
     return () => {
       foreGroundSuscription.remove();
       backGroundSuscription.remove();
@@ -174,75 +158,73 @@ const renderInner = () => (
       setShowConfiguration(false);
     }
   }, [loginUser.technologies, loginUser.areas, loginUser._id]);
-  
-
 
   return (
-    
     <ScrollView>
       <View style={styles.container}>
         <Header navigation={navigation} />
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
-          <View style={{ top: -70, left: width / 3 }}>
+          <View style={styles.photo}>
             {loginUser.img ? (
-              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-              <Avatar
-                size="xlarge"
-               
-                source={{
-                  uri: loginUser.img,
-                }}
-                avatarStyle={{ zIndex: 1, width: "100%", height: "100%" }}
-                rounded
-                title={loginUser.firstName + loginUser.lastName}
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                }}
-                activeOpacity={0.7}
-              />
+            <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                <Avatar
+                  size={hp("20%")}
+                  rounded
+                  source={{
+                    uri: loginUser.img,
+                  }}
+                  title={loginUser?.firstName[0] + loginUser?.lastName[0]}
+                  titleStyle={{
+                    color: "white",
+                    width: wp("100%"),
+                    paddingTop: "15%",
+                  }}
+                  activeOpacity={0.7}
+                />
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-              <Avatar
-                size="xlarge"
-               
-                rounded
-                title={
-                  loginUser._id &&
-                  `${loginUser.firstName[0]}${loginUser.lastName[0]}`
-                }
-                titleStyle={{
-                  color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                  zIndex: 1,
-                }}
-                // onPress={() => console.log("Works!")}
-                activeOpacity={0.7}
-              />
-              </TouchableOpacity>
+              <TouchableOpacity onPress={choosePhotoFromLibrary}>
+                <Avatar
+                  size={hp("20%")}
+                  rounded
+                  avatarStyle={{ zIndex: -1, backgroundColor: "lightgray" }}
+                  title={
+                    loginUser._id &&
+                    `${loginUser.firstName[0]}${loginUser.lastName[0]}`
+                  }
+                  titleStyle={{
+                    color: "white",
+                    width: wp("100%"),
+                  }}
+                  activeOpacity={0.7}
+                />
+                </TouchableOpacity>
+          
             )}
           </View>
 
           <View
-            style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
+            style={{
+              alignItems: "center",
+              bottom: hp("7%"),
+              justifyContent: "space-between",
+              height: hp("12%"),
+            }}
           >
             <Text
-              style={{ fontWeight: "bold", color: colors.text }}
+              style={{
+                fontWeight: "bold",
+                color: colors.text,
+                fontSize: hp("3%"),
+              }}
             >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-            <Text style={{ marginTop: 8, color: colors.text }}>
+            <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {loginUser.email}
             </Text>
             <Text
               style={{
-                marginTop: 20,
+                fontSize: hp("2%"),
                 alignContent: "center",
                 color: colors.text,
               }}
@@ -278,42 +260,44 @@ const renderInner = () => (
             </TouchableOpacity>
           </View>
 
-          {showConfiguration ? <Configuration showLogged={true}/> : <EditProfile />}
+          {showConfiguration ? (
+            <Configuration showLogged={true} />
+          ) : (
+            <EditProfile />
+          )}
         </View>
       </View>
-      <View style={styles.container}>
-      <BottomSheet
+      {/* <View style={styles.container}> */}
+      {/* <BottomSheet
         ref={bs}
-        snapPoints={[400, 0]}
+        snapPoints={[500, 0]}
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}
         callbackNode={fall}
         enabledGestureInteraction={true}
-      />
-      <Animated.View style={{margin: 20,
+      /> */}
+      {/* <Animated.View style={{margin: 20,
         opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
-    }}>
-        <View style={{alignItems: 'center'}}>
+    }}> */}
+      {/* <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <View
               style={{
-                height: 100,
-                width: 100,
+                height: hp('100%'),
+                width: wp('100%'),
                 borderRadius: 15,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-           
+          
             </View>
           </TouchableOpacity>
-         
-        </View>
-      </Animated.View>
-    </View>
+        
+        </View> */}
+      {/* </Animated.View> */}
+      {/* </View> */}
     </ScrollView>
-     
-   
   );
 };
 

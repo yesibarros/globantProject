@@ -3,14 +3,19 @@ const userFindAndPopulate = require("../../utils/userFindAndPopulate")
 const sendNotification = require("../../utils/expoPushNotifications")
 
 const cancelMatch = async (req, res, next) => {
-    console.log(req.body)
+    console.log("bodyyyyy", req.body)
     try{
         if(req.body.mentee){
             await User.findByIdAndUpdate(req.body.mentee, {$unset: {mentor: ""}})
             await User.findByIdAndUpdate(req.user._id, {$pull: {mentees: req.body.mentee}})
             //Enviar notificación al mentee
             const menteeToSend = await userFindAndPopulate({_id: req.body.mentee})
-            if(menteeToSend.notificationsToken) sendNotification([menteeToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentor.`, {type: "cancelMatch", user: menteeToSend._id, date: String(new Date())})
+            if(menteeToSend.notificationsToken && req.body.messageEndOfMentoring){
+                sendNotification([menteeToSend.notificationsToken], `Mentor Me`, "", `${req.body.messageEndOfMentoring}`, {type: "cancelMatch", user: menteeToSend._id, date: String(new Date())})
+            }else if(menteeToSend.notificationsToken){
+                sendNotification([menteeToSend.notificationsToken], `Mentor Me`, "", `${req.user.firstName} ${req.user.lastName} ha dejado de ser tu mentor.`, {type: "cancelMatch", user: menteeToSend._id, date: String(new Date())})
+            }
+            
         }
         if(req.body.mentor){
             await User.findByIdAndUpdate(req.user._id, {$unset: {mentor: ""}})

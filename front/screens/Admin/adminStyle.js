@@ -1,32 +1,34 @@
 import { StyleSheet } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   viewContainer: {
-    backgroundColor: "#fff",
-    flex: 1,
-    marginHorizontal: 10,
-    marginTop: '15%',
-    maxHeight: '70%',
-    // justifyContent: "center",
+    height: hp("60%"),
+    marginHorizontal: wp("5%"),
+    marginVertical: hp("10%"),
+    justifyContent: "center",
+    paddingVertical: hp("5%"),
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 50,
+    shadowColor: "black",
     shadowOpacity: 1.0,
     shadowRadius: 50,
-    elevation: 20,
-    borderRadius: 50,
-    borderWidth: 1.5,
-    borderColor: 'green',
+    elevation: 55,
   },
-  input: {
-    width: '90%',
-    padding: 10,
-    margin: 12,
-    borderWidth: 0.5,
+  listContainer:{
+    borderTopLeftRadius: 60,
   },
-  Button: {
-    backgroundColor: "#009387",
-    width: "40%",
-    height: "20%",
-    justifyContent: "center",
-  }
+  list:{ 
+    height:hp("55%"), 
+    marginVertical: hp("9.5%"),
+  
+  },
+  
+
 });
 
 export default styles;

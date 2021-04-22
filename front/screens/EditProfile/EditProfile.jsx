@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import {
   ScrollView,
@@ -41,7 +46,7 @@ const EditProfile = ({ navigation }) => {
   const [lastName, setLastName] = useState(loginUser.lastName);
   const [description, setDescription] = React.useState(loginUser.description);
   const locations = useSelector((state) => state.locations);
-
+  console.log(locations);
   const handleFirstNameChange = (val) => {
     setFirstName(val);
   };
@@ -87,7 +92,7 @@ const EditProfile = ({ navigation }) => {
           marginLeft: "2.5%",
         }}
       >
-        <View style={styles.viewProfile}>
+        <View>
           <Card.Title
             left={() => (
               <Avatar.Icon
@@ -115,7 +120,7 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={`${loginUser.location && loginUser.location.locationName} `}
+            title={loginUser.location?.locationName ? loginUser.location?.locationName: "Sin sede"}
             subtitle="Sede"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
@@ -131,7 +136,7 @@ const EditProfile = ({ navigation }) => {
                 style={{ marginBottom: 5 }}
               />
             )}
-            title={`${loginUser.location && loginUser.description} `}
+            title={loginUser.description ? loginUser.description : "Sin descripción"}
             subtitle="Acerca de mi"
             titleStyle={styles.cardTitle}
             subtitleStyle={styles.cardSubtitle}
@@ -147,17 +152,10 @@ const EditProfile = ({ navigation }) => {
         </Button>
       </View>
 
-      <KeyboardAvoidingView enabled={enableShift}>
+ 
         <Modal visible={editMode} animationType="slide" transparent={true}>
           {isLoading ? (
-            <View
-              style={[
-                styles.viewContainer,
-                {
-                  backgroundColor: colors.background,
-                },
-              ]}
-            >
+            <View style={{ backgroundColor: colors.background }}>
               <ActivityIndicator
                 style={{ flex: 1, alignItems: "Center" }}
                 size="large"
@@ -183,10 +181,6 @@ const EditProfile = ({ navigation }) => {
                 </Title>
 
                 <View style={[styles.cardContainer, { marginTop: 0 }]}>
-                  {/* icon="account"  */}
-                  {/* icon="card-text-outline"  */}
-                  {/* icon="map-marker" */}
-
                   <TextInput
                     style={styles.textInput}
                     label="Nombre"
@@ -223,12 +217,13 @@ const EditProfile = ({ navigation }) => {
                         selected={selected}
                         style={styles.inputLocation}
                         placeholder="Elegí tu sede"
+                        containerStyle={{backgroundColor: colors.background}}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {
                             return (
                               <SelectPicker.Item
-                                label={`${val.locationName} (${val.country.countryName})`}
+                                label={`${val.locationName} (${val?.country?.countryName})`}
                                 value={val._id}
                                 key={val._id}
                               />
@@ -236,9 +231,7 @@ const EditProfile = ({ navigation }) => {
                           })}
                       </SelectPicker>
                     ) : loginUser.location ? (
-                      <Text style={styles.textEdit}>
-                        {loginUser.location.locationName}
-                      </Text>
+                      <Text>{loginUser.location.locationName}</Text>
                     ) : null}
                   </View>
                 </View>
@@ -253,10 +246,11 @@ const EditProfile = ({ navigation }) => {
                   </Text>
                 </Button>
               </View>
+              <KeyboardSpacer/>
             </ScrollView>
           )}
         </Modal>
-      </KeyboardAvoidingView>
+
     </View>
   );
 };

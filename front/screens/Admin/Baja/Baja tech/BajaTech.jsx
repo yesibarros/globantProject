@@ -5,16 +5,21 @@ import {
   Text,
   TextInput,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@react-navigation/native";
-import styles from "../../adminStyle"
-import {getTechs} from "../../../../state/admin/tecnologias/thunks"
+import styles from "../bajaStyles"
+import {getTechs, deleteTech} from "../../../../state/admin/tecnologias/thunks"
 import PillButton from "../../../../shared/components/PillButton";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { color } from "react-native-reanimated";
 
 const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
@@ -35,27 +40,36 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
         }
       };
 
-      console.log("Las techs", techs)
+    const handleDelete= ()=>{
+      selectedTechs.forEach(tech => {
+              dispatch(deleteTech({_id: tech._id}))
+            });
+      
+          
+           
+            return Alert.alert("Acción completa", "Tecnología/s borrada/s exitosamente", [
+              { text: "OK", onPress: () =>  setViewDelModal(false) },
+            ])
+          }
 
     return (
         
-        <ScrollView style={styles.viewContainer}>
+        <View style={[styles.viewContainer, {backgroundColor: colors.background}]}>
              
+             
+             <Text style={[styles.title, {color: colors.text}]}>Baja de {nombre}</Text>
              <View
-             style={{
-               flex: 0.3,
-               justifyContent: "center",
-               alignItems: "center",
-             }}
+             style={styles.mapContainer}
            >
-             <Text>Baja de {nombre}</Text>
-             {techs && techs.map(tech=>{
+             <ScrollView>
+             {techs && techs.length > 0 && techs.map(tech=>{
                   const selected = selectedTechs.filter(
                     (singleTech) => singleTech._id == tech._id
                   ).length
                     ? true
                     : false;
                   return (
+
                     <PillButton
                       title={tech.technologyName}
                       key={tech._id}
@@ -65,16 +79,11 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                     />
                
              )})}
-            
+            </ScrollView>
            </View>
    
            <View
-             style={{
-               flex: 0.4,
-               alignItems: "center",
-               flexDirection: "row",
-               justifyContent: "space-around",
-             }}
+           style={styles.buttonContainer}
            >
            
              <Button
@@ -84,7 +93,7 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                }}
              >
                <Text
-                 style={{ fontSize: 22, color: "white", textAlign: "center" }}
+               style={styles.textButton}
                >
                  Cerrar
                </Text>
@@ -92,20 +101,16 @@ const BajaTech = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
                
              <Button
                  style={styles.Button}
-                 onPress={() =>  setViewDelModal(false)}
+                 onPress={() =>  handleDelete()}
                >
                  <Text
-                   style={{
-                     fontSize: 22,
-                     color: "white",
-                     textAlign: "center",
-                   }}
+                   style={styles.textButton}
                  >
                    GUARDAR
                  </Text>
                </Button>
            </View>
-       </ScrollView>
+       </View>
             
        
     )

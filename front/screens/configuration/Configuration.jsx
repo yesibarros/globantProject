@@ -2,6 +2,11 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal";
@@ -13,10 +18,12 @@ import { useSelector } from "react-redux";
 //EXPO
 import { Ionicons } from "@expo/vector-icons";
 
-const Configuration = ({showLogged}) => {
+const Configuration = ({ showLogged }) => {
   const { colors } = useTheme();
 
-  const user = showLogged ? useSelector((state) => state.loggedUser.user) : useSelector((state) => state.singleUser.user);
+  const user = showLogged
+    ? useSelector((state) => state.loggedUser.user)
+    : useSelector((state) => state.singleUser.user);
   //AREAS
   const [showMoreAreas, setShowMoreAreas] = React.useState(false);
   const areasArray = showMoreAreas
@@ -28,7 +35,7 @@ const Configuration = ({showLogged}) => {
   //TECHS
   const [showMore, setShowMore] = React.useState(false);
   const technologiesArray =
-  user._id && showMore
+    user._id && showMore
       ? user.technologies
       : user._id && user.technologies.slice(0, 3);
   const initEditTech =
@@ -40,11 +47,7 @@ const Configuration = ({showLogged}) => {
       setEditArea(true);
       setEditTech(false);
     }
-    if (
-      user.areas &&
-      user.areas.length >= 1 &&
-      user.technologies.length < 1
-    ) {
+    if (user.areas && user.areas.length >= 1 && user.technologies.length < 1) {
       setEditArea(false);
       setEditTech(true);
     }
@@ -62,14 +65,15 @@ const Configuration = ({showLogged}) => {
           ]}
         >
           <Text style={[styles.text, { color: colors.text }]}>Tu Perfil:</Text>
-          {showLogged ? <TouchableOpacity onPress={() => setEditArea(true)}>
-            <Ionicons
-              name="create-outline"
-              color={colors.text}
-              size={25}
-            ></Ionicons>
-          </TouchableOpacity>: null}
-          
+          {showLogged ? (
+            <TouchableOpacity onPress={() => setEditArea(true)}>
+              <Ionicons
+                name="create-outline"
+                color={colors.text}
+                size={hp("4%")}
+              ></Ionicons>
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         <View style={styles.mapContainer}>
@@ -107,14 +111,15 @@ const Configuration = ({showLogged}) => {
           <Text style={[styles.text, { color: colors.text }]}>
             Tus Tecnologías:
           </Text>
-          {showLogged ?  <TouchableOpacity onPress={() => setEditTech(true)}>
-            <Ionicons
-              name="create-outline"
-              color={colors.text}
-              size={25}
-            ></Ionicons>
-          </TouchableOpacity>: null }
-         
+          {showLogged ? (
+            <TouchableOpacity onPress={() => setEditTech(true)}>
+              <Ionicons
+                name="create-outline"
+                color={colors.text}
+                size={hp("4%")}
+              ></Ionicons>
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         <View style={styles.mapContainer}>
@@ -156,17 +161,17 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: wp("100%"),
   },
   text: {
-    marginLeft: 10,
-    fontSize: 20,
+    marginLeft: hp("2%"),
+    fontSize: hp("2.3%"),
     fontWeight: "bold",
     color: "#000",
   },
   areasContainer: {
-    width: "90%",
-    marginBottom: 50,
+    width: wp("100%"),
+    marginBottom: hp("2%"),
   },
   textSign: {
     fontSize: 15,
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
     color: "#009387",
   },
   titleContainer: {
-    width: "100%",
+    width: wp("100%"),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

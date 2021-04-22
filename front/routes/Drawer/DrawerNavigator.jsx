@@ -11,6 +11,8 @@ import SingleUser from "../../screens/SingleUser/SingleUser";
 import Search from "../../screens/Match/Search";
 import Progress from "../../screens/Progress/Progress";
 import Meeting from "../../screens/Meeting/Meeting";
+import Header from "../../screens/header/Header";
+import MatchComparison from "../../screens/Matchs/MatchComparison";
 
 const Drawer = createDrawerNavigator();
 
@@ -21,11 +23,14 @@ export default function MyTabs() {
       <Drawer.Screen name="SingleUser" component={SingleUser} />
       <Drawer.Screen name="Solicitudes" component={Requests} />
       <Drawer.Screen name="Mentor" component={Mentor} />
-      <Drawer.Screen name="Notifications" component={Notifications} />
+      <Drawer.Screen name="Notificaciones" component={Notifications} />
       <Drawer.Screen name="Admin" component={Admin} />
       <Drawer.Screen name="SearchMatch" component={Search} />
-      <Drawer.Screen name="Progress" component={Progress} />
+      <Drawer.Screen name="Progreso" component={Progress} />
       <Drawer.Screen name="Meeting" component={Meeting} />
+      <Drawer.Screen name="Header" component={Header} />
+      <Drawer.Screen name="Requests" component={Requests} />
+      <Drawer.Screen name="MatchComparison" component={MatchComparison} />
     </Drawer.Navigator>
   );
 }

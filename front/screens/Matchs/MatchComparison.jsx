@@ -95,10 +95,10 @@ const MatchComparison = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
       }}
     >
-      <View style={{ height: hp("45%") }}>
+      <View>
         <CardCustom
           matchPerson={singleMatch}
           selected="true"
@@ -106,7 +106,7 @@ const MatchComparison = ({ navigation }) => {
           okButton={okButton}
         />
       </View>
-      <View style={{ height: hp("45%") }}>
+      <View>
         {isLoading ? (
           <View
             style={{
@@ -146,9 +146,7 @@ const MatchComparison = ({ navigation }) => {
           handleSendRequest={handleSendRequest}
         />
       </View>
-      <View style={{ height: hp("8%") }}>
-        <TabBar navigation={navigation} />
-      </View>
+      <TabBar navigation={navigation} />
     </View>
   );
 };

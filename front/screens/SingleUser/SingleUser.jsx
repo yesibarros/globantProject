@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import { Avatar } from "react-native-elements";
 import { Divider, IconButton } from "react-native-paper"
@@ -55,10 +59,10 @@ const SingleUser = ({ navigation }) => {
         </View>
 
         <View style={[styles.body, { backgroundColor: colors.background }]}>
-          <View style={{ top: -70, left: width / 3 }}>
+          <View style={styles.photo}>
             {singleUser.img ? (
               <Avatar
-                size="xlarge"
+                size={hp("20%")}
                 
                 source={{
                   uri: singleUser.img,
@@ -68,16 +72,14 @@ const SingleUser = ({ navigation }) => {
                 title={singleUser.firstName + singleUser.lastName}
                 titleStyle={{
                   color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
+                  width: wp("100%"),
+                  paddingTop: "15%"
                 }}
                 activeOpacity={0.7}
               />
             ) : (
-              <Avatar
-                size="xlarge"
+              <Avatar 
+              size={hp("20%")}
              
                 rounded
                 title={
@@ -86,11 +88,7 @@ const SingleUser = ({ navigation }) => {
                 }
                 titleStyle={{
                   color: "white",
-                  backgroundColor: "gray",
-                  flex: 1,
-                  width: "100%",
-                  paddingTop: "15%",
-                  zIndex: 1,
+                  width: wp("100%"), 
                 }}
                 // onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
@@ -99,17 +97,26 @@ const SingleUser = ({ navigation }) => {
           </View>
 
           <View
-            style={{ marginHorizontal: 20, alignItems: "center", bottom: 60 }}
+            style={{
+              alignItems: "center",
+              bottom: hp("7%"),
+              justifyContent: "space-between",
+              height: hp("12%"),
+            }}
           >
             <Text
-              style={{ fontWeight: "bold", color: colors.text }}
+             style={{
+              fontWeight: "bold",
+              color: colors.text,
+              fontSize: hp("3%"),
+            }}
             >{`${singleUser.firstName} ${singleUser.lastName}`}</Text>
-            <Text style={{ marginTop: 8, color: colors.text }}>
+            <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {singleUser.email}
             </Text>
             <Text
               style={{
-                marginTop: 20,
+                fontSize: hp("2%"),
                 alignContent: "center",
                 color: colors.text,
               }}

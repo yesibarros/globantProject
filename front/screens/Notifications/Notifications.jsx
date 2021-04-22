@@ -2,7 +2,10 @@ import React, {useState, useEffect} from 'react'
 import {View, Text, ActivityIndicator} from 'react-native'
 import { FlatList } from "react-native-gesture-handler";
 import {IconButton} from "react-native-paper"
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //STYLE
 import styles from "./NotificationsStyle";
 import { useTheme } from "@react-navigation/native";
@@ -10,9 +13,10 @@ import { useTheme } from "@react-navigation/native";
 //COMPONENTS
 import TabBar from "../../routes/Tab/TabBar";
 import NotificationCard from "./NotificationCard"
+import Header from "../header/Header";
 
 //REDUX
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 
 //UTILS
@@ -20,15 +24,14 @@ import { setMenuBadge } from '../../state/menuBadge/menuBadge'
 
 const Notifications = ({ navigation }) => {
   const loginUser= useSelector(state => state.loggedUser.user)
-  
-    const [isLoading, setIsLoading] = useState(true)
-    const notifications = useSelector(state => state.notifications)
+  const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(true)
+  const notifications = useSelector(state => state.notifications)
 
     const { colors } = useTheme();
 
     useEffect(() => {
-    
-        setMenuBadge(false)
+        dispatch(setMenuBadge(false))
         setIsLoading(false)
  
     },[notifications])
@@ -47,16 +50,13 @@ const Notifications = ({ navigation }) => {
         </View>
       )
     }
-   
+  
     return (
+      <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+
+      
+         <Header navigation={navigation} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <IconButton
-      icon="menu"
-      color={colors.icon}
-      size={35}
-      style={{position: "absolute"}}
-      onPress={() => navigation.openDrawer()}
-    />
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>NOTIFICACIONES</Text>
         </View>     
@@ -77,8 +77,9 @@ const Notifications = ({ navigation }) => {
         </View>
           </View>
         )}
-        <View style={{ flex: 0.08 }}></View>
-        <TabBar navigation={navigation} />
+      
+      </View>
+      <TabBar  navigation={navigation} />
       </View>
     );
 }

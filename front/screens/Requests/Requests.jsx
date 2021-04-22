@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native'
 import {IconButton} from 'react-native-paper';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 //COLORS
 import {primaryGreen} from "../../utils/Colors"
 
@@ -13,7 +16,7 @@ import { useTheme } from "@react-navigation/native";
 //COMPONENTS
 import TabBar from "../../routes/Tab/TabBar";
 import RequestCard from "./RequestCard"
-
+import Header from "../header/Header"
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {getRequests} from '../../state/requests/Thunks'; 
@@ -58,14 +61,10 @@ const Requests = ({navigation}) => {
     }
 
     return (
+      <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+        <Header navigation={navigation}/> 
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-         <IconButton
-                    icon="menu"
-                    color={colors.icon}
-                    size={35}
-                    style={{position: "absolute"}}
-                    onPress={() => navigation.openDrawer()}
-                  />
+     
         <View style={styles.titleContainer}>
           <Text style={[styles.title, {color: colors.text}]}>SOLICITUDES</Text>
         </View>
@@ -103,13 +102,15 @@ const Requests = ({navigation}) => {
             <View style={styles.n}>
               <Text style={styles.nText}>
                 No tenes solicitudes {showReceived ? 'recibidas' : 'enviadas'}
+
               </Text>
             </View>
           }
         </View>
-        <View style={{ flex: 0.08 }}>
-      </View>
+        
         <TabBar navigation={navigation} />
+      </View>
+    
       </View>
     );
 }

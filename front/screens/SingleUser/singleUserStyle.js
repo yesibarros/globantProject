@@ -1,45 +1,26 @@
 import { StyleSheet } from "react-native";
 import {primaryGreen} from "../../utils/Colors"
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#009387",
   },
   body: {
     borderTopLeftRadius: 60,
-    flex: 3,
-    paddingBottom: "10%"
   },
   button: {
     position: "absolute",
     bottom: 100,
     width: 150,
   },
-
-  infoTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingTop: 5,
-  },
-  infoContent: {
-    fontSize: 17,
-    paddingLeft: 50,
-  },
-  userText: {
-    fontSize: 40,
-    position: "absolute",
-    top: 235,
-  },
-  userContainer: {
-    position: "absolute",
-    top: 170,
-  },
-  infoContainer: {
-    width: "80%",
-    height: "50%",
-    position: "absolute",
-    bottom: 80,
+  photo: {
+    top: hp("-9%"),
+    width:wp('100%'),
+    alignItems:"center",
   },
 
   header: {
