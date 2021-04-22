@@ -1,19 +1,22 @@
-import { StyleSheet } from "react-native";
-
+import { StyleSheet, Dimensions} from "react-native";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+  } from "react-native-responsive-screen";
+const {height, width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#ff9c38',
     },
     background: {
         position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        height: 300,
+        left: wp('0%'),
+        right: wp('0%'),
+        top: hp('0%'),
+        height: hp('30%'),
     },
 });
 

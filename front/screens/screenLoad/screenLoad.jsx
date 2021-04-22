@@ -3,13 +3,16 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Animated, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./screenLoadStyle";
+import {primaryGreen} from "../../utils/Colors"
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import logo from '../../utils/Globant-Logo.png';
+import logoGlobant from '../../utils/Globant.png';
+import logoCircularGlobant from '../../utils/globant-logo-circular.png';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
+const AnimatedImage = Animated.createAnimatedComponent(Image)
 
 const ScreenLoad = ({ navigation }) => {
 
@@ -20,28 +23,34 @@ const ScreenLoad = ({ navigation }) => {
 
   useEffect(() => {
     if (!animated) {
-      Animated.spring(animateY, {
-        toValue: hp("50%"),
-        duration: 3500,
-        bounciness: 22, //default 8
-        speed: 0.5, //default 12
-        useNativeDriver: false,
-      }).start();
-
-      Animated.spring(animateYwelcome, {
-        toValue: hp("100%") / 2.3,
-        duration: 3500,
-        bounciness: 22, //default 8
-        speed: 0.5, //default 12
-        useNativeDriver: false,
-      }).start();
+      Animated.parallel([
+        Animated.spring(animateY, {
+          toValue: hp("50%"),
+          duration: 3500,
+          bounciness: 22, //default 8
+          speed: 0.5, //default 12
+          useNativeDriver: false,
+        }),
+        Animated.spring(animateYwelcome, {
+          toValue: hp("50%"),
+          duration: 3500,
+          bounciness: 22, //default 8
+          speed: 0.5, //default 12
+          useNativeDriver: false,
+        }),
+        Animated.timing(animateLogo, {
+          toValue: 0.8,
+          duration: 1000,
+          delay: 3000,
+          useNativeDriver: false,
+        })
+      ]).start();
     }
 
     setAnimated(true);
-
-    // setTimeout(function () {
-    //   navigation.navigate("SignIn");
-    // }, 5000);
+    setTimeout(function () {
+      navigation.navigate("SignIn");
+    }, 5000);
   }, []);
 
   return (
@@ -51,16 +60,26 @@ const ScreenLoad = ({ navigation }) => {
         colors={["#ffc78f", "#ff9c38"]}
         style={styles.background}
       />
+
+      <AnimatedImage
+        source={logoCircularGlobant}
+        style={{
+            marginTop: hp("10%"),
+            opacity: animateLogo,
+        }}
+      />
+
       <AnimatedText
         style={{
           top: animateY,
           position: "absolute",
-          fontSize: hp("7%"),
-          fontStyle: "italic",
+          fontSize: hp("10%"),
+          // fontStyle: "italic",
           fontWeight: "bold",
-          color: "white",
-          right: wp("13%"),
-          zIndex: 2,
+          color: '#BFD732',
+          opacity: 1,
+          right: wp("10%"),
+          // zIndex: 2,
         }}
       >
         ME
@@ -71,26 +90,26 @@ const ScreenLoad = ({ navigation }) => {
           bottom: animateYwelcome,
           position: "absolute",
           fontSize: hp("7%"),
-
-          fontStyle: "italic",
+          // fontStyle: "italic",
           fontWeight: "bold",
-          color: "white",
-          left: wp("8%"),
-          zIndex: 3,
+          color:"#303030",
+          opacity: 1,
+          left: wp("5%"),
+          // zIndex: 3,
         }}
       >
         MENTOR
       </AnimatedText>
     
-        <Image
-          source={logo}
-          style={{
-              width: wp("100%"),
-              height: hp("10%"),
-              marginTop: hp("60%"),
-              zIndex: 4,
-          }}
-        />
+      <AnimatedImage
+        source={logoGlobant}
+        style={{
+            width: wp("100%"),
+            height: hp("10%"),
+            marginTop: hp("50%"),
+            opacity: animateLogo,
+        }}
+      />
 
 
       <StatusBar style="auto" />
