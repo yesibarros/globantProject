@@ -59,7 +59,7 @@ export default function Progress({ route, navigation }) {
           {
             height: hp("80%"),
             borderTopLeftRadius: 60,
-            backgroundColor: "white",
+           
           },
           { backgroundColor: colors.background },
         ]}
@@ -207,9 +207,11 @@ export default function Progress({ route, navigation }) {
           </View>
         )}
         {/* <View style={{ marginTop: hp("12.9%") }}> */}
-        <TabBar state={state} navigation={navigation} />
+        
+        <TabBar navigation={navigation} />
         {/* </View> */}
       </View>
+      
     </View>
   );
 }

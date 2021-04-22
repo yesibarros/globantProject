@@ -35,7 +35,8 @@ const ScreenDrawer = (props) => {
   const toggleRole = () => {
     dispatch(setToggleRole());
   };
-  const oppositeRole= user.role && user.role[0] === "mentor" ? 'Mis mentees' : 'Mi mentor'
+  const oppositeRole =
+    user.role && user.role[0] === "mentor" ? "Mis mentees" : "Mi mentor";
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -52,7 +53,7 @@ const ScreenDrawer = (props) => {
                 <Title style={styles.title}>
                   {`${user.firstName} ${user.lastName}`}
                 </Title>
-                <Caption style={styles.caption}>{user.email}</Caption>
+                <Caption style={styles.caption}>{user.email.length > 17 ? `${user.email.slice(1, 18)}...` : user.email}</Caption>
               </View>
             </View>
             <View style={styles.row}>
@@ -85,13 +86,13 @@ const ScreenDrawer = (props) => {
                 props.navigation.navigate("Mi perfil");
               }}
             />
-             <DrawerItem
+            <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="bell-outline" color={color} size={size} />
               )}
-              label="Notifications"
+              label="Notificaciones"
               onPress={() => {
-                props.navigation.navigate("Notifications");
+                props.navigation.navigate("Notificaciones");
               }}
             />
             <DrawerItem
@@ -112,19 +113,18 @@ const ScreenDrawer = (props) => {
                 <Icon name="bookmark-outline" color={color} size={size} />
               )}
               label={oppositeRole}
-                onPress={() => props.navigation.navigate(oppositeRole)}
+              onPress={() => props.navigation.navigate(oppositeRole)}
             />
-                <DrawerItem
-              icon={({ color, size }) => (
-                <Icon 
-                name="shield-account-outline" 
-                color={color} 
-                size={size} 
-                />
-              )}
-              label="Admin"
-            onPress={()=>props.navigation.navigate("Admin")}
-            />
+            {user.role == "mentor" &&
+            <DrawerItem
+            icon={({ color, size }) => (
+              <Icon name="shield-account-outline" color={color} size={size} />
+            )}
+            label="Admin"
+            onPress={() => props.navigation.navigate("Admin")}
+          />
+            }
+            
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-outline" color={color} size={size} />
