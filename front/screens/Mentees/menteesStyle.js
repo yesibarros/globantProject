@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 import {primaryGreen} from "../../utils/Colors"
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -8,17 +11,16 @@ const styles = StyleSheet.create({
   },
   body: {
     borderTopLeftRadius: 60,
-    flex: 3,
-    paddingBottom: "30%"
+    flex: hp('70%'),
   },
   title: {
     shadowOpacity:0.5,
     elevation:1,
     color: "white",
-    fontSize: 40,
+    fontSize: hp('5%'),
     position: "absolute",
-    marginVertical:"20%",
-    marginHorizontal:"20%"
+    marginVertical:hp('9%'),
+    marginHorizontal:wp('27%')
   },
   usersContainer:{
     marginTop: "15%",
@@ -56,11 +58,13 @@ const styles = StyleSheet.create({
   nText: {
     fontWeight: 'bold',
     color: '#c9c9c9',
-    fontSize:30,
+    fontSize:hp('4%'),
     
   },
   n: {
+    width:wp('100%'),
     alignItems: "center",
+    justifyContent:"center"
   },
   
 });
