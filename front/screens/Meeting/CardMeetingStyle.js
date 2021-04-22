@@ -1,16 +1,21 @@
 import { StyleSheet } from "react-native";
 import Colors from "../../utils/Colors";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
-    paddingLeft: "10%",
+    width: wp("90%"),
+    paddingLeft: wp("10%"),
     borderLeftWidth: 3,
-    paddingBottom: "5%",
+    paddingBottom: hp("2.5%"),
     borderColor: "lightgrey",
   },
   avatar: {
     position: "absolute",
-    left: -30,
+    left: wp("-7%"),
     zIndex: 1,
     backgroundColor: "#ffc78f",
     shadowColor: "grey",
@@ -22,25 +27,20 @@ const styles = StyleSheet.create({
   },
   viewContainer: {
     backgroundColor: "#fff",
-    flex: 0.5,
-    marginHorizontal: 10,
-    marginVertical: 20,
-    justifyContent: "space-between",
-    shadowOpacity: 1.0,
-    shadowRadius: 50,
-    elevation: 5,
-    borderRadius: 50,
-    borderWidth: 1.5,
+    height: hp("50%"),
+    width: wp("90%"),
+    borderRadius: hp("3%"),
+    borderWidth: wp("0.5%"),
     borderColor: Colors.primaryGreen,
   },
   empty: {
-    flex: 0.3,
+    height: hp("13%"),
     borderColor: "#DBDBDB",
-    borderWidth: 3,
+    borderWidth: hp("0.3%"),
     borderStyle: "dashed",
-    marginHorizontal: 10,
+    marginHorizontal: wp("4%"),
     elevation: 0,
-    width: "95%",
+    width: wp("80%"),
     alignItems: "center",
   },
 });
