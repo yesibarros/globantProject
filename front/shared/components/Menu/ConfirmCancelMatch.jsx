@@ -12,7 +12,7 @@ const ConfirmCancelMatch = ({mentor, mentee, setShowModal, cancelMatch, isLoadin
     const firstName = mentee?.firstName || mentor?.fisrtName
     const lastName = mentee?.lastName || mentor?.lastName
     const rol = mentee? "mentee" : "mentor"
-
+    console.log("MENTOR", firstName)
     return (
         <TouchableWithoutFeedback onPress={()=>setShowModal(false)}>
             <BlurView style={styles.container} intensity={100} tint="dark">
