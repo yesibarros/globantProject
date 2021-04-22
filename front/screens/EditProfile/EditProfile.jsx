@@ -32,6 +32,7 @@ import { updateProfile } from "../../state/loggedUser/thunks";
 import SelectPicker from "react-native-form-select-picker";
 import { useTheme } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
+import { BlurView } from "expo-blur";
 
 const EditProfile = ({ navigation }) => {
   const { colors } = useTheme();
@@ -86,7 +87,7 @@ const EditProfile = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       <View
         style={{
           marginLeft: "2.5%",
@@ -148,13 +149,15 @@ const EditProfile = ({ navigation }) => {
           mode="contained"
           onPress={editProfile}
         >
-          <Text style={{ fontSize: 20, justifyContent: "center" }}>Editar</Text>
+          <Text style={{ fontSize: hp("3%"), justifyContent: "center", color: colors.text }}>Editar</Text>
         </Button>
       </View>
 
  
         <Modal visible={editMode} animationType="slide" transparent={true}>
+        <BlurView style={styles.container} intensity={100} tint="dark">
           {isLoading ? (
+            
             <View style={{ backgroundColor: colors.background }}>
               <ActivityIndicator
                 style={{ flex: 1, alignItems: "Center" }}
@@ -215,7 +218,8 @@ const EditProfile = ({ navigation }) => {
                           setSelected(value);
                         }}
                         selected={selected}
-                        style={styles.inputLocation}
+                        style={[styles.inputLocation, { color: "black",
+                        backgroundColor: "rgba(255, 255, 255, 0.7)"}]}
                         placeholder="Elegí tu sede"
                         // containerStyle={{backgroundColor: colors.background}}
                       >
@@ -241,7 +245,7 @@ const EditProfile = ({ navigation }) => {
                   mode="contained"
                   onPress={saveProfile}
                 >
-                  <Text style={{ fontSize: 20, justifyContent: "center" }}>
+                  <Text style={{ fontSize: hp("3%"), justifyContent: "center", color: colors.text }}>
                     Guardar
                   </Text>
                 </Button>
@@ -249,6 +253,7 @@ const EditProfile = ({ navigation }) => {
               <KeyboardSpacer/>
             </ScrollView>
           )}
+          </BlurView>
         </Modal>
 
     </View>
