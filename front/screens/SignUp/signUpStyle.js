@@ -1,66 +1,75 @@
-import { StyleSheet, Platform} from "react-native";
-
+import { StyleSheet, Platform } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
-    container: { 
-        flex: 1,
-        backgroundColor: "#009387",
-      },
-      header: {
-        flex: 1,
-        justifyContent: "flex-end",
-        paddingHorizontal: 20,
-        paddingBottom: 50,
-      },
-      footer: {
-        flexGrow: 0.1,
-        backgroundColor: "#fff",
-        borderTopLeftRadius: 30,
-        borderRightColor: 30,
-        paddingHorizontal: 20,
-        // paddingVertical: 30,
-      },
-      text_header: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 30,
-      },
-      text_footer: {
-        color: "#05375a",
-        fontSize: 18,
-        marginTop: 10
-      },
-      action: {
-        flexDirection: "row",
-        marginTop: 10,
-      },
-      textInput: {
-        flex: 1,
-        marginTop: Platform.OS === "ios" ? 0 : -12,
-        paddingLeft: 10,
-        color: "#05375a",
-      },
-      button: {
-        alignItems:'center'
-      },
-      singIn: {
-        // paddingHorizontal:50,
-        // paddingVertical:20,
-        marginTop:5,
-        width: "100%",
-        height: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
-      },
-    
-      textSign: {
-        // paddingHorizontal:159,
-        // paddingVertical:18,
-        fontSize: 18,
-        fontWeight: "bold",
-        alignContent:'center'
-      },
+  container: {
+    flex: 1,
+    backgroundColor: "#009387",
+  },
+  header: {
+    height: hp("30%"),
+    justifyContent: "flex-end",
+    paddingHorizontal: hp("5%"),
+    paddingBottom: hp("5%"),
+  },
+  footer: {
+    // flexGrow: 0.1,
+    height: hp("80%"),
+    backgroundColor: "#fff",
+    borderTopLeftRadius: hp("8%"),
+    // borderRightColor: 30,
+    paddingHorizontal: wp("7%"),
+    paddingVertical: hp("4%"),
+  },
+  text_header: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: hp("5.5%"),
+  },
+  text_footer: {
+    color: "#05375a",
+    fontSize: hp("2.5%"),
+    marginTop: hp("2%"),
+  },
+  action: {
+    // flexDirection: "row",
+    // marginTop: 10,
+    height: hp("4%"),
+    flexDirection: "row",
+    marginTop: hp("1%"),
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  textInput: {
+    width: wp("72%"),
+    height: hp("5%"),
+    marginTop: Platform.OS === "ios" ? 0 : 0,
+    paddingLeft: wp("2%"),
+    color: "#05375a",
+    fontSize: hp("2%"),
+  },
+  button: {
+    alignItems: "center",
+    marginTop: "6%",
+  },
+  singIn: {
+    marginBottom: hp("2%"),
+    height: hp("7%"),
+    width: wp("80%"),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 12,
+  },
+
+  textSign: {
+    fontSize: hp("2.7%"),
+    letterSpacing: 1,
+    fontWeight: "bold",
+    alignContent: "center",
+  },
 });
 
-export default styles
+export default styles;
