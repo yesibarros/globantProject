@@ -3,6 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRoute } from "@react-navigation/native";
 import { ScrollView, View, Dimensions, Animated } from "react-native";
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 //SCREENS
 import Header from "../header/Header";
 
@@ -56,7 +61,6 @@ const Mentees = ({ navigation }) => {
     }
   }, []);
   const menteesToShow = () => {
-    console.log("YESIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",loginUser.mentees)
     let mentees =loginUser?._id ? loginUser?.mentees? [...loginUser.mentees] || []: []: [];
     const length = mentees.length;
     if (length !== 4) {
@@ -70,22 +74,22 @@ const Mentees = ({ navigation }) => {
 
   // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
   // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
-
+  console.log("todo funciona")
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
           <Header navigation={navigation} />
           <Text style={styles.title}>
-            {loginUser.role == "mentor" ? "MIS MENTEES" : "MI MENTOR"}
+            {loginUser.role == "mentor" ? "MENTEES" : "MENTOR"}
           </Text>
           <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
               {(loginUser.role=="mentor" && loginUser.mentees?.length == 0) || (loginUser.role == "mentee" && !loginUser.mentor) ? (
-                <View style={{ alignContent: "center", marginVertical: 250 }}>
+                <View style={{ marginVertical:hp('25%') }}>
                   
                   <View style={styles.n}>
-                 
+                
                     <Text style={styles.nText}>
                       No tenes  {loginUser.role == "mentor" ? "ningún mentee" : "mentor"} todavía.
                     </Text>

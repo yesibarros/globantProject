@@ -54,7 +54,7 @@ const ScreenDrawer = (props) => {
                   {`${user.firstName} ${user.lastName}`}
                 </Title>
                 <Caption style={styles.caption}>
-                  {user?.email?.length > 17
+                  {user.email?.length > 17
                     ? `${user.email.slice(1, 18)}...`
                     : user.email}
                 </Caption>

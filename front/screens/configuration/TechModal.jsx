@@ -5,10 +5,14 @@ import {
   Modal,
   View,
   Text,
-  Button,
   StyleSheet,
   Alert,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import {Button} from "react-native-paper"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import PillButton from "../../shared/components/PillButton";
@@ -79,7 +83,7 @@ const TechModal = ({ visible, setEditTech }) => {
           style={[styles.viewContainer, { backgroundColor: colors.background }]}
         >
           <Text style={[styles.title, { color: colors.text }]}>
-            Tecnologías:
+            Tecnologías
           </Text>
           <View style={styles.mapContainer}>
             {technologiesArray.length > 0 &&
@@ -102,18 +106,20 @@ const TechModal = ({ visible, setEditTech }) => {
               })}
           </View>
           <View style={styles.buttonContainer}>
-            <View style={{ width: "40%" }}>
-              <Button onPress={handleCloseModal} title="Cerrar" />
-            </View>
-            <View style={{ width: "40%" }}>
+            
+              <Button style={styles.button} onPress={handleCloseModal}>
+              <Text style={styles.textButton}>Cerrar</Text>
+                
+              </Button> 
+            
+            <View style={{ width: wp("40%") }}>
               {saveLoad ? 
               <ActivityIndicator size="large" color="#0000ff" />
               :
-              <Button
-                onPress={handleSave}
-                title="Guardar"
-                disabled={selectedTechs.length ? false : true}
-              />
+              <Button style={styles.button} onPress={handleCloseModal}>
+              <Text style={styles.textButton}>GUARDAR</Text>
+                
+              </Button>
             }
               
             </View>
@@ -128,15 +134,13 @@ export default TechModal;
 
 const styles = StyleSheet.create({
   viewContainer: {
-    flex: 2,
-    marginBottom: 10,
-    marginHorizontal: 30,
-    marginVertical: 50,
+    height: hp("87%"),
+    marginHorizontal: wp("5%"),
+    marginVertical: hp("7%"),
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 50,
-    // shadowOffset:{  width: 10,  height: 10,  },
     shadowColor: "black",
     shadowOpacity: 1.0,
     shadowRadius: 50,
@@ -148,19 +152,29 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
-    padding: 2,
+    padding: wp("1%"),
   },
   title: {
-    fontSize: 25,
+    fontSize: hp("4%"),
     fontWeight: "bold",
-    textDecorationLine: "underline",
-    marginVertical: 30,
-    marginBottom: 20,
+  
+   letterSpacing: 1,
+    marginVertical: hp("3%"),
+    marginBottom: hp("2%"),
   },
   buttonContainer: {
-    width: "100%",
+    width: wp("90%"),
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginTop: 30,
+    marginTop: hp("4%"),
   },
+  button:{
+    paddingVertical: hp("0%"),
+    width: wp("40%"), 
+    backgroundColor: "#009387"
+  },
+  textButton:{
+    color: "white", 
+    fontSize: hp("3%")
+  }
 });
