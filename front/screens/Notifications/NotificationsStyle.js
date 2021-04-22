@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#009387"
     },
     titleContainer: {
-      width: wp('100%'),   
+      width: wp('95%'),   
       justifyContent: "center",
       alignItems: "center",
       marginVertical: hp('6%')
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
       color: "rgba(100,100,100,0.8)"
     },
     notificationsContainer: {
-      height:hp('40%'),
-      marginHorizontal: "5%",
+      height:hp('56.7%'),
+      marginHorizontal: wp("5%"),
       elevation: 3
     }
 

@@ -7,6 +7,7 @@ import {
 const styles = StyleSheet.create({
     container: {
       borderTopLeftRadius: 60,
+
     },
     titleContainer: {
       width: wp('100%'),   
@@ -35,17 +36,17 @@ const styles = StyleSheet.create({
       borderBottomWidth: 3
     },
     cardsContainer:{
-      marginVertical: hp('5%'),
-      paddingBottom: hp('15%')
+      height:hp('53.9%'),
     },
     n: {
       justifyContent: "center",
       alignItems: "center",
       width: wp('100%'),
-      height: hp('29.2%'),
+      height: hp('40%'),
+
     },
     nText: {
-      fontSize: 22,
+      fontSize: hp('3%'),
       fontWeight: 'bold',
       color: '#c9c9c9',
       
