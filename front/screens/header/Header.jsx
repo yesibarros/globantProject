@@ -1,14 +1,24 @@
+//REACT
 import React from "react";
+
+//REACT-NATIVE
 import { View } from "react-native";
-import styles from "./headerStyle";
-// const feather = require('feather-icons')
-import { IconButton, Badge } from "react-native-paper";
-import { useTheme } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//STYLE
+import styles from "./headerStyle";
+
+//REACT-NATIVE-PAPER
+import { IconButton, Badge } from "react-native-paper";
+
+//REACT-NAVIGATION
+import { useTheme } from "@react-navigation/native";
+
+//REACT-REDUX
+import { useSelector } from "react-redux";
 
 const Header = ({ navigation }) => {
   const { colors } = useTheme();

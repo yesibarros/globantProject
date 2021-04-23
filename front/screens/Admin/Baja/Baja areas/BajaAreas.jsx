@@ -1,23 +1,32 @@
+//REACT
 import * as React from "react";
+
+//REACT-NATIVE
 import {
-  Modal,
   View,
   Text,
-  TextInput,
-  ActivityIndicator,
   ScrollView,
   Alert
 } from "react-native";
+
+//RAECT-NATIVE-PAPER
 import {Button} from "react-native-paper"
-import axios from "axios";
+
+//REACT-REDUX
 import { useSelector, useDispatch } from "react-redux";
-import { useTheme } from "@react-navigation/native";
-import styles from "../bajaStyles"
 import {getAreas, deleteArea} from "../../../../state/admin/areas/thunks"
+
+//REACT-NAVIGATION
+import { useTheme } from "@react-navigation/native";
+
+//STYLE
+import styles from "../bajaStyles"
+
+//SCREENS
 import PillButton from "../../../../shared/components/PillButton";
 
 
-const BajaAreas = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
+const BajaAreas = ({ nombre, setViewDelModal, setIsLoading}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     const areas= useSelector(state=> state.admin.areas)

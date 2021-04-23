@@ -1,17 +1,21 @@
+//REACT
 import React from "react";
-import { Avatar, Card } from "react-native-paper";
-import { TouchableOpacity } from "react-native";
 
+//REACT-NATIVE-PAPER
+import { Avatar, Card } from "react-native-paper";
+
+//REACT-NATIVE
+import { TouchableOpacity } from "react-native";
 import Swipeout from "react-native-swipeout";
 
 //STYLES
 import styles from "./NotificationsCardSyle";
-import { primaryGreen } from "../../utils/Colors";
 
 //UTILS
+import { primaryGreen } from "../../utils/Colors";
 import formatDate from "../../utils/formatDate";
 
-//REDUX
+//REACT-REDUX
 import { useDispatch } from "react-redux";
 import { removeNotification } from "../../state/Notifications/actions";
 

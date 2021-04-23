@@ -1,5 +1,9 @@
+//REACT-NATIVE
 import { StyleSheet } from "react-native";
+
+//UTILS
 import Colors from "../../utils/Colors";
+
 const styles = StyleSheet.create({
   progressContainer: {
     flex: 0.93,

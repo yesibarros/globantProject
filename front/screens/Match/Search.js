@@ -1,4 +1,7 @@
+//REACT
 import React, { useEffect, useState } from "react";
+
+//REACT-NATIVE
 import {
   StatusBar,
   Text,
@@ -6,23 +9,35 @@ import {
   SafeAreaView,
   Dimensions,
   ActivityIndicator,
- 
 } from "react-native";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import styles from "./searchStyles";
-import TabBar from "../../routes/Tab/TabBar";
-import { Avatar, Chip, IconButton } from "react-native-paper";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
+
+//STYLE
+import styles from "./searchStyles";
+
+//ROUTES
+import TabBar from "../../routes/Tab/TabBar";
+
+//REACT-NATIVE-PAPER
+import { Avatar, Chip } from "react-native-paper";
+
+//EXPO
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+//REACT-REDUX
 import { getMatchs } from "../../state/posibleMatch/thunks";
 import { useSelector, useDispatch } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
+
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
+
 const { width } = Dimensions.get("window");
 
 const stackSize = 4;
@@ -79,7 +94,9 @@ export default function App({ navigation }) {
     return (
       <>
         {card && (
-          <SafeAreaView style={[styles.card, { backgroundColor: colors.background }]}>
+          <SafeAreaView
+            style={[styles.card, { backgroundColor: colors.background }]}
+          >
             <View style={styles.cardTitleView}>
               <Text style={[styles.cardTitleText, { color: colors.text }]}>
                 {card.firstName + " " + card.lastName}
@@ -189,7 +206,7 @@ export default function App({ navigation }) {
                 cardIndex={index}
                 renderCard={(match) => <Card card={match} />}
                 infinite
-                swipeBack	
+                swipeBack
                 onSwiped={onSwiped}
                 backgroundColor="transparent"
                 onTapCard={() =>

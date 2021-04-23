@@ -1,30 +1,43 @@
+//REACT
 import React, { useState, useEffect } from "react";
+
+//REACT-NATIVE
 import {
   View,
   Text,
   FlatList,
   Modal,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
-import { IconButton, Button } from "react-native-paper";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//REACT-NATIVE-PAPER
+import { IconButton, Button } from "react-native-paper";
+
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
-import { state } from "../../utils/state";
+
+//ROUTES
 import TabBar from "../../routes/Tab/TabBar";
+
+//STYLE
 import styles from "./progressStyle";
+
+//SCREEN
 import CardProgress from "./CardProgress";
+import Header from "../header/Header";
+
+//REACT-REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { getObjectives, sendObjective } from "../../state/objetivos/thunks";
-import Header from "../header/Header";
-import { color } from "react-native-reanimated";
 
 export default function Progress({ route, navigation }) {
   const { colors } = useTheme();
-const [isLoading, setIsLoading]=useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [viewModal, setViewModal] = useState(false);
   const idCurrent = route && route.params && route.params.idCurrent;
   const dispatch = useDispatch();
@@ -35,7 +48,7 @@ const [isLoading, setIsLoading]=useState(true)
   const [titleObjective, setTitleObjective] = useState("");
 
   useEffect(() => {
-    dispatch(getObjectives(id)).then(()=>setIsLoading(false));
+    dispatch(getObjectives(id)).then(() => setIsLoading(false));
   }, [id]);
 
   const handleObjective = () => {
@@ -59,7 +72,6 @@ const [isLoading, setIsLoading]=useState(true)
           {
             height: hp("80%"),
             borderTopLeftRadius: 60,
-           
           },
           { backgroundColor: colors.background },
         ]}
@@ -76,15 +88,13 @@ const [isLoading, setIsLoading]=useState(true)
             Objetivos
           </Text>
           {/* logginUser.role && logginUser.role[0] === "mentor" */}
-          {logginUser.role?.includes('mentor') ? (
-             
+          {logginUser.role?.includes("mentor") ? (
             <View
               style={{
                 position: "absolute",
                 width: wp("95%"),
               }}
             >
-                
               <IconButton
                 size={hp("5%")}
                 color="#009387"
@@ -94,15 +104,16 @@ const [isLoading, setIsLoading]=useState(true)
                   setViewModal(true);
                 }}
               />
-           
             </View>
           ) : null}
         </View>
-         {isLoading?
-             <ActivityIndicator  style={{alignItems:"center", height:hp("50%")}}size="large" color="orange" />
-             :
-             null
-          }
+        {isLoading ? (
+          <ActivityIndicator
+            style={{ alignItems: "center", height: hp("50%") }}
+            size="large"
+            color="orange"
+          />
+        ) : null}
 
         <Modal visible={viewModal} transparent={true} animationType="slide">
           <View
@@ -216,9 +227,7 @@ const [isLoading, setIsLoading]=useState(true)
         )}
 
         <TabBar navigation={navigation} />
-
       </View>
-      
     </View>
   );
 }

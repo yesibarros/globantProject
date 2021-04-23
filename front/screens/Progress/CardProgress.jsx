@@ -1,36 +1,36 @@
+//REACT
 import React, { useState } from "react";
+
+//REACT-NATIVE
 import {
   View,
-  Alert,
   TouchableOpacity,
   Text,
   Modal,
   KeyboardAvoidingView,
 } from "react-native";
 import {
-  Card,
-  Button,
-  Title,
-  Paragraph,
-  Avatar,
-  IconButton,
-  Colors,
-  ActivityIndicator,
-  TextInput,
-} from "react-native-paper";
-import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
-import SelectPicker from "react-native-form-select-picker";
-import { primaryGreen } from "../../utils/Colors";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../state/loggedUser/actions";
-import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
-import { updateObjective, getObjectives } from "../../state/objetivos/thunks";
-import styles from "./cardProgressStyle";
 import { ScrollView } from "react-native-gesture-handler";
+import SelectPicker from "react-native-form-select-picker";
+
+//REACT-NATIVE-PAPER
+import {
+  Card,
+  Button,
+  Avatar,
+  IconButton,
+  TextInput,
+} from "react-native-paper";
+
+//REACT-REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { updateObjective, getObjectives } from "../../state/objetivos/thunks";
+
+//STYLE
+import styles from "./cardProgressStyle";
 
 const CardProgress = ({ item, last }) => {
   const loggedUser = useSelector((state) => state.loggedUser.user);
@@ -75,7 +75,7 @@ const CardProgress = ({ item, last }) => {
             right={(props) => (
               <IconButton
                 {...props}
-                size={hp('3%')}
+                size={hp("3%")}
                 color="#009387"
                 icon="eye-plus"
                 onPress={() => {
@@ -105,7 +105,7 @@ const CardProgress = ({ item, last }) => {
               >
                 <Text
                   style={{
-                    fontSize:hp('3%'),
+                    fontSize: hp("3%"),
                     fontWeight: "bold",
                     alignContent: "center",
                     textTransform: "uppercase",
@@ -224,7 +224,7 @@ const CardProgress = ({ item, last }) => {
                 >
                   <Text
                     style={{
-                      fontSize: hp('2%'),
+                      fontSize: hp("2%"),
                       color: "white",
                       textAlign: "center",
                     }}
@@ -249,7 +249,7 @@ const CardProgress = ({ item, last }) => {
                   >
                     <Text
                       style={{
-                        fontSize: hp('2%'),
+                        fontSize: hp("2%"),
                         color: "white",
                         textAlign: "center",
                       }}

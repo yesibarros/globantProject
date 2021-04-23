@@ -1,8 +1,8 @@
 //REACT
-import React, { useState, useEffect, useRef } from "react";
-import { useRoute } from "@react-navigation/native";
-import { ScrollView, View, Dimensions, Animated } from "react-native";
+import React, { useEffect, useRef } from "react";
 
+//REACT-NATIVE
+import { ScrollView, View, Dimensions, Animated } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -11,26 +11,25 @@ import {
 //SCREENS
 import Header from "../header/Header";
 
-
 //STYLE
 import styles from "./menteesStyle";
-import { FAB, Divider, Text } from "react-native-paper";
-import { useTheme } from "@react-navigation/native";
-import { primaryGreen } from "../../utils/Colors";
 
-//REDUX
+//REACT-NATIVE-PAPER
+import { FAB, Text } from "react-native-paper";
+
+//REACT-NAVIGATION
+import { useTheme } from "@react-navigation/native";
+
+//REACT-REDUX
 import { useSelector, useDispatch } from "react-redux";
-import {getSingleUser} from "../../state/singleUser/thunks"
 
 //COMPONENTS
 import UserList from "../../shared/components/UserList/UserList";
-import Mentor from "../../screens/Mentor/Mentor"
 import UserCard from "../../shared/components/UserList/UserCard";
 
 const { height, width } = Dimensions.get("window");
 
 const Mentees = ({ navigation }) => {
-  const isMentor = useSelector((state) => state.toggleRole);
   const [startAnimate, setStartAnimate] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const translation = useRef(new Animated.Value(100)).current;
@@ -38,12 +37,12 @@ const Mentees = ({ navigation }) => {
   useEffect(() => {
     if (!startAnimate) {
       Animated.timing(translation, {
-        toValue: width-150,
+        toValue: width - 150,
         duration: 2000,
         useNativeDriver: false,
       }).start();
       Animated.timing(yTranslation, {
-        toValue: height-200,
+        toValue: height - 200,
         duration: 2000,
         useNativeDriver: false,
       }).start();
@@ -53,7 +52,7 @@ const Mentees = ({ navigation }) => {
   }, []);
   //VER LO USEEFFECT
   const loginUser = useSelector((state) => state.loggedUser.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { colors } = useTheme();
   useEffect(() => {
     if (loginUser?.mentees.length == 0) {
@@ -61,7 +60,11 @@ const Mentees = ({ navigation }) => {
     }
   }, []);
   const menteesToShow = () => {
-    let mentees =loginUser?._id ? loginUser?.mentees? [...loginUser.mentees] || []: []: [];
+    let mentees = loginUser?._id
+      ? loginUser?.mentees
+        ? [...loginUser.mentees] || []
+        : []
+      : [];
     const length = mentees.length;
     if (length !== 4) {
       for (let i = 0; i < 5 - length; i++) {
@@ -72,8 +75,6 @@ const Mentees = ({ navigation }) => {
   };
   const mentor = loginUser.mentor || "hola";
 
-  // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
-  // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
   return (
     <>
       <ScrollView>
@@ -84,21 +85,20 @@ const Mentees = ({ navigation }) => {
           </Text>
           <View style={[styles.body, { backgroundColor: colors.background }]}>
             <View style={styles.usersContainer}>
-              {(loginUser.role=="mentor" && loginUser.mentees?.length == 0) || (loginUser.role == "mentee" && !loginUser.mentor) ? (
-                <View style={{ marginVertical:hp('25%') }}>
-                  
+              {(loginUser.role == "mentor" && loginUser.mentees?.length == 0) ||
+              (loginUser.role == "mentee" && !loginUser.mentor) ? (
+                <View style={{ marginVertical: hp("25%") }}>
                   <View style={styles.n}>
-                
                     <Text style={styles.nText}>
-                      No tenes  {loginUser.role == "mentor" ? "ningún mentee" : "mentor"} todavía.
+                      No tenes{" "}
+                      {loginUser.role == "mentor" ? "ningún mentee" : "mentor"}{" "}
+                      todavía.
                     </Text>
                   </View>
-                
                 </View>
+              ) : loginUser.role == "mentee" ? (
+                <UserCard user={mentor} navigation={navigation} />
               ) : (
-                loginUser.role== "mentee" ? 
-                <UserCard user={mentor} navigation={navigation}/>
-                :
                 <UserList users={menteesToShow()} navigation={navigation} />
               )}
             </View>
@@ -115,7 +115,8 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {(loginUser?.role?.includes('mentor') && loginUser.mentees?.length < 5) || (loginUser?.role?.includes("mentee") && !loginUser.mentor) ? (
+      {(loginUser?.role?.includes("mentor") && loginUser.mentees?.length < 5) ||
+      (loginUser?.role?.includes("mentee") && !loginUser.mentor) ? (
         <Animated.View
           style={{
             position: "absolute",
@@ -124,7 +125,7 @@ const Mentees = ({ navigation }) => {
             height: 100,
             borderRadius: 50,
             backgroundColor: yTranslation.interpolate({
-              inputRange: [0, 375, height-200],
+              inputRange: [0, 375, height - 200],
               outputRange: ["grey", "lightgrey", "transparent"],
             }),
             opacity: translation.interpolate({
@@ -137,7 +138,7 @@ const Mentees = ({ navigation }) => {
 
               {
                 rotate: translation.interpolate({
-                  inputRange: [0, 50, width-150],
+                  inputRange: [0, 50, width - 150],
                   outputRange: ["0deg", "180deg", "360deg"],
                 }),
               },
@@ -150,8 +151,7 @@ const Mentees = ({ navigation }) => {
             onPress={() => navigation.navigate("SearchMatch")}
           />
         </Animated.View>
-      ):
-      null}
+      ) : null}
     </>
   );
 };
