@@ -32,7 +32,6 @@ objectiveController.createOne = (req, res, next) => {
 objectiveController.modifyOne = (req, res, next) => {
   Objective.findByIdAndUpdate(req.params.id, req.body)
     .then((response) => {
-      console.log(response);
       if (!response) return res.status(404).json({ message: "Objective not found!" });
       
       Objective.find({mentee: response.mentee})
@@ -54,7 +53,6 @@ objectiveController.deleteOne = (req, res, next) => {
     .then((response) => {
       if (!response)
         return res.status(404).json({ message: "Objective not found!" });
-      console.log(response);
       res.send("The objective was deleted!");
     })
     .catch(next);

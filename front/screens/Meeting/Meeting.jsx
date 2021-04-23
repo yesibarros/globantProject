@@ -32,7 +32,7 @@ export default function Meeting({ route, navigation }) {
 
       <View
         style={{
-          backgroundColor: "white",
+          backgroundColor:colors.background,
           height: hp("73.8%"),
           borderTopLeftRadius: 60,
         }}
@@ -44,7 +44,7 @@ export default function Meeting({ route, navigation }) {
             alignItems: "center",
           }}
         >
-          <Text style={styles.titleProgress}>REUNIONES</Text>
+          <Text style={[styles.titleProgress,{color:colors.text}]}>REUNIONES</Text>
         </View>
         {meetings && meetings.length > 0 ? (
           <FlatList

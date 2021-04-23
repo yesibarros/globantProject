@@ -26,7 +26,6 @@ export const getCountries = createAsyncThunk("GET_COUNTRIES", (data) => {
  export const deleteCountry= createAsyncThunk("DELETE_COUNTRY", (data) => {
     return SecureStore.getItemAsync("token").then((token) => {
      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-     console.log("EL ID", data._id)
      return axios
        .delete(`http://${localHost}/api/countries/${data._id}`)
        .then((respuesta) => respuesta.data);

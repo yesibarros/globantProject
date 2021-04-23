@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
     height: hp("76%"),
-    marginTop: hp("-4%"),
+    marginTop: hp("-6.7%"),
     borderRadius: 25,
     shadowColor: "#000",
     shadowOpacity: 1.0,

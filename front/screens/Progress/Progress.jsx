@@ -5,7 +5,7 @@ import {
   FlatList,
   Modal,
   TextInput,
-  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { IconButton, Button } from "react-native-paper";
 import {
@@ -24,7 +24,7 @@ import { color } from "react-native-reanimated";
 
 export default function Progress({ route, navigation }) {
   const { colors } = useTheme();
-
+const [isLoading, setIsLoading]=useState(true)
   const [viewModal, setViewModal] = useState(false);
   const idCurrent = route && route.params && route.params.idCurrent;
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function Progress({ route, navigation }) {
   const [titleObjective, setTitleObjective] = useState("");
 
   useEffect(() => {
-    dispatch(getObjectives(id));
+    dispatch(getObjectives(id)).then(()=>setIsLoading(false));
   }, [id]);
 
   const handleObjective = () => {
@@ -76,13 +76,15 @@ export default function Progress({ route, navigation }) {
             Objetivos
           </Text>
           {/* logginUser.role && logginUser.role[0] === "mentor" */}
-          {true ? (
+          {logginUser.role?.includes('mentor') ? (
+             
             <View
               style={{
                 position: "absolute",
                 width: wp("95%"),
               }}
             >
+                
               <IconButton
                 size={hp("5%")}
                 color="#009387"
@@ -92,9 +94,15 @@ export default function Progress({ route, navigation }) {
                   setViewModal(true);
                 }}
               />
+           
             </View>
           ) : null}
         </View>
+         {isLoading?
+             <ActivityIndicator  style={{alignItems:"center", height:hp("50%")}}size="large" color="orange" />
+             :
+             null
+          }
 
         <Modal visible={viewModal} transparent={true} animationType="slide">
           <View
@@ -206,10 +214,9 @@ export default function Progress({ route, navigation }) {
             <Text style={styles.nText}>No tienes objetivos establecidos</Text>
           </View>
         )}
-        {/* <View style={{ marginTop: hp("12.9%") }}> */}
-        
+
         <TabBar navigation={navigation} />
-        {/* </View> */}
+
       </View>
       
     </View>

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#c9c9c9',
     fontSize:hp('3%'),
-    
+   
   },
   n: {
     width:wp('100%'),

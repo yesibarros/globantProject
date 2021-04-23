@@ -33,7 +33,6 @@ const TabBar = ({ navigation }) => {
     type: "tab",
   };
   const { routes } = state;
-  //console.log("STATE", state)
   const handlePress = (activeTab, index) => {
     if (state.index !== index) {
       setSelected(activeTab);

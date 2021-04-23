@@ -27,7 +27,7 @@ import {getRequests} from '../../state/requests/Thunks';
 const Requests = ({navigation}) => {
   
     const [showReceived, setShowReceived] = useState(true)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const { colors } = useTheme();
     const dispatch = useDispatch()
@@ -37,11 +37,13 @@ const Requests = ({navigation}) => {
 
 
     useEffect(() => {
+      setIsLoading(true)
       dispatch(getRequests()).then(() => {
         setIsLoading(false)
+       
       })
 
-    },[])
+    },[user._id])
 
     const filteredRequests = showReceived ? solicitudes.filter(r => r?.to?._id === user._id) : solicitudes.filter(r => r?.to?._id !== user._id)
 

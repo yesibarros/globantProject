@@ -12,7 +12,6 @@ import {
 
 const Header = ({ navigation }) => {
   const { colors } = useTheme();
-  console.log("navigation del header", navigation);
   const menuBadge = useSelector((state) => state.menuBadge);
   return (
     <View style={styles.header}>

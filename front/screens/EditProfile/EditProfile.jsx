@@ -47,7 +47,6 @@ const EditProfile = ({ navigation }) => {
   const [lastName, setLastName] = useState(loginUser.lastName);
   const [description, setDescription] = React.useState(loginUser.description);
   const locations = useSelector((state) => state.locations);
-  console.log(locations);
   const handleFirstNameChange = (val) => {
     setFirstName(val);
   };
@@ -90,7 +89,7 @@ const EditProfile = ({ navigation }) => {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View
         style={{
-          marginLeft: "2.5%",
+          marginLeft: wp("1"),
         }}
       >
         <View>
@@ -101,8 +100,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="account"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%') }}
               />
             )}
             title={`${loginUser.firstName} ${loginUser.lastName} `}
@@ -117,8 +116,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="map-marker"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%')}}
               />
             )}
             title={
@@ -137,8 +136,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="card-text-outline"
-                size={50}
-                style={{ marginBottom: 5 }}
+                size={hp('5.5%')}
+                style={{ marginBottom: hp('1%')}}
               />
             )}
             title={
@@ -235,6 +234,7 @@ const EditProfile = ({ navigation }) => {
                         containerStyle={{
                           backgroundColor: Colors.primaryGreen,
                         }}
+                        doneButtonTextStyle={{color: '#000'}}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {

@@ -74,7 +74,6 @@ const Mentees = ({ navigation }) => {
 
   // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
   // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
-  console.log("todo funciona")
   return (
     <>
       <ScrollView>
@@ -116,7 +115,7 @@ const Mentees = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      {(loginUser.role=="mentor" && loginUser.mentees?.length < 5) || (loginUser.role == "mentee" && !loginUser.mentor) && (
+      {(loginUser?.role?.includes('mentor') && loginUser.mentees?.length < 5) || (loginUser?.role?.includes("mentee") && !loginUser.mentor) ? (
         <Animated.View
           style={{
             position: "absolute",
@@ -151,7 +150,8 @@ const Mentees = ({ navigation }) => {
             onPress={() => navigation.navigate("SearchMatch")}
           />
         </Animated.View>
-      )}
+      ):
+      null}
     </>
   );
 };

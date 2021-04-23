@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
           height: hp("7%")
         },
       textButton:{
-        fontSize: hp("3%"), 
+        fontSize: hp("2%"), 
         color: "white", 
         textAlign: "center"
       },
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
       input: {
         width: wp("80%"),
         height: hp("5%"),
+        borderWidth: 0.5,
       },
   });
   export default styles

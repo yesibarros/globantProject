@@ -20,13 +20,11 @@ export const login = createAsyncThunk("LOGIN_REQUEST", (data) => {
 });
 
 export const googleAuth = createAsyncThunk("GOOGLE_AUTH_REQUEST", (data) => {
-  // console.log("entre al login back", data)
   return axios
     .post(`http://${localHost}/api/auth/google`, {
       token: data
     })
     .then((respuesta) => {
-      console.log(respuesta.data)
       return respuesta.data
     });
 });
@@ -50,7 +48,6 @@ export const getProfile = createAsyncThunk("GET_PROFILE", (data) => {
 });
 
 export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
-  console.log("DATAAA canbcel", data)
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
@@ -60,7 +57,6 @@ export const cancelMatch = createAsyncThunk("CANCEL_MATCH", (data) => {
 });
 
 export const finishMentoring = createAsyncThunk("FINISH_MENTORING", (data) => {
-  console.log("DATA finish", data)
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
