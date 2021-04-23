@@ -34,10 +34,8 @@ authController.login = (req, res, next) => {
 };
 
 authController.google = (req, res, next) => {
-  console.log("auth controller:")
   const { token } = req.body;
-  //Una forma de verificar el token:
-  //client.getTokenInfo(token).then(response=> console.log(response))
+
   
   //Pero con esto traemos al usuario y listo
   const url = `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`
@@ -46,10 +44,8 @@ authController.google = (req, res, next) => {
     if(!data) return res.status(400).send("Invalid credentials")
     userFindAndPopulate({email: data.email})
     .then(user=>{
-      console.log(user)
       //user?.email && !user.googleId
       if(user && user.email && !user.googleId) {
-        console.log("EL IF DEL ERROR")
         return res.status(400).send("This user already exists")}
       if(user && user.email && user.googleId){
         const token = jwt.sign({id: user._id}, JWT_SECRET)
@@ -62,11 +58,12 @@ authController.google = (req, res, next) => {
           lastName: data.family_name,
           img: data.picture,
           email: data.email,
-          password: "pass"+ Math.random() * 10000 //Revisar esto
+          password: "pass"+ Math.random() * 10000, //Revisar esto
+          role:["mentee"]
+
         }
         User.create(newUser)
             .then(createdUser => {
-              console.log("CREATED USER", createdUser)
               const token = jwt.sign({id: createdUser._id}, JWT_SECRET)
               return res.status(201).send({user: createdUser,token})
             })

@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
     width: wp("95%"),
-    height: hp("45%"),
+    height: hp("43.5%"),
     margin: hp("0.5%"),
     justifyContent: "space-between",
     marginHorizontal: 9.7,

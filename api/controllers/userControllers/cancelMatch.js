@@ -3,7 +3,6 @@ const userFindAndPopulate = require("../../utils/userFindAndPopulate")
 const sendNotification = require("../../utils/expoPushNotifications")
 
 const cancelMatch = async (req, res, next) => {
-    console.log("bodyyyyy", req.body)
     try{
         if(req.body.mentee){
             await User.findByIdAndUpdate(req.body.mentee, {$unset: {mentor: ""}})
@@ -26,7 +25,6 @@ const cancelMatch = async (req, res, next) => {
         }
 
         const userToSend = await userFindAndPopulate({_id: req.user._id})
-        console.log(userToSend)
         res.send(userToSend)
     }catch(err){
         next(err)

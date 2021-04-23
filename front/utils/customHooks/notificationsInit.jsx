@@ -31,7 +31,6 @@ const useNotificationsInit = () => {
     })
     .then((response) => {
       const token = response.data;
-      console.log("getting token", token)
       dispatch(updateProfile({id: loginUser._id, notificationsToken: token}));
     })
     .catch((err) => {

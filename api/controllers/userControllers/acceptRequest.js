@@ -12,7 +12,6 @@ const acceptRequest = async (req, res, next)=>{
          for(let i = 0; i < requests.length; i++){
             if(requests[i].to.toString() == user._id.toString()){
                 let done = false
-                console.log(requests[i].fromRole)
                 if(requests[i].fromRole == "mentee"){
                     
                     if(user.mentees.length > 5) return res.status(400).json({message: "You have reached the maximum of 5 mentees, you can't accept more."})

@@ -75,7 +75,7 @@ const CardProgress = ({ item, last }) => {
             right={(props) => (
               <IconButton
                 {...props}
-                size={35}
+                size={hp('3%')}
                 color="#009387"
                 icon="eye-plus"
                 onPress={() => {
@@ -105,7 +105,7 @@ const CardProgress = ({ item, last }) => {
               >
                 <Text
                   style={{
-                    fontSize: 30,
+                    fontSize:hp('3%'),
                     fontWeight: "bold",
                     alignContent: "center",
                     textTransform: "uppercase",
@@ -224,7 +224,7 @@ const CardProgress = ({ item, last }) => {
                 >
                   <Text
                     style={{
-                      fontSize: 22,
+                      fontSize: hp('2%'),
                       color: "white",
                       textAlign: "center",
                     }}
@@ -249,7 +249,7 @@ const CardProgress = ({ item, last }) => {
                   >
                     <Text
                       style={{
-                        fontSize: 22,
+                        fontSize: hp('2%'),
                         color: "white",
                         textAlign: "center",
                       }}

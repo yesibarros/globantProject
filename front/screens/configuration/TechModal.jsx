@@ -58,7 +58,6 @@ const TechModal = ({ visible, setEditTech }) => {
   };
 
   const handleSave = () => {
-    console.log("FUNCONA")
     setSaveLoad(true)
     const arrayToSave = selectedTechs.map((t) => t._id);
     let obj = {
@@ -175,10 +174,10 @@ const styles = StyleSheet.create({
   button:{
     paddingVertical: hp("0%"),
     width: wp("40%"), 
-    backgroundColor: "#009387"
+    backgroundColor: "#e89600"
   },
   textButton:{
     color: "white", 
-    fontSize: hp("3%")
+    fontSize: hp("2%")
   }
 });

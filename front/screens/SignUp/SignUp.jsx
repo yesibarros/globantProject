@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   View,
   Text,
@@ -134,7 +135,6 @@ const SignUp = ({ navigation }) => {
           <Text style={styles.text_header}>Registrate ahora!</Text>
         </View>
         <View style={styles.footer}>
-          <KeyboardAvoidingView enabled={enableShift}>
             <Animatable.View animation="fadeInUpBig">
               <Text style={styles.text_footer}>Nombre</Text>
               <View style={styles.action}>
@@ -310,7 +310,7 @@ const SignUp = ({ navigation }) => {
                 <GoogleButton />
               </View>
             </Animatable.View>
-          </KeyboardAvoidingView>
+            <KeyboardSpacer />
         </View>
       </ScrollView>
     </View>

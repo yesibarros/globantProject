@@ -32,12 +32,11 @@ export const deleteMeets = createAsyncThunk("DELETE_MEETS", (meet) => {
 });
 
 export const createMeets = createAsyncThunk("CREATE_MEETS", (meet) => {
-  console.log("creacion de meet", meet)
 
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorizarization"] = `Bearer ${token}`;
     return axios
       .post(`http://${localHost}/api/meetings/create`, meet)
-      .then((response) => {console.log("response", response.data), response.data});
+      .then((response) => response.data);
   });
 });

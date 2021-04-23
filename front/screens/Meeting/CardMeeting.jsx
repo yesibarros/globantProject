@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   View,
   TouchableOpacity,
   Text,
   Modal,
-  KeyboardAvoidingView,
+
 } from "react-native";
 import { Card, Button, Avatar, IconButton } from "react-native-paper";
 import { primaryGreen } from "../../utils/Colors";
@@ -26,9 +27,9 @@ const CardMeeting = ({ item, last }) => {
   const border = last ? "transparent" : "lightgrey";
 
   const name =
-    loggedUser.firstName == item.guest.firstName
-      ? item.host.firstName
-      : item.guest.firstName;
+    loggedUser?.firstName == item?.guest?.firstName
+      ? item?.host?.firstName
+      : item?.guest?.firstName;
 
   const handleCancel = () => {
     setViewModal(false);
@@ -37,6 +38,7 @@ const CardMeeting = ({ item, last }) => {
 
   return (
     <View style={[styles.container, { borderColor: border }]}>
+     
       <Avatar.Icon
         size={hp("7%")}
         color="#009387"
@@ -61,14 +63,15 @@ const CardMeeting = ({ item, last }) => {
         />
       </Card>
 
-      <KeyboardAvoidingView
+      {/* <KeyboardAvoidingView
         behavior="padding"
         style={{
           flex: 1,
         }}
         enabled={Platform.OS === "android"}
         keyboardVerticalOffset={80}
-      >
+      > */}
+      
         <Modal visible={viewModal} transparent={true} animationType="slide">
           <BlurView
             style={{
@@ -96,12 +99,12 @@ const CardMeeting = ({ item, last }) => {
                     textTransform: "uppercase",
                   }}
                 >
-                  Destinatario: {item.guest.firstName}
+                  Destinatario: {item?.guest?.firstName}
                 </Text>
               </View>
 
               <Card style={styles.empty}>
-                <ScrollView>
+                <ScrollView style={{flex:1}}>
                   <Text
                     style={{
                       fontSize: hp("3%"),
@@ -188,8 +191,10 @@ const CardMeeting = ({ item, last }) => {
               </View>
             </View>
           </BlurView>
+      <KeyboardSpacer />
+ 
         </Modal>
-      </KeyboardAvoidingView>
+
     </View>
   );
 };

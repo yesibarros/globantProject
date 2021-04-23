@@ -36,16 +36,19 @@ const styles = StyleSheet.create({
       borderBottomWidth: 3
     },
     cardsContainer:{
-      height:hp('53.9%'),
+      height:hp('53.8%'),
+     
     },
     n: {
       justifyContent: "center",
       alignItems: "center",
       width: wp('100%'),
-      height: hp('40%'),
+      height: hp('45%'),
+     
 
     },
     nText: {
+     
       fontSize: hp('3%'),
       fontWeight: 'bold',
       color: '#c9c9c9',

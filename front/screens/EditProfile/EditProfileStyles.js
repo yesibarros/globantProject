@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontWeight: "bold",
-    fontSize: hp("4%"),
+    fontSize: hp("3%"),
     marginLeft: wp("2%"),
   },
 

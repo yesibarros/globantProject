@@ -35,7 +35,6 @@ const SingleUser = ({ navigation }) => {
   const dispatch = useDispatch();
   const singleUser = useSelector((state) => state.singleUser.user);
   const loginUser = useSelector((state) => state.loggedUser.user);
-  //console.log("NAVIGATION", navigation)
   const { colors } = useTheme();
 
   const handleShare = () => {
@@ -65,7 +64,7 @@ const SingleUser = ({ navigation }) => {
             size={hp("5%")}
             style={{
               position: "absolute",
-              zIndex: 1,
+              zIndex: 3,
               width: wp("94%"),
               top: hp("-9%"),
               alignItems: "flex-end",
@@ -84,7 +83,7 @@ const SingleUser = ({ navigation }) => {
                 }}
                 avatarStyle={{ zIndex: 1, width: "100%", height: "100%" }}
                 rounded
-                title={singleUser.firstName + singleUser.lastName}
+                title={singleUser.firstName[0] + singleUser.lastName[0]}
                 titleStyle={{
                   color: "white",
                   width: wp("100%"),
@@ -104,7 +103,6 @@ const SingleUser = ({ navigation }) => {
                   color: "white",
                   width: wp("100%"),
                 }}
-                // onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
               />
             )}
