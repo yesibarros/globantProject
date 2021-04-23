@@ -1,31 +1,29 @@
 //REACT
-import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import React from "react";
+
+//REACT-NATIVE
+import { ScrollView, View, Text } from "react-native";
 
 //SCREENS
 import Header from "../header/Header";
 
-//STYLE
+//STYLES
 import styles from "./mentorStyle";
 
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
+
+//UTILS
 import { primaryGreen } from "../../utils/Colors";
+
+//REACT-NATIVE-PAPER
 import { Button } from "react-native-paper";
 
-//REDUX
+//REACT-REDUX
 import { useSelector } from "react-redux";
 
 //COMPONENTS
 import UserCard from "../../shared/components/UserList/UserCard";
-
-const { width } = Dimensions.get("window");
 
 const Mentor = ({ navigation }) => {
   const loginUser = useSelector((state) => state.loggedUser.user);
@@ -33,7 +31,6 @@ const Mentor = ({ navigation }) => {
   const { colors } = useTheme();
 
   const [mentor] = loginUser.mentor || null;
-
 
   return (
     <>
@@ -49,7 +46,7 @@ const Mentor = ({ navigation }) => {
                   icon="account-plus"
                   mode="contained"
                   color={primaryGreen}
-                   onPress={() => navigation.navigate("SearchMatch")}
+                  onPress={() => navigation.navigate("SearchMatch")}
                   style={{ marginTop: 20, marginHorizontal: "3%" }}
                 >
                   Buscar mentor

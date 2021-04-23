@@ -1,6 +1,10 @@
+//REACT
 import React from "react";
+
+//REACT-NAVIGATION
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+//SCREENS
 import TabBarNavigator from "../Tab/TabNavigator";
 import ScreenDrawer from "./ScreenDrawer";
 import Requests from "../../screens/Requests/Requests";

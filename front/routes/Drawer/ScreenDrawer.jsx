@@ -1,6 +1,10 @@
+//REACT
 import React from "react";
+
+//REACT-NATIVE
 import { View, Text } from "react-native";
-import * as Linking from 'expo-linking';
+
+//REACT-NATIVE-PAPER
 import {
   Avatar,
   Title,
@@ -10,14 +14,27 @@ import {
   TouchableRipple,
   Switch,
 } from "react-native-paper";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import styles from "./drawerStyles";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+//REACT-REDUX
 import { useSelector, useDispatch } from "react-redux";
-import { setTheme } from "../../state/Theme/actions";
-import { useTheme } from "@react-navigation/native";
 import { logout } from "../../state/loggedUser/actions";
+import { setTheme } from "../../state/Theme/actions";
 import { setToggleRole } from "../../state/ToggleRole/actions";
+
+//REACT-NAVIGATION
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { useTheme } from "@react-navigation/native";
+
+//EXPO
+import * as Linking from "expo-linking";
+
+//STYLE
+import styles from "./drawerStyles";
+
+//ICON
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+
 
 const ScreenDrawer = (props) => {
   const user = useSelector((state) => state.loggedUser.user);
@@ -146,7 +163,9 @@ const ScreenDrawer = (props) => {
                 <Icon name="account-check-outline" color={color} size={size} />
               )}
               label="Support"
-              onPress={() => {Linking.openURL('https://github.com/yesibarros/globantProject');}}
+              onPress={() => {
+                Linking.openURL("https://github.com/yesibarros/globantProject");
+              }}
             />
           </Drawer.Section>
           <Drawer.Section title="Preferences">

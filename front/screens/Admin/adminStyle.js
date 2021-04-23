@@ -1,3 +1,4 @@
+//REACT-NATIVE
 import { StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -19,16 +20,13 @@ const styles = StyleSheet.create({
     shadowRadius: 50,
     elevation: 55,
   },
-  listContainer:{
+  listContainer: {
     borderTopLeftRadius: 60,
   },
-  list:{ 
-    height:hp("55%"), 
+  list: {
+    height: hp("55%"),
     marginVertical: hp("9.5%"),
-  
   },
-  
-
 });
 
 export default styles;

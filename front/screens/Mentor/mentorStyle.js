@@ -1,5 +1,8 @@
+//REACT-NATIVE
 import { StyleSheet } from "react-native";
-import {primaryGreen} from "../../utils/Colors"
+
+//UTILS
+import { primaryGreen } from "../../utils/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,47 +12,43 @@ const styles = StyleSheet.create({
   body: {
     borderTopLeftRadius: 60,
     flex: 3,
-    paddingBottom: "30%"
+    paddingBottom: "30%",
   },
   title: {
     color: "white",
     fontSize: 40,
     position: "absolute",
     top: "21%",
-    marginLeft: "10%"
+    marginLeft: "10%",
   },
-  usersContainer:{
+  usersContainer: {
     marginTop: "15%",
     paddingHorizontal: "5%",
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 60,
-    backgroundColor: primaryGreen
+    backgroundColor: primaryGreen,
   },
   note: {
     color: "gray",
     textAlign: "center",
-    opacity: 0.5
+    opacity: 0.5,
   },
   noteContainer: {
-    marginTop: 10
+    marginTop: 10,
   },
   animation: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 60,
     backgroundColor: primaryGreen,
     height: 30,
-    width: 60
-  }
-
-
-
-  
+    width: 60,
+  },
 });
 
 export default styles;

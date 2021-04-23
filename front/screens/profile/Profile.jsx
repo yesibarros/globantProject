@@ -1,44 +1,39 @@
 //REACT
 import React, { useState, useEffect } from "react";
+
+//REACT-NATIVE
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-
+import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Avatar } from "react-native-elements";
+
+//REACT-REDUX
 import { getLocations } from "../../state/Locations/thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { setAnimation } from "../../state/Animation/actions";
+import { updateProfile } from "../../state/loggedUser/thunks";
+
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
+
+//UTILS
 import { loadImageFromGallery } from "../../utils/helpers";
+import useNotificationsInit from "../../utils/customHooks/notificationsInit";
+import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications";
+import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications";
 
 //SCREENS
 import Header from "../header/Header";
 import Configuration from "../configuration/Configuration";
 import EditProfile from "../EditProfile/EditProfile";
 
-
 //STYLE
 import styles from "./profileStyle";
 
-//REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { setAnimation } from "../../state/Animation/actions";
-import { updateProfile } from "../../state/loggedUser/thunks";
-
-
 //Expo - notificaciones
 import * as Notifications from "expo-notifications";
-
-//Custom hooks
-import useNotificationsInit from "../../utils/customHooks/notificationsInit";
-import useForegroundNotifications from "../../utils/customHooks/foregroundNotifications";
-import useBackgroundNotifications from "../../utils/customHooks/backgroundNotifications";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -51,16 +46,12 @@ Notifications.setNotificationHandler({
 });
 
 const Profile = ({ navigation }) => {
- 
-
-
   const choosePhotoFromLibrary = async () => {
     const result = await loadImageFromGallery([1, 1]);
     if (result.status) {
       dispatch(updateProfile({ img: result.image, id: loginUser._id }));
     }
   };
-
 
   //TERMINA PRUEBA IMAGEN
   const dispatch = useDispatch();
@@ -131,7 +122,7 @@ const Profile = ({ navigation }) => {
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={styles.photo}>
             {loginUser.img ? (
-            <TouchableOpacity onPress={choosePhotoFromLibrary}>
+              <TouchableOpacity onPress={choosePhotoFromLibrary}>
                 <Avatar
                   size={hp("20%")}
                   rounded
@@ -163,8 +154,7 @@ const Profile = ({ navigation }) => {
                   }}
                   activeOpacity={0.7}
                 />
-                </TouchableOpacity>
-          
+              </TouchableOpacity>
             )}
           </View>
 
@@ -183,7 +173,7 @@ const Profile = ({ navigation }) => {
                 fontSize: hp("3%"),
               }}
             >{`${loginUser.firstName} ${loginUser.lastName}`}</Text>
-             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
+            <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
               {loginUser?.role?.join(" | ").toUpperCase()}
             </Text>
             <Text style={{ color: colors.text, fontSize: hp("1.7%") }}>
@@ -234,7 +224,6 @@ const Profile = ({ navigation }) => {
           )}
         </View>
       </View>
-     
     </ScrollView>
   );
 };

@@ -1,23 +1,36 @@
+//REACT
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { View, ScrollView, Alert, ActivityIndicator, SafeAreaView } from "react-native";
-import { Avatar } from "react-native-paper";
+
+//REACT-NATIVE
+import {
+  View,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+  SafeAreaView,
+} from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
+//REACT-NATIVE-PAPER
+import { Avatar } from "react-native-paper";
+
+//ROUTES
 import TabBar from "../../routes/Tab/TabBar";
-import { useTheme } from "@react-navigation/native";
+
+//REACT-REDUX
+import { useDispatch, useSelector } from "react-redux";
 import { setMatch } from "../../state/posibleMatch/actions";
 import { sendRequest } from "../../state/requests/Thunks";
 
+//SHARED
 import ModalMessage from "../../shared/components/modalMessage";
 import CardCustom from "../../shared/cardCustom";
 
 const MatchComparison = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { colors } = useTheme();
 
   const [isLoading, setIsLoeading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -92,7 +105,6 @@ const MatchComparison = ({ navigation }) => {
   };
 
   return (
-    
     <SafeAreaView
       style={{
         flex: 1,

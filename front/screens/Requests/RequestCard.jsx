@@ -1,9 +1,14 @@
+//REACT
 import React, { useState } from "react";
+
+//REACT-NATIVE
 import { View, Alert, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//REACT-NATIVE-PAPER
 import {
   Card,
   Title,
@@ -13,8 +18,14 @@ import {
   Colors,
   ActivityIndicator,
 } from "react-native-paper";
+
+//UTILS
 import { primaryGreen } from "../../utils/Colors";
+
+//STYLE
 import styles from "./requestCardStyle";
+
+//REACT-REDUX
 import { useDispatch } from "react-redux";
 import { setUser } from "../../state/loggedUser/actions";
 import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
@@ -22,7 +33,7 @@ import { cancelRequest, acceptRequest } from "../../state/requests/Thunks";
 const RequestCard = ({ request, received, navigation }) => {
   const [buttonSendLoading, setButtonSendLoading] = useState(false);
   const [buttonCancelLoading, setButtonCancelLoading] = useState(false);
-  const opositeRole = request.fromRole == "mentee"? "mentor" : "mentee"
+  const opositeRole = request.fromRole == "mentee" ? "mentor" : "mentee";
   const dispatch = useDispatch();
 
   const handleAccept = () => {
@@ -43,12 +54,19 @@ const RequestCard = ({ request, received, navigation }) => {
           ]
         );
       } else {
-        Alert.alert("¡Felicidades!", `¡Ahora ${request.from.firstName} ${request.from.lastName} es tu nuevo ${request.fromRole}`, [
-          {
-            text: "Ok",
-            onPress: () => request.fromRole == "Mentor"? navigation.navigate("Mentor") : navigation.navigate("Mis mentees"),
-          },
-        ]);
+        Alert.alert(
+          "¡Felicidades!",
+          `¡Ahora ${request.from.firstName} ${request.from.lastName} es tu nuevo ${request.fromRole}`,
+          [
+            {
+              text: "Ok",
+              onPress: () =>
+                request.fromRole == "Mentor"
+                  ? navigation.navigate("Mentor")
+                  : navigation.navigate("Mis mentees"),
+            },
+          ]
+        );
         dispatch(setUser(data.payload.user));
       }
     });
@@ -70,8 +88,6 @@ const RequestCard = ({ request, received, navigation }) => {
     });
   };
 
-
-
   return (
     <Card style={styles.card}>
       <Card.Content>
@@ -79,7 +95,12 @@ const RequestCard = ({ request, received, navigation }) => {
           <TouchableOpacity
             activeOpacity={1}
             style={styles.infoContainer}
-            onPress={() => Alert.alert(`${request.from.firstName} ${request.from.lastName}`, `${request.message}`)}
+            onPress={() =>
+              Alert.alert(
+                `${request.from.firstName} ${request.from.lastName}`,
+                `${request.message}`
+              )
+            }
           >
             <View style={styles.titleContainer}>
               <Avatar.Image
@@ -90,7 +111,7 @@ const RequestCard = ({ request, received, navigation }) => {
               />
               <View style={styles.title}>
                 <Paragraph style={styles.fromRole}>
-                  {received? request.fromRole : opositeRole}
+                  {received ? request.fromRole : opositeRole}
                 </Paragraph>
                 <Title style={styles.name}>
                   {received
@@ -98,7 +119,7 @@ const RequestCard = ({ request, received, navigation }) => {
                     : `${request?.to?.firstName} ${request?.to?.lastName}`}
                 </Title>
               </View>
-            </View>       
+            </View>
             <Paragraph style={styles.message} numberOfLines={1}>
               {request.message}
             </Paragraph>
@@ -107,7 +128,7 @@ const RequestCard = ({ request, received, navigation }) => {
             <View style={styles.buttonContainer}>
               {buttonSendLoading ? (
                 <ActivityIndicator
-                  size={hp('5%')}
+                  size={hp("5%")}
                   style={{ marginLeft: 15 }}
                   color={primaryGreen}
                 />
@@ -115,14 +136,14 @@ const RequestCard = ({ request, received, navigation }) => {
                 <IconButton
                   icon="check-outline"
                   color={primaryGreen}
-                  size={hp('5%')}
+                  size={hp("5%")}
                   onPress={() => handleAccept()}
                 />
               )}
 
               {buttonCancelLoading ? (
                 <ActivityIndicator
-                  size={hp('5%')}
+                  size={hp("5%")}
                   style={{ marginRight: 15 }}
                   color={Colors.red500}
                 />
@@ -130,23 +151,23 @@ const RequestCard = ({ request, received, navigation }) => {
                 <IconButton
                   icon="close-outline"
                   color={Colors.red500}
-                  size={hp('5%')}
+                  size={hp("5%")}
                   onPress={() => handleCancel()}
                 />
               )}
             </View>
           ) : buttonCancelLoading ? (
             <ActivityIndicator
-              size={hp('5%')}
-              style={{ marginLeft:wp("16")}}
+              size={hp("5%")}
+              style={{ marginLeft: wp("16") }}
               color={Colors.red500}
             />
           ) : (
             <IconButton
               icon="delete-outline"
               color={Colors.red500}
-              size={hp('5%')}
-              style={{marginLeft:wp("16")}}
+              size={hp("5%")}
+              style={{ marginLeft: wp("16") }}
               onPress={() => handleCancel()}
             />
           )}

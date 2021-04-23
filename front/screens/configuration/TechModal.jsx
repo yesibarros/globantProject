@@ -1,5 +1,7 @@
 //REACT
 import * as React from "react";
+
+//REACT-NATIVE
 import {
   ActivityIndicator,
   Modal,
@@ -12,17 +14,27 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {Button} from "react-native-paper"
+
+//REACT-NATIVE-PAPER
+import { Button } from "react-native-paper";
+
+//AXIOS
 import axios from "axios";
+
+//REACT-REDUX
 import { useSelector, useDispatch } from "react-redux";
-import PillButton from "../../shared/components/PillButton";
 import { updateProfile } from "../../state/loggedUser/thunks";
+
+//SHARED
+import PillButton from "../../shared/components/PillButton";
+
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
 
 import localHost from "../../localHostIp";
 const TechModal = ({ visible, setEditTech }) => {
   const { colors } = useTheme();
-  const [saveLoad, setSaveLoad] = React.useState(false)
+  const [saveLoad, setSaveLoad] = React.useState(false);
   const [technologiesArray, setTechnologiesArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const user = useSelector((state) => state.loggedUser.user);
@@ -58,7 +70,7 @@ const TechModal = ({ visible, setEditTech }) => {
   };
 
   const handleSave = () => {
-    setSaveLoad(true)
+    setSaveLoad(true);
     const arrayToSave = selectedTechs.map((t) => t._id);
     let obj = {
       id: user._id,
@@ -66,7 +78,7 @@ const TechModal = ({ visible, setEditTech }) => {
     };
     dispatch(updateProfile(obj)).then(() => {
       setEditTech(false);
-      setSaveLoad(false)
+      setSaveLoad(false);
     });
   };
 
@@ -106,25 +118,24 @@ const TechModal = ({ visible, setEditTech }) => {
               })}
           </View>
           <View style={styles.buttonContainer}>
-            
-              <Button style={styles.button} onPress={handleCloseModal}>
+            <Button style={styles.button} onPress={handleCloseModal}>
               <Text style={styles.textButton}>Cerrar</Text>
-                
-              </Button> 
-            
+            </Button>
+
             <View style={{ width: wp("40%") }}>
-              {saveLoad ? 
-              <ActivityIndicator size="large" color="#0000ff" />
-              :
-              <Button style={styles.button} onPress={() => {
-                handleSave()
-                handleCloseModal()
-                }}>
-              <Text style={styles.textButton}>GUARDAR</Text>
-                
-              </Button>
-            }
-              
+              {saveLoad ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+              ) : (
+                <Button
+                  style={styles.button}
+                  onPress={() => {
+                    handleSave();
+                    handleCloseModal();
+                  }}
+                >
+                  <Text style={styles.textButton}>GUARDAR</Text>
+                </Button>
+              )}
             </View>
           </View>
         </View>
@@ -160,8 +171,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: hp("4%"),
     fontWeight: "bold",
-  
-   letterSpacing: 1,
+
+    letterSpacing: 1,
     marginVertical: hp("3%"),
     marginBottom: hp("2%"),
   },
@@ -171,13 +182,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     marginTop: hp("4%"),
   },
-  button:{
+  button: {
     paddingVertical: hp("0%"),
-    width: wp("40%"), 
-    backgroundColor: "#e89600"
+    width: wp("40%"),
+    backgroundColor: "#e89600",
   },
-  textButton:{
-    color: "white", 
-    fontSize: hp("2%")
-  }
+  textButton: {
+    color: "white",
+    fontSize: hp("2%"),
+  },
 });

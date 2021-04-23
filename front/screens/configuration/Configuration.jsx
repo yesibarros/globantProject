@@ -3,16 +3,18 @@ import * as React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
+//REACT-NATIVE
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
 //SCREENS
 import PillButton from "../../shared/components/PillButton";
 import TechModal from "./TechModal";
 import AreaModal from "./AreaModal";
 
-//REDUX
+//REACT-REDUX
 import { useSelector } from "react-redux";
 
 //EXPO
