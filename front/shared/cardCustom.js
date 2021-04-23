@@ -41,9 +41,6 @@ const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
           matchPerson.role &&
           matchPerson.role.toString().toUpperCase() +
             " | " +
-            "Working since: " +
-            matchPerson.workingSince +
-            " | " +
             (matchPerson.location && matchPerson.location.locationName)
         }
       />

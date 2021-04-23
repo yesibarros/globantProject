@@ -43,7 +43,7 @@ export default function Progress({ route, navigation }) {
   const dispatch = useDispatch();
   const logginUser = useSelector((state) => state.loggedUser.user);
   const goals = useSelector((state) => state.objetivos);
-  const id = idCurrent || logginUser._id;
+  const id = idCurrent || logginUser?._id;
   const [objective, setObjective] = useState("");
   const [titleObjective, setTitleObjective] = useState("");
 
@@ -55,7 +55,7 @@ export default function Progress({ route, navigation }) {
     let obj = {
       objectiveName: titleObjective,
       description: objective,
-      mentor: logginUser._id,
+      mentor: logginUser?._id,
       mentee: idCurrent,
     };
     dispatch(sendObjective(obj)).then((data) =>
@@ -216,7 +216,7 @@ export default function Progress({ route, navigation }) {
             keyExtractor={(item) => item._id}
             renderItem={(goal) => {
               const last =
-                goal.item._id === goals[goals.length - 1]._id ? true : false;
+                goal.item?._id === goals[goals.length - 1]?._id ? true : false;
               return <CardProgress item={goal.item} last={last} />;
             }}
           />
