@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+// REACT
+import React, { useState } from "react";
+
+// REACT NATIVE
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   View,
@@ -6,38 +9,32 @@ import {
   TouchableOpacity,
   StatusBar,
   TextInput,
-  Button,
   ScrollView,
 } from "react-native";
-//REDUX
-import { useDispatch, useSelector } from "react-redux";
-import {login, googleAuth} from '../../state/loggedUser/thunks'
-import { logout } from "../../state/loggedUser/actions";
 import AwesomeAlert from "react-native-awesome-alerts";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
-//REACT-NATIVE
 import * as Animatable from "react-native-animatable";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
+
+// REACT REDUX
+import { useDispatch } from "react-redux";
+import { login, googleAuth } from "../../state/loggedUser/thunks";
+
+// EXPO
 import { LinearGradient } from "expo-linear-gradient";
 
 //STYLE
 import styles from "./signInStyle";
 
-//COMPONENTS
-import GoogleButton from '../../shared/components/GoogleButton/GoogleButton'
+// SCREENS
+import GoogleButton from "../../shared/components/GoogleButton/GoogleButton";
 
-
-
-const SignIn = ({navigation}) => {
- 
-  const [enableShift, setEnabledShift] = useState(false);
+const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
-  const loginUser = useSelector((state) => state.loggedUser.user);
   const [wrongDataAlert, setWrongDataAlert] = useState(false);
   const [wrongUserAlert, setWrongUserAlert] = useState(false);
 
@@ -72,8 +69,6 @@ const SignIn = ({navigation}) => {
       if (data.meta.requestStatus == "rejected") {
         return setWrongUserAlert(true);
       } else {
-        // navigation.navigate('Profile')
-        //navigation.navigate('TabBar')
       }
     });
   };
@@ -89,8 +84,6 @@ const SignIn = ({navigation}) => {
       secureTextEntry: !data.secureTextEntry,
     });
   };
-
- 
 
   return (
     <View style={styles.container}>
@@ -113,14 +106,9 @@ const SignIn = ({navigation}) => {
                 onChangeText={(val) => textInputChange(val)}
               />
               {data.check_textInputChange ? (
-                //   <Animatable.View animation="bounceIn">
-
                 <Feather name="check-circle" color="green" size={hp("2.5%")} />
-              ) : //   </Animatable.View>
-              null}
+              ) : null}
             </View>
-            {/* Las distintas alertas */}
-            {/*Datos invalidos */}
             <AwesomeAlert
               show={wrongDataAlert}
               showProgress={false}
@@ -135,7 +123,6 @@ const SignIn = ({navigation}) => {
                 setWrongDataAlert(false);
               }}
             />
-            {/*Email o contraseña incorrectos*/}
             <AwesomeAlert
               show={wrongUserAlert}
               showProgress={false}
@@ -200,13 +187,11 @@ const SignIn = ({navigation}) => {
               </TouchableOpacity>
 
               <GoogleButton />
-
             </View>
           </Animatable.View>
         </View>
-          <KeyboardSpacer />
+        <KeyboardSpacer />
       </ScrollView>
-      
     </View>
   );
 };

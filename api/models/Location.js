@@ -1,23 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const locationSchema = new mongoose.Schema({
+const locationSchema = new mongoose.Schema(
+  {
     locationName: {
-        type: String,
-        // required: true,
-        min: 4,
-        max: 120
+      type: String,
+      min: 4,
+      max: 120,
     },
     phone: {
-        type: String
+      type: String,
     },
     address: {
-        type: String
+      type: String,
     },
     country: {
-        type: Schema.Types.ObjectId, 
-        ref: "country"
-    }
-},{ versionKey: false });
+      type: Schema.Types.ObjectId,
+      ref: "country",
+    },
+  },
+  { versionKey: false }
+);
 
-module.exports= mongoose.model('location', locationSchema)
+module.exports = mongoose.model("location", locationSchema);

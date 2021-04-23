@@ -1,30 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const requestSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema(
+  {
     from: {
-        type: Schema.Types.ObjectId, 
-        ref: "user",
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
     },
     to: {
-        type: Schema.Types.ObjectId, 
-        ref: "user",
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
     },
     fromRole: {
-        type: String,
-        enum: ['mentee', 'mentor']
+      type: String,
+      enum: ["mentee", "mentor"],
     },
     message: {
-        type: String, 
+      type: String,
     },
     status: {
-        type: String,
-        enum: ['pending', 'rejected', 'accepted', 'canceled'],
-        default: 'pending'
-    }
-},{ versionKey: false });
+      type: String,
+      enum: ["pending", "rejected", "accepted", "canceled"],
+      default: "pending",
+    },
+  },
+  { versionKey: false }
+);
 
-
-module.exports= mongoose.model('request', requestSchema)
+module.exports = mongoose.model("request", requestSchema);

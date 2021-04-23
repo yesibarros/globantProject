@@ -1,3 +1,4 @@
+// REACT NATIVE
 import { StyleSheet, Platform } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -33,8 +34,6 @@ const styles = StyleSheet.create({
     marginTop: hp("2%"),
   },
   action: {
-    // flexDirection: "row",
-    // marginTop: 10,
     height: hp("4%"),
     flexDirection: "row",
     marginTop: hp("1%"),
@@ -61,14 +60,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 12,
   },
-
   textSign: {
     fontSize: hp("2.7%"),
     letterSpacing: 1,
     fontWeight: "bold",
     alignContent: "center",
-    elevation:1,
-    shadowOpacity:0.2,
+    elevation: 1,
+    shadowOpacity: 0.2,
   },
 });
 

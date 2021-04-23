@@ -1,12 +1,11 @@
+// REACT REDUX
 import { createReducer } from "@reduxjs/toolkit";
-
 import { getMatchs } from "./thunks";
 import { setMatch } from "./actions";
 
 let match = {
   allMatches: [],
   singleMatch: {},
-  // los tres que elijo para el mentor ////
 };
 
 const matchReducer = createReducer(match, {

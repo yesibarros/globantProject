@@ -1,11 +1,17 @@
+// REACT
 import React from "react";
-import store from "./state/store";
+
+//REACT REDUX
 import { Provider } from "react-redux";
+import store from "./state/store";
+
+// SCREENS
 import Main from "./Main";
-import {IconButton, LogBox} from "react-native"
+
+// EXPO
 import { disableExpoCliLogging } from "expo/build/logs/Logs";
 
-// disableExpoCliLogging()
+disableExpoCliLogging();
 const App = () => {
   return (
     <Provider store={store}>

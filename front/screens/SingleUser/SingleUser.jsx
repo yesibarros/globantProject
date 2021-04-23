@@ -1,40 +1,32 @@
 //REACT
-import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import React from "react";
+
+// REACT REDUX
+import { useDispatch, useSelector } from "react-redux";
+
+// REACT NATIVE
+import { ScrollView, View, Text } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
 import { Avatar } from "react-native-elements";
-import { Divider, IconButton } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 
+// EXPO
 import * as MailComposer from "expo-mail-composer";
 
 //SCREENS
 import Header from "../header/Header";
+import TabBar from "../../routes/Tab/TabBar";
+import Configuration from "../configuration/Configuration";
 
 //STYLE
 import styles from "./singleUserStyle";
 
-//REDUX
-import { useDispatch, useSelector } from "react-redux";
-import Configuration from "../configuration/Configuration";
-import TabBar from "../../routes/Tab/TabBar";
-const { width } = Dimensions.get("window");
-
 const SingleUser = ({ navigation }) => {
-  const dispatch = useDispatch();
   const singleUser = useSelector((state) => state.singleUser.user);
-  const loginUser = useSelector((state) => state.loggedUser.user);
   const { colors } = useTheme();
 
   const handleShare = () => {

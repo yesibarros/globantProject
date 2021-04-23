@@ -1,4 +1,4 @@
-import React from "react";
+// REACT REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { setReceivedPendingRequests } from "../../state/loggedUser/actions";
 import { getProfile } from "../../state/loggedUser/thunks";

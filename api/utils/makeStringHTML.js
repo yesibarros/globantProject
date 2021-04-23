@@ -1,6 +1,5 @@
 const makeHTML = {
-
-newPendingMentee:(mentor, mentee)=>{
+  newPendingMentee: (mentor, mentee) => {
     return `
         <h1 style="color: green; text-align: center">
             Hola ${mentor.firstName}
@@ -8,10 +7,10 @@ newPendingMentee:(mentor, mentee)=>{
         <p style="text-align: center">
             ${mentee.firstName} ${mentee.lastName} quiere ser tu mentor. Ingresa a Mentor Me para confirmar tu mentoría.
         </p>
-        `
-},
+        `;
+  },
 
-newPendingMentor:(mentee, mentor)=>{
+  newPendingMentor: (mentee, mentor) => {
     return `
         <h1 style="color: green; text-align: center">
             Hola ${mentee.firstName}
@@ -19,9 +18,8 @@ newPendingMentor:(mentee, mentor)=>{
         <p style="text-align: center">
             ${mentor.firstName} ${mentor.lastName} quiere ser tu mentor. Ingresa a Mentor Me para confirmar tu mentoría.
         </p>
-        `
-}
+        `;
+  },
+};
 
-}
-
-module.exports = makeHTML
+module.exports = makeHTML;

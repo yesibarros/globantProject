@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 const { isEmail } = require("validator");
-const Request = require('./Request')
+const Request = require("./Request");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -18,42 +18,43 @@ const userSchema = new mongoose.Schema({
     max: 120,
   },
   password: {
-    type: String,  
-    trim: true
+    type: String,
+    trim: true,
   },
   workingSince: {
     type: Number,
     min: 2003,
-    max: new Date().getFullYear()
+    max: new Date().getFullYear(),
   },
   location: {
-      type: Schema.Types.ObjectId,
-      ref: "location",
-  },
-  meeting: [{
     type: Schema.Types.ObjectId,
-    ref: "meeting",
-  }],
+    ref: "location",
+  },
+  meeting: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "meeting",
+    },
+  ],
   employeeId: {
     type: String,
-    // required: true,
   },
   description: {
     type: String,
-    // required: true,
   },
   email: {
     type: String,
     unique: true,
     required: true,
-    validate: [isEmail, "invalid email"]
+    validate: [isEmail, "invalid email"],
   },
-  role: 
-    [{
+  role: [
+    {
       type: String,
-      enum: ['mentee', 'mentor', 'admin'],
-      default: 'mentee'
-    }], 
+      enum: ["mentee", "mentor", "admin"],
+      default: "mentee",
+    },
+  ],
   mentees: [
     {
       type: Schema.Types.ObjectId,
@@ -62,7 +63,7 @@ const userSchema = new mongoose.Schema({
   ],
   receivedPendingRequests: {
     type: Number,
-    default: 0
+    default: 0,
   },
   mentor: {
     type: Schema.Types.ObjectId,
@@ -82,25 +83,26 @@ const userSchema = new mongoose.Schema({
   ],
   img: {
     type: String,
-    // required: true,
   },
-  objectives: [{
-    type: Schema.Types.ObjectId,
-    ref: "objective"
-  }],
+  objectives: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "objective",
+    },
+  ],
   wantsEmails: {
-    type: Boolean
+    type: Boolean,
   },
-  notificationsToken:{
+  notificationsToken: {
     type: String,
-    default: ""
+    default: "",
   },
   salt: {
-    type: String
-  }, 
+    type: String,
+  },
   googleId: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 userSchema.virtual("fullName").get(function () {
@@ -110,15 +112,28 @@ userSchema.virtual("fullName").get(function () {
 //INSTANCE METHODS
 
 userSchema.methods.getPendingRequestsSentToMentees = function () {
-  return Request.find({fromRole: "mentor", status: "pending", from: this._id})
+  return Request.find({
+    fromRole: "mentor",
+    status: "pending",
+    from: this._id,
+  });
 };
 
 userSchema.methods.getPendingRequestSentToMentor = function () {
-  return Request.find({fromRole: "mentee", status: "pending", from: this._id})
+  return Request.find({
+    fromRole: "mentee",
+    status: "pending",
+    from: this._id,
+  });
 };
 
 userSchema.methods.getPendingRequests = function () {
-  return Request.find({status: "pending", $or: [{from: this._id},{to: this._id}]}).populate("from").populate("to")
+  return Request.find({
+    status: "pending",
+    $or: [{ from: this._id }, { to: this._id }],
+  })
+    .populate("from")
+    .populate("to");
 };
 
 userSchema.methods.hash = function (password, salt) {
@@ -139,6 +154,5 @@ userSchema.pre("save", function (next) {
       next();
     });
 });
-
 
 module.exports = mongoose.model("user", userSchema);

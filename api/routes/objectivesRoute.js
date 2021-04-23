@@ -1,17 +1,23 @@
-const router = require('express').Router()
+const router = require("express").Router();
 
-const objectiveController = require('../controllers/objectiveController')
-const { JWTmiddleware, roles } = require('../middleware')
+const objectiveController = require("../controllers/objectiveController");
+const { JWTmiddleware, roles } = require("../middleware");
 
-// we are in /api/techs
+router.get("/", objectiveController.getAll);
+router.post(
+  "/",
+  [JWTmiddleware, roles.isMentor],
+  objectiveController.createOne
+);
+router.put(
+  "/:id",
+  [JWTmiddleware, roles.isMentor],
+  objectiveController.modifyOne
+);
+router.delete(
+  "/:id",
+  [JWTmiddleware, roles.isAdmin, roles.isMentor],
+  objectiveController.deleteOne
+);
 
-//GET ALL OBJECTIVES FROM AN USER
-router.get('/', objectiveController.getAll)
-//CREATE ONE
-router.post('/', [JWTmiddleware, roles.isMentor], objectiveController.createOne)
-//UPDATE BY ID
-router.put('/:id', [JWTmiddleware, roles.isMentor], objectiveController.modifyOne)
-//DELETE BY ID
-router.delete('/:id', [JWTmiddleware, roles.isAdmin, roles.isMentor], objectiveController.deleteOne)
-
-module.exports = router
+module.exports = router;
