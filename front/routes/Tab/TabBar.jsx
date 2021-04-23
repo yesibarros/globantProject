@@ -1,12 +1,23 @@
+//REACT
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import Tab from "./Tab";
-import { LinearGradient } from "expo-linear-gradient";
 import { useSelector } from "react-redux";
+
+//REACT-REDUX
+
+//REACT-NATIVE
+import { View, StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//ROUTES
+import Tab from "./Tab";
+
+//EXPO
+import { LinearGradient } from "expo-linear-gradient";
+
+
 
 const TabBar = ({ navigation }) => {
   const [selected, setSelected] = useState("Home");

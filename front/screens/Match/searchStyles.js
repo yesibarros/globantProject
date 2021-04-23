@@ -1,9 +1,13 @@
+//REACT-NATIVE
 import { StyleSheet } from "react-native";
-import { primaryGreen } from "../../utils/Colors";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//UTILS
+import { primaryGreen } from "../../utils/Colors";
+
 const colors = {
   red: "#EC2379",
   blue: "#0070FF",

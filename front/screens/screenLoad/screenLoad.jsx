@@ -1,21 +1,27 @@
-import { StatusBar } from "expo-status-bar";
+//REACT
 import React, { useState, useEffect } from "react";
+
+//REACT-NATIVE
 import { View, Text, Animated, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import styles from "./screenLoadStyle";
-import {primaryGreen} from "../../utils/Colors"
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import logoGlobant from '../../utils/Globant.png';
-import logoCircularGlobant from '../../utils/globant-logo-circular.png';
 
+//STYLE
+import styles from "./screenLoadStyle";
+
+//UTILS
+import logoGlobant from "../../utils/Globant.png";
+import logoCircularGlobant from "../../utils/globant-logo-circular.png";
+
+//EXPO
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
 const AnimatedText = Animated.createAnimatedComponent(Text);
-const AnimatedImage = Animated.createAnimatedComponent(Image)
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const ScreenLoad = ({ navigation }) => {
-
   const [animateY, setAnimateY] = useState(new Animated.Value(0));
   const [animateYwelcome, setAnimateYwelcome] = useState(new Animated.Value(0));
   const [animateLogo, setAnimateLogo] = useState(new Animated.Value(0));
@@ -43,7 +49,7 @@ const ScreenLoad = ({ navigation }) => {
           duration: 1000,
           delay: 3000,
           useNativeDriver: false,
-        })
+        }),
       ]).start();
     }
 
@@ -64,8 +70,8 @@ const ScreenLoad = ({ navigation }) => {
       <AnimatedImage
         source={logoCircularGlobant}
         style={{
-            marginTop: hp("10%"),
-            opacity: animateLogo,
+          marginTop: hp("10%"),
+          opacity: animateLogo,
         }}
       />
 
@@ -76,7 +82,7 @@ const ScreenLoad = ({ navigation }) => {
           fontSize: hp("10%"),
           // fontStyle: "italic",
           fontWeight: "bold",
-          color: '#BFD732',
+          color: "#BFD732",
           opacity: 1,
           right: wp("8%"),
           // zIndex: 2,
@@ -92,7 +98,7 @@ const ScreenLoad = ({ navigation }) => {
           fontSize: hp("7%"),
           // fontStyle: "italic",
           fontWeight: "bold",
-          color:"#303030",
+          color: "#303030",
           opacity: 1,
           left: wp("8%"),
           // zIndex: 3,
@@ -100,17 +106,16 @@ const ScreenLoad = ({ navigation }) => {
       >
         MENTOR
       </AnimatedText>
-    
+
       <AnimatedImage
         source={logoGlobant}
         style={{
-            width: wp("100%"),
-            height: hp("10%"),
-            marginTop: hp("50%"),
-            opacity: animateLogo,
+          width: wp("100%"),
+          height: hp("10%"),
+          marginTop: hp("50%"),
+          opacity: animateLogo,
         }}
       />
-
 
       <StatusBar style="auto" />
     </View>

@@ -1,10 +1,13 @@
+//REACT-NATIVE
 import { StyleSheet } from "react-native";
-import { primaryGreen } from "../../utils/Colors";
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//UTILS
+import { primaryGreen } from "../../utils/Colors";
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#009387",
@@ -15,8 +18,8 @@ const styles = StyleSheet.create({
   },
   photo: {
     top: hp("-9%"),
-    width:wp('100%'),
-    alignItems:"center",
+    width: wp("100%"),
+    alignItems: "center",
   },
   button: {
     position: "absolute",

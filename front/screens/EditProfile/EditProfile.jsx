@@ -1,40 +1,42 @@
+//REACT
 import React, { useState, useEffect } from "react";
+
+//REACT-NATIVE
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
 import {
   ScrollView,
   View,
   Text,
-  TouchableOpacity,
   Alert,
-  Dimensions,
   Modal,
   ActivityIndicator,
-  KeyboardAvoidingView,
 } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import {
-  Avatar,
-  Card,
-  Button,
-  Chip,
-  Title,
-  Icon,
-  TextInput,
-} from "react-native-paper";
+import SelectPicker from "react-native-form-select-picker";
+
+//REACT-NATIVE-PAPER
+import { Avatar, Card, Button, Title, TextInput } from "react-native-paper";
+
+//STYLE
 import styles from "./EditProfileStyles";
+
+//REACT-REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../../state/loggedUser/thunks";
-import SelectPicker from "react-native-form-select-picker";
+
+//REACT-NAVIGATION
 import { useTheme } from "@react-navigation/native";
+
+//UTILS
 import Colors from "../../utils/Colors";
+
+//EXPO
 import { BlurView } from "expo-blur";
 
-const EditProfile = ({ navigation }) => {
+const EditProfile = ({}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const [enableShift, setEnabledShift] = useState(false);
@@ -100,8 +102,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="account"
-                size={hp('5.5%')}
-                style={{ marginBottom: hp('1%') }}
+                size={hp("5.5%")}
+                style={{ marginBottom: hp("1%") }}
               />
             )}
             title={`${loginUser.firstName} ${loginUser.lastName} `}
@@ -116,8 +118,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="map-marker"
-                size={hp('5.5%')}
-                style={{ marginBottom: hp('1%')}}
+                size={hp("5.5%")}
+                style={{ marginBottom: hp("1%") }}
               />
             )}
             title={
@@ -136,8 +138,8 @@ const EditProfile = ({ navigation }) => {
                 color="#ffc78f"
                 rounded
                 icon="card-text-outline"
-                size={hp('5.5%')}
-                style={{ marginBottom: hp('1%')}}
+                size={hp("5.5%")}
+                style={{ marginBottom: hp("1%") }}
               />
             )}
             title={
@@ -234,7 +236,7 @@ const EditProfile = ({ navigation }) => {
                         containerStyle={{
                           backgroundColor: Colors.primaryGreen,
                         }}
-                        doneButtonTextStyle={{color: '#000'}}
+                        doneButtonTextStyle={{ color: "#000" }}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {

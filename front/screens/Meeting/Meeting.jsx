@@ -1,23 +1,31 @@
 // REACT
 import React, { useEffect } from "react";
+
+//REACT-NATIVE
 import { View, Text, FlatList } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { IconButton } from "react-native-paper";
-import { useTheme } from "@react-navigation/native";
-import { state } from "../../utils/state";
-import { useDispatch, useSelector } from "react-redux";
 
-// SCREENS
-import TabBar from "../../routes/Tab/TabBar";
-import styles from "./MeetingStyle";
-import CardMeeting from "./CardMeeting";
+//REACT-NAVIGATION
+import { useTheme } from "@react-navigation/native";
+
+//REACT-REDUX
+import { useDispatch, useSelector } from "react-redux";
 import { getMyMeets } from "../../state/Meetings/thunks";
+
+// ROUTES
+import TabBar from "../../routes/Tab/TabBar";
+
+//STYLE
+import styles from "./MeetingStyle";
+
+//SCREEN
+import CardMeeting from "./CardMeeting";
 import Header from "../header/Header";
 
-export default function Meeting({ route, navigation }) {
+export default function Meeting({ navigation }) {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const meetings = useSelector((state) => state.meetings);
@@ -32,7 +40,7 @@ export default function Meeting({ route, navigation }) {
 
       <View
         style={{
-          backgroundColor:colors.background,
+          backgroundColor: colors.background,
           height: hp("73.8%"),
           borderTopLeftRadius: 60,
         }}
@@ -44,7 +52,9 @@ export default function Meeting({ route, navigation }) {
             alignItems: "center",
           }}
         >
-          <Text style={[styles.titleProgress,{color:colors.text}]}>REUNIONES</Text>
+          <Text style={[styles.titleProgress, { color: colors.text }]}>
+            REUNIONES
+          </Text>
         </View>
         {meetings && meetings.length > 0 ? (
           <FlatList

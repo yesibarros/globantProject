@@ -1,13 +1,16 @@
-import React, { Component } from "react";
+//REACT
+import React from "react";
+
+//REACT-NATIVE
 import {
   Animated,
   View,
   StyleSheet,
-  Image,
   Dimensions,
   ScrollView,
 } from "react-native";
 
+//SHARED
 import CardCustom from "../../shared/cardCustom";
 
 const deviceWidth = Dimensions.get("window").width;
