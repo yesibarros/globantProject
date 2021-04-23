@@ -58,6 +58,7 @@ const TechModal = ({ visible, setEditTech }) => {
   };
 
   const handleSave = () => {
+    console.log("FUNCONA")
     setSaveLoad(true)
     const arrayToSave = selectedTechs.map((t) => t._id);
     let obj = {
@@ -116,7 +117,10 @@ const TechModal = ({ visible, setEditTech }) => {
               {saveLoad ? 
               <ActivityIndicator size="large" color="#0000ff" />
               :
-              <Button style={styles.button} onPress={handleCloseModal}>
+              <Button style={styles.button} onPress={() => {
+                handleSave()
+                handleCloseModal()
+                }}>
               <Text style={styles.textButton}>GUARDAR</Text>
                 
               </Button>

@@ -48,7 +48,9 @@ authController.google = (req, res, next) => {
     .then(user=>{
       console.log(user)
       //user?.email && !user.googleId
-      if(user && user.email && !user.googleId) return res.status(400).send("This user already exists")
+      if(user && user.email && !user.googleId) {
+        console.log("EL IF DEL ERROR")
+        return res.status(400).send("This user already exists")}
       if(user && user.email && user.googleId){
         const token = jwt.sign({id: user._id}, JWT_SECRET)
         return res.status(201).send({user,token})
@@ -66,7 +68,7 @@ authController.google = (req, res, next) => {
             .then(createdUser => {
               console.log("CREATED USER", createdUser)
               const token = jwt.sign({id: createdUser._id}, JWT_SECRET)
-              return res.status(201).send({createdUser,token})
+              return res.status(201).send({user: createdUser,token})
             })
       }
     })
