@@ -1,28 +1,33 @@
+// REACT
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+// REACT NATIVE PAPER
 import {
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from "react-native-paper";
+
+// REACT NATIVE
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
+
+// SCREENS
 import DrawerNavigator from "./routes/Drawer/DrawerNavigator";
 import ScreenLoad from "./screens/screenLoad/screenLoad";
 import SignIn from "./screens/SignIn/SignIn";
 import SignUp from "./screens/SignUp/SignUp";
 import Progress from "./screens/Progress/Progress";
-// import MatchComparison from "./screens/Matchs/MatchComparison"
-import { useSelector, useDispatch } from "react-redux";
-import "react-native-gesture-handler";
 import MatchComparison from "./screens/Matchs/MatchComparison";
 import Search from "./screens/Match/Search";
 import Mentees from "./screens/Mentees/Mentees";
 import SingleUser from "./screens/SingleUser/SingleUser";
-import TabBarNavigator from "./routes/Tab/TabNavigator";
 import Meeting from "./screens/Meeting/Meeting";
 
 const Stack = createStackNavigator();
@@ -70,16 +75,7 @@ const Main = ({ navigation }) => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator
-          initialRouteName="ScreenLoad"
-          headerMode={false}
-          // screenOptions={{
-          //   headerStyle: {
-          //     backgroundColor: "transparent",
-          //     elevation: 0,
-          //   },
-          // }}
-        >
+        <Stack.Navigator initialRouteName="ScreenLoad" headerMode={false}>
           {loggedUser._id ? (
             <>
               <Stack.Screen

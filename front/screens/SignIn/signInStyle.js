@@ -1,3 +1,4 @@
+// REACT NATIVE
 import { StyleSheet, Platform } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -21,11 +22,9 @@ const styles = StyleSheet.create({
     fontSize: hp("5.5%"),
   },
   footer: {
-    // flexGrow: 0.1,
     height: hp("70%"),
     backgroundColor: "#fff",
     borderTopLeftRadius: hp("8%"),
-    // borderRightColor: 30,
     paddingHorizontal: wp("7%"),
     paddingVertical: hp("4%"),
   },
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   textInput: {
-    // backgroundColor: "yellow",
     width: wp("72%"),
     height: hp("5%"),
     marginTop: Platform.OS === "ios" ? 0 : 0,
@@ -62,7 +60,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 12,
   },
-
   textSign: {
     fontSize: hp("2.7%"),
     letterSpacing: 1,

@@ -1,5 +1,8 @@
+//REACT NATIVE
 import { StyleSheet } from "react-native";
-import {primaryGreen} from "../../utils/Colors"
+
+// UTILS
+import { primaryGreen } from "../../utils/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +12,7 @@ const styles = StyleSheet.create({
   body: {
     borderTopLeftRadius: 60,
     flex: 3,
-    paddingBottom: "10%"
+    paddingBottom: "10%",
   },
   button: {
     position: "absolute",

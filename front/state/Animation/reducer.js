@@ -1,13 +1,11 @@
-import {createReducer} from "@reduxjs/toolkit"
-import {setAnimation} from "./actions"
+// REACT REDUX
+import { createReducer } from "@reduxjs/toolkit";
+import { setAnimation } from "./actions";
 
+let animation = true;
 
-let animation = true; 
+const animationReducer = createReducer(animation, {
+  [setAnimation]: (state, action) => !state,
+});
 
-const animationReducer= createReducer(animation, {
-    [setAnimation] : (state,action)=> !state
-   
-})
-
-  
-export default animationReducer
+export default animationReducer;

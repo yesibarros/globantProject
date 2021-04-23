@@ -1,8 +1,11 @@
+// REACT REDUX
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 
+// AXIOS
 import axios from "axios";
 
+// LOCAL HOST
 import localHost from "../../localHostIp";
 
 export const getObjectives = createAsyncThunk("GET_OBJECTIVE", (data) => {
@@ -15,7 +18,8 @@ export const getObjectives = createAsyncThunk("GET_OBJECTIVE", (data) => {
         },
       })
       .then((respuesta) => {
-        return respuesta.data});
+        return respuesta.data;
+      });
   });
 });
 
@@ -23,24 +27,21 @@ export const sendObjective = createAsyncThunk("SEND_OBJECTIVE", (data) => {
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
-    //NECESITAMOS ENVIAR ID DEL MENTOR Y MENTEE, TITULO DE OBJETIVO Y DESCRIP
       .post(`http://${localHost}/api/objectives`, data)
       .then((respuesta) => respuesta.data);
   });
 });
 
 export const updateObjective = createAsyncThunk("UPDATE_OBJECTIVE", (data) => {
-
   const obj = {
     status: data.status,
-    feedback: data.feedback
-  }
-  
+    feedback: data.feedback,
+  };
+
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return axios
-    //NECESITAMOS ENVIAR ID DEL MENTOR Y MENTEE, TITULO DE OBJETIVO Y DESCRIP
       .put(`http://${localHost}/api/objectives/${data.id}`, obj)
-      .then((respuesta) => respuesta.data)
+      .then((respuesta) => respuesta.data);
   });
 });

@@ -1,3 +1,4 @@
+// REACT REDUX
 import { createAction } from "@reduxjs/toolkit";
 
 export const newNotification = createAction("NEW_NOTIFICATION");

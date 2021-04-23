@@ -1,46 +1,44 @@
 //REACT
-import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  Alert,
-  IconButton
-} from "react-native";
+import React from "react";
 
+// REACT REDUX
+import { useSelector } from "react-redux";
+
+//REACT NATIVE
+import { ScrollView, View, Text, Dimensions } from "react-native";
 import { Avatar } from "react-native-elements";
-import { getLocations } from "../../state/Locations/thunks";
 import { useTheme } from "@react-navigation/native";
+
 //SCREENS
 import Header from "../header/Header";
-import Configuration from "../configuration/Configuration";
-import EditProfile from "../EditProfile/EditProfile";
 
 //STYLE
 import styles from "./someUserProfile";
-
-//REDUX
-import { useSelector } from "react-redux";
-// import { getUser } from "../../state/mentors/thunks";
 const { width } = Dimensions.get("window");
 
-const Mentor = ({navigation}) => {
-  // const dispatch = useDispatch();
-  // const [showConfiguration, setShowConfiguration] = useState(true);
+const Mentor = ({ navigation }) => {
   const loginUser = useSelector((state) => state.loggedUser.user);
 
   const { colors } = useTheme();
 
-  if (loginUser.mentor== undefined){
-    return <View style={{flex:1, width:"100%",justifyContent:"center", alignItems:"center" }}><Text >Mentor</Text></View>
+  if (loginUser.mentor == undefined) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text>Mentor</Text>
+      </View>
+    );
   }
   return (
     <ScrollView>
       <View style={styles.container}>
-  
-        <Header navigation={navigation}/>
+        <Header navigation={navigation} />
         <View style={[styles.body, { backgroundColor: colors.background }]}>
           <View style={{ top: -70, left: width / 3 }}>
             {loginUser.mentor.img ? (
@@ -90,52 +88,11 @@ const Mentor = ({navigation}) => {
             <Text
               style={{ fontWeight: "bold", color: colors.text }}
             >{`${loginUser.mentor.firstName} ${loginUser.mentor.lastName}`}</Text>
-            {/* <Text style={{ marginTop: 8, color: colors.text }}>
-              {loginUser.email}
-            </Text> */}
-            {/* <Text
-              style={{
-                marginTop: 20,
-                alignContent: "center",
-                color: colors.text,
-              }}
-            >
-              {loginUser.description}
-            </Text> */}
           </View>
-
-          {/* <View style={styles.userBtnWrapper}>
-            <TouchableOpacity
-              style={
-                showConfiguration
-                  ? { ...styles.userBtn, ...styles.userBtnSelected }
-                  : styles.userBtn
-              }
-              onPress={() => setShowConfiguration(true)}
-            >
-              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
-                Configuración
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                showConfiguration
-                  ? styles.userBtn
-                  : { ...styles.userBtn, ...styles.userBtnSelected }
-              }
-              onPress={() => setShowConfiguration(false)}
-            >
-              <Text style={[styles.userBtnTxt, { color: colors.text }]}>
-                Datos personales
-              </Text>
-            </TouchableOpacity>
-          </View> */}
-
-          {/* {showConfiguration ? <Configuration /> : <EditProfile />} */}
         </View>
       </View>
     </ScrollView>
   );
 };
 
-export default Mentor
+export default Mentor;

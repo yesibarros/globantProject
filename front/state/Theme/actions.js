@@ -1,3 +1,4 @@
-import {createAction} from "@reduxjs/toolkit"
+// REACT REDUX
+import { createAction } from "@reduxjs/toolkit";
 
-export const setTheme = createAction("SET_THEME")
+export const setTheme = createAction("SET_THEME");

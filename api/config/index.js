@@ -5,7 +5,7 @@ const { networkInterfaces } = require("os");
 
 const { DB_NAME, DB_PASSWORD } = process.env;
 
-// MONGO ATLAS
+//MONGO ATLAS DATA BASE
 mongoose
   .connect(
     `mongodb+srv://globant:${DB_PASSWORD}@globant.7ahj7.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
@@ -19,7 +19,7 @@ mongoose
   .then(() => console.log("DB CONNECT!!"))
   .catch((e) => console.log("DB NO CONNECT ERROR", e));
 
-//BASE LOCAL DE PRUEBA
+//LOCAL DATA BASE
 // mongoose.connect(`mongodb://localhost/globant`, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,

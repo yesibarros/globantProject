@@ -1,10 +1,15 @@
+// REACT
 import React, { useState } from "react";
+
+// REACT REDUX
+import { useSelector } from "react-redux";
+
+// REACT NATIVE
 import { useTheme } from "@react-navigation/native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
 import {
   Modal,
   View,
@@ -12,11 +17,10 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
-  Dimensions,
 } from "react-native";
+
+// UTILS
 import { primaryGreen } from "../../utils/Colors";
-const { height } = Dimensions.get("window");
-import { useSelector } from "react-redux";
 
 const ModalMessage = ({ visible, setModalVisible, handleSendRequest }) => {
   const loggedUser = useSelector((state) => state.loggedUser.user); //DESDE REDUX TOMO EL USER PARA USAR EL ROL EN EL MENSAJE

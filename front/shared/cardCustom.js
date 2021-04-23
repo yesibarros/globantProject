@@ -1,11 +1,16 @@
+//REACT
 import React from "react";
+
+//REACT NATIVE
 import { StyleSheet, View, Text } from "react-native";
-import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 import { useTheme } from "@react-navigation/native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+//REACT NATIVE PAPER
+import { Avatar, Card, Button, Chip, Title } from "react-native-paper";
 
 const CardCustom = ({ matchPerson, selected, cancelButton, okButton }) => {
   const { colors } = useTheme();
@@ -158,7 +163,6 @@ export default CardCustom;
 
 const styles = StyleSheet.create({
   card: {
-    // borderWidth: ,
     borderRadius: 10,
     backgroundColor: "white",
     width: wp("95%"),

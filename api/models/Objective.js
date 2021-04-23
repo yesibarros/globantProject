@@ -1,38 +1,36 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const objectiveSchema = new mongoose.Schema({
+const objectiveSchema = new mongoose.Schema(
+  {
     objectiveName: {
-        type: String,
-        // required: true,
-        min: 4,
-        max: 120
+      type: String,
+      min: 4,
+      max: 120,
     },
     description: {
-        type: String
+      type: String,
     },
     status: {
-        type: String, 
-        Enum: ["pending", "achieved", "excellent"],
-        default: "pending"
+      type: String,
+      Enum: ["pending", "achieved", "excellent"],
+      default: "pending",
     },
     feedback: {
-        type: String,
-        min: 4,
-        max: 120
+      type: String,
+      min: 4,
+      max: 120,
     },
-    mentor:{
-        type: Schema.Types.ObjectId,
-        ref: "user"
+    mentor: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
-    mentee:{
-        type: Schema.Types.ObjectId,
-        ref: "user"
-    }
+    mentee: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  },
+  { versionKey: false, timestamps: true }
+);
 
-
-   
-
-},{ versionKey: false, timestamps:true });
-
-module.exports= mongoose.model('objective', objectiveSchema)
+module.exports = mongoose.model("objective", objectiveSchema);

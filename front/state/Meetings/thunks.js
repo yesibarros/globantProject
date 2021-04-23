@@ -1,7 +1,13 @@
+// REACT REDUX
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+// EXPO
 import * as SecureStore from "expo-secure-store";
+
+// AXIOS
 import axios from "axios";
 
+// LOCAL HOST
 import localHost from "../../localHostIp";
 
 export const getMyMeets = createAsyncThunk("GET_MEETS", () => {
@@ -32,7 +38,6 @@ export const deleteMeets = createAsyncThunk("DELETE_MEETS", (meet) => {
 });
 
 export const createMeets = createAsyncThunk("CREATE_MEETS", (meet) => {
-
   return SecureStore.getItemAsync("token").then((token) => {
     axios.defaults.headers.common["Authorizarization"] = `Bearer ${token}`;
     return axios

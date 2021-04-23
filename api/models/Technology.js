@@ -1,22 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-
-const technologySchema = new mongoose.Schema({
+const technologySchema = new mongoose.Schema(
+  {
     technologyName: {
-        type: String,
-        // required: true,
-        min: 4,
-        max: 120
+      type: String,
+      min: 4,
+      max: 120,
     },
-    technologyWeight:{
-        type: Number,
-        default: 2
+    technologyWeight: {
+      type: Number,
+      default: 2,
     },
+  },
+  { versionKey: false }
+);
 
-},{ versionKey: false });
-
-
-
-
-module.exports= mongoose.model('technology', technologySchema)
+module.exports = mongoose.model("technology", technologySchema);

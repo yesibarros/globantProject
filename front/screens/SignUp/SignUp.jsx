@@ -1,31 +1,35 @@
+// REACT
 import React, { useState } from "react";
+
+// REACT NATIVE
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   View,
   Text,
   TouchableOpacity,
   StatusBar,
-  KeyboardAvoidingView,
   TextInput,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
-import { LinearGradient } from "expo-linear-gradient";
 import AwesomeAlert from "react-native-awesome-alerts";
-import styles from "./signUpStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../state/loggedUser/thunks";
-import { primaryGreen } from "../../utils/Colors";
-import { ScrollView } from "react-native-gesture-handler";
-
-//COMPONENTS
-import GoogleButton from '../../shared/components/GoogleButton/GoogleButton'
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+
+// EXPO
+import { LinearGradient } from "expo-linear-gradient";
+
+// STYLES
+import styles from "./signUpStyle";
+import { useDispatch } from "react-redux";
+import { register } from "../../state/loggedUser/thunks";
+import { ScrollView } from "react-native-gesture-handler";
+
+//COMPONENTS
+import GoogleButton from "../../shared/components/GoogleButton/GoogleButton";
 
 const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -135,182 +139,178 @@ const SignUp = ({ navigation }) => {
           <Text style={styles.text_header}>Registrate ahora!</Text>
         </View>
         <View style={styles.footer}>
-            <Animatable.View animation="fadeInUpBig">
-              <Text style={styles.text_footer}>Nombre</Text>
-              <View style={styles.action}>
-                <FontAwesome name="user-o" color="#05375a" size={hp("2.5%")} />
-                <TextInput
-                  placeholder="Tu nombre"
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  onChangeText={(val) => handleNameChange(val)}
-                  onFocus={() => setEnabledShift(true)}
-                />
-              </View>
+          <Animatable.View animation="fadeInUpBig">
+            <Text style={styles.text_footer}>Nombre</Text>
+            <View style={styles.action}>
+              <FontAwesome name="user-o" color="#05375a" size={hp("2.5%")} />
+              <TextInput
+                placeholder="Tu nombre"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleNameChange(val)}
+                onFocus={() => setEnabledShift(true)}
+              />
+            </View>
 
-              <Text style={styles.text_footer}>Apellido</Text>
-              <View style={styles.action}>
-                <FontAwesome name="user-o" color="#05375a" size={hp("2.5%")} />
-                <TextInput
-                  placeholder="Tu apellido"
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  onChangeText={(val) => handleLastNameChange(val)}
-                  onFocus={() => setEnabledShift(true)}
-                />
-                <AwesomeAlert
-                  show={wrongDataAlert}
-                  showProgress={false}
-                  title="Error"
-                  message="Ingrese datos válidos"
-                  closeOnTouchOutside={true}
-                  closeOnHardwareBackPress={true}
-                  showConfirmButton={true}
-                  confirmText="Ok"
-                  confirmButtonColor="#DD6B55"
-                  onConfirmPressed={() => {
-                    setWrongDataAlert(false);
-                  }}
-                />
-              </View>
-              <Text style={styles.text_footer}>Email</Text>
-              <View style={styles.action}>
-                <FontAwesome name="at" color="#05375a" size={hp("2.5%")} />
-                <TextInput
-                  placeholder="Tu Email"
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  onChangeText={(val) => textInputChange(val)}
-                  onFocus={() => setEnabledShift(true)}
-                />
-                {data.check_textInputChange ? (
-                  //   <Animatable.View animation="bounceIn">
+            <Text style={styles.text_footer}>Apellido</Text>
+            <View style={styles.action}>
+              <FontAwesome name="user-o" color="#05375a" size={hp("2.5%")} />
+              <TextInput
+                placeholder="Tu apellido"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleLastNameChange(val)}
+                onFocus={() => setEnabledShift(true)}
+              />
+              <AwesomeAlert
+                show={wrongDataAlert}
+                showProgress={false}
+                title="Error"
+                message="Ingrese datos válidos"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="Ok"
+                confirmButtonColor="#DD6B55"
+                onConfirmPressed={() => {
+                  setWrongDataAlert(false);
+                }}
+              />
+            </View>
+            <Text style={styles.text_footer}>Email</Text>
+            <View style={styles.action}>
+              <FontAwesome name="at" color="#05375a" size={hp("2.5%")} />
+              <TextInput
+                placeholder="Tu Email"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => textInputChange(val)}
+                onFocus={() => setEnabledShift(true)}
+              />
+              {data.check_textInputChange ? (
+                //   <Animatable.View animation="bounceIn">
 
-                  <Feather
-                    name="check-circle"
-                    color="green"
-                    size={hp("2.5%")}
-                  />
-                ) : //   </Animatable.View>
-                null}
-                <AwesomeAlert
-                  show={wrongEmailAlert}
-                  showProgress={false}
-                  title="Error"
-                  message="Ingrese un mail válido"
-                  closeOnTouchOutside={true}
-                  closeOnHardwareBackPress={true}
-                  showConfirmButton={true}
-                  confirmText="Ok"
-                  confirmButtonColor="#DD6B55"
-                  onConfirmPressed={() => {
-                    setWrongEmailAlert(false);
-                  }}
-                />
-              </View>
-              <Text style={styles.text_footer}>Contraseña</Text>
-              <View style={styles.action}>
-                <Feather name="lock" color="#05375a" size={hp("2.5%")} />
+                <Feather name="check-circle" color="green" size={hp("2.5%")} />
+              ) : //   </Animatable.View>
+              null}
+              <AwesomeAlert
+                show={wrongEmailAlert}
+                showProgress={false}
+                title="Error"
+                message="Ingrese un mail válido"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="Ok"
+                confirmButtonColor="#DD6B55"
+                onConfirmPressed={() => {
+                  setWrongEmailAlert(false);
+                }}
+              />
+            </View>
+            <Text style={styles.text_footer}>Contraseña</Text>
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={hp("2.5%")} />
 
-                <TextInput
-                  placeholder="Your Password"
-                  secureTextEntry={data.confirm_secureTextEntry ? true : false}
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  onChangeText={(val) => handlePasswordChange(val)}
-                  onFocus={() => setEnabledShift(true)}
-                />
-                <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-                  {data.secureTextEntry ? (
-                    <Feather name="eye-off" color="grey" size={hp("2.5%")} />
-                  ) : (
-                    <Feather name="eye" color="grey" size={hp("2.5%")} />
-                  )}
-                </TouchableOpacity>
-              </View>
+              <TextInput
+                placeholder="Your Password"
+                secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handlePasswordChange(val)}
+                onFocus={() => setEnabledShift(true)}
+              />
+              <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={hp("2.5%")} />
+                ) : (
+                  <Feather name="eye" color="grey" size={hp("2.5%")} />
+                )}
+              </TouchableOpacity>
+            </View>
 
-              <Text style={styles.text_footer}>Confirmar contraseña</Text>
+            <Text style={styles.text_footer}>Confirmar contraseña</Text>
 
-              <View style={styles.action}>
-                <Feather name="lock" color="#05375a" size={hp("2.5%")} />
-                <TextInput
-                  placeholder="Confirma tu contraseña"
-                  secureTextEntry={data.secureTextEntry ? true : false}
-                  style={styles.textInput}
-                  autoCapitalize="none"
-                  onChangeText={(val) => handleConfirmPasswordChange(val)}
-                  onFocus={() => setEnabledShift(true)}
-                />
-                <TouchableOpacity onPress={updateSecureTextEntry}>
-                  {data.secureTextEntry ? (
-                    <Feather name="eye-off" color="grey" size={hp("2.5%")} />
-                  ) : (
-                    <Feather name="eye" color="grey" size={hp("2.5%")} />
-                  )}
-                </TouchableOpacity>
-                <AwesomeAlert
-                  show={wrongPasswordAlert}
-                  showProgress={false}
-                  title="Error"
-                  message="No ha ingresado la contraseña o estas no coinciden"
-                  closeOnTouchOutside={true}
-                  closeOnHardwareBackPress={true}
-                  showConfirmButton={true}
-                  confirmText="Ok"
-                  confirmButtonColor="#DD6B55"
-                  onConfirmPressed={() => {
-                    setWrongPasswordAlert(false);
-                  }}
-                />
-                <AwesomeAlert
-                  show={existingUser}
-                  showProgress={false}
-                  title="Error"
-                  message="Ya existe un usuario con ese mail"
-                  closeOnTouchOutside={true}
-                  closeOnHardwareBackPress={true}
-                  showConfirmButton={true}
-                  confirmText="Ok"
-                  confirmButtonColor="#DD6B55"
-                  onConfirmPressed={() => {
-                    setExistingUser(false);
-                  }}
-                />
-              </View>
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={hp("2.5%")} />
+              <TextInput
+                placeholder="Confirma tu contraseña"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleConfirmPasswordChange(val)}
+                onFocus={() => setEnabledShift(true)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={hp("2.5%")} />
+                ) : (
+                  <Feather name="eye" color="grey" size={hp("2.5%")} />
+                )}
+              </TouchableOpacity>
+              <AwesomeAlert
+                show={wrongPasswordAlert}
+                showProgress={false}
+                title="Error"
+                message="No ha ingresado la contraseña o estas no coinciden"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="Ok"
+                confirmButtonColor="#DD6B55"
+                onConfirmPressed={() => {
+                  setWrongPasswordAlert(false);
+                }}
+              />
+              <AwesomeAlert
+                show={existingUser}
+                showProgress={false}
+                title="Error"
+                message="Ya existe un usuario con ese mail"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="Ok"
+                confirmButtonColor="#DD6B55"
+                onConfirmPressed={() => {
+                  setExistingUser(false);
+                }}
+              />
+            </View>
 
-              <View style={styles.button}>
-                <TouchableOpacity onPress={() => handleRegister()}>
-                  <LinearGradient
-                    colors={["#ffc78f", "#ff9c38"]}
-                    style={styles.singIn}
+            <View style={styles.button}>
+              <TouchableOpacity onPress={() => handleRegister()}>
+                <LinearGradient
+                  colors={["#ffc78f", "#ff9c38"]}
+                  style={styles.singIn}
+                >
+                  <Text
+                    style={[
+                      styles.textSign,
+                      {
+                        color: "#fff",
+                      },
+                    ]}
                   >
-                    <Text
-                      style={[
-                        styles.textSign,
-                        {
-                          color: "#fff",
-                        },
-                      ]}
-                    >
-                      Registrarse
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+                    Registrarse
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-                  <LinearGradient
-                    colors={["#ffc78f", "#ff9c38"]}
-                    style={styles.singIn}
-                  >
-                    <Text style={[styles.textSign, { color: "#fff" }]}>
-                      Ir a iniciar sesión
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-                <GoogleButton />
-              </View>
-            </Animatable.View>
-            <KeyboardSpacer />
+              <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+                <LinearGradient
+                  colors={["#ffc78f", "#ff9c38"]}
+                  style={styles.singIn}
+                >
+                  <Text style={[styles.textSign, { color: "#fff" }]}>
+                    Ir a iniciar sesión
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <GoogleButton />
+            </View>
+          </Animatable.View>
+          <KeyboardSpacer />
         </View>
       </ScrollView>
     </View>

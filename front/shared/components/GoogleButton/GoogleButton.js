@@ -1,16 +1,14 @@
+// REACT
 import React from "react";
+
+// REACT NATIVE
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { StyleSheet, Platform, TouchableOpacity, Text } from "react-native";
 
-//REDUX
+// REACT REDUX
 import { useDispatch } from "react-redux";
 import { googleAuth } from "../../../state/loggedUser/thunks";
 
@@ -46,7 +44,6 @@ const GoogleButton = () => {
           return setWrongUserAlert(true);
         }
       });
-
     }
   }, [response]);
 
@@ -113,17 +110,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
- 
   },
 
   textSign: {
     fontSize: hp("2.7%"),
     fontWeight: "bold",
     alignContent: "center",
-    shadowOpacity:0.2,
-    elevation:1,
+    shadowOpacity: 0.2,
+    elevation: 1,
     letterSpacing: 1,
-
   },
   singIn: {
     marginBottom: hp("2%"),
@@ -132,6 +127,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
-   
   },
 });

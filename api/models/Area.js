@@ -1,22 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-
-const areaSchema = new mongoose.Schema({
+const areaSchema = new mongoose.Schema(
+  {
     areaName: {
-        type: String,
-        // required: true,
-        min: 4,
-        max: 120
+      type: String,
+      min: 4,
+      max: 120,
     },
     areaWeight: {
-        type: Number,
-        default: 8
-    }
+      type: Number,
+      default: 8,
+    },
+  },
+  { versionKey: false }
+);
 
-},{ versionKey: false });
-
-
-
-
-module.exports= mongoose.model('area', areaSchema)
+module.exports = mongoose.model("area", areaSchema);
