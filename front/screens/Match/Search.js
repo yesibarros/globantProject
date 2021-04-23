@@ -101,9 +101,9 @@ export default function App({ navigation }) {
               <Text style={[styles.cardTitleText, { color: colors.text }]}>
                 {card.firstName + " " + card.lastName}
               </Text>
-              <Text style={[styles.cardSubtitleText, { color: colors.text }]}>
+              {/* <Text style={[styles.cardSubtitleText, { color: colors.text }]}>
                 {"Working since: " + matches[index].workingSince}
-              </Text>
+              </Text> */}
               <Text style={[styles.cardSubtitleRole, { color: colors.text }]}>
                 {card.role.join(" | ")}
               </Text>
