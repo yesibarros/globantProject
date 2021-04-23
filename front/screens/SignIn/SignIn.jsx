@@ -203,8 +203,8 @@ const SignIn = ({navigation}) => {
 
             </View>
           </Animatable.View>
-          <KeyboardSpacer />
         </View>
+          <KeyboardSpacer />
       </ScrollView>
       
     </View>

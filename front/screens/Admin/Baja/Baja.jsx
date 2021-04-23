@@ -23,7 +23,6 @@ const BorrarModal = ({viewDelModal, nombre, setViewDelModal}) =>{
     const { colors } = useTheme();
     const dispatch = useDispatch()
     
-  console.log(nombre)
    
 
     return(

@@ -30,7 +30,6 @@ const BajaLocacion = ({viewDelModal, nombre, setViewDelModal, setIsLoading}) =>{
     React.useEffect(()=>{
         dispatch(getLocations()).then(()=> setIsLoading(false))
     }, [])
-    console.log(locations)
     
     const handleSelect = (id) => {
         const location = selectedLocations.filter((t) => t._id == id);

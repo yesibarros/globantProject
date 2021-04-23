@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Dimensions,
   ActivityIndicator,
+ 
 } from "react-native";
 
 import {
@@ -78,7 +79,7 @@ export default function App({ navigation }) {
     return (
       <>
         {card && (
-          <View style={[styles.card, { backgroundColor: colors.background }]}>
+          <SafeAreaView style={[styles.card, { backgroundColor: colors.background }]}>
             <View style={styles.cardTitleView}>
               <Text style={[styles.cardTitleText, { color: colors.text }]}>
                 {card.firstName + " " + card.lastName}
@@ -92,7 +93,7 @@ export default function App({ navigation }) {
               <Avatar.Image size={hp("15%")} source={{ uri: card.img }} />
             </View>
             <CardDetails index={index} />
-          </View>
+          </SafeAreaView>
         )}
       </>
     );

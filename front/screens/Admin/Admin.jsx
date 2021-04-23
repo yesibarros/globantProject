@@ -25,7 +25,7 @@ const MyComponent = ({navigation}) => {
   const [viewDelModal, setViewDelModal] = React.useState(false)
   const {colors}= useTheme()
   return (
-    <View style={{height:hp('80%'), backgroundColor: "#009387" }}>
+    <View style={{ backgroundColor: "#009387" }}>
       <Header navigation={navigation}/>
     <View style={[styles.listContainer, {backgroundColor: colors.background}]}>
       

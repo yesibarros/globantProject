@@ -41,7 +41,6 @@ export const updateObjective = createAsyncThunk("UPDATE_OBJECTIVE", (data) => {
     return axios
     //NECESITAMOS ENVIAR ID DEL MENTOR Y MENTEE, TITULO DE OBJETIVO Y DESCRIP
       .put(`http://${localHost}/api/objectives/${data.id}`, obj)
-      .then((respuesta) => {console.log(respuesta.data) 
-        return respuesta.data});
+      .then((respuesta) => respuesta.data)
   });
 });

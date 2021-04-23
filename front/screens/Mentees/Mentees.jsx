@@ -74,7 +74,6 @@ const Mentees = ({ navigation }) => {
 
   // if(loginUser?.role?.includes("mentee") && loginUser?.role?.length==1) return <Mentor navigation={navigation}/>
   // if(loginUser?.role?.length>1 && isMentor==false) return <Mentor navigation={navigation}/>
-  console.log("todo funciona")
   return (
     <>
       <ScrollView>
@@ -114,7 +113,6 @@ const Mentees = ({ navigation }) => {
               </View>
             )}
           </View>
-          {console.log("QUE SOS MEN", loginUser?.role?.includes('mentor'))}
         </View>
       </ScrollView>
       {(loginUser?.role?.includes('mentor') && loginUser.mentees?.length < 5) || (loginUser?.role?.includes("mentee") && !loginUser.mentor) ? (

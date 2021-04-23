@@ -60,7 +60,6 @@ meetingsController.updateMeet = (req, res, next) => {
 // borarr reunion
 meetingsController.deleteMeet = (req, res, next) => {
   Meeting.findOneAndDelete({ _id: req.params.id }).then((deletedMeet) => {
-    console.log(deletedMeet)
     const ment = req.user._id.toString() == deletedMeet.host.toString()? deletedMeet.guest : deletedMeet.host
     User.findById(ment)
           .then(guest=>{

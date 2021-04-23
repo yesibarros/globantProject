@@ -47,7 +47,6 @@ const EditProfile = ({ navigation }) => {
   const [lastName, setLastName] = useState(loginUser.lastName);
   const [description, setDescription] = React.useState(loginUser.description);
   const locations = useSelector((state) => state.locations);
-  console.log(locations);
   const handleFirstNameChange = (val) => {
     setFirstName(val);
   };
@@ -235,6 +234,7 @@ const EditProfile = ({ navigation }) => {
                         containerStyle={{
                           backgroundColor: Colors.primaryGreen,
                         }}
+                        doneButtonTextStyle={{color: '#000'}}
                       >
                         {locations.length > 0 &&
                           locations.map((val) => {

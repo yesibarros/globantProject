@@ -53,8 +53,7 @@ const MyComponent = ({userId, navigation}) => {
   } 
 
   const handleSendEndOfMentoring = (message) => { //message es lo ingresado por input sirve para la notificacion o dispatch
-    // console.log('MENSAJE DE DESPEDIDA QUE LLEGA DEL INPUT', message)
-    // console.log('NOMBRE DEL MENTEE', mentee.firstName)
+
     dispatch(finishMentoring({['mentee']: userId, messageEndOfMentoring: message})).then(() => {
       return Alert.alert(
         "Felicidades",
@@ -84,7 +83,7 @@ const MyComponent = ({userId, navigation}) => {
           {user?.role?.includes("mentor") && (
             <Menu.Item icon="rocket-launch-outline" onPress={() => {
             closeMenu()  
-            navigation.navigate('Progress', {idCurrent: userId})
+            navigation.navigate('Progreso', {idCurrent: userId})
             }} 
             title="Objetivos" />
           )}

@@ -61,7 +61,6 @@ const Mentor = ({navigation}) => {
                   width: "100%",
                   paddingTop: "15%",
                 }}
-                onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
               />
             ) : (
@@ -80,7 +79,6 @@ const Mentor = ({navigation}) => {
                   paddingTop: "15%",
                   zIndex: 1,
                 }}
-                onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
               />
             )}

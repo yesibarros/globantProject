@@ -58,7 +58,6 @@ const TechModal = ({ visible, setEditTech }) => {
   };
 
   const handleSave = () => {
-    console.log("FUNCONA")
     setSaveLoad(true)
     const arrayToSave = selectedTechs.map((t) => t._id);
     let obj = {

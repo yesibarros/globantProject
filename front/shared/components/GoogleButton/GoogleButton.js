@@ -34,7 +34,6 @@ const GoogleButton = () => {
   });
   const handleGoogle = async () => {
     const redirectUri = AuthSession.makeRedirectUri({ useProxy: true });
-    console.log("REDIRECT URI", redirectUri);
     promptAsync({ useProxy: true, redirectUri });
   };
   React.useEffect(() => {
@@ -48,11 +47,6 @@ const GoogleButton = () => {
         }
       });
 
-      /* 
-          axios
-         .get(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`)
-         .then((respuesta) => {console.log("RESPUESTA:::::::",respuesta.data, "------------------")}) 
-         */
     }
   }, [response]);
 

@@ -2,7 +2,6 @@ const { User } = require("../../models");
 const orderByMatch = require("../../utils/orderByMatch");
 
 const getMatchs = (req, res, next) => {
-  console.log("reqqqqqq",req.query)
     let roleForUser = req.user.role
     if(!req.user.role.includes("admin") && !req.user.role.includes("mentor")) roleForUser = ["mentor"]
     if(!req.user.role.includes("admin") && !req.user.role.includes("mentee")) roleForUser = ["mentee"]
@@ -28,7 +27,6 @@ const getMatchs = (req, res, next) => {
         
         //Order the results and send them
         const bestMatch = orderByMatch(userstype, req.user, areas, technologies);
-        //console.log(bestMatch)
         res.status(200).send(bestMatch);
       })
       .catch(next);
