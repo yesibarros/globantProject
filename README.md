@@ -4,7 +4,7 @@
 - Yesica Barros | yesibarros95@gmail.com
 - Santiago Joaquin Santucho | santiagojoaquinsantucho@gmail.com
 - Guillermo F. Neuberger | guillermof.neuberger@gmail.com
-- Fabricio Aitta | alexanderaitta@gmail.com
+- Fabricio Aitta | aittafabricio@gmail.com
 - Maria Guadalupe Ballesi | mariagballesi@gmail.com
 
 ## Project description:
